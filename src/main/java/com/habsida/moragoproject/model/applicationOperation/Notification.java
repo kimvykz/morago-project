@@ -25,7 +25,7 @@ public class Notification {
     @Column(name = "title")
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 }

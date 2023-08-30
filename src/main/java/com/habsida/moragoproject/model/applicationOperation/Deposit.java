@@ -34,7 +34,7 @@ public class Deposit {
     @Column(name = "won")
     private Double won;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

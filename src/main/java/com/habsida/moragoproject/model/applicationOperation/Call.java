@@ -52,7 +52,7 @@ public class Call {
     @JoinColumn(name = "theme_id")
     private Theme theme;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 }

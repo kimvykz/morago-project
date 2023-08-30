@@ -48,7 +48,7 @@ public class User {
     @Column(name = "update_at")
     private LocalDateTime updateAt;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<Role> roles;
 
