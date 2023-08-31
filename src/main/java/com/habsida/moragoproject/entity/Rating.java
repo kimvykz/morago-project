@@ -1,7 +1,7 @@
-package com.habsida.moragoproject.model.applicationOperation;
+package com.habsida.moragoproject.entity;
 
-import com.habsida.moragoproject.model.User;
-import lombok.Data;
+import com.habsida.moragoproject.audit.AuditableEntity;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,20 +10,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ratings")
-@Data
-public class Rating {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Rating extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-    @Column(name = "grade")
     private Double grade;
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

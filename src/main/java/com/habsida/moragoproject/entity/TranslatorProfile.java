@@ -1,7 +1,7 @@
-package com.habsida.moragoproject.model.userProperty;
+package com.habsida.moragoproject.entity;
 
-import com.habsida.moragoproject.model.User;
-import lombok.Data;
+import com.habsida.moragoproject.audit.AuditableEntity;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,28 +11,20 @@ import java.util.List;
 
 @Entity
 @Table(name = "translator_profiles")
-@Data
-public class TranslatorProfile {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class TranslatorProfile extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-    @Column(name = "date_of_birth")
     private String dateOfBirth;
-    @Column(name = "email")
     private String email;
-    @Column(name = "is_available")
     private Boolean isAvailable;
-    @Column(name = "is_online")
     private Boolean isOnline;
-    @Column(name = "level_of_korean")
     private String levelOfKorean;
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

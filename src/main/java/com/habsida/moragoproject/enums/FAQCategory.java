@@ -1,4 +1,4 @@
-package com.habsida.moragoproject.model.dictionary;
+package com.habsida.moragoproject.enums;
 
 public enum FAQCategory {
     SYSTEM,

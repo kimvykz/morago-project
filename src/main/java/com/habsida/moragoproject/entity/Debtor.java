@@ -1,7 +1,7 @@
-package com.habsida.moragoproject.model.applicationOperation;
+package com.habsida.moragoproject.entity;
 
-import com.habsida.moragoproject.model.User;
-import lombok.Data;
+import com.habsida.moragoproject.audit.AuditableEntity;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,24 +10,18 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "debtors")
-@Data
-public class Debtor {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Debtor extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @Column(name = "account_holder")
     private String accountHolder;
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-    @Column(name = "is_paid")
     private Boolean isPaid;
-    @Column(name = "name_of_bank")
     private String nameOfBank;
-    @UpdateTimestamp
-    @Column(name = "update_at")
-    private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
