@@ -22,11 +22,9 @@ public class TranslatorProfileServiceImpl implements TranslatorProfileService{
 
     @Override
     public TranslatorProfile getItemById(Long id) {
-        Optional<TranslatorProfile> translatorProfile = translatorProfileRepository.findById(id);
-        if (translatorProfile.isPresent()) {
-            return translatorProfile.get();
-        }
-        throw new RuntimeException("TranslatorProfile is not found for the id - " + id);
+        return translatorProfileRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("TranslatorProfile is not found for the id - " + id);
+        });
     }
 
     @Override

@@ -22,11 +22,9 @@ public class LanguageServiceImpl implements LanguageService{
 
     @Override
     public Language getItemById(Long id) {
-        Optional<Language> language = languageRepository.findById(id);
-        if (language.isPresent()){
-            return language.get();
-        }
-        throw new RuntimeException("Language is not found for the id - " + id);
+        return languageRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Language is not found for the id - " + id);
+        });
     }
 
     @Override

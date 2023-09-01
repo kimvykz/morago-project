@@ -23,11 +23,9 @@ public class CoinServiceImpl implements CoinService{
 
     @Override
     public Coin getItemById(Long id) {
-        Optional<Coin> coin = coinRepository.findById(id);
-        if (coin.isPresent()){
-            return coin.get();
-        }
-        throw new RuntimeException("Coin is not found for the id - " + id);
+        return coinRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Coin is not found for the id - " + id);
+        });
     }
 
     @Override

@@ -22,11 +22,9 @@ public class UserProfileServiceImpl implements UserProfileService{
 
     @Override
     public UserProfile getItemById(Long id) {
-        Optional<UserProfile> userProfile = userProfileRepository.findById(id);
-        if (userProfile.isPresent()){
-            return userProfile.get();
-        }
-        throw new RuntimeException("UserProfile is not found for the id - " + id);
+        return userProfileRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("UserProfile is not found for the id - " + id);
+        });
     }
 
     @Override

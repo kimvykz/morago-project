@@ -23,11 +23,9 @@ public class DepositServiceImpl implements DepositService{
 
     @Override
     public Deposit getItemById(Long id) {
-        Optional<Deposit> deposit = depositRepository.findById(id);
-        if (deposit.isPresent()) {
-            return deposit.get();
-        }
-        throw new RuntimeException("Deposit is not found for the id - " + id);
+        return depositRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Deposit is not found for the id - " + id);
+        });
     }
 
     @Override

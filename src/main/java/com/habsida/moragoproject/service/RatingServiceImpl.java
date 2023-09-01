@@ -22,11 +22,9 @@ public class RatingServiceImpl implements RatingService{
 
     @Override
     public Rating getItemById(Long id) {
-        Optional<Rating> rating = ratingRepository.findById(id);
-        if (rating.isPresent()){
-            return rating.get();
-        }
-        throw new RuntimeException("Rating is not fount for the id - " + id);
+        return ratingRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Rating is not fount for the id - " + id);
+        });
     }
 
     @Override

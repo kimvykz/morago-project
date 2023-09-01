@@ -22,11 +22,9 @@ public class ThemeServiceImpl implements ThemeService{
 
     @Override
     public Theme getItemById(Long id) {
-        Optional<Theme> theme = themeRepository.findById(id);
-        if (theme.isPresent()){
-            return theme.get();
-        }
-        throw new RuntimeException("Theme is not found for the id - " + id);
+        return themeRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Theme is not found for the id - " + id);
+        });
     }
 
     @Override

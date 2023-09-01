@@ -22,11 +22,9 @@ public class WithdrawalServiceImpl implements WithdrawalService{
 
     @Override
     public Withdrawal getItemById(Long id) {
-        Optional<Withdrawal> withdrawal = withdrawalRepository.findById(id);
-        if (withdrawal.isPresent()){
-            return withdrawal.get();
-        }
-        throw new RuntimeException("Withdrawal is not found for the id - " + id);
+        return withdrawalRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Withdrawal is not found for the id - " + id);
+        });
     }
 
     @Override

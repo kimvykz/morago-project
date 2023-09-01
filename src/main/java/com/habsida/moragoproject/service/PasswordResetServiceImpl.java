@@ -22,11 +22,9 @@ public class PasswordResetServiceImpl implements PasswordResetService{
 
     @Override
     public PasswordReset getItemById(Long id) {
-        Optional<PasswordReset> passwordReset = passwordResetRepository.findById(id);
-        if (passwordReset.isPresent()){
-            return passwordReset.get();
-        }
-        throw new RuntimeException("PasswordReset is not found for the id - " + id);
+        return passwordResetRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("PasswordReset is not found for the id - " + id);
+        });
     }
 
     @Override

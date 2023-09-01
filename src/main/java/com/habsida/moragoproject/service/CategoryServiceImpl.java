@@ -2,6 +2,7 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Category;
 import com.habsida.moragoproject.repository.CategoryRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +24,9 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Category getItemById(Long id) {
-        Optional<Category> category = categoryRepository.findById(id);
-        if (category.isPresent()) {
-            return category.get();
-        }
-        throw new RuntimeException("Category is not found for the id - " + id);
+        return categoryRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Category is not found for the id - " + id);
+        });
     }
 
     @Override

@@ -22,11 +22,9 @@ public class NotificationServiceImpl implements NotificationService{
 
     @Override
     public Notification getItemById(Long id) {
-        Optional<Notification> notification = notificationRepository.findById(id);
-        if (notification.isPresent()){
-            return notification.get();
-        }
-        throw new RuntimeException("Notification is not found for the id - " + id );
+        return notificationRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Notification is not found for the id - " + id );
+        });
     }
 
     @Override

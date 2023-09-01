@@ -22,11 +22,9 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
 
     @Override
     public FrequentlyAskedQuestion getItemById(Long id) {
-        Optional<FrequentlyAskedQuestion> frequentlyAskedQuestion = frequentlyAskedQuestionRepository.findById(id);
-        if (frequentlyAskedQuestion.isPresent()){
-            return frequentlyAskedQuestion.get();
-        }
-        throw new RuntimeException("FrequentlyAskedQuestion is not found for the id - " + id);
+        return frequentlyAskedQuestionRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("FrequentlyAskedQuestion is not found for the id - " + id);
+        });
     }
 
     @Override

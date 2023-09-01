@@ -23,11 +23,9 @@ public class FileServiceImpl implements FileService{
 
     @Override
     public File getItemById(Long id) {
-        Optional<File> file = fileRepository.findById(id);
-        if (file.isPresent()){
-            file.get();
-        }
-        throw new RuntimeException("File is not found for the id - " + id);
+        return fileRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("File is not found for the id - " + id);
+        });
     }
 
     @Override

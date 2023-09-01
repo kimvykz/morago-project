@@ -23,11 +23,9 @@ public class DebtorServiceImpl implements DebtorService{
 
     @Override
     public Debtor getItemById(Long id) {
-        Optional<Debtor> debtor = debtorRepository.findById(id);
-        if (debtor.isPresent()){
-            return debtor.get();
-        }
-        throw new RuntimeException("Debtor is not found for the id - " + id);
+        return debtorRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Debtor is not found for the id - " + id);
+        });
     }
 
     @Override

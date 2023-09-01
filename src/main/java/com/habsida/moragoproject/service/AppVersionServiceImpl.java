@@ -23,11 +23,10 @@ public class AppVersionServiceImpl implements AppVersionService{
 
     @Override
     public AppVersion getItemById(Long id) {
-        Optional<AppVersion> appVersion = appVersionRepository.findById(id);
-        if (appVersion.isPresent()) {
-            return appVersion.get();
-        }
-        throw new RuntimeException("AppVersion is not found for the id - " + id);
+        return appVersionRepository.findById(id)
+                .orElseThrow(() -> {
+                    throw new IllegalArgumentException("AppVersion is not found for the id - " + id);
+                });
     }
 
     @Override

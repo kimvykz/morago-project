@@ -23,11 +23,9 @@ public class CallServiceImpl implements CallService{
 
     @Override
     public Call getItemById(Long id) {
-        Optional<Call> call = callRepository.findById(id);
-        if (call.isPresent()){
-            return call.get();
-        }
-        throw new RuntimeException("Call is not found for the id - " + id);
+        return callRepository.findById(id).orElseThrow(() -> {
+        throw new IllegalArgumentException("Call is not found for the id - " + id);
+        });
     }
 
     @Override
