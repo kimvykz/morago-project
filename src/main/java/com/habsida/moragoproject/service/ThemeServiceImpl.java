@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Theme;
 import com.habsida.moragoproject.repository.ThemeRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ThemeServiceImpl implements ThemeService{
     private ThemeRepository themeRepository;
 

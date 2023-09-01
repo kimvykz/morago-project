@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Category;
 import com.habsida.moragoproject.repository.CategoryRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CategoryServiceImpl implements CategoryService{
 
     private CategoryRepository categoryRepository;

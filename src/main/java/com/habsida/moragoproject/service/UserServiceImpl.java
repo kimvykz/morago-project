@@ -3,10 +3,12 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.entity.Role;
 import com.habsida.moragoproject.entity.User;
 import com.habsida.moragoproject.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     private RoleService roleService;

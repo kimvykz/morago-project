@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Call;
 import com.habsida.moragoproject.repository.CallRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CallServiceImpl implements CallService{
 
     private CallRepository callRepository;

@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.FrequentlyAskedQuestion;
 import com.habsida.moragoproject.repository.FrequentlyAskedQuestionRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuestionService{
     private FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository;
 

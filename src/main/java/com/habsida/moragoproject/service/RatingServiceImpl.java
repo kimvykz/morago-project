@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Rating;
 import com.habsida.moragoproject.repository.RatingRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RatingServiceImpl implements RatingService{
     private RatingRepository ratingRepository;
 

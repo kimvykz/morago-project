@@ -3,10 +3,12 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.entity.Role;
 import com.habsida.moragoproject.enums.ERole;
 import com.habsida.moragoproject.repository.RoleRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RoleServiceImpl implements RoleService{
     private RoleRepository roleRepository;
 

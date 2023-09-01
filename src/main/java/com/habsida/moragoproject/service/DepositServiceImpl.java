@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Deposit;
 import com.habsida.moragoproject.repository.DepositRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class DepositServiceImpl implements DepositService{
 
     private DepositRepository depositRepository;

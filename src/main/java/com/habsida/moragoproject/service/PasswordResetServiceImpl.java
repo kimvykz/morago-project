@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.PasswordReset;
 import com.habsida.moragoproject.repository.PasswordResetRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PasswordResetServiceImpl implements PasswordResetService{
     private PasswordResetRepository passwordResetRepository;
 

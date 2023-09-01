@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Notification;
 import com.habsida.moragoproject.repository.NotificationRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class NotificationServiceImpl implements NotificationService{
     private NotificationRepository notificationRepository;
 

@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.AppVersion;
 import com.habsida.moragoproject.repository.AppVersionRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AppVersionServiceImpl implements AppVersionService{
 
     private AppVersionRepository appVersionRepository;
