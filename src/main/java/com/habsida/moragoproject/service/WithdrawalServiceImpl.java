@@ -11,34 +11,34 @@ import java.util.Optional;
 public class WithdrawalServiceImpl implements WithdrawalService{
     private WithdrawalRepository withdrawalRepository;
 
-    public WithdrawalServiceImpl(WithdrawalRepository withdrawalRepository) {
+    public WithdrawalServiceImpl (WithdrawalRepository withdrawalRepository) {
         this.withdrawalRepository = withdrawalRepository;
     }
 
     @Override
-    public List<Withdrawal> getAllItems() {
+    public List<Withdrawal> getAll () {
         return withdrawalRepository.findAll();
     }
 
     @Override
-    public Withdrawal getItemById(Long id) {
+    public Withdrawal getById (Long id) {
         return withdrawalRepository.findById(id).orElseThrow(() -> {
-        throw new IllegalArgumentException("Withdrawal is not found for the id - " + id);
+            throw new IllegalArgumentException("Withdrawal is not found for the id - " + id);
         });
     }
 
     @Override
-    public Withdrawal createItem(Withdrawal withdrawal) {
-        return null;
+    public Withdrawal create (Withdrawal withdrawal) {
+        return withdrawalRepository.save(withdrawal);
     }
 
     @Override
-    public Withdrawal modifyItem(Withdrawal withdrawal) {
-        return null;
+    public Withdrawal update(Withdrawal withdrawal) {
+        return withdrawalRepository.save(withdrawal);
     }
 
     @Override
-    public void removeItem(Long id) {
-
+    public void deleteById(Long id) {
+        withdrawalRepository.deleteById(id);
     }
 }

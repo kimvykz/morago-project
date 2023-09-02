@@ -17,12 +17,12 @@ public class AppVersionServiceImpl implements AppVersionService{
     }
 
     @Override
-    public List<AppVersion> getAllItems() {
+    public List<AppVersion> getAll() {
         return appVersionRepository.findAll();
     }
 
     @Override
-    public AppVersion getItemById(Long id) {
+    public AppVersion getById(Long id) {
         return appVersionRepository.findById(id)
                 .orElseThrow(() -> {
                     throw new IllegalArgumentException("AppVersion is not found for the id - " + id);
@@ -30,17 +30,17 @@ public class AppVersionServiceImpl implements AppVersionService{
     }
 
     @Override
-    public AppVersion createItem(AppVersion appVersion) {
+    public AppVersion create(AppVersion appVersion) {
         return appVersionRepository.save(appVersion);
     }
 
     @Override
-    public AppVersion modifyItem(AppVersion appVersion) {
+    public AppVersion update(AppVersion appVersion) {
         return appVersionRepository.save(appVersion);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById(Long id) {
         appVersionRepository.deleteById(id);
     }
 }

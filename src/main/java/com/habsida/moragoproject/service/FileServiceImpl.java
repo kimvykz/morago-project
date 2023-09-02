@@ -17,29 +17,29 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public List<File> getAllItems() {
+    public List<File> getAll() {
         return fileRepository.findAll();
     }
 
     @Override
-    public File getItemById(Long id) {
+    public File getById(Long id) {
         return fileRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("File is not found for the id - " + id);
         });
     }
 
     @Override
-    public File createItem(File file) {
+    public File create(File file) {
         return fileRepository.save(file);
     }
 
     @Override
-    public File modifyItem(File file) {
+    public File update(File file) {
         return fileRepository.save(file);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById(Long id) {
         fileRepository.deleteById(id);
     }
 }

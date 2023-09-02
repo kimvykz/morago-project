@@ -5,9 +5,9 @@ import com.habsida.moragoproject.entity.User;
 import java.util.List;
 
 public interface UserService {
-    List<User> getAllItems();
-    User getItemById(Long id);
-    User createItem(User user);
-    User modifyItem(User user);
-    void removeItem(Long id);
+    List<User> getAll ();
+    User getById (Long id);
+    User create (User user);
+    User update (User user);
+    void deleteById (Long id);
 }

@@ -17,29 +17,29 @@ public class DepositServiceImpl implements DepositService{
     }
 
     @Override
-    public List<Deposit> getAllItems() {
+    public List<Deposit> getAll() {
         return depositRepository.findAll();
     }
 
     @Override
-    public Deposit getItemById(Long id) {
+    public Deposit getById(Long id) {
         return depositRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Deposit is not found for the id - " + id);
         });
     }
 
     @Override
-    public Deposit createItem(Deposit deposit) {
+    public Deposit create(Deposit deposit) {
         return depositRepository.save(deposit);
     }
 
     @Override
-    public Deposit modifyItem(Deposit deposit) {
+    public Deposit update(Deposit deposit) {
         return depositRepository.save(deposit);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById(Long id) {
         depositRepository.deleteById(id);
     }
 }

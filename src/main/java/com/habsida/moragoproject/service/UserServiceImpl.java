@@ -13,41 +13,41 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     private RoleService roleService;
 
-    public UserServiceImpl(UserRepository userRepository,
+    public UserServiceImpl (UserRepository userRepository,
                            RoleService roleService) {
         this.userRepository = userRepository;
         this.roleService = roleService;
     }
 
     @Override
-    public List<User> getAllItems() {
+    public List<User> getAll () {
         return userRepository.findAll();
     }
 
     @Override
-    public User getItemById(Long id) {
+    public User getById (Long id) {
         return userRepository.findById(id).orElseThrow(() -> {
-        throw new IllegalArgumentException("User is not found for the id - " + id);
+            throw new IllegalArgumentException("User is not found for the id - " + id);
         });
     }
 
     @Override
-    public User createItem(User user) {
+    public User create (User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public User modifyItem(User user) {
+    public User update (User user) {
         for(Role role : user.getRoles()){
             if (role.getId() == null){
-                role.setId(roleService.getItemByName(role.getName().toString()).getId());
+                role.setId(roleService.getByName(role.getName().toString()).getId());
             }
         }
         return userRepository.save(user);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById (Long id) {
         userRepository.deleteById(id);
     }
 }

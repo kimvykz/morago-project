@@ -11,34 +11,34 @@ import java.util.Optional;
 public class TranslatorProfileServiceImpl implements TranslatorProfileService{
     private TranslatorProfileRepository translatorProfileRepository;
 
-    public TranslatorProfileServiceImpl(TranslatorProfileRepository translatorProfileRepository) {
+    public TranslatorProfileServiceImpl (TranslatorProfileRepository translatorProfileRepository) {
         this.translatorProfileRepository = translatorProfileRepository;
     }
 
     @Override
-    public List<TranslatorProfile> getAllItems() {
+    public List<TranslatorProfile> getAll () {
         return translatorProfileRepository.findAll();
     }
 
     @Override
-    public TranslatorProfile getItemById(Long id) {
+    public TranslatorProfile getById (Long id) {
         return translatorProfileRepository.findById(id).orElseThrow(() -> {
-        throw new IllegalArgumentException("TranslatorProfile is not found for the id - " + id);
+            throw new IllegalArgumentException("TranslatorProfile is not found for the id - " + id);
         });
     }
 
     @Override
-    public TranslatorProfile createItem(TranslatorProfile translatorProfile) {
+    public TranslatorProfile create (TranslatorProfile translatorProfile) {
         return translatorProfileRepository.save(translatorProfile);
     }
 
     @Override
-    public TranslatorProfile modifyItem(TranslatorProfile translatorProfile) {
+    public TranslatorProfile update (TranslatorProfile translatorProfile) {
         return translatorProfileRepository.save(translatorProfile);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById (Long id) {
         translatorProfileRepository.deleteById(id);
     }
 }

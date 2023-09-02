@@ -5,9 +5,9 @@ import com.habsida.moragoproject.entity.Notification;
 import java.util.List;
 
 public interface NotificationService {
-    List<Notification> getAllItems();
-    Notification getItemById(Long id);
-    Notification createItem(Notification notification);
-    Notification modifyItem(Notification notification);
-    void removeItem(Long id);
+    List<Notification> getAll();
+    Notification getById(Long id);
+    Notification create(Notification notification);
+    Notification update(Notification notification);
+    void deleteById(Long id);
 }

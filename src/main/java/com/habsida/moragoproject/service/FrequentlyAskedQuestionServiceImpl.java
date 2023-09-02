@@ -16,29 +16,29 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     }
 
     @Override
-    public List<FrequentlyAskedQuestion> getAllItems() {
+    public List<FrequentlyAskedQuestion> getAll() {
         return frequentlyAskedQuestionRepository.findAll();
     }
 
     @Override
-    public FrequentlyAskedQuestion getItemById(Long id) {
+    public FrequentlyAskedQuestion getById(Long id) {
         return frequentlyAskedQuestionRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("FrequentlyAskedQuestion is not found for the id - " + id);
         });
     }
 
     @Override
-    public FrequentlyAskedQuestion createItem(FrequentlyAskedQuestion frequentlyAskedQuestion) {
+    public FrequentlyAskedQuestion create(FrequentlyAskedQuestion frequentlyAskedQuestion) {
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
     }
 
     @Override
-    public FrequentlyAskedQuestion modifyItem(FrequentlyAskedQuestion frequentlyAskedQuestion) {
+    public FrequentlyAskedQuestion update(FrequentlyAskedQuestion frequentlyAskedQuestion) {
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById(Long id) {
         frequentlyAskedQuestionRepository.deleteById(id);
     }
 }

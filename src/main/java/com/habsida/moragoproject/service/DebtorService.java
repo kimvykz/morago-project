@@ -5,9 +5,9 @@ import com.habsida.moragoproject.entity.Debtor;
 import java.util.List;
 
 public interface DebtorService {
-    List<Debtor> getAllItems();
-    Debtor getItemById(Long id);
-    Debtor createItem(Debtor debtor);
-    Debtor modifyItem(Debtor debtor);
-    void removeItem(Long id);
+    List<Debtor> getAll();
+    Debtor getById(Long id);
+    Debtor create(Debtor debtor);
+    Debtor update(Debtor debtor);
+    void deleteById(Long id);
 }

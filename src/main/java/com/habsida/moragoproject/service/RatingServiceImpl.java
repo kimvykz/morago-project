@@ -16,29 +16,29 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public List<Rating> getAllItems() {
+    public List<Rating> getAll () {
         return ratingRepository.findAll();
     }
 
     @Override
-    public Rating getItemById(Long id) {
+    public Rating getById (Long id) {
         return ratingRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Rating is not fount for the id - " + id);
         });
     }
 
     @Override
-    public Rating createItem(Rating rating) {
+    public Rating create (Rating rating) {
         return ratingRepository.save(rating);
     }
 
     @Override
-    public Rating modifyItem(Rating rating) {
+    public Rating update (Rating rating) {
         return ratingRepository.save(rating);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById (Long id) {
         ratingRepository.deleteById(id);
     }
 }

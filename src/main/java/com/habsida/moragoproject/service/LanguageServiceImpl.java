@@ -16,29 +16,29 @@ public class LanguageServiceImpl implements LanguageService{
     }
 
     @Override
-    public List<Language> getAllItems() {
+    public List<Language> getAll() {
         return languageRepository.findAll();
     }
 
     @Override
-    public Language getItemById(Long id) {
+    public Language getById(Long id) {
         return languageRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Language is not found for the id - " + id);
         });
     }
 
     @Override
-    public Language createItem(Language language) {
+    public Language create(Language language) {
         return languageRepository.save(language);
     }
 
     @Override
-    public Language modifyItem(Language language) {
+    public Language update(Language language) {
         return languageRepository.save(language);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById(Long id) {
         languageRepository.deleteById(id);
     }
 }

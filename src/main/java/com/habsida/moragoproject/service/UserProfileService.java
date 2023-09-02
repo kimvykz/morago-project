@@ -5,9 +5,9 @@ import com.habsida.moragoproject.entity.UserProfile;
 import java.util.List;
 
 public interface UserProfileService {
-    List<UserProfile> getAllItems();
-    UserProfile getItemById(Long id);
-    UserProfile createItem(UserProfile userProfile);
-    UserProfile modifyItem(UserProfile userProfile);
-    void removeItem(Long id);
+    List<UserProfile> getAll ();
+    UserProfile getById (Long id);
+    UserProfile create (UserProfile userProfile);
+    UserProfile update (UserProfile userProfile);
+    void deleteById (Long id);
 }

@@ -16,29 +16,29 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     @Override
-    public List<Notification> getAllItems() {
+    public List<Notification> getAll() {
         return notificationRepository.findAll();
     }
 
     @Override
-    public Notification getItemById(Long id) {
+    public Notification getById(Long id) {
         return notificationRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Notification is not found for the id - " + id );
         });
     }
 
     @Override
-    public Notification createItem(Notification notification) {
+    public Notification create(Notification notification) {
         return notificationRepository.save(notification);
     }
 
     @Override
-    public Notification modifyItem(Notification notification) {
+    public Notification update(Notification notification) {
         return notificationRepository.save(notification);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById(Long id) {
         notificationRepository.deleteById(id);
     }
 }

@@ -8,37 +8,37 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ThemeServiceImpl implements ThemeService{
+public class ThemeServiceImpl implements ThemeService {
     private ThemeRepository themeRepository;
 
-    public ThemeServiceImpl(ThemeRepository themeRepository) {
+    public ThemeServiceImpl (ThemeRepository themeRepository) {
         this.themeRepository = themeRepository;
     }
 
     @Override
-    public List<Theme> getAllItems() {
+    public List<Theme> getAll () {
         return themeRepository.findAll();
     }
 
     @Override
-    public Theme getItemById(Long id) {
+    public Theme getById (Long id) {
         return themeRepository.findById(id).orElseThrow(() -> {
-        throw new IllegalArgumentException("Theme is not found for the id - " + id);
+            throw new IllegalArgumentException("Theme is not found for the id - " + id);
         });
     }
 
     @Override
-    public Theme createItem(Theme theme) {
+    public Theme create (Theme theme) {
         return themeRepository.save(theme);
     }
 
     @Override
-    public Theme modifyItem(Theme theme) {
+    public Theme update (Theme theme) {
         return themeRepository.save(theme);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById (Long id) {
         themeRepository.deleteById(id);
     }
 }

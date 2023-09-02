@@ -17,29 +17,29 @@ public class CoinServiceImpl implements CoinService{
     }
 
     @Override
-    public List<Coin> getAllItems() {
+    public List<Coin> getAll() {
         return coinRepository.findAll();
     }
 
     @Override
-    public Coin getItemById(Long id) {
+    public Coin getById(Long id) {
         return coinRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Coin is not found for the id - " + id);
         });
     }
 
     @Override
-    public Coin createItem(Coin coin) {
+    public Coin create(Coin coin) {
         return coinRepository.save(coin);
     }
 
     @Override
-    public Coin modifyItem(Coin coin) {
+    public Coin update(Coin coin) {
         return coinRepository.save(coin);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById(Long id) {
         coinRepository.deleteById(id);
     }
 }

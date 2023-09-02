@@ -8,37 +8,37 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PasswordResetServiceImpl implements PasswordResetService{
+public class PasswordResetServiceImpl implements PasswordResetService {
     private PasswordResetRepository passwordResetRepository;
 
-    public PasswordResetServiceImpl(PasswordResetRepository passwordResetRepository) {
+    public PasswordResetServiceImpl (PasswordResetRepository passwordResetRepository) {
         this.passwordResetRepository = passwordResetRepository;
     }
 
     @Override
-    public List<PasswordReset> getAllItems() {
+    public List<PasswordReset> getAll () {
         return passwordResetRepository.findAll();
     }
 
     @Override
-    public PasswordReset getItemById(Long id) {
+    public PasswordReset getById (Long id) {
         return passwordResetRepository.findById(id).orElseThrow(() -> {
-        throw new IllegalArgumentException("PasswordReset is not found for the id - " + id);
+            throw new IllegalArgumentException("PasswordReset is not found for the id - " + id);
         });
     }
 
     @Override
-    public PasswordReset createItem(PasswordReset passwordReset) {
+    public PasswordReset create (PasswordReset passwordReset) {
         return passwordResetRepository.save(passwordReset);
     }
 
     @Override
-    public PasswordReset modifyItem(PasswordReset passwordReset) {
+    public PasswordReset update (PasswordReset passwordReset) {
         return passwordResetRepository.save(passwordReset);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById (Long id) {
         passwordResetRepository.deleteById(id);
     }
 }

@@ -5,9 +5,9 @@ import com.habsida.moragoproject.entity.Withdrawal;
 import java.util.List;
 
 public interface WithdrawalService {
-    List<Withdrawal> getAllItems();
-    Withdrawal getItemById(Long id);
-    Withdrawal createItem(Withdrawal withdrawal);
-    Withdrawal modifyItem(Withdrawal withdrawal);
-    void removeItem(Long id);
+    List<Withdrawal> getAll ();
+    Withdrawal getById (Long id);
+    Withdrawal create (Withdrawal withdrawal);
+    Withdrawal update (Withdrawal withdrawal);
+    void deleteById(Long id);
 }

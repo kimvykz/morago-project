@@ -5,9 +5,9 @@ import com.habsida.moragoproject.entity.Coin;
 import java.util.List;
 
 public interface CoinService {
-    List<Coin> getAllItems();
-    Coin getItemById(Long id);
-    Coin createItem(Coin coin);
-    Coin modifyItem(Coin coin);
-    void removeItem(Long id);
+    List<Coin> getAll();
+    Coin getById(Long id);
+    Coin create(Coin coin);
+    Coin update(Coin coin);
+    void deleteById(Long id);
 }

@@ -6,9 +6,9 @@ import com.habsida.moragoproject.entity.Call;
 import java.util.List;
 
 public interface CallService {
-    List<Call> getAllItems();
-    Call getItemById(Long id);
-    Call createItem(Call call);
-    Call modifyItem(Call call);
-    void removeItem(Long id);
+    List<Call> getAll();
+    Call getById(Long id);
+    Call create(Call call);
+    Call update(Call call);
+    void deleteById(Long id);
 }

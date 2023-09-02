@@ -12,39 +12,39 @@ import java.util.Optional;
 public class RoleServiceImpl implements RoleService{
     private RoleRepository roleRepository;
 
-    public RoleServiceImpl(RoleRepository roleRepository) {
+    public RoleServiceImpl (RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
     @Override
-    public List<Role> getAllItems() {
+    public List<Role> getAll () {
         return roleRepository.findAll();
     }
 
     @Override
-    public Role getItemById(Long id) {
+    public Role getById (Long id) {
         return roleRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Role is not found for the id - " + id);
         });
     }
 
     @Override
-    public Role createItem(Role role) {
+    public Role create (Role role) {
         return roleRepository.save(role);
     }
 
     @Override
-    public Role modifyItem(Role role) {
+    public Role update (Role role) {
         return roleRepository.save(role);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById (Long id) {
         roleRepository.deleteById(id);
     }
 
     @Override
-    public Role getItemByName(String name) {
+    public Role getByName (String name) {
         Optional<Role> role = roleRepository.findByName(name);
         if (role.isPresent()){
             return role.get();

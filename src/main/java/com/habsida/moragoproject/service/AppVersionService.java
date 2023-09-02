@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface AppVersionService {
 
-    List<AppVersion> getAllItems();
-    AppVersion getItemById(Long id);
-    AppVersion createItem(AppVersion appVersion);
-    AppVersion modifyItem(AppVersion appVersion);
-    void removeItem(Long id);
+    List<AppVersion> getAll();
+    AppVersion getById(Long id);
+    AppVersion create(AppVersion appVersion);
+    AppVersion update(AppVersion appVersion);
+    void deleteById(Long id);
 }

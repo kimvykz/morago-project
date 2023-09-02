@@ -17,29 +17,29 @@ public class CallServiceImpl implements CallService{
     }
 
     @Override
-    public List<Call> getAllItems() {
+    public List<Call> getAll() {
         return callRepository.findAll();
     }
 
     @Override
-    public Call getItemById(Long id) {
+    public Call getById(Long id) {
         return callRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Call is not found for the id - " + id);
         });
     }
 
     @Override
-    public Call createItem(Call call) {
+    public Call create(Call call) {
         return callRepository.save(call);
     }
 
     @Override
-    public Call modifyItem(Call call) {
+    public Call update(Call call) {
         return callRepository.save(call);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById(Long id) {
         callRepository.deleteById(id);
     }
 }

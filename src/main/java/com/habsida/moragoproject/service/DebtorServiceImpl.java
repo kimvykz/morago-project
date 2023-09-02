@@ -17,29 +17,29 @@ public class DebtorServiceImpl implements DebtorService{
     }
 
     @Override
-    public List<Debtor> getAllItems() {
+    public List<Debtor> getAll() {
         return debtorRepository.findAll();
     }
 
     @Override
-    public Debtor getItemById(Long id) {
+    public Debtor getById(Long id) {
         return debtorRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Debtor is not found for the id - " + id);
         });
     }
 
     @Override
-    public Debtor createItem(Debtor debtor) {
+    public Debtor create(Debtor debtor) {
         return debtorRepository.save(debtor);
     }
 
     @Override
-    public Debtor modifyItem(Debtor debtor) {
+    public Debtor update(Debtor debtor) {
         return debtorRepository.save(debtor);
     }
 
     @Override
-    public void removeItem(Long id) {
+    public void deleteById(Long id) {
         debtorRepository.deleteById(id);
     }
 }

@@ -5,9 +5,9 @@ import com.habsida.moragoproject.entity.File;
 import java.util.List;
 
 public interface FileService {
-    List<File> getAllItems();
-    File getItemById(Long id);
-    File createItem(File file);
-    File modifyItem(File file);
-    void removeItem(Long id);
+    List<File> getAll();
+    File getById(Long id);
+    File create(File file);
+    File update(File file);
+    void deleteById(Long id);
 }

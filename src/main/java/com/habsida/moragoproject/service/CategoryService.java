@@ -5,9 +5,9 @@ import com.habsida.moragoproject.entity.Category;
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> getAllItems();
-    Category getItemById(Long id);
-    Category createItem(Category category);
-    Category modifyItem(Category category);
-    void removeItem(Long id);
+    List<Category> getAll();
+    Category getById(Long id);
+    Category create(Category category);
+    Category update(Category category);
+    void deleteById(Long id);
 }
