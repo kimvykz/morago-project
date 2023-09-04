@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Debtor;
 import com.habsida.moragoproject.repository.DebtorRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,11 @@ public class DebtorServiceImpl implements DebtorService{
     }
 
     @Override
+    public Page<Debtor> getAllPaged(PageRequest pageRequest) {
+        return debtorRepository.findAll(pageRequest);
+    }
+
+    @Override
     public Debtor getById(Long id) {
         return debtorRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Debtor is not found for the id - " + id);
@@ -39,7 +46,8 @@ public class DebtorServiceImpl implements DebtorService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         debtorRepository.deleteById(id);
+        return true;
     }
 }

@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.File;
 import com.habsida.moragoproject.repository.FileRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,11 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
+    public Page<File> getAllPaged(PageRequest pageRequest) {
+        return fileRepository.findAll(pageRequest);
+    }
+
+    @Override
     public File getById(Long id) {
         return fileRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("File is not found for the id - " + id);
@@ -39,7 +46,8 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         fileRepository.deleteById(id);
+        return true;
     }
 }

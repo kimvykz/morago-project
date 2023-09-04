@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Withdrawal;
 import com.habsida.moragoproject.repository.WithdrawalRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     @Override
     public List<Withdrawal> getAll () {
         return withdrawalRepository.findAll();
+    }
+
+    @Override
+    public Page<Withdrawal> getAllPaged(PageRequest pageRequest) {
+        return withdrawalRepository.findAll(pageRequest);
     }
 
     @Override
@@ -38,7 +45,8 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         withdrawalRepository.deleteById(id);
+        return true;
     }
 }

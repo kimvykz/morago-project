@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.FrequentlyAskedQuestion;
 import com.habsida.moragoproject.repository.FrequentlyAskedQuestionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     @Override
     public List<FrequentlyAskedQuestion> getAll() {
         return frequentlyAskedQuestionRepository.findAll();
+    }
+
+    @Override
+    public Page<FrequentlyAskedQuestion> getAllPaged(PageRequest pageRequest) {
+        return frequentlyAskedQuestionRepository.findAll(pageRequest);
     }
 
     @Override
@@ -38,7 +45,8 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         frequentlyAskedQuestionRepository.deleteById(id);
+        return true;
     }
 }

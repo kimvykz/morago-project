@@ -2,10 +2,11 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.AppVersion;
 import com.habsida.moragoproject.repository.AppVersionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AppVersionServiceImpl implements AppVersionService{
@@ -19,6 +20,11 @@ public class AppVersionServiceImpl implements AppVersionService{
     @Override
     public List<AppVersion> getAll() {
         return appVersionRepository.findAll();
+    }
+
+    @Override
+    public Page<AppVersion> getAllPaged(PageRequest pageRequest) {
+        return appVersionRepository.findAll(pageRequest);
     }
 
     @Override
@@ -40,7 +46,8 @@ public class AppVersionServiceImpl implements AppVersionService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         appVersionRepository.deleteById(id);
+        return true;
     }
 }

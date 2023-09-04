@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Rating;
 import com.habsida.moragoproject.repository.RatingRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class RatingServiceImpl implements RatingService{
     @Override
     public List<Rating> getAll () {
         return ratingRepository.findAll();
+    }
+
+    @Override
+    public Page<Rating> getAllPaged(PageRequest pageRequest) {
+        return ratingRepository.findAll(pageRequest);
     }
 
     @Override
@@ -38,7 +45,8 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public void deleteById (Long id) {
+    public Boolean deleteById (Long id) {
         ratingRepository.deleteById(id);
+        return true;
     }
 }

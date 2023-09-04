@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Coin;
 import com.habsida.moragoproject.repository.CoinRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,11 @@ public class CoinServiceImpl implements CoinService{
     }
 
     @Override
+    public Page<Coin> getAllPaged(PageRequest pageRequest) {
+        return coinRepository.findAll(pageRequest);
+    }
+
+    @Override
     public Coin getById(Long id) {
         return coinRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Coin is not found for the id - " + id);
@@ -39,7 +46,8 @@ public class CoinServiceImpl implements CoinService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         coinRepository.deleteById(id);
+        return true;
     }
 }

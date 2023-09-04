@@ -3,6 +3,8 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.entity.Category;
 import com.habsida.moragoproject.repository.CategoryRepository;
 import net.bytebuddy.asm.Advice;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,11 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
+    public Page<Category> getAllPaged(PageRequest pageRequest) {
+        return categoryRepository.findAll(pageRequest);
+    }
+
+    @Override
     public Category getById(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Category is not found for the id - " + id);
@@ -40,7 +47,8 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         categoryRepository.deleteById(id);
+        return true;
     }
 }

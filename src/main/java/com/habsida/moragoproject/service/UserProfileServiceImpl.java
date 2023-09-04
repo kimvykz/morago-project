@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.UserProfile;
 import com.habsida.moragoproject.repository.UserProfileRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class UserProfileServiceImpl implements UserProfileService{
     @Override
     public List<UserProfile> getAll () {
         return userProfileRepository.findAll();
+    }
+
+    @Override
+    public Page<UserProfile> getAllPaged(PageRequest pageRequest) {
+        return userProfileRepository.findAll(pageRequest);
     }
 
     @Override
@@ -38,8 +45,9 @@ public class UserProfileServiceImpl implements UserProfileService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         userProfileRepository.deleteById(id);
+        return true;
     }
 
 }

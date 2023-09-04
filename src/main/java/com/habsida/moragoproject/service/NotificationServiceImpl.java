@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Notification;
 import com.habsida.moragoproject.repository.NotificationRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class NotificationServiceImpl implements NotificationService{
     @Override
     public List<Notification> getAll() {
         return notificationRepository.findAll();
+    }
+
+    @Override
+    public Page<Notification> getAllPaged(PageRequest pageRequest) {
+        return notificationRepository.findAll(pageRequest);
     }
 
     @Override
@@ -38,7 +45,8 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         notificationRepository.deleteById(id);
+        return true;
     }
 }

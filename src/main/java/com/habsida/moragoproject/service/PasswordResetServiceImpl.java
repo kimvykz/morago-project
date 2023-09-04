@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.PasswordReset;
 import com.habsida.moragoproject.repository.PasswordResetRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Override
     public List<PasswordReset> getAll () {
         return passwordResetRepository.findAll();
+    }
+
+    @Override
+    public Page<PasswordReset> getAllPaged(PageRequest pageRequest) {
+        return passwordResetRepository.findAll(pageRequest);
     }
 
     @Override
@@ -38,7 +45,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     }
 
     @Override
-    public void deleteById (Long id) {
+    public Boolean deleteById (Long id) {
         passwordResetRepository.deleteById(id);
+        return true;
     }
 }

@@ -1,5 +1,9 @@
 package com.habsida.moragoproject.enums;
 
 public enum EPlatform {
-    MORAGO
+    IOS,
+    ANDROID,
+    MACOS,
+    WINDOWS,
+    LINUX
 }

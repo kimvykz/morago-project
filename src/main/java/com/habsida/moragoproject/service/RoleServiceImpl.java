@@ -3,6 +3,8 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.entity.Role;
 import com.habsida.moragoproject.enums.ERole;
 import com.habsida.moragoproject.repository.RoleRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,11 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public List<Role> getAll () {
         return roleRepository.findAll();
+    }
+
+    @Override
+    public Page<Role> getAllPaged(PageRequest pageRequest) {
+        return roleRepository.findAll(pageRequest);
     }
 
     @Override
@@ -39,8 +46,9 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public void deleteById (Long id) {
+    public Boolean deleteById (Long id) {
         roleRepository.deleteById(id);
+        return true;
     }
 
     @Override

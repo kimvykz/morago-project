@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Deposit;
 import com.habsida.moragoproject.repository.DepositRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,11 @@ public class DepositServiceImpl implements DepositService{
     }
 
     @Override
+    public Page<Deposit> getAllPaged(PageRequest pageRequest) {
+        return depositRepository.findAll(pageRequest);
+    }
+
+    @Override
     public Deposit getById(Long id) {
         return depositRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Deposit is not found for the id - " + id);
@@ -39,7 +46,8 @@ public class DepositServiceImpl implements DepositService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         depositRepository.deleteById(id);
+        return true;
     }
 }

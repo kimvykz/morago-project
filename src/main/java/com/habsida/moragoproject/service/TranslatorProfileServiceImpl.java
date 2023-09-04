@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.TranslatorProfile;
 import com.habsida.moragoproject.repository.TranslatorProfileRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class TranslatorProfileServiceImpl implements TranslatorProfileService{
     @Override
     public List<TranslatorProfile> getAll () {
         return translatorProfileRepository.findAll();
+    }
+
+    @Override
+    public Page<TranslatorProfile> getAllPaged(PageRequest pageRequest) {
+        return translatorProfileRepository.findAll(pageRequest);
     }
 
     @Override
@@ -38,7 +45,8 @@ public class TranslatorProfileServiceImpl implements TranslatorProfileService{
     }
 
     @Override
-    public void deleteById (Long id) {
+    public Boolean deleteById (Long id) {
         translatorProfileRepository.deleteById(id);
+        return true;
     }
 }

@@ -1,0 +1,31 @@
+type Query {
+    getAppVersions: [AppVersion]
+    getAppVersionsPaged(page: Int, size: Int): [AppVersion]
+    getAppVersionById(id: Int): AppVersion
+}
+
+type Mutation {
+    createAppVersion(appVersion : AppVersionInput) : AppVersion
+    updateAppVersionById(id: ID!, appVersion: AppVersionInput) : AppVersion
+    deleteAppVersionById(id: ID!) : Boolean
+}
+
+input AppVersionInput {
+    platform: EPlatform!
+    latest: String
+    min: String
+}
+type AppVersion {
+    id: ID!
+    platform: EPlatform!
+    latest: String
+    min: String
+}
+
+enum EPlatform {
+    IOS
+    ANDROID
+    MACOS
+    WINDOWS
+    LINUX
+}

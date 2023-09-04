@@ -2,6 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.entity.Language;
 import com.habsida.moragoproject.repository.LanguageRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class LanguageServiceImpl implements LanguageService{
     @Override
     public List<Language> getAll() {
         return languageRepository.findAll();
+    }
+
+    @Override
+    public Page<Language> getAllPaged(PageRequest pageRequest) {
+        return languageRepository.findAll(pageRequest);
     }
 
     @Override
@@ -38,7 +45,8 @@ public class LanguageServiceImpl implements LanguageService{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         languageRepository.deleteById(id);
+        return true;
     }
 }
