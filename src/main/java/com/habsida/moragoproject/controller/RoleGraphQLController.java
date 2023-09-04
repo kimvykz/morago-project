@@ -25,7 +25,7 @@ public class RoleGraphQLController {
         this.roleService = roleService;
     }
 
-    @QueryMapping(name = "getRole")
+    @QueryMapping(name = "getRoles")
     public Iterable<Role> getAll (){
         return roleService.getAll();
     }

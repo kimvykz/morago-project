@@ -1,0 +1,10 @@
+
+input CoinInput {
+    coin: Float
+    won: Float
+}
+type Coin {
+    id: ID!
+    coin: Float
+    won: Float
+}

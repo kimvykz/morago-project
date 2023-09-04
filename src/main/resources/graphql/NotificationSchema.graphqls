@@ -1,0 +1,15 @@
+input NotificationInput {
+    platform: EPlatform!
+    date: String
+    text: String
+    time: String
+    title: String
+}
+type Notification {
+    id: ID!
+    date: String
+    text: String
+    time: String
+    title: String
+}
+

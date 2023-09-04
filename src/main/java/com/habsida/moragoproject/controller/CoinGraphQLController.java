@@ -25,7 +25,7 @@ public class CoinGraphQLController {
         this.coinService = coinService;
     }
 
-    @QueryMapping(name = "getCoin")
+    @QueryMapping(name = "getCoins")
     public Iterable<Coin> getAll (){
         return coinService.getAll();
     }

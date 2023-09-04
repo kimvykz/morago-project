@@ -25,7 +25,7 @@ public class DebtorGraphQLController {
         this.debtorService = debtorService;
     }
 
-    @QueryMapping(name = "getDebtor")
+    @QueryMapping(name = "getDebtors")
     public Iterable<Debtor> getAll (){
         return debtorService.getAll();
     }

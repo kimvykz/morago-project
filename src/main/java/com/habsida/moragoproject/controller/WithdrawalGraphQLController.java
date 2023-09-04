@@ -25,7 +25,7 @@ public class WithdrawalGraphQLController {
         this.withdrawalService = withdrawalService;
     }
 
-    @QueryMapping(name = "getWithdrawal")
+    @QueryMapping(name = "getWithdrawals")
     public Iterable<Withdrawal> getAll (){
         return withdrawalService.getAll();
     }

@@ -1,20 +1,15 @@
 package com.habsida.moragoproject.dto;
 
-import com.habsida.moragoproject.entity.File;
-import com.habsida.moragoproject.entity.Theme;
-import com.habsida.moragoproject.entity.User;
-import com.habsida.moragoproject.enums.CallStatus;
+import com.habsida.moragoproject.enums.ECallStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import javax.persistence.*;
 
 @ToString
 @Getter
 @Setter
 public class CallDTO {
-    private CallStatus callStatus;
+    private ECallStatus ECallStatus;
     private String channelName;
     private Double commission;
     private Integer duration;

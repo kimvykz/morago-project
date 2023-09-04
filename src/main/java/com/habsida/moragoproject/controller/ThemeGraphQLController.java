@@ -25,7 +25,7 @@ public class ThemeGraphQLController {
         this.themeService = themeService;
     }
 
-    @QueryMapping(name = "getTheme")
+    @QueryMapping(name = "getThemes")
     public Iterable<Theme> getAll (){
         return themeService.getAll();
     }

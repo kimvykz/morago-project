@@ -1,0 +1,15 @@
+input TranslatorProfileInput {
+      dateOfBirth: String
+      email: String
+      isAvailable: Boolean
+      isOnline: Boolean
+      levelOfKorean: String
+}
+type TranslatorProfile {
+    id: ID!
+    dateOfBirth: String
+    email: String
+    isAvailable: Boolean
+    isOnline: Boolean
+    levelOfKorean: String
+}

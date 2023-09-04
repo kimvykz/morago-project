@@ -1,0 +1,12 @@
+input FrequentlyAskedQuestionInput {
+    answer: String
+    category: EFAQCategory
+    question: String
+}
+type FrequentlyAskedQuestion {
+    id: ID!
+    answer: String
+    category: EFAQCategory
+    question: String
+}
+

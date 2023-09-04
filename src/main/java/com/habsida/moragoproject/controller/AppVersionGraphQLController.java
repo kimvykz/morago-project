@@ -25,7 +25,7 @@ public class AppVersionGraphQLController {
         this.appVersionService = appVersionService;
     }
 
-    @QueryMapping(name = "getAppVersion")
+    @QueryMapping(name = "getAppVersions")
     public Iterable<AppVersion> getAll (){
         return appVersionService.getAll();
     }

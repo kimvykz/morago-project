@@ -1,8 +1,8 @@
 package com.habsida.moragoproject.enums;
 
-public enum CallStatus {
+public enum ECallStatus {
     ANSWERED,
-    NOTANSWERED,
+    NOT_ANSWERED,
     REJECTED
 
 }

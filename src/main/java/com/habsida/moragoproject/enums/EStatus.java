@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.enums;
 
 public enum EStatus {
-    COMPLITED,
+    COMPLETED,
     REJECTED,
     CANCELLED,
     FAILED,

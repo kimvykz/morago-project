@@ -1,0 +1,28 @@
+input UserInput {
+      apnToken: String
+      balance: Float
+      fcmToken: String
+      firstName: String
+      isActive: Boolean
+      isDebtor: Boolean
+      lastName: String
+      onBoardingStatus: Int
+      password: String
+      phone: String
+      ratings: Float
+      totalRatings: Int
+}
+type User {
+    apnToken: String
+    balance: Float
+    fcmToken: String
+    firstName: String
+    isActive: Boolean
+    isDebtor: Boolean
+    lastName: String
+    onBoardingStatus: Int
+    password: String
+    phone: String
+    ratings: Float
+    totalRatings: Int
+}

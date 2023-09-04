@@ -25,7 +25,7 @@ public class DepositGraphQLController {
         this.depositService = depositService;
     }
 
-    @QueryMapping(name = "getDeposit")
+    @QueryMapping(name = "getDeposits")
     public Iterable<Deposit> getAll (){
         return depositService.getAll();
     }

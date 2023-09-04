@@ -1,0 +1,7 @@
+input RatingInput {
+    grade: Float
+}
+type Rating {
+    id: ID!
+    grade: Float
+}

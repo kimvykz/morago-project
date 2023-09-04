@@ -1,0 +1,23 @@
+input CallInput {
+    callStatus: ECallStatus
+    channelName: String
+    commission: Float
+    duration: Int
+    isEndCall: Boolean
+    status: Boolean
+    sum: Float
+    translatorHasRated: Boolean
+    userHasRated: Boolean
+}
+type Call {
+    id: ID!
+    callStatus: ECallStatus
+    channelName: String
+    commission: Float
+    duration: Int
+    isEndCall: Boolean
+    status: Boolean
+    sum: Float
+    translatorHasRated: Boolean
+    userHasRated: Boolean
+}

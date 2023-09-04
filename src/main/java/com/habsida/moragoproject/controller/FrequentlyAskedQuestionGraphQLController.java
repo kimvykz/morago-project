@@ -25,7 +25,7 @@ public class FrequentlyAskedQuestionGraphQLController {
         this.frequentlyAskedQuestionService = frequentlyAskedQuestionService;
     }
 
-    @QueryMapping(name = "getFrequentlyAskedQuestion")
+    @QueryMapping(name = "getFrequentlyAskedQuestions")
     public Iterable<FrequentlyAskedQuestion> getAll (){
         return frequentlyAskedQuestionService.getAll();
     }

@@ -1,0 +1,37 @@
+enum EPlatform {
+    IOS
+    ANDROID
+    MACOS
+    WINDOWS
+    LINUX
+}
+
+enum ECallStatus {
+    ANSWERED,
+    NOT_ANSWERED,
+    REJECTED
+}
+
+enum EStatus {
+    COMPLETED,
+    REJECTED,
+    CANCELLED,
+    FAILED,
+    ACTIVE,
+    INACTIVE
+}
+
+enum EFAQCategory {
+    SYSTEM,
+    APPLICATION,
+    TECHNICAL,
+    INTERFACE,
+    CLAIMS,
+    SUPPORT
+}
+
+enum ERole {
+    ADMIN,
+    USER,
+    TRANSLATOR
+}

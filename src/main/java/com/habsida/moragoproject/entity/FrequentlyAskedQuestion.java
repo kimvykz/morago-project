@@ -1,13 +1,10 @@
 package com.habsida.moragoproject.entity;
 
 import com.habsida.moragoproject.audit.AuditableEntity;
-import com.habsida.moragoproject.enums.FAQCategory;
+import com.habsida.moragoproject.enums.EFAQCategory;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "frequently_asker_questions")
@@ -21,6 +18,6 @@ public class FrequentlyAskedQuestion extends AuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String answer;
-    private FAQCategory category;
+    private EFAQCategory category;
     private String question;
 }

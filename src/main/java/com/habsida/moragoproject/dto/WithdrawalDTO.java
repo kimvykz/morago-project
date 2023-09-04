@@ -18,7 +18,7 @@ public class WithdrawalDTO {
     private String accountHolder;
     private String accountNumber;
     private String nameOfBank;
-    private EStatus estatus;
+    private EStatus status;
     private Double sum;
 
     //private User user;

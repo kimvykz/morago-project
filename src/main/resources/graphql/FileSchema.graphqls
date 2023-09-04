@@ -1,0 +1,11 @@
+input FileInput {
+    originalTitle: String
+    path: String
+    type: String
+}
+type File {
+    id: ID!
+    originalTitle: String
+    path: String
+    type: String
+}

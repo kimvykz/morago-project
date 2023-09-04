@@ -25,7 +25,7 @@ public class TranslatorProfileGraphQLController {
         this.translatorProfileService = translatorProfileService;
     }
 
-    @QueryMapping(name = "getTranslatorProfile")
+    @QueryMapping(name = "getTranslatorProfiles")
     public Iterable<TranslatorProfile> getAll (){
         return translatorProfileService.getAll();
     }

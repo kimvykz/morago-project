@@ -1,0 +1,148 @@
+type Query {
+    getAppVersions: [AppVersion]
+    getAppVersionsPaged(page: Int, size: Int): [AppVersion]
+    getAppVersionById(id: Int): AppVersion
+
+    getCalls: [Call]
+    getCallsPaged(page: Int, size: Int): [Call]
+    getCallById(id: Int): Call
+
+    getCategories: [Category]
+    getCategoriesPaged(page: Int, size: Int): [Category]
+    getCategoryById(id: Int): Category
+
+    getCoins: [Coin]
+    getCoinsPaged(page: Int, size: Int): [Coin]
+    getCoinById(id: Int): Coin
+
+    getDebtors: [Debtor]
+    getDebtorsPaged(page: Int, size: Int): [Debtor]
+    getDebtorById(id: Int): Debtor
+
+    getDeposits: [Deposit]
+    getDepositsPaged(page: Int, size: Int): [Deposit]
+    getDepositById(id: Int): Deposit
+
+    getFiles: [File]
+    getFilesPaged(page: Int, size: Int): [File]
+    getFileById(id: Int): File
+
+    getFrequentlyAskedQuestions: [FrequentlyAskedQuestion]
+    getFrequentlyAskedQuestionsPaged(page: Int, size: Int): [FrequentlyAskedQuestion]
+    getFrequentlyAskedQuestionById(id: Int): FrequentlyAskedQuestion
+
+    getLanguages: [Language]
+    getLanguagesPaged(page: Int, size: Int): [Language]
+    getLanguageById(id: Int): Language
+
+    getNotifications: [Notification]
+    getNotificationsPaged(page: Int, size: Int): [Notification]
+    getNotificationById(id: Int): Notification
+
+    getPasswordResets: [PasswordReset]
+    getPasswordResetsPaged(page: Int, size: Int): [PasswordReset]
+    getPasswordResetById(id: Int): PasswordReset
+
+    getRatings: [Rating]
+    getRatingsPaged(page: Int, size: Int): [Rating]
+    getRatingById(id: Int): Rating
+
+    getRoles: [Role]
+    getRolesPaged(page: Int, size: Int): [Role]
+    getRoleById(id: Int): Role
+
+    getThemes: [Theme]
+    getThemesPaged(page: Int, size: Int): [Theme]
+    getThemeById(id: Int): Theme
+
+    getTranslatorProfiles: [TranslatorProfile]
+    getTranslatorProfilesPaged(page: Int, size: Int): [TranslatorProfile]
+    getTranslatorProfileById(id: Int): TranslatorProfile
+
+    getUsers: [User]
+    getUsersPaged(page: Int, size: Int): [User]
+    getUserById(id: Int): User
+
+    getUserProfiles: [UserProfile]
+    getUserProfilesPaged(page: Int, size: Int): [UserProfile]
+    getUserProfileById(id: Int): UserProfile
+
+    getUserWithdrawals: [Withdrawal]
+    getUserWithdrawalsPaged(page: Int, size: Int): [Withdrawal]
+    getUserWithdrawalById(id: Int): Withdrawal
+
+}
+
+type Mutation {
+    createAppVersion(appVersion : AppVersionInput) : AppVersion
+    updateAppVersionById(id: ID!, appVersion: AppVersionInput) : AppVersion
+    deleteAppVersionById(id: ID!) : Boolean
+
+    createCall(call : CallInput) : Call
+    updateCallById(id: ID!, call: CallInput) : Call
+    deleteCallById(id: ID!) : Boolean
+
+    createCategory(category : CategoryInput) : Category
+    updateCategoryById(id: ID!, category: CategoryInput) : Category
+    deleteCategoryById(id: ID!) : Boolean
+
+    createCoin(coin : CoinInput) : Coin
+    updateCoinById(id: ID!, coin: CoinInput) : Coin
+    deleteCoinById(id: ID!) : Boolean
+
+    createDebtor(debtor : DebtorInput) : Debtor
+    updateDebtorById(id: ID!, debtor: DebtorInput) : Debtor
+    deleteDebtorById(id: ID!) : Boolean
+
+    createDeposit(deposit : DepositInput) : Deposit
+    updateDepositById(id: ID!, deposit: DepositInput) : Deposit
+    deleteDepositById(id: ID!) : Boolean
+
+    createFile(file : FileInput) : File
+    updateFileById(id: ID!, file: FileInput) : File
+    deleteFileById(id: ID!) : Boolean
+
+    createFrequentlyAskedQuestion(frequentlyAskedQuestion : FrequentlyAskedQuestionInput) : FrequentlyAskedQuestion
+    updateFrequentlyAskedQuestionById(id: ID!, frequentlyAskedQuestion: FrequentlyAskedQuestionInput) : FrequentlyAskedQuestion
+    deleteFrequentlyAskedQuestionById(id: ID!) : Boolean
+
+    createLanguage(language : LanguageInput) : Language
+    updateLanguageById(id: ID!, language: LanguageInput) : Language
+    deleteLanguageById(id: ID!) : Boolean
+
+    createNotification(notification : NotificationInput) : Notification
+    updateNotificationById(id: ID!, notification: NotificationInput) : Notification
+    deleteNotificationById(id: ID!) : Boolean
+
+    createPasswordReset(passwordReset : PasswordResetInput) : PasswordReset
+    updatePasswordResetById(id: ID!, passwordReset: PasswordResetInput) : PasswordReset
+    deletePasswordResetById(id: ID!) : Boolean
+
+    createRating(rating : RatingInput) : Rating
+    updateRatingById(id: ID!, rating: RatingInput) : Rating
+    deleteRatingById(id: ID!) : Boolean
+
+    createRole(role : RoleInput) : Role
+    updateRoleById(id: ID!, role: RoleInput) : Role
+    deleteRoleById(id: ID!) : Boolean
+
+    createTheme(theme : ThemeInput) : Theme
+    updateThemeById(id: ID!, theme: ThemeInput) : Theme
+    deleteThemeById(id: ID!) : Boolean
+
+    createTranslatorProfile(translatorProfile : TranslatorProfileInput) : TranslatorProfile
+    updateTranslatorProfileById(id: ID!, translatorProfile: TranslatorProfileInput) : TranslatorProfile
+    deleteTranslatorProfileById(id: ID!) : Boolean
+
+    createUser(user : UserInput) : User
+    updateUserById(id: ID!, user: UserInput) : User
+    deleteUserById(id: ID!) : Boolean
+
+    createUserProfile(userProfile : UserProfileInput) : UserProfile
+    updateUserProfileById(id: ID!, userProfile: UserProfileInput) : UserProfile
+    deleteUserProfileById(id: ID!) : Boolean
+
+    createUserWithdrawal(withdrawal : WithdrawalInput) : Withdrawal
+    updateUserWithdrawalById(id: ID!, withdrawal: WithdrawalInput) : Withdrawal
+    deleteUserWithdrawalById(id: ID!) : Boolean
+}

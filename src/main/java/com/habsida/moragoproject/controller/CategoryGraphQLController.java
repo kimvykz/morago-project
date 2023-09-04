@@ -25,7 +25,7 @@ public class CategoryGraphQLController {
         this.categoryService = categoryService;
     }
 
-    @QueryMapping(name = "getCategory")
+    @QueryMapping(name = "getCategories")
     public Iterable<Category> getAll (){
         return categoryService.getAll();
     }
@@ -35,7 +35,7 @@ public class CategoryGraphQLController {
         return categoryService.getById(id);
     }
 
-    @QueryMapping(name = "getCategorysPaged")
+    @QueryMapping(name = "getCategoriesPaged")
     public Page<Category> getAllPaged (@Argument int page, @Argument int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return categoryService.getAllPaged(pageRequest);

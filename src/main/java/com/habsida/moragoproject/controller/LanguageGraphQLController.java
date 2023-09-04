@@ -25,7 +25,7 @@ public class LanguageGraphQLController {
         this.languageService = languageService;
     }
 
-    @QueryMapping(name = "getLanguage")
+    @QueryMapping(name = "getLanguages")
     public Iterable<Language> getAll (){
         return languageService.getAll();
     }

@@ -25,7 +25,7 @@ public class UserProfileGraphQLController {
         this.userProfileService = userProfileService;
     }
 
-    @QueryMapping(name = "getUserProfile")
+    @QueryMapping(name = "getUserProfiles")
     public Iterable<UserProfile> getAll (){
         return userProfileService.getAll();
     }

@@ -25,7 +25,7 @@ public class NotificationGraphQLController {
         this.notificationService = notificationService;
     }
 
-    @QueryMapping(name = "getNotification")
+    @QueryMapping(name = "getNotifications")
     public Iterable<Notification> getAll (){
         return notificationService.getAll();
     }

@@ -25,7 +25,7 @@ public class FileGraphQLController {
         this.fileService = fileService;
     }
 
-    @QueryMapping(name = "getFile")
+    @QueryMapping(name = "getFiles")
     public Iterable<File> getAll (){
         return fileService.getAll();
     }

@@ -1,0 +1,7 @@
+input UserProfileInput {
+     isFreeCallMade: Boolean
+}
+type UserProfile {
+    id: ID!
+    isFreeCallMade: Boolean
+}

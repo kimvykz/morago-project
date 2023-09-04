@@ -1,0 +1,7 @@
+input LanguageInput {
+    name: String
+}
+type Language {
+    id: ID!
+    name: String
+}

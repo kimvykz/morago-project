@@ -1,6 +1,6 @@
 package com.habsida.moragoproject.enums;
 
-public enum FAQCategory {
+public enum EFAQCategory {
     SYSTEM,
     APPLICATION,
     TECHNICAL,

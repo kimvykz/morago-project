@@ -1,0 +1,15 @@
+input DepositInput {
+    accountHolder: String
+    coin: Float
+    nameOfBank: String
+    eStatus: EStatus
+    won: Float
+}
+type Deposit {
+    id: ID!
+    accountHolder: String
+    coin: Float
+    nameOfBank: String
+    eStatus: EStatus
+    won: Float
+}

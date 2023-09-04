@@ -1,0 +1,7 @@
+input RoleInput {
+    name: ERole
+}
+type Role {
+    id: ID!
+    name: ERole
+}

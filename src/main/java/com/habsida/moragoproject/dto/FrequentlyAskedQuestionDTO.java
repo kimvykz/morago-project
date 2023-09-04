@@ -1,6 +1,6 @@
 package com.habsida.moragoproject.dto;
 
-import com.habsida.moragoproject.enums.FAQCategory;
+import com.habsida.moragoproject.enums.EFAQCategory;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +11,6 @@ import lombok.ToString;
 public class FrequentlyAskedQuestionDTO {
 
     private String answer;
-    private FAQCategory category;
+    private EFAQCategory category;
     private String question;
 }

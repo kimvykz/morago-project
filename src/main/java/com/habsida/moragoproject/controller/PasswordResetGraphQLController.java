@@ -25,7 +25,7 @@ public class PasswordResetGraphQLController {
         this.passwordResetService = passwordResetService;
     }
 
-    @QueryMapping(name = "getPasswordReset")
+    @QueryMapping(name = "getPasswordResets")
     public Iterable<PasswordReset> getAll (){
         return passwordResetService.getAll();
     }

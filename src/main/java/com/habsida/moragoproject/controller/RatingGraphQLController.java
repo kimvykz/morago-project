@@ -25,7 +25,7 @@ public class RatingGraphQLController {
         this.ratingService = ratingService;
     }
 
-    @QueryMapping(name = "getRating")
+    @QueryMapping(name = "getRatings")
     public Iterable<Rating> getAll (){
         return ratingService.getAll();
     }
