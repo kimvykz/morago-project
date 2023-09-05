@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.service;
 
 
-import com.habsida.moragoproject.entity.Call;
+import com.habsida.moragoproject.model.entity.Call;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

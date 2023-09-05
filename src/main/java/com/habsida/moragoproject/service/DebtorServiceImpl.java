@@ -1,13 +1,12 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.Debtor;
+import com.habsida.moragoproject.model.entity.Debtor;
 import com.habsida.moragoproject.repository.DebtorRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DebtorServiceImpl implements DebtorService{

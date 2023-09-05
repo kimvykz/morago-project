@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.CoinDTO;
-import com.habsida.moragoproject.entity.Coin;
+import com.habsida.moragoproject.model.dto.CreateCoinInput;
+import com.habsida.moragoproject.model.dto.UpdateCoinInput;
+import com.habsida.moragoproject.model.entity.Coin;
 import com.habsida.moragoproject.service.CoinService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class CoinGraphQLController {
     }
 
     @MutationMapping(name = "createCoin")
-    public Coin create (@Valid @Argument(name = "coin") CoinDTO coinDTO) {
-        Coin coin = modelMapper.map(coinDTO, Coin.class);
+    public Coin create (@Valid @Argument(name = "coin") CreateCoinInput createCoinInput) {
+        Coin coin = modelMapper.map(createCoinInput, Coin.class);
         return coinService.create(coin);
     }
 
     @MutationMapping(name = "updateCoinById")
     public Coin updateById (@Valid @Argument Long id,
-                              @Argument(name = "coin") CoinDTO coinDTO) {
+                              @Argument(name = "coin") UpdateCoinInput updateCoinInput) {
         Coin coin = coinService.getById(id);
-        modelMapper.map(coinDTO, coin);
+        modelMapper.map(updateCoinInput, coin);
         return coinService.update(coin);
     }
 

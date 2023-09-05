@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.AppVersionDTO;
-import com.habsida.moragoproject.entity.AppVersion;
+import com.habsida.moragoproject.model.dto.CreateAppVersionInput;
+import com.habsida.moragoproject.model.dto.UpdateAppVersionInput;
+import com.habsida.moragoproject.model.entity.AppVersion;
 import com.habsida.moragoproject.service.AppVersionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class AppVersionGraphQLController {
     }
 
     @MutationMapping(name = "createAppVersion")
-    public AppVersion create (@Valid @Argument(name = "appVersion") AppVersionDTO appVersionDTO) {
-        AppVersion appVersion = modelMapper.map(appVersionDTO, AppVersion.class);
+    public AppVersion create (@Valid @Argument(name = "appVersion") CreateAppVersionInput createAppVersionInput) {
+        AppVersion appVersion = modelMapper.map(createAppVersionInput, AppVersion.class);
         return appVersionService.create(appVersion);
     }
 
     @MutationMapping(name = "updateAppVersionById")
     public AppVersion updateById (@Valid @Argument Long id,
-                              @Argument(name = "appVersion") AppVersionDTO appVersionDTO) {
+                              @Argument(name = "appVersion") UpdateAppVersionInput updateAppVersionInput) {
         AppVersion appVersion = appVersionService.getById(id);
-        modelMapper.map(appVersionDTO, appVersion);
+        modelMapper.map(updateAppVersionInput, appVersion);
         return appVersionService.update(appVersion);
     }
 

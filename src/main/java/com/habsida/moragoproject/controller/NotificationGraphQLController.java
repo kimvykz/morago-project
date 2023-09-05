@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.NotificationDTO;
-import com.habsida.moragoproject.entity.Notification;
+import com.habsida.moragoproject.model.dto.CreateNotificationInput;
+import com.habsida.moragoproject.model.dto.UpdateNotificationInput;
+import com.habsida.moragoproject.model.entity.Notification;
 import com.habsida.moragoproject.service.NotificationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class NotificationGraphQLController {
     }
 
     @MutationMapping(name = "createNotification")
-    public Notification create (@Valid @Argument(name = "notification") NotificationDTO notificationDTO) {
-        Notification notification = modelMapper.map(notificationDTO, Notification.class);
+    public Notification create (@Valid @Argument(name = "notification") CreateNotificationInput createNotificationInput) {
+        Notification notification = modelMapper.map(createNotificationInput, Notification.class);
         return notificationService.create(notification);
     }
 
     @MutationMapping(name = "updateNotificationById")
     public Notification updateById (@Valid @Argument Long id,
-                              @Argument(name = "notification") NotificationDTO notificationDTO) {
+                              @Argument(name = "notification") UpdateNotificationInput updateNotificationInput) {
         Notification notification = notificationService.getById(id);
-        modelMapper.map(notificationDTO, notification);
+        modelMapper.map(updateNotificationInput, notification);
         return notificationService.update(notification);
     }
 

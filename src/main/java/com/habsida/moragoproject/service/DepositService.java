@@ -1,6 +1,6 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.Deposit;
+import com.habsida.moragoproject.model.entity.Deposit;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

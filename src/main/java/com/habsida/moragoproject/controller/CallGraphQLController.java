@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.CallDTO;
-import com.habsida.moragoproject.entity.Call;
+import com.habsida.moragoproject.model.dto.CreateCallInput;
+import com.habsida.moragoproject.model.dto.UpdateCallInput;
+import com.habsida.moragoproject.model.entity.Call;
 import com.habsida.moragoproject.service.CallService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class CallGraphQLController {
     }
 
     @MutationMapping(name = "createCall")
-    public Call create (@Valid @Argument(name = "call") CallDTO callDTO) {
-        Call call = modelMapper.map(callDTO, Call.class);
+    public Call create (@Valid @Argument(name = "call") CreateCallInput createCallInput) {
+        Call call = modelMapper.map(createCallInput, Call.class);
         return callService.create(call);
     }
 
     @MutationMapping(name = "updateCallById")
     public Call updateById (@Valid @Argument Long id,
-                              @Argument(name = "call") CallDTO callDTO) {
+                            @Argument(name = "call") UpdateCallInput updateCallInput) {
         Call call = callService.getById(id);
-        modelMapper.map(callDTO, call);
+        modelMapper.map(updateCallInput, call);
         return callService.update(call);
     }
 

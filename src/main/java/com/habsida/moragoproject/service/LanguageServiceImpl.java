@@ -1,13 +1,12 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.Language;
+import com.habsida.moragoproject.model.entity.Language;
 import com.habsida.moragoproject.repository.LanguageRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LanguageServiceImpl implements LanguageService{

@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.RatingDTO;
-import com.habsida.moragoproject.entity.Rating;
+import com.habsida.moragoproject.model.dto.CreateRatingInput;
+import com.habsida.moragoproject.model.dto.UpdateRatingInput;
+import com.habsida.moragoproject.model.entity.Rating;
 import com.habsida.moragoproject.service.RatingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class RatingGraphQLController {
     }
 
     @MutationMapping(name = "createRating")
-    public Rating create (@Valid @Argument(name = "rating") RatingDTO ratingDTO) {
-        Rating rating = modelMapper.map(ratingDTO, Rating.class);
+    public Rating create (@Valid @Argument(name = "rating") CreateRatingInput createRatingInput) {
+        Rating rating = modelMapper.map(createRatingInput, Rating.class);
         return ratingService.create(rating);
     }
 
     @MutationMapping(name = "updateRatingById")
     public Rating updateById (@Valid @Argument Long id,
-                              @Argument(name = "rating") RatingDTO ratingDTO) {
+                              @Argument(name = "rating") UpdateRatingInput updateRatingInput) {
         Rating rating = ratingService.getById(id);
-        modelMapper.map(ratingDTO, rating);
+        modelMapper.map(updateRatingInput, rating);
         return ratingService.update(rating);
     }
 

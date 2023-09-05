@@ -1,14 +1,14 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.Role;
-import com.habsida.moragoproject.entity.User;
+import com.habsida.moragoproject.model.entity.Role;
+import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -40,16 +40,35 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User create (User user) {
+        List<Role> managedRoles = new ArrayList<>();
+        for(Role role : user.getRoles()) {
+            if (role.getId() == null ){
+                Role existRole = roleService.getByName(role.getName());
+                if (existRole != null) {
+                    managedRoles.add(existRole);
+                } else {
+                    managedRoles.add(role);
+                }
+            }
+        }
+        user.setRoles(managedRoles);
         return userRepository.save(user);
     }
 
     @Override
     public User update (User user) {
-        for(Role role : user.getRoles()){
-            if (role.getId() == null){
-                role.setId(roleService.getByName(role.getName().toString()).getId());
+        List<Role> managedRoles = new ArrayList<>();
+        for(Role role : user.getRoles()) {
+            if (role.getId() == null ){
+                Role existRole = roleService.getByName(role.getName());
+                if (existRole != null) {
+                    managedRoles.add(existRole);
+                } else {
+                    managedRoles.add(role);
+                }
             }
         }
+        user.setRoles(managedRoles);
         return userRepository.save(user);
     }
 

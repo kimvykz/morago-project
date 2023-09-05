@@ -1,6 +1,6 @@
 package com.habsida.moragoproject.repository;
 
-import com.habsida.moragoproject.entity.FrequentlyAskedQuestion;
+import com.habsida.moragoproject.model.entity.FrequentlyAskedQuestion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

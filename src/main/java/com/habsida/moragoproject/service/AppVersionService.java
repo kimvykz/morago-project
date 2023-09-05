@@ -1,7 +1,6 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.AppVersion;
-import com.habsida.moragoproject.enums.EPlatform;
+import com.habsida.moragoproject.model.entity.AppVersion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

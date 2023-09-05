@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.PasswordResetDTO;
-import com.habsida.moragoproject.entity.PasswordReset;
+import com.habsida.moragoproject.model.dto.CreatePasswordResetInput;
+import com.habsida.moragoproject.model.dto.UpdatePasswordResetInput;
+import com.habsida.moragoproject.model.entity.PasswordReset;
 import com.habsida.moragoproject.service.PasswordResetService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class PasswordResetGraphQLController {
     }
 
     @MutationMapping(name = "createPasswordReset")
-    public PasswordReset create (@Valid @Argument(name = "passwordReset") PasswordResetDTO passwordResetDTO) {
-        PasswordReset passwordReset = modelMapper.map(passwordResetDTO, PasswordReset.class);
+    public PasswordReset create (@Valid @Argument(name = "passwordReset") CreatePasswordResetInput createPasswordResetInput) {
+        PasswordReset passwordReset = modelMapper.map(createPasswordResetInput, PasswordReset.class);
         return passwordResetService.create(passwordReset);
     }
 
     @MutationMapping(name = "updatePasswordResetById")
     public PasswordReset updateById (@Valid @Argument Long id,
-                              @Argument(name = "passwordReset") PasswordResetDTO passwordResetDTO) {
+                              @Argument(name = "passwordReset") UpdatePasswordResetInput updatePasswordResetInput) {
         PasswordReset passwordReset = passwordResetService.getById(id);
-        modelMapper.map(passwordResetDTO, passwordReset);
+        modelMapper.map(updatePasswordResetInput, passwordReset);
         return passwordResetService.update(passwordReset);
     }
 

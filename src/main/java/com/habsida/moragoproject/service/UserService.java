@@ -1,6 +1,6 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.User;
+import com.habsida.moragoproject.model.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

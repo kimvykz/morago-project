@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.FileDTO;
-import com.habsida.moragoproject.entity.File;
+import com.habsida.moragoproject.model.dto.CreateFileInput;
+import com.habsida.moragoproject.model.dto.UpdateFileInput;
+import com.habsida.moragoproject.model.entity.File;
 import com.habsida.moragoproject.service.FileService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class FileGraphQLController {
     }
 
     @MutationMapping(name = "createFile")
-    public File create (@Valid @Argument(name = "file") FileDTO fileDTO) {
-        File file = modelMapper.map(fileDTO, File.class);
+    public File create (@Valid @Argument(name = "file") CreateFileInput createFileInput) {
+        File file = modelMapper.map(createFileInput, File.class);
         return fileService.create(file);
     }
 
     @MutationMapping(name = "updateFileById")
     public File updateById (@Valid @Argument Long id,
-                              @Argument(name = "file") FileDTO fileDTO) {
+                              @Argument(name = "file") UpdateFileInput updateFileInput) {
         File file = fileService.getById(id);
-        modelMapper.map(fileDTO, file);
+        modelMapper.map(updateFileInput, file);
         return fileService.update(file);
     }
 

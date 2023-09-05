@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.FrequentlyAskedQuestionDTO;
-import com.habsida.moragoproject.entity.FrequentlyAskedQuestion;
+import com.habsida.moragoproject.model.dto.CreateFrequentlyAskedQuestionInput;
+import com.habsida.moragoproject.model.dto.UpdateFrequentlyAskedQuestionInput;
+import com.habsida.moragoproject.model.entity.FrequentlyAskedQuestion;
 import com.habsida.moragoproject.service.FrequentlyAskedQuestionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class FrequentlyAskedQuestionGraphQLController {
     }
 
     @MutationMapping(name = "createFrequentlyAskedQuestion")
-    public FrequentlyAskedQuestion create (@Valid @Argument(name = "frequentlyAskedQuestion") FrequentlyAskedQuestionDTO frequentlyAskedQuestionDTO) {
-        FrequentlyAskedQuestion frequentlyAskedQuestion = modelMapper.map(frequentlyAskedQuestionDTO, FrequentlyAskedQuestion.class);
+    public FrequentlyAskedQuestion create (@Valid @Argument(name = "frequentlyAskedQuestion") CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
+        FrequentlyAskedQuestion frequentlyAskedQuestion = modelMapper.map(createFrequentlyAskedQuestionInput, FrequentlyAskedQuestion.class);
         return frequentlyAskedQuestionService.create(frequentlyAskedQuestion);
     }
 
     @MutationMapping(name = "updateFrequentlyAskedQuestionById")
     public FrequentlyAskedQuestion updateById (@Valid @Argument Long id,
-                              @Argument(name = "frequentlyAskedQuestion") FrequentlyAskedQuestionDTO frequentlyAskedQuestionDTO) {
+                              @Argument(name = "frequentlyAskedQuestion") UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput) {
         FrequentlyAskedQuestion frequentlyAskedQuestion = frequentlyAskedQuestionService.getById(id);
-        modelMapper.map(frequentlyAskedQuestionDTO, frequentlyAskedQuestion);
+        modelMapper.map(updateFrequentlyAskedQuestionInput, frequentlyAskedQuestion);
         return frequentlyAskedQuestionService.update(frequentlyAskedQuestion);
     }
 

@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.UserDTO;
-import com.habsida.moragoproject.entity.User;
+import com.habsida.moragoproject.model.dto.CreateUserInput;
+import com.habsida.moragoproject.model.dto.UpdateUserInput;
+import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class UserGraphQLController {
     }
 
     @MutationMapping(name = "createUser")
-    public User create (@Valid @Argument(name = "user") UserDTO userDTO) {
-        User user = modelMapper.map(userDTO, User.class);
+    public User create (@Valid @Argument(name = "user") CreateUserInput createUserInput) {
+        User user = modelMapper.map(createUserInput, User.class);
         return userService.create(user);
     }
 
     @MutationMapping(name = "updateUserById")
     public User updateById (@Valid @Argument Long id,
-                              @Argument(name = "user") UserDTO userDTO) {
+                              @Argument(name = "user") UpdateUserInput updateUserInput) {
         User user = userService.getById(id);
-        modelMapper.map(userDTO, user);
+        modelMapper.map(updateUserInput, user);
         return userService.update(user);
     }
 

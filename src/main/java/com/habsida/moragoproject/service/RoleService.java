@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.Role;
+import com.habsida.moragoproject.model.entity.Role;
+import com.habsida.moragoproject.model.enums.ERole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -13,5 +14,5 @@ public interface RoleService {
     Role create (Role role);
     Role update (Role role);
     Boolean deleteById (Long id);
-    Role getByName (String name);
+    Role getByName (ERole name);
 }

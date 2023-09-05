@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.LanguageDTO;
-import com.habsida.moragoproject.entity.Language;
+import com.habsida.moragoproject.model.dto.CreateLanguageInput;
+import com.habsida.moragoproject.model.dto.UpdateLanguageInput;
+import com.habsida.moragoproject.model.entity.Language;
 import com.habsida.moragoproject.service.LanguageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class LanguageGraphQLController {
     }
 
     @MutationMapping(name = "createLanguage")
-    public Language create (@Valid @Argument(name = "language") LanguageDTO languageDTO) {
-        Language language = modelMapper.map(languageDTO, Language.class);
+    public Language create (@Valid @Argument(name = "language") CreateLanguageInput createLanguageInput) {
+        Language language = modelMapper.map(createLanguageInput, Language.class);
         return languageService.create(language);
     }
 
     @MutationMapping(name = "updateLanguageById")
     public Language updateById (@Valid @Argument Long id,
-                              @Argument(name = "language") LanguageDTO languageDTO) {
+                              @Argument(name = "language") UpdateLanguageInput updateLanguageInput) {
         Language language = languageService.getById(id);
-        modelMapper.map(languageDTO, language);
+        modelMapper.map(updateLanguageInput, language);
         return languageService.update(language);
     }
 

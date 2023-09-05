@@ -1,6 +1,6 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.Notification;
+import com.habsida.moragoproject.model.entity.Notification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

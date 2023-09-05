@@ -1,6 +1,6 @@
 package com.habsida.moragoproject.repository;
 
-import com.habsida.moragoproject.entity.Notification;
+import com.habsida.moragoproject.model.entity.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

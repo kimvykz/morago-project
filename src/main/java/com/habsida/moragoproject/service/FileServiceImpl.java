@@ -1,13 +1,12 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.File;
+import com.habsida.moragoproject.model.entity.File;
 import com.habsida.moragoproject.repository.FileRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FileServiceImpl implements FileService{

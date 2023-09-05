@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.DebtorDTO;
-import com.habsida.moragoproject.entity.Debtor;
+import com.habsida.moragoproject.model.dto.CreateDebtorInput;
+import com.habsida.moragoproject.model.dto.UpdateDebtorInput;
+import com.habsida.moragoproject.model.entity.Debtor;
 import com.habsida.moragoproject.service.DebtorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class DebtorGraphQLController {
     }
 
     @MutationMapping(name = "createDebtor")
-    public Debtor create (@Valid @Argument(name = "debtor") DebtorDTO debtorDTO) {
-        Debtor debtor = modelMapper.map(debtorDTO, Debtor.class);
+    public Debtor create (@Valid @Argument(name = "debtor") CreateDebtorInput createDebtorInput) {
+        Debtor debtor = modelMapper.map(createDebtorInput, Debtor.class);
         return debtorService.create(debtor);
     }
 
     @MutationMapping(name = "updateDebtorById")
     public Debtor updateById (@Valid @Argument Long id,
-                              @Argument(name = "debtor") DebtorDTO debtorDTO) {
+                              @Argument(name = "debtor") UpdateDebtorInput updateDebtorInput) {
         Debtor debtor = debtorService.getById(id);
-        modelMapper.map(debtorDTO, debtor);
+        modelMapper.map(updateDebtorInput, debtor);
         return debtorService.update(debtor);
     }
 

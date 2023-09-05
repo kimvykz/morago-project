@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.DepositDTO;
-import com.habsida.moragoproject.entity.Deposit;
+import com.habsida.moragoproject.model.dto.CreateDepositInput;
+import com.habsida.moragoproject.model.dto.UpdateDepositInput;
+import com.habsida.moragoproject.model.entity.Deposit;
 import com.habsida.moragoproject.service.DepositService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class DepositGraphQLController {
     }
 
     @MutationMapping(name = "createDeposit")
-    public Deposit create (@Valid @Argument(name = "deposit") DepositDTO depositDTO) {
-        Deposit deposit = modelMapper.map(depositDTO, Deposit.class);
+    public Deposit create (@Valid @Argument(name = "deposit") CreateDepositInput createDepositInput) {
+        Deposit deposit = modelMapper.map(createDepositInput, Deposit.class);
         return depositService.create(deposit);
     }
 
     @MutationMapping(name = "updateDepositById")
     public Deposit updateById (@Valid @Argument Long id,
-                              @Argument(name = "deposit") DepositDTO depositDTO) {
+                              @Argument(name = "deposit") UpdateDepositInput updateDepositInput) {
         Deposit deposit = depositService.getById(id);
-        modelMapper.map(depositDTO, deposit);
+        modelMapper.map(updateDepositInput, deposit);
         return depositService.update(deposit);
     }
 

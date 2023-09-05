@@ -1,6 +1,6 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.FrequentlyAskedQuestion;
+import com.habsida.moragoproject.model.entity.FrequentlyAskedQuestion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.TranslatorProfileDTO;
-import com.habsida.moragoproject.entity.TranslatorProfile;
+import com.habsida.moragoproject.model.dto.CreateTranslatorProfileInput;
+import com.habsida.moragoproject.model.dto.UpdateTranslatorProfileInput;
+import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import com.habsida.moragoproject.service.TranslatorProfileService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class TranslatorProfileGraphQLController {
     }
 
     @MutationMapping(name = "createTranslatorProfile")
-    public TranslatorProfile create (@Valid @Argument(name = "translatorProfile") TranslatorProfileDTO translatorProfileDTO) {
-        TranslatorProfile translatorProfile = modelMapper.map(translatorProfileDTO, TranslatorProfile.class);
+    public TranslatorProfile create (@Valid @Argument(name = "translatorProfile") CreateTranslatorProfileInput createTranslatorProfileInput) {
+        TranslatorProfile translatorProfile = modelMapper.map(createTranslatorProfileInput, TranslatorProfile.class);
         return translatorProfileService.create(translatorProfile);
     }
 
     @MutationMapping(name = "updateTranslatorProfileById")
     public TranslatorProfile updateById (@Valid @Argument Long id,
-                              @Argument(name = "translatorProfile") TranslatorProfileDTO translatorProfileDTO) {
+                              @Argument(name = "translatorProfile") UpdateTranslatorProfileInput updateTranslatorProfileInput) {
         TranslatorProfile translatorProfile = translatorProfileService.getById(id);
-        modelMapper.map(translatorProfileDTO, translatorProfile);
+        modelMapper.map(updateTranslatorProfileInput, translatorProfile);
         return translatorProfileService.update(translatorProfile);
     }
 

@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.CategoryDTO;
-import com.habsida.moragoproject.entity.Category;
+import com.habsida.moragoproject.model.dto.CreateCategoryInput;
+import com.habsida.moragoproject.model.dto.UpdateCategoryInput;
+import com.habsida.moragoproject.model.entity.Category;
 import com.habsida.moragoproject.service.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class CategoryGraphQLController {
     }
 
     @MutationMapping(name = "createCategory")
-    public Category create (@Valid @Argument(name = "category") CategoryDTO categoryDTO) {
-        Category category = modelMapper.map(categoryDTO, Category.class);
+    public Category create (@Valid @Argument(name = "category") CreateCategoryInput createCategoryInput) {
+        Category category = modelMapper.map(createCategoryInput, Category.class);
         return categoryService.create(category);
     }
 
     @MutationMapping(name = "updateCategoryById")
     public Category updateById (@Valid @Argument Long id,
-                              @Argument(name = "category") CategoryDTO categoryDTO) {
+                              @Argument(name = "category") UpdateCategoryInput updateCategoryInput) {
         Category category = categoryService.getById(id);
-        modelMapper.map(categoryDTO, category);
+        modelMapper.map(updateCategoryInput, category);
         return categoryService.update(category);
     }
 

@@ -1,7 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.dto.WithdrawalDTO;
-import com.habsida.moragoproject.entity.Withdrawal;
+import com.habsida.moragoproject.model.dto.CreateWithdrawalInput;
+import com.habsida.moragoproject.model.dto.UpdateWithdrawalInput;
+import com.habsida.moragoproject.model.entity.Withdrawal;
 import com.habsida.moragoproject.service.WithdrawalService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -42,16 +43,16 @@ public class WithdrawalGraphQLController {
     }
 
     @MutationMapping(name = "createWithdrawal")
-    public Withdrawal create (@Valid @Argument(name = "withdrawal") WithdrawalDTO withdrawalDTO) {
-        Withdrawal withdrawal = modelMapper.map(withdrawalDTO, Withdrawal.class);
+    public Withdrawal create (@Valid @Argument(name = "withdrawal") CreateWithdrawalInput createWithdrawalInput) {
+        Withdrawal withdrawal = modelMapper.map(createWithdrawalInput, Withdrawal.class);
         return withdrawalService.create(withdrawal);
     }
 
     @MutationMapping(name = "updateWithdrawalById")
     public Withdrawal updateById (@Valid @Argument Long id,
-                              @Argument(name = "withdrawal") WithdrawalDTO withdrawalDTO) {
+                              @Argument(name = "withdrawal") UpdateWithdrawalInput updateWithdrawalInput) {
         Withdrawal withdrawal = withdrawalService.getById(id);
-        modelMapper.map(withdrawalDTO, withdrawal);
+        modelMapper.map(updateWithdrawalInput, withdrawal);
         return withdrawalService.update(withdrawal);
     }
 

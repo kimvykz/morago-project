@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.entity.Role;
-import com.habsida.moragoproject.enums.ERole;
+import com.habsida.moragoproject.model.entity.Role;
+import com.habsida.moragoproject.model.enums.ERole;
 import com.habsida.moragoproject.repository.RoleRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,11 +52,11 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public Role getByName (String name) {
+    public Role getByName (ERole name) {
         Optional<Role> role = roleRepository.findByName(name);
         if (role.isPresent()){
             return role.get();
         }
-        return new Role();
+        return null;
     }
 }
