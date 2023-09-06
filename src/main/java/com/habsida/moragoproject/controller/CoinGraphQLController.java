@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateCoinInput;
-import com.habsida.moragoproject.model.dto.UpdateCoinInput;
+import com.habsida.moragoproject.model.input.CreateCoinInput;
+import com.habsida.moragoproject.model.input.UpdateCoinInput;
 import com.habsida.moragoproject.model.entity.Coin;
 import com.habsida.moragoproject.service.CoinService;
 import org.modelmapper.ModelMapper;

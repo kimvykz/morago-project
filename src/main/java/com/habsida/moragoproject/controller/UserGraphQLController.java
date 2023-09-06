@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateUserInput;
-import com.habsida.moragoproject.model.dto.UpdateUserInput;
+import com.habsida.moragoproject.model.input.CreateUserInput;
+import com.habsida.moragoproject.model.input.UpdateUserInput;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
@@ -27,6 +29,7 @@ public class UserGraphQLController {
     }
 
     @QueryMapping(name = "getUsers")
+    @Secured("ADMIN")
     public Iterable<User> getAll (){
         return userService.getAll();
     }

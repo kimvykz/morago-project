@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateUserProfileInput;
-import com.habsida.moragoproject.model.dto.UpdateUserProfileInput;
+import com.habsida.moragoproject.model.input.CreateUserProfileInput;
+import com.habsida.moragoproject.model.input.UpdateUserProfileInput;
 import com.habsida.moragoproject.model.entity.UserProfile;
 import com.habsida.moragoproject.service.UserProfileService;
 import org.modelmapper.ModelMapper;

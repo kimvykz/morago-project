@@ -1,0 +1,14 @@
+input NewUserInput {
+    phone: String
+    password: String
+    firstName: String
+    lastName: String
+    roles: [RoleInput]
+}
+type NewUser {
+    phone: String
+    password: String
+    firstName: String
+    lastName: String
+    roles: [Role]
+}

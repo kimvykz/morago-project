@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateNotificationInput;
-import com.habsida.moragoproject.model.dto.UpdateNotificationInput;
+import com.habsida.moragoproject.model.input.CreateNotificationInput;
+import com.habsida.moragoproject.model.input.UpdateNotificationInput;
 import com.habsida.moragoproject.model.entity.Notification;
 import com.habsida.moragoproject.service.NotificationService;
 import org.modelmapper.ModelMapper;

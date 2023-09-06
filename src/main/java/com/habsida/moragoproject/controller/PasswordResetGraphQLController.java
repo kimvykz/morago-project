@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreatePasswordResetInput;
-import com.habsida.moragoproject.model.dto.UpdatePasswordResetInput;
+import com.habsida.moragoproject.model.input.CreatePasswordResetInput;
+import com.habsida.moragoproject.model.input.UpdatePasswordResetInput;
 import com.habsida.moragoproject.model.entity.PasswordReset;
 import com.habsida.moragoproject.service.PasswordResetService;
 import org.modelmapper.ModelMapper;

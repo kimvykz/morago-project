@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateFrequentlyAskedQuestionInput;
-import com.habsida.moragoproject.model.dto.UpdateFrequentlyAskedQuestionInput;
+import com.habsida.moragoproject.model.input.CreateFrequentlyAskedQuestionInput;
+import com.habsida.moragoproject.model.input.UpdateFrequentlyAskedQuestionInput;
 import com.habsida.moragoproject.model.entity.FrequentlyAskedQuestion;
 import com.habsida.moragoproject.service.FrequentlyAskedQuestionService;
 import org.modelmapper.ModelMapper;

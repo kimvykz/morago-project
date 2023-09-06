@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateWithdrawalInput;
-import com.habsida.moragoproject.model.dto.UpdateWithdrawalInput;
+import com.habsida.moragoproject.model.input.CreateWithdrawalInput;
+import com.habsida.moragoproject.model.input.UpdateWithdrawalInput;
 import com.habsida.moragoproject.model.entity.Withdrawal;
 import com.habsida.moragoproject.service.WithdrawalService;
 import org.modelmapper.ModelMapper;

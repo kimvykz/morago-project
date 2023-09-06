@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateRoleInput;
-import com.habsida.moragoproject.model.dto.UpdateRoleInput;
+import com.habsida.moragoproject.model.input.CreateRoleInput;
+import com.habsida.moragoproject.model.input.UpdateRoleInput;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.service.RoleService;
 import org.modelmapper.ModelMapper;

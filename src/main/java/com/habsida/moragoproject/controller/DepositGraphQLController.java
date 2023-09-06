@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateDepositInput;
-import com.habsida.moragoproject.model.dto.UpdateDepositInput;
+import com.habsida.moragoproject.model.input.CreateDepositInput;
+import com.habsida.moragoproject.model.input.UpdateDepositInput;
 import com.habsida.moragoproject.model.entity.Deposit;
 import com.habsida.moragoproject.service.DepositService;
 import org.modelmapper.ModelMapper;

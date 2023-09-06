@@ -26,6 +26,7 @@ public class User extends AuditableEntity {
     private String lastName;
     private Integer onBoardingStatus;
     private String password;
+    @Column(unique = true)
     private String phone;
     private Double ratings;
     private Integer totalRatings;

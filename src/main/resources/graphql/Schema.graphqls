@@ -1,4 +1,4 @@
-scalar DateTime
+#scalar DateTime
 
 type Query {
     getAppVersions: [AppVersion]
@@ -140,9 +140,13 @@ type Mutation {
     updateUserById(id: ID!, user: UserInput) : User
     deleteUserById(id: ID!) : Boolean
 
+    registerNewUser(newUser : NewUserInput) : NewUser
+
     createUserProfile(userProfile : UserProfileInput) : UserProfile
     updateUserProfileById(id: ID!, userProfile: UserProfileInput) : UserProfile
     deleteUserProfileById(id: ID!) : Boolean
+
+
 
     createUserWithdrawal(withdrawal : WithdrawalInput) : Withdrawal
     updateUserWithdrawalById(id: ID!, withdrawal: WithdrawalInput) : Withdrawal

@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateLanguageInput;
-import com.habsida.moragoproject.model.dto.UpdateLanguageInput;
+import com.habsida.moragoproject.model.input.CreateLanguageInput;
+import com.habsida.moragoproject.model.input.UpdateLanguageInput;
 import com.habsida.moragoproject.model.entity.Language;
 import com.habsida.moragoproject.service.LanguageService;
 import org.modelmapper.ModelMapper;

@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateCategoryInput;
-import com.habsida.moragoproject.model.dto.UpdateCategoryInput;
+import com.habsida.moragoproject.model.input.CreateCategoryInput;
+import com.habsida.moragoproject.model.input.UpdateCategoryInput;
 import com.habsida.moragoproject.model.entity.Category;
 import com.habsida.moragoproject.service.CategoryService;
 import org.modelmapper.ModelMapper;

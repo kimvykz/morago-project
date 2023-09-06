@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateCallInput;
-import com.habsida.moragoproject.model.dto.UpdateCallInput;
+import com.habsida.moragoproject.model.input.CreateCallInput;
+import com.habsida.moragoproject.model.input.UpdateCallInput;
 import com.habsida.moragoproject.model.entity.Call;
 import com.habsida.moragoproject.service.CallService;
 import org.modelmapper.ModelMapper;

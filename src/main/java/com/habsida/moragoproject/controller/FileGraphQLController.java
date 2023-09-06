@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateFileInput;
-import com.habsida.moragoproject.model.dto.UpdateFileInput;
+import com.habsida.moragoproject.model.input.CreateFileInput;
+import com.habsida.moragoproject.model.input.UpdateFileInput;
 import com.habsida.moragoproject.model.entity.File;
 import com.habsida.moragoproject.service.FileService;
 import org.modelmapper.ModelMapper;

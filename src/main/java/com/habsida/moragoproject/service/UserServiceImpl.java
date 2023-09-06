@@ -3,8 +3,10 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.repository.UserRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -76,5 +78,15 @@ public class UserServiceImpl implements UserService{
     public Boolean deleteById (Long id) {
         userRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    public User getByPhone(String phone) {
+        return userRepository.findByPhone(phone).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    @Override
+    public Boolean isExistsByPhone(String phone) {
+        return userRepository.existsByPhone(phone);
     }
 }

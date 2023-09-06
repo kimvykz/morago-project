@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateRatingInput;
-import com.habsida.moragoproject.model.dto.UpdateRatingInput;
+import com.habsida.moragoproject.model.input.CreateRatingInput;
+import com.habsida.moragoproject.model.input.UpdateRatingInput;
 import com.habsida.moragoproject.model.entity.Rating;
 import com.habsida.moragoproject.service.RatingService;
 import org.modelmapper.ModelMapper;

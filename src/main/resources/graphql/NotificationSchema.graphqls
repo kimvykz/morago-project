@@ -1,15 +1,15 @@
 input NotificationInput {
     platform: EPlatform!
-    date: DateTime
+    date: String #DateTime
     text: String
-    time: DateTime
+    time: String #DateTime
     title: String
 }
 type Notification {
     id: ID!
-    date: DateTime
+    date: String #DateTime
     text: String
-    time: DateTime
+    time: String #DateTime
     title: String
 }
 

@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateDebtorInput;
-import com.habsida.moragoproject.model.dto.UpdateDebtorInput;
+import com.habsida.moragoproject.model.input.CreateDebtorInput;
+import com.habsida.moragoproject.model.input.UpdateDebtorInput;
 import com.habsida.moragoproject.model.entity.Debtor;
 import com.habsida.moragoproject.service.DebtorService;
 import org.modelmapper.ModelMapper;

@@ -13,4 +13,6 @@ public interface UserService {
     User create (User user);
     User update (User user);
     Boolean deleteById (Long id);
+    User getByPhone(String phone);
+    Boolean isExistsByPhone(String phone);
 }

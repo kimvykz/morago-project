@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateThemeInput;
-import com.habsida.moragoproject.model.dto.UpdateThemeInput;
+import com.habsida.moragoproject.model.input.CreateThemeInput;
+import com.habsida.moragoproject.model.input.UpdateThemeInput;
 import com.habsida.moragoproject.model.entity.Theme;
 import com.habsida.moragoproject.service.ThemeService;
 import org.modelmapper.ModelMapper;

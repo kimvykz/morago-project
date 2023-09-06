@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateTranslatorProfileInput;
-import com.habsida.moragoproject.model.dto.UpdateTranslatorProfileInput;
+import com.habsida.moragoproject.model.input.CreateTranslatorProfileInput;
+import com.habsida.moragoproject.model.input.UpdateTranslatorProfileInput;
 import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import com.habsida.moragoproject.service.TranslatorProfileService;
 import org.modelmapper.ModelMapper;

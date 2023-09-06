@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.dto.CreateAppVersionInput;
-import com.habsida.moragoproject.model.dto.UpdateAppVersionInput;
+import com.habsida.moragoproject.model.input.CreateAppVersionInput;
+import com.habsida.moragoproject.model.input.UpdateAppVersionInput;
 import com.habsida.moragoproject.model.entity.AppVersion;
 import com.habsida.moragoproject.service.AppVersionService;
 import org.modelmapper.ModelMapper;
