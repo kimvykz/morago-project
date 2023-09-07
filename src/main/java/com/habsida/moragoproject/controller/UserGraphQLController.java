@@ -29,7 +29,6 @@ public class UserGraphQLController {
     }
 
     @QueryMapping(name = "getUsers")
-    @Secured("ADMIN")
     public Iterable<User> getAll (){
         return userService.getAll();
     }
