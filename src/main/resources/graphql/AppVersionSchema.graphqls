@@ -1,5 +1,11 @@
-input AppVersionInput {
+input AppVersionCreateInput {
     platform: EPlatform!
+    latest: String
+    min: String
+}
+input AppVersionUpdateInput {
+    id: ID!
+    platform: EPlatform
     latest: String
     min: String
 }

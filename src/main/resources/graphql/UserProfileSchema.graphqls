@@ -1,5 +1,9 @@
-input UserProfileInput {
+input UserProfileCreateInput {
      isFreeCallMade: Boolean
+}
+input UserProfileUpdateInput {
+    id: ID!
+    isFreeCallMade: Boolean
 }
 type UserProfile {
     id: ID!

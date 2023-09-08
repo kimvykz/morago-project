@@ -1,4 +1,4 @@
-input ThemeInput {
+input ThemeCreateInput {
       description: String
       isActive: Boolean
       isPopular: Boolean
@@ -6,6 +6,16 @@ input ThemeInput {
       name: String
       nightPrice: Float
       price: Float
+}
+input ThemeUpdateInput {
+    id: ID!
+    description: String
+    isActive: Boolean
+    isPopular: Boolean
+    koreanTitle: String
+    name: String
+    nightPrice: Float
+    price: Float
 }
 type Theme {
     id: ID!

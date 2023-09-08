@@ -48,10 +48,9 @@ public class AppVersionGraphQLController {
         return appVersionService.create(appVersion);
     }
 
-    @MutationMapping(name = "updateAppVersionById")
-    public AppVersion updateById (@Valid @Argument Long id,
-                              @Argument(name = "appVersion") UpdateAppVersionInput updateAppVersionInput) {
-        AppVersion appVersion = appVersionService.getById(id);
+    @MutationMapping(name = "updateAppVersion")
+    public AppVersion update (@Valid @Argument(name = "appVersion") UpdateAppVersionInput updateAppVersionInput) {
+        AppVersion appVersion = appVersionService.getById(updateAppVersionInput.getId());
         modelMapper.map(updateAppVersionInput, appVersion);
         return appVersionService.update(appVersion);
     }

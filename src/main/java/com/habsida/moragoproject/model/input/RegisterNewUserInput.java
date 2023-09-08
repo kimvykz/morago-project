@@ -10,7 +10,7 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
-public class CreateRegisterNewUserInput {
+public class RegisterNewUserInput {
     private String phone;
     private String password;
     private String firstName;

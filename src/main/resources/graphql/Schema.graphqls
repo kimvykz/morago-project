@@ -76,79 +76,79 @@ type Query {
 }
 
 type Mutation {
-    createAppVersion(appVersion : AppVersionInput) : AppVersion
-    updateAppVersionById(id: ID!, appVersion: AppVersionInput) : AppVersion
+    createAppVersion(appVersion : AppVersionCreateInput) : AppVersion
+    updateAppVersion(appVersion: AppVersionUpdateInput) : AppVersion
     deleteAppVersionById(id: ID!) : Boolean
 
-    createCall(call : CallInput) : Call
-    updateCallById(id: ID!, call: CallInput) : Call
+    createCall(call : CallCreateInput) : Call
+    updateCall(call: CallUpdateInput) : Call
     deleteCallById(id: ID!) : Boolean
 
     createCategory(category : CategoryInput) : Category
-    updateCategoryById(id: ID!, category: CategoryInput) : Category
+    updateCategory(category: CategoryInput) : Category
     deleteCategoryById(id: ID!) : Boolean
 
     createCoin(coin : CoinInput) : Coin
-    updateCoinById(id: ID!, coin: CoinInput) : Coin
+    updateCoin(coin: CoinInput) : Coin
     deleteCoinById(id: ID!) : Boolean
 
     createDebtor(debtor : DebtorInput) : Debtor
-    updateDebtorById(id: ID!, debtor: DebtorInput) : Debtor
+    updateDebtor(debtor: DebtorInput) : Debtor
     deleteDebtorById(id: ID!) : Boolean
 
     createDeposit(deposit : DepositInput) : Deposit
-    updateDepositById(id: ID!, deposit: DepositInput) : Deposit
+    updateDeposit(deposit: DepositInput) : Deposit
     deleteDepositById(id: ID!) : Boolean
 
-    createFile(file : FileInput) : File
-    updateFileById(id: ID!, file: FileInput) : File
+    createFile(file : FileCreateInput) : File
+    updateFile(file: FileUpdateInput) : File
     deleteFileById(id: ID!) : Boolean
 
     createFrequentlyAskedQuestion(frequentlyAskedQuestion : FrequentlyAskedQuestionInput) : FrequentlyAskedQuestion
-    updateFrequentlyAskedQuestionById(id: ID!, frequentlyAskedQuestion: FrequentlyAskedQuestionInput) : FrequentlyAskedQuestion
+    updateFrequentlyAskedQuestion(frequentlyAskedQuestion: FrequentlyAskedQuestionInput) : FrequentlyAskedQuestion
     deleteFrequentlyAskedQuestionById(id: ID!) : Boolean
 
     createLanguage(language : LanguageInput) : Language
-    updateLanguageById(id: ID!, language: LanguageInput) : Language
+    updateLanguage(language: LanguageInput) : Language
     deleteLanguageById(id: ID!) : Boolean
 
     createNotification(notification : NotificationInput) : Notification
-    updateNotificationById(id: ID!, notification: NotificationInput) : Notification
+    updateNotification(notification: NotificationInput) : Notification
     deleteNotificationById(id: ID!) : Boolean
 
     createPasswordReset(passwordReset : PasswordResetInput) : PasswordReset
-    updatePasswordResetById(id: ID!, passwordReset: PasswordResetInput) : PasswordReset
+    updatePasswordReset(passwordReset: PasswordResetInput) : PasswordReset
     deletePasswordResetById(id: ID!) : Boolean
 
     createRating(rating : RatingInput) : Rating
-    updateRatingById(id: ID!, rating: RatingInput) : Rating
+    updateRating(rating: RatingInput) : Rating
     deleteRatingById(id: ID!) : Boolean
 
     createRole(role : RoleInput) : Role
-    updateRoleById(id: ID!, role: RoleInput) : Role
+    updateRole(role: RoleInput) : Role
     deleteRoleById(id: ID!) : Boolean
 
-    createTheme(theme : ThemeInput) : Theme
-    updateThemeById(id: ID!, theme: ThemeInput) : Theme
+    createTheme(theme : ThemeCreateInput) : Theme
+    updateTheme(theme: ThemeUpdateInput) : Theme
     deleteThemeById(id: ID!) : Boolean
 
-    createTranslatorProfile(translatorProfile : TranslatorProfileInput) : TranslatorProfile
-    updateTranslatorProfileById(id: ID!, translatorProfile: TranslatorProfileInput) : TranslatorProfile
+    createTranslatorProfile(translatorProfile : TranslatorProfileCreateInput) : TranslatorProfile
+    updateTranslatorProfile( translatorProfile: TranslatorProfileUpdateInput) : TranslatorProfile
     deleteTranslatorProfileById(id: ID!) : Boolean
 
-    createUser(user : UserInput) : User
-    updateUserById(id: ID!, user: UserInput) : User
+    createUser(user : UserCreateInput) : User
+    updateUser(user: UserUpdateInput) : User
     deleteUserById(id: ID!) : Boolean
 
     registerNewUser(newUser : NewUserInput) : NewUser
 
-    createUserProfile(userProfile : UserProfileInput) : UserProfile
-    updateUserProfileById(id: ID!, userProfile: UserProfileInput) : UserProfile
+    createUserProfile(userProfile : UserProfileCreateInput) : UserProfile
+    updateUserProfile(userProfile: UserProfileUpdateInput) : UserProfile
     deleteUserProfileById(id: ID!) : Boolean
 
 
 
     createUserWithdrawal(withdrawal : WithdrawalInput) : Withdrawal
-    updateUserWithdrawalById(id: ID!, withdrawal: WithdrawalInput) : Withdrawal
+    updateUserWithdrawal(withdrawal: WithdrawalInput) : Withdrawal
     deleteUserWithdrawalById(id: ID!) : Boolean
 }

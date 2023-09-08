@@ -48,10 +48,9 @@ public class CallGraphQLController {
         return callService.create(call);
     }
 
-    @MutationMapping(name = "updateCallById")
-    public Call updateById (@Valid @Argument Long id,
-                            @Argument(name = "call") UpdateCallInput updateCallInput) {
-        Call call = callService.getById(id);
+    @MutationMapping(name = "updateCall")
+    public Call updateById (@Valid @Argument(name = "call") UpdateCallInput updateCallInput) {
+        Call call = callService.getById(updateCallInput.getId());
         modelMapper.map(updateCallInput, call);
         return callService.update(call);
     }

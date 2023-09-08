@@ -9,6 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdateAppVersionInput {
+    private Long id;
     private EPlatform platform;
     private String latest;
     private String min;

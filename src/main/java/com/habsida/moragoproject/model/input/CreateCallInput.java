@@ -1,5 +1,8 @@
 package com.habsida.moragoproject.model.input;
 
+import com.habsida.moragoproject.model.entity.File;
+import com.habsida.moragoproject.model.entity.Theme;
+import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.enums.ECallStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class CreateCallInput {
-    private ECallStatus ECallStatus;
+    private ECallStatus callStatus;
     private String channelName;
     private Double commission;
     private Integer duration;
@@ -18,8 +21,8 @@ public class CreateCallInput {
     private Double sum;
     private Boolean translatorHasRated;
     private Boolean userHasRated;
-    //private File file;
-    //private Theme theme;
-    //private User caller;
-    //private User recipient;
+    private File file;
+    private Theme theme;
+    private User caller;
+    private User recipient;
 }

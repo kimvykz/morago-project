@@ -1,6 +1,8 @@
 package com.habsida.moragoproject.model.input;
 
 import com.habsida.moragoproject.model.entity.Role;
+import com.habsida.moragoproject.model.entity.TranslatorProfile;
+import com.habsida.moragoproject.model.entity.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +13,7 @@ import java.util.List;
 @Setter
 @ToString
 public class UpdateUserInput {
+    private Long id;
     private String apnToken;
     private Float balance;
     private String fcmToken;
@@ -26,7 +29,7 @@ public class UpdateUserInput {
 
     private List<Role> roles;
 
-    //private UserProfile userProfile;
+    private UserProfile userProfile;
 
-    //private TranslatorProfile translatorProfile;
+    private TranslatorProfile translatorProfile;
 }

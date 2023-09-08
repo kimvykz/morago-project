@@ -1,6 +1,8 @@
 package com.habsida.moragoproject.model.input;
 
 import com.habsida.moragoproject.model.entity.Role;
+import com.habsida.moragoproject.model.entity.TranslatorProfile;
+import com.habsida.moragoproject.model.entity.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,7 +28,7 @@ public class CreateUserInput {
 
     private List<Role> roles;
 
-    //private UserProfile userProfile;
+    private UserProfile userProfile;
 
-    //private TranslatorProfile translatorProfile;
+    private TranslatorProfile translatorProfile;
 }

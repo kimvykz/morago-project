@@ -19,11 +19,20 @@ import java.io.IOException;
 @NoArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
+
     private JwtGenerator tokenGenerator;
-    @Autowired
+
     private CustomUserDetailsService customUserDetailsService;
 
+    @Autowired
+    public void setTokenGenerator(JwtGenerator tokenGenerator) {
+        this.tokenGenerator = tokenGenerator;
+    }
+
+    @Autowired
+    public void setCustomUserDetailsService(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     @Override
     protected void doFilterInternal (HttpServletRequest request,

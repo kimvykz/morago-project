@@ -1,4 +1,10 @@
-input FileInput {
+input FileCreateInput {
+    originalTitle: String
+    path: String
+    type: String
+}
+input FileUpdateInput {
+    id: ID!
     originalTitle: String
     path: String
     type: String

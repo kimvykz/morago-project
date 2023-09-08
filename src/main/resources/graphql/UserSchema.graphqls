@@ -1,19 +1,40 @@
-input UserInput {
-      apnToken: String
-      balance: Float
-      fcmToken: String
-      firstName: String
-      isActive: Boolean
-      isDebtor: Boolean
-      lastName: String
-      onBoardingStatus: Int
-      password: String
-      phone: String
-      ratings: Float
-      totalRatings: Int
-      roles: [RoleInput]
+input UserCreateInput {
+    apnToken: String
+    balance: Float
+    fcmToken: String
+    firstName: String
+    isActive: Boolean
+    isDebtor: Boolean
+    lastName: String
+    onBoardingStatus: Int
+    password: String
+    phone: String
+    ratings: Float
+    totalRatings: Int
+    roles: [RoleInput]
+    userProfile: UserProfileCreateInput
+    translatorProfile: TranslatorProfileCreateInput
+}
+input UserUpdateInput {
+    id: ID!
+    apnToken: String
+    balance: Float
+    fcmToken: String
+    firstName: String
+    isActive: Boolean
+    isDebtor: Boolean
+    lastName: String
+    onBoardingStatus: Int
+    password: String
+    phone: String
+    ratings: Float
+    totalRatings: Int
+    roles: [RoleInput]
+    userProfile: UserProfileUpdateInput
+    translatorProfile: TranslatorProfileUpdateInput
 }
 type User {
+    id: ID
     apnToken: String
     balance: Float
     fcmToken: String
@@ -27,4 +48,6 @@ type User {
     ratings: Float
     totalRatings: Int
     roles: [Role]
+    userProfile: UserProfile
+    translatorProfile: TranslatorProfile
 }

@@ -17,7 +17,7 @@ public class Call extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private ECallStatus ECallStatus;
+    private ECallStatus callStatus;
     private String channelName;
     private Double commission;
     private Integer duration;

@@ -13,22 +13,22 @@ public class AppVersionServiceImpl implements AppVersionService{
 
     private AppVersionRepository appVersionRepository;
 
-    public AppVersionServiceImpl(AppVersionRepository appVersionRepository) {
+    public AppVersionServiceImpl (AppVersionRepository appVersionRepository) {
         this.appVersionRepository = appVersionRepository;
     }
 
     @Override
-    public List<AppVersion> getAll() {
+    public List<AppVersion> getAll () {
         return appVersionRepository.findAll();
     }
 
     @Override
-    public Page<AppVersion> getAllPaged(PageRequest pageRequest) {
+    public Page<AppVersion> getAllPaged (PageRequest pageRequest) {
         return appVersionRepository.findAll(pageRequest);
     }
 
     @Override
-    public AppVersion getById(Long id) {
+    public AppVersion getById (Long id) {
         return appVersionRepository.findById(id)
                 .orElseThrow(() -> {
                     throw new IllegalArgumentException("AppVersion is not found for the id - " + id);
@@ -36,17 +36,35 @@ public class AppVersionServiceImpl implements AppVersionService{
     }
 
     @Override
-    public AppVersion create(AppVersion appVersion) {
+    public AppVersion create (AppVersion appVersion) {
+        if (appVersion.getPlatform() == null) {
+            throw new IllegalArgumentException("field platform cannot be empty");
+        }
+        if (appVersion.getLatest() == null || appVersion.getLatest().trim().isEmpty()) {
+            throw new IllegalArgumentException("field latest cannot be empty");
+        }
+        if (appVersion.getMin() == null || appVersion.getLatest().trim().isEmpty()) {
+            throw new IllegalArgumentException("field min cannot be empty");
+        }
         return appVersionRepository.save(appVersion);
     }
 
     @Override
-    public AppVersion update(AppVersion appVersion) {
+    public AppVersion update (AppVersion appVersion) {
+        if (appVersion.getPlatform() == null) {
+            throw new IllegalArgumentException("field platform cannot be empty");
+        }
+        if (appVersion.getLatest() == null || appVersion.getLatest().trim().isEmpty()) {
+            throw new IllegalArgumentException("field latest cannot be empty");
+        }
+        if (appVersion.getMin() == null || appVersion.getLatest().trim().isEmpty()) {
+            throw new IllegalArgumentException("field min cannot be empty");
+        }
         return appVersionRepository.save(appVersion);
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById (Long id) {
         appVersionRepository.deleteById(id);
         return true;
     }

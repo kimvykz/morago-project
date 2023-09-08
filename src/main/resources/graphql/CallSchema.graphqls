@@ -1,4 +1,4 @@
-input CallInput {
+input CallCreateInput {
     callStatus: ECallStatus
     channelName: String
     commission: Float
@@ -8,6 +8,26 @@ input CallInput {
     sum: Float
     translatorHasRated: Boolean
     userHasRated: Boolean
+    file: FileUpdateInput
+    theme: ThemeUpdateInput
+    caller: UserUpdateInput
+    recipient: UserUpdateInput
+}
+input CallUpdateInput {
+    id: ID!
+    callStatus: ECallStatus
+    channelName: String
+    commission: Float
+    duration: Int
+    isEndCall: Boolean
+    status: Boolean
+    sum: Float
+    translatorHasRated: Boolean
+    userHasRated: Boolean
+    file: FileUpdateInput
+    theme: ThemeUpdateInput
+    caller: UserUpdateInput
+    recipient: UserUpdateInput
 }
 type Call {
     id: ID!

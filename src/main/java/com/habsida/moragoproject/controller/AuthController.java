@@ -3,7 +3,7 @@ package com.habsida.moragoproject.controller;
 import com.habsida.moragoproject.model.auth.AuthResponse;
 import com.habsida.moragoproject.model.auth.LoginPassInput;
 import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.input.CreateRegisterNewUserInput;
+import com.habsida.moragoproject.model.input.RegisterNewUserInput;
 import com.habsida.moragoproject.security.JwtGenerator;
 import com.habsida.moragoproject.service.RoleService;
 import com.habsida.moragoproject.service.UserService;
@@ -19,8 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.management.openmbean.KeyAlreadyExistsException;
 
 @Controller
 public class AuthController {
@@ -57,16 +55,13 @@ public class AuthController {
         return new ResponseEntity<>(new AuthResponse(token), HttpStatus.OK);
     }
 
-    @PostMapping( path = "register")
+    @PostMapping(path = "registration")
     @ResponseBody
-    public User registerNewUser (@RequestBody CreateRegisterNewUserInput createRegisterNewUserInput) {
-        if (userService.isExistsByPhone(createRegisterNewUserInput.getPhone())) {
-            throw new KeyAlreadyExistsException("User is already existed with phone - "
-                    + createRegisterNewUserInput.getPhone());
-        }
-        User user = modelMapper.map(createRegisterNewUserInput, User.class);
+    public User registerNewUser (@RequestBody RegisterNewUserInput registerNewUserInput) {
+
+        User user = modelMapper.map(registerNewUserInput, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.create(user);
+        return userService.register(user);
 
     }
 }

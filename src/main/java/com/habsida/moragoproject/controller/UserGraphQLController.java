@@ -50,10 +50,9 @@ public class UserGraphQLController {
         return userService.create(user);
     }
 
-    @MutationMapping(name = "updateUserById")
-    public User updateById (@Valid @Argument Long id,
-                              @Argument(name = "user") UpdateUserInput updateUserInput) {
-        User user = userService.getById(id);
+    @MutationMapping(name = "updateUser")
+    public User update (@Valid @Argument(name = "user") UpdateUserInput updateUserInput) {
+        User user = userService.getById(updateUserInput.getId());
         modelMapper.map(updateUserInput, user);
         return userService.update(user);
     }
