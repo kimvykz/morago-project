@@ -15,5 +15,4 @@ public interface UserService {
     Boolean deleteById (Long id);
     User getByPhone(String phone);
     Boolean isExistsByPhone(String phone);
-    User register (User user);
 }

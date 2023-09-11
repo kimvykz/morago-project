@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class DebtorGraphQLController {
+public class DebtorController {
     private ModelMapper modelMapper;
 
     private DebtorService debtorService;
 
-    public DebtorGraphQLController(ModelMapper modelMapper,
-                                   DebtorService debtorService) {
+    public DebtorController(ModelMapper modelMapper,
+                            DebtorService debtorService) {
         this.modelMapper = modelMapper;
         this.debtorService = debtorService;
     }

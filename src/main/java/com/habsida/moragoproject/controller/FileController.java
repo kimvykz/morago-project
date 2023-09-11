@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class FileGraphQLController {
+public class FileController {
     private ModelMapper modelMapper;
 
     private FileService fileService;
 
-    public FileGraphQLController(ModelMapper modelMapper,
-                                 FileService fileService) {
+    public FileController(ModelMapper modelMapper,
+                          FileService fileService) {
         this.modelMapper = modelMapper;
         this.fileService = fileService;
     }

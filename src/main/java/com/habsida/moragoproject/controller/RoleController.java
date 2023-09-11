@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class RoleGraphQLController {
+public class RoleController {
     private ModelMapper modelMapper;
 
     private RoleService roleService;
 
-    public RoleGraphQLController(ModelMapper modelMapper,
-                                 RoleService roleService) {
+    public RoleController(ModelMapper modelMapper,
+                          RoleService roleService) {
         this.modelMapper = modelMapper;
         this.roleService = roleService;
     }

@@ -10,47 +10,51 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
 
 @Controller
-public class UserGraphQLController {
+public class UserController {
     private ModelMapper modelMapper;
 
     private UserService userService;
 
-    public UserGraphQLController(ModelMapper modelMapper,
-                                 UserService userService) {
+    public UserController(ModelMapper modelMapper,
+                          UserService userService) {
         this.modelMapper = modelMapper;
         this.userService = userService;
     }
 
     @QueryMapping(name = "getUsers")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public Iterable<User> getAll (){
         return userService.getAll();
     }
 
     @QueryMapping(name = "getUserById")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public User getById (@Argument Long id) {
         return userService.getById(id);
     }
 
     @QueryMapping(name = "getUsersPaged")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public Page<User> getAllPaged (@Argument int page, @Argument int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return userService.getAllPaged(pageRequest);
     }
 
     @MutationMapping(name = "createUser")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public User create (@Valid @Argument(name = "user") CreateUserInput createUserInput) {
         User user = modelMapper.map(createUserInput, User.class);
         return userService.create(user);
     }
 
     @MutationMapping(name = "updateUser")
+    @PreAuthorize("hasAnyRole( 'ROLE_ADMIN')")
     public User update (@Valid @Argument(name = "user") UpdateUserInput updateUserInput) {
         User user = userService.getById(updateUserInput.getId());
         modelMapper.map(updateUserInput, user);
@@ -58,6 +62,7 @@ public class UserGraphQLController {
     }
 
     @MutationMapping(name = "deleteUserById")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public Boolean deleteById (@Argument Long id) {
         return userService.deleteById(id);
     }

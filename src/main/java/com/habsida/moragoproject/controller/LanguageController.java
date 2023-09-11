@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class LanguageGraphQLController {
+public class LanguageController {
     private ModelMapper modelMapper;
 
     private LanguageService languageService;
 
-    public LanguageGraphQLController(ModelMapper modelMapper,
-                                     LanguageService languageService) {
+    public LanguageController(ModelMapper modelMapper,
+                              LanguageService languageService) {
         this.modelMapper = modelMapper;
         this.languageService = languageService;
     }

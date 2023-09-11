@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class CallGraphQLController {
+public class CallController {
     private ModelMapper modelMapper;
 
     private CallService callService;
 
-    public CallGraphQLController(ModelMapper modelMapper,
-                                 CallService callService) {
+    public CallController(ModelMapper modelMapper,
+                          CallService callService) {
         this.modelMapper = modelMapper;
         this.callService = callService;
     }

@@ -1,7 +1,7 @@
 package com.habsida.moragoproject.model.enums;
 
 public enum ERole {
-    ADMIN,
-    USER,
-    TRANSLATOR
+    ROLE_ADMIN,
+    ROLE_USER,
+    ROLE_TRANSLATOR
 }

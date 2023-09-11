@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class UserProfileGraphQLController {
+public class UserProfileController {
     private ModelMapper modelMapper;
 
     private UserProfileService userProfileService;
 
-    public UserProfileGraphQLController(ModelMapper modelMapper,
-                                        UserProfileService userProfileService) {
+    public UserProfileController(ModelMapper modelMapper,
+                                 UserProfileService userProfileService) {
         this.modelMapper = modelMapper;
         this.userProfileService = userProfileService;
     }

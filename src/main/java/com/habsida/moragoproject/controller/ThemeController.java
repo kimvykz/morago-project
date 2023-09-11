@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class ThemeGraphQLController {
+public class ThemeController {
     private ModelMapper modelMapper;
 
     private ThemeService themeService;
 
-    public ThemeGraphQLController(ModelMapper modelMapper,
-                                  ThemeService themeService) {
+    public ThemeController(ModelMapper modelMapper,
+                           ThemeService themeService) {
         this.modelMapper = modelMapper;
         this.themeService = themeService;
     }

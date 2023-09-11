@@ -5,16 +5,18 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @ToString
 @Getter
 @Setter
-public class RegisterNewUserInput {
+public class SignUpUserInput {
+    @NotBlank(message = "phone cannot be blank")
     private String phone;
+    @NotBlank(message = "password cannot be blank")
     private String password;
-    private String firstName;
-    private String lastName;
+    @NotNull(message = "user must have at least 1 role")
     private List<Role> roles;
-
 }

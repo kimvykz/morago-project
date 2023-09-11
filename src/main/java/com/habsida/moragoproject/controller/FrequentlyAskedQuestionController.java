@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class FrequentlyAskedQuestionGraphQLController {
+public class FrequentlyAskedQuestionController {
     private ModelMapper modelMapper;
 
     private FrequentlyAskedQuestionService frequentlyAskedQuestionService;
 
-    public FrequentlyAskedQuestionGraphQLController(ModelMapper modelMapper,
-                                                    FrequentlyAskedQuestionService frequentlyAskedQuestionService) {
+    public FrequentlyAskedQuestionController(ModelMapper modelMapper,
+                                             FrequentlyAskedQuestionService frequentlyAskedQuestionService) {
         this.modelMapper = modelMapper;
         this.frequentlyAskedQuestionService = frequentlyAskedQuestionService;
     }

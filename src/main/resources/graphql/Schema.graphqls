@@ -73,6 +73,7 @@ type Query {
     getUserWithdrawalsPaged(page: Int, size: Int): [Withdrawal]
     getUserWithdrawalById(id: Int): Withdrawal
 
+    signin(signInUser: SignInUserInput) : SignInPayload
 }
 
 type Mutation {
@@ -140,15 +141,14 @@ type Mutation {
     updateUser(user: UserUpdateInput) : User
     deleteUserById(id: ID!) : Boolean
 
-    registerNewUser(newUser : NewUserInput) : NewUser
-
     createUserProfile(userProfile : UserProfileCreateInput) : UserProfile
     updateUserProfile(userProfile: UserProfileUpdateInput) : UserProfile
     deleteUserProfileById(id: ID!) : Boolean
 
-
-
     createUserWithdrawal(withdrawal : WithdrawalInput) : Withdrawal
     updateUserWithdrawal(withdrawal: WithdrawalInput) : Withdrawal
     deleteUserWithdrawalById(id: ID!) : Boolean
+
+    signup(signUpUser : SignUpUserCreateInput) : User
+
 }

@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class PasswordResetGraphQLController {
+public class PasswordResetController {
     private ModelMapper modelMapper;
 
     private PasswordResetService passwordResetService;
 
-    public PasswordResetGraphQLController(ModelMapper modelMapper,
-                                          PasswordResetService passwordResetService) {
+    public PasswordResetController(ModelMapper modelMapper,
+                                   PasswordResetService passwordResetService) {
         this.modelMapper = modelMapper;
         this.passwordResetService = passwordResetService;
     }

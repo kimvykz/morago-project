@@ -1,13 +1,17 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.auth.AuthResponse;
-import com.habsida.moragoproject.model.auth.LoginPassInput;
+import com.habsida.moragoproject.model.input.SignInUserInput;
 import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.input.RegisterNewUserInput;
+import com.habsida.moragoproject.model.input.SignUpUserInput;
+import com.habsida.moragoproject.model.payload.SignInPayload;
 import com.habsida.moragoproject.security.JwtGenerator;
 import com.habsida.moragoproject.service.RoleService;
 import com.habsida.moragoproject.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
 
 @Controller
 public class AuthController {
@@ -44,24 +49,42 @@ public class AuthController {
         this.jwtGenerator = jwtGenerator;
     }
 
-    @PostMapping("login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginPassInput loginPassInput) {
+    @QueryMapping("signin")
+    public SignInPayload signIn(@Argument(name = "signInUser") SignInUserInput signInUserInput) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginPassInput.getPhone(),
-                        loginPassInput.getPassword()));
+                        signInUserInput.getPhone(),
+                        signInUserInput.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generateToken(authentication);
-        return new ResponseEntity<>(new AuthResponse(token), HttpStatus.OK);
+        return new SignInPayload(userService.getByPhone(signInUserInput.getPhone()), token);
     }
 
-    @PostMapping(path = "registration")
-    @ResponseBody
-    public User registerNewUser (@RequestBody RegisterNewUserInput registerNewUserInput) {
+    @MutationMapping(name = "signup")
+    public User signUp (@Valid @Argument(name = "signUpUser") SignUpUserInput signUpUserInput) {
+        if (userService.isExistsByPhone(signUpUserInput.getPhone())) {
+            throw new IllegalArgumentException("User is already existed with phone - " + signUpUserInput.getPhone());
+        }
+        if (signUpUserInput.getPhone() == null || signUpUserInput.getPhone().trim().isEmpty()) {
+            throw new IllegalArgumentException("Phone cannot be null");
+        }
+        if (signUpUserInput.getPassword() == null ) {
+            throw new IllegalArgumentException("Password cannot be null");
+        }
 
-        User user = modelMapper.map(registerNewUserInput, User.class);
+        User user = modelMapper.map(signUpUserInput, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.register(user);
+
+        user.setBalance(0.0f);
+        user.setFirstName("");
+        user.setIsActive(true);
+        user.setIsDebtor(false);
+        user.setLastName("");
+        user.setOnBoardingStatus(0);
+        user.setRatings(0.0);
+        user.setTotalRatings(0);
+
+        return userService.create(user);
 
     }
 }

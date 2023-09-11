@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class CoinGraphQLController {
+public class CoinController {
     private ModelMapper modelMapper;
 
     private CoinService coinService;
 
-    public CoinGraphQLController(ModelMapper modelMapper,
-                                 CoinService coinService) {
+    public CoinController(ModelMapper modelMapper,
+                          CoinService coinService) {
         this.modelMapper = modelMapper;
         this.coinService = coinService;
     }

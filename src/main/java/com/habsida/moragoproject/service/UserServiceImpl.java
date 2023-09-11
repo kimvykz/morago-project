@@ -70,11 +70,11 @@ public class UserServiceImpl implements UserService{
                     + user.getPhone());
         }
 
-        if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
-            throw new IllegalArgumentException("field firstName cannot be Empty");
+        if (user.getFirstName() == null ) {
+            throw new IllegalArgumentException("field firstName cannot be null");
         }
-        if (user.getLastName() == null || user.getLastName().trim().isEmpty()) {
-            throw new IllegalArgumentException("field lastName cannot be Empty");
+        if (user.getLastName() == null ) {
+            throw new IllegalArgumentException("field lastName cannot be null");
         }
         if (user.getPhone() == null || user.getPhone().trim().isEmpty()) {
             throw new IllegalArgumentException("field phone cannot be Empty");
@@ -109,8 +109,8 @@ public class UserServiceImpl implements UserService{
         if (user.getRoles() == null) {
             throw new IllegalArgumentException("User must have at least 1 role");
         } else if (user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
-                .containsAll(Arrays.asList(ERole.USER, ERole.TRANSLATOR))) {
-            throw new IllegalArgumentException("User cannot have roles USER and TRANSLATOR at the same time");
+                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
+            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
         }
         if (user.getUserProfile() == null) {
             //here I need to know logic
@@ -165,8 +165,8 @@ public class UserServiceImpl implements UserService{
         if (user.getRoles() == null) {
             throw new IllegalArgumentException("User must have at least 1 role");
         } else if (user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
-                .containsAll(Arrays.asList(ERole.USER, ERole.TRANSLATOR))) {
-            throw new IllegalArgumentException("User cannot have roles USER and TRANSLATOR at the same time");
+                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
+            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
         }
         if (user.getUserProfile() == null) {
             //here I need to know logic
@@ -196,65 +196,5 @@ public class UserServiceImpl implements UserService{
         return userRepository.existsByPhone(phone);
     }
 
-    @Override
-    public User register (User user) {
-        if (isExistsByPhone(user.getPhone())) {
-            throw new KeyAlreadyExistsException("User is already existed with phone - "
-                    + user.getPhone());
-        }
-
-        if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
-            throw new IllegalArgumentException("field firstName cannot be Empty");
-        }
-        if (user.getLastName() == null || user.getLastName().trim().isEmpty()) {
-            throw new IllegalArgumentException("field lastName cannot be Empty");
-        }
-        if (user.getPhone() == null || user.getPhone().trim().isEmpty()) {
-            throw new IllegalArgumentException("field phone cannot be Empty");
-        }
-        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
-            throw new IllegalArgumentException("field password cannot be Empty");
-        }
-        if (user.getIsActive() == null) {
-            user.setIsActive(true);
-        }
-        if (user.getIsDebtor() == null) {
-            user.setIsDebtor(false);
-        }
-        if (user.getRatings() == null) {
-            user.setRatings(0.0);
-        }
-        if (user.getTotalRatings() == null) {
-            user.setTotalRatings(0);
-        }
-        if (user.getBalance() == null) {
-            user.setBalance(0f);
-        }
-        if (user.getOnBoardingStatus() == null) {
-            user.setOnBoardingStatus(0);  //here I need to know list of statuses
-        }
-        if (user.getApnToken() == null) {
-            //user.setApnToken("token");  //here I need to know how to process this field
-        }
-        if (user.getFcmToken() == null) {
-            //user.setFcmToken("token");  //here I need to know how to process this field
-        }
-
-        if (user.getRoles() == null) {
-            throw new IllegalArgumentException("User must have at least 1 role");
-        } else if (user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
-                .containsAll(Arrays.asList(ERole.USER, ERole.TRANSLATOR))) {
-            throw new IllegalArgumentException("User cannot have roles USER and TRANSLATOR at the same time");
-        }
-        if (user.getUserProfile() == null) {
-            //here I need to know logic
-        }
-        if (user.getTranslatorProfile() == null) {
-            //here I need to know logic
-        }
-
-        user.setRoles(setIdForExistingRoles(user.getRoles()));
-        return userRepository.save(user);
-    }
 
 }

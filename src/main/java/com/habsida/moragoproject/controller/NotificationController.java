@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class NotificationGraphQLController {
+public class NotificationController {
     private ModelMapper modelMapper;
 
     private NotificationService notificationService;
 
-    public NotificationGraphQLController(ModelMapper modelMapper,
-                                         NotificationService notificationService) {
+    public NotificationController(ModelMapper modelMapper,
+                                  NotificationService notificationService) {
         this.modelMapper = modelMapper;
         this.notificationService = notificationService;
     }

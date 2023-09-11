@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class WithdrawalGraphQLController {
+public class WithdrawalController {
     private ModelMapper modelMapper;
 
     private WithdrawalService withdrawalService;
 
-    public WithdrawalGraphQLController(ModelMapper modelMapper,
-                                       WithdrawalService withdrawalService) {
+    public WithdrawalController(ModelMapper modelMapper,
+                                WithdrawalService withdrawalService) {
         this.modelMapper = modelMapper;
         this.withdrawalService = withdrawalService;
     }

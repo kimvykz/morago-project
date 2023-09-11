@@ -1,0 +1,18 @@
+input SignUpUserCreateInput {
+    phone: String!
+    password: String!
+    roles: [RoleInput]!
+}
+
+input SignInUserInput {
+    phone: String!
+    password: String!
+}
+
+type SignInPayload {
+    user: User
+    token: String
+}
+
+
+

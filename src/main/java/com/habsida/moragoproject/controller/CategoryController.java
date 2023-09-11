@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class CategoryGraphQLController {
+public class CategoryController {
     private ModelMapper modelMapper;
 
     private CategoryService categoryService;
 
-    public CategoryGraphQLController(ModelMapper modelMapper,
-                                     CategoryService categoryService) {
+    public CategoryController(ModelMapper modelMapper,
+                              CategoryService categoryService) {
         this.modelMapper = modelMapper;
         this.categoryService = categoryService;
     }

@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
 
 @Controller
-public class RatingGraphQLController {
+public class RatingController {
     private ModelMapper modelMapper;
 
     private RatingService ratingService;
 
-    public RatingGraphQLController(ModelMapper modelMapper,
-                                   RatingService ratingService) {
+    public RatingController(ModelMapper modelMapper,
+                            RatingService ratingService) {
         this.modelMapper = modelMapper;
         this.ratingService = ratingService;
     }
