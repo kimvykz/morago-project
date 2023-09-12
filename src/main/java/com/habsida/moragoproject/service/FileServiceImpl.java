@@ -1,6 +1,8 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.File;
+import com.habsida.moragoproject.model.entity.Theme;
+import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.input.CreateFileInput;
 import com.habsida.moragoproject.model.input.UpdateFileInput;
 import com.habsida.moragoproject.repository.FileRepository;
@@ -9,6 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Service
@@ -42,6 +48,22 @@ public class FileServiceImpl implements FileService{
     @Override
     public File create(CreateFileInput createFileInput) {
         File file = modelMapper.map(createFileInput, File.class);
+        if (file.getOriginalTitle() == null) {
+            throw new IllegalArgumentException("field originalTitle cannot be null");
+        }
+        if (file.getPath() == null) {
+            throw new IllegalArgumentException("field path cannot be null");
+        }
+        if (file.getType() == null) {
+            throw new IllegalArgumentException("field type cannot be null");
+        }
+        if (file.getUser() == null) {
+            throw new IllegalArgumentException("field user cannot be null");
+        }
+        if (file.getTheme() == null) {
+            throw new IllegalArgumentException("field theme cannot be null");
+        }
+
         return fileRepository.save(file);
     }
 
@@ -49,6 +71,23 @@ public class FileServiceImpl implements FileService{
     public File update(UpdateFileInput updateFileInput) {
         File file = getById(updateFileInput.getId());
         modelMapper.map(updateFileInput, file);
+
+        if (file.getOriginalTitle() == null) {
+            throw new IllegalArgumentException("field originalTitle cannot be null");
+        }
+        if (file.getPath() == null) {
+            throw new IllegalArgumentException("field path cannot be null");
+        }
+        if (file.getType() == null) {
+            throw new IllegalArgumentException("field type cannot be null");
+        }
+        if (file.getUser() == null) {
+            throw new IllegalArgumentException("field user cannot be null");
+        }
+        if (file.getTheme() == null) {
+            throw new IllegalArgumentException("field theme cannot be null");
+        }
+
         return fileRepository.save(file);
     }
 

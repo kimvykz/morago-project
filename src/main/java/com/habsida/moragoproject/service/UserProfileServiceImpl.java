@@ -1,5 +1,6 @@
 package com.habsida.moragoproject.service;
 
+import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.entity.UserProfile;
 import com.habsida.moragoproject.model.input.CreateUserProfileInput;
 import com.habsida.moragoproject.model.input.UpdateUserProfileInput;
@@ -9,6 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import java.util.List;
 
 @Service
@@ -41,6 +46,13 @@ public class UserProfileServiceImpl implements UserProfileService{
     @Override
     public UserProfile create (CreateUserProfileInput createUserProfileInput) {
         UserProfile userProfile = modelMapper.map(createUserProfileInput, UserProfile.class);
+        if (userProfile.getIsFreeCallMade() == null) {
+            throw new IllegalArgumentException("field isFreeCallMade cannot be null");
+        }
+        if (userProfile.getUser() == null) {
+            throw new IllegalArgumentException("field user cannot be null");
+        }
+
         return userProfileRepository.save(userProfile);
     }
 
@@ -48,6 +60,12 @@ public class UserProfileServiceImpl implements UserProfileService{
     public UserProfile update (UpdateUserProfileInput updateUserProfileInput) {
         UserProfile userProfile = getById(updateUserProfileInput.getId());
         modelMapper.map(updateUserProfileInput, userProfile);
+        if (userProfile.getIsFreeCallMade() == null) {
+            throw new IllegalArgumentException("field isFreeCallMade cannot be null");
+        }
+        if (userProfile.getUser() == null) {
+            throw new IllegalArgumentException("field user cannot be null");
+        }
         return userProfileRepository.save(userProfile);
     }
 

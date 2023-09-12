@@ -43,6 +43,9 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public Role create (CreateRoleInput createRoleInput) {
         Role role = modelMapper.map(createRoleInput, Role.class);
+        if (role.getName() == null) {
+            throw new IllegalArgumentException("field name cannot be null");
+        }
         return roleRepository.save(role);
     }
 
@@ -50,6 +53,9 @@ public class RoleServiceImpl implements RoleService{
     public Role update (UpdateRoleInput updateRoleInput) {
         Role role = getById(updateRoleInput.getId());
         modelMapper.map(updateRoleInput, role);
+        if (role.getName() == null) {
+            throw new IllegalArgumentException("field name cannot be null");
+        }
         return roleRepository.save(role);
     }
 

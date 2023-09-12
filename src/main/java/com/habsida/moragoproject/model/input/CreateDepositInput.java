@@ -13,7 +13,7 @@ public class CreateDepositInput {
     private String accountHolder;
     private Double coin;
     private String nameOfBank;
-    private EStatus eStatus;
+    private EStatus status;
     private Double won;
 
     //private User user;

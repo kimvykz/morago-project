@@ -20,7 +20,7 @@ public class Deposit extends AuditableEntity {
     private String accountHolder;
     private Double coin;
     private String nameOfBank;
-    private EStatus eStatus;
+    private EStatus status;
     private Double won;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)

@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.FrequentlyAskedQuestion;
+import com.habsida.moragoproject.model.enums.EFAQCategory;
 import com.habsida.moragoproject.model.input.CreateFrequentlyAskedQuestionInput;
 import com.habsida.moragoproject.model.input.UpdateFrequentlyAskedQuestionInput;
 import com.habsida.moragoproject.repository.FrequentlyAskedQuestionRepository;
@@ -43,6 +44,16 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     public FrequentlyAskedQuestion create(CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
         FrequentlyAskedQuestion frequentlyAskedQuestion =
                 modelMapper.map(createFrequentlyAskedQuestionInput, FrequentlyAskedQuestion.class);
+        if (frequentlyAskedQuestion.getAnswer() == null) {
+            throw new IllegalArgumentException("field answer cannot be null");
+        }
+        if (frequentlyAskedQuestion.getCategory() == null) {
+            throw new IllegalArgumentException("field category cannot be null");
+        }
+        if (frequentlyAskedQuestion.getQuestion() == null) {
+            throw new IllegalArgumentException("field question cannot be null");
+        }
+
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
     }
 
@@ -51,6 +62,16 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
         FrequentlyAskedQuestion frequentlyAskedQuestion =
                 getById(updateFrequentlyAskedQuestionInput.getId());
         modelMapper.map(updateFrequentlyAskedQuestionInput, frequentlyAskedQuestion);
+
+        if (frequentlyAskedQuestion.getAnswer() == null) {
+            throw new IllegalArgumentException("field answer cannot be null");
+        }
+        if (frequentlyAskedQuestion.getCategory() == null) {
+            throw new IllegalArgumentException("field category cannot be null");
+        }
+        if (frequentlyAskedQuestion.getQuestion() == null) {
+            throw new IllegalArgumentException("field question cannot be null");
+        }
 
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
     }

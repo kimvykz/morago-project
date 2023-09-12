@@ -42,6 +42,14 @@ public class CoinServiceImpl implements CoinService{
     @Override
     public Coin create(CreateCoinInput createCoinInput) {
         Coin coin = modelMapper.map(createCoinInput, Coin.class);
+
+        if (coin.getCoin() == null) {
+            throw new IllegalArgumentException("field coin cannot be null");
+        }
+        if (coin.getCoin() == null) {
+            throw new IllegalArgumentException("field won cannot be null");
+        }
+
         return coinRepository.save(coin);
     }
 
@@ -49,6 +57,14 @@ public class CoinServiceImpl implements CoinService{
     public Coin update(UpdateCoinInput updateCoinInput) {
         Coin coin = getById(updateCoinInput.getId());
         modelMapper.map(updateCoinInput, coin);
+
+        if (coin.getCoin() == null) {
+            throw new IllegalArgumentException("field coin cannot be null");
+        }
+        if (coin.getCoin() == null) {
+            throw new IllegalArgumentException("field won cannot be null");
+        }
+
         return coinRepository.save(coin);
     }
 

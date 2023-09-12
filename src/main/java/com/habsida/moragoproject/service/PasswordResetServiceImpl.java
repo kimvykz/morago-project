@@ -41,6 +41,16 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Override
     public PasswordReset create (CreatePasswordResetInput createPasswordResetInput) {
         PasswordReset passwordReset = modelMapper.map(createPasswordResetInput, PasswordReset.class);
+        if (passwordReset.getPhone() == null) {
+            throw new IllegalArgumentException("field phone cannot be null");
+        }
+        if (passwordReset.getResetCode() == null) {
+            throw new IllegalArgumentException("field resetCode cannot be null");
+        }
+        if (passwordReset.getToken() == null) {
+            throw new IllegalArgumentException("field token cannot be null");
+        }
+
         return passwordResetRepository.save(passwordReset);
     }
 
@@ -48,6 +58,15 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     public PasswordReset update (UpdatePasswordResetInput updatePasswordResetInput) {
         PasswordReset passwordReset = getById(updatePasswordResetInput.getId());
         modelMapper.map(updatePasswordResetInput, passwordReset);
+        if (passwordReset.getPhone() == null) {
+            throw new IllegalArgumentException("field phone cannot be null");
+        }
+        if (passwordReset.getResetCode() == null) {
+            throw new IllegalArgumentException("field resetCode cannot be null");
+        }
+        if (passwordReset.getToken() == null) {
+            throw new IllegalArgumentException("field token cannot be null");
+        }
         return passwordResetRepository.save(passwordReset);
     }
 

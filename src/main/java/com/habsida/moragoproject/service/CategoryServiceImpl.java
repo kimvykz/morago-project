@@ -42,6 +42,13 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public Category create(CreateCategoryInput createCategoryInput) {
         Category category = modelMapper.map(createCategoryInput, Category.class);
+
+        if (category.getIsActive() == null) {
+            throw new IllegalArgumentException("field isActive cannot be null");
+        }
+        if (category.getName() == null) {
+            throw new IllegalArgumentException("field name cannot be null");
+        }
         return categoryRepository.save(category);
     }
 
@@ -49,6 +56,13 @@ public class CategoryServiceImpl implements CategoryService{
     public Category update(UpdateCategoryInput updateCategoryInput) {
         Category category = getById(updateCategoryInput.getId());
         modelMapper.map(updateCategoryInput, category);
+
+        if (category.getIsActive() == null) {
+            throw new IllegalArgumentException("field isActive cannot be null");
+        }
+        if (category.getName() == null) {
+            throw new IllegalArgumentException("field name cannot be null");
+        }
         return categoryRepository.save(category);
     }
 

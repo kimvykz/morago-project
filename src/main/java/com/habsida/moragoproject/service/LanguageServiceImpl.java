@@ -41,6 +41,9 @@ public class LanguageServiceImpl implements LanguageService{
     @Override
     public Language create(CreateLanguageInput createLanguageInput) {
         Language language = modelMapper.map(createLanguageInput, Language.class);
+        if (language.getName() == null) {
+            throw new IllegalArgumentException("field name cannot be null");
+        }
         return languageRepository.save(language);
     }
 
@@ -48,6 +51,9 @@ public class LanguageServiceImpl implements LanguageService{
     public Language update(UpdateLanguageInput updateLanguageInput) {
         Language language = getById(updateLanguageInput.getId());
         modelMapper.map(updateLanguageInput, language);
+        if (language.getName() == null) {
+            throw new IllegalArgumentException("field name cannot be null");
+        }
         return languageRepository.save(language);
     }
 
