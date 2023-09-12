@@ -10,8 +10,8 @@ input AppVersionUpdateInput {
     min: String
 }
 type AppVersion {
-    id: ID!
-    platform: EPlatform!
+    id: ID
+    platform: EPlatform
     latest: String
     min: String
 }

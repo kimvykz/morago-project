@@ -30,7 +30,7 @@ input CallUpdateInput {
     recipient: UserUpdateInput
 }
 type Call {
-    id: ID!
+    id: ID
     callStatus: ECallStatus
     channelName: String
     commission: Float

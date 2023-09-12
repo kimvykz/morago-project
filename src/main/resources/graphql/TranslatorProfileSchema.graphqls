@@ -14,7 +14,7 @@ input TranslatorProfileUpdateInput {
     levelOfKorean: String
 }
 type TranslatorProfile {
-    id: ID!
+    id: ID
     dateOfBirth: String
     email: String
     isAvailable: Boolean

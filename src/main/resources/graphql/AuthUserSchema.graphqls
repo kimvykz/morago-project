@@ -1,15 +1,15 @@
-input SignUpUserCreateInput {
+input RegistrationUserCreateInput {
     phone: String!
     password: String!
     roles: [RoleInput]!
 }
 
-input SignInUserInput {
+input LoginUserInput {
     phone: String!
     password: String!
 }
 
-type SignInPayload {
+type LoginPayload {
     user: User
     token: String
 }

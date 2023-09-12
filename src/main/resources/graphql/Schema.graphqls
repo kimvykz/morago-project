@@ -73,82 +73,82 @@ type Query {
     getUserWithdrawalsPaged(page: Int, size: Int): [Withdrawal]
     getUserWithdrawalById(id: Int): Withdrawal
 
-    signin(signInUser: SignInUserInput) : SignInPayload
+    login(loginUserInput: LoginUserInput) : LoginPayload
 }
 
 type Mutation {
-    createAppVersion(appVersion : AppVersionCreateInput) : AppVersion
-    updateAppVersion(appVersion: AppVersionUpdateInput) : AppVersion
-    deleteAppVersionById(id: ID!) : Boolean
+    createAppVersion(appVersionInput: AppVersionCreateInput) : AppVersion
+    updateAppVersion(appVersionInput: AppVersionUpdateInput) : AppVersion
+    deleteAppVersionById(id: ID!): Boolean
 
-    createCall(call : CallCreateInput) : Call
-    updateCall(call: CallUpdateInput) : Call
-    deleteCallById(id: ID!) : Boolean
+    createCall(callInput: CallCreateInput) : Call
+    updateCall(callInput: CallUpdateInput) : Call
+    deleteCallById(id: ID!): Boolean
 
-    createCategory(category : CategoryInput) : Category
-    updateCategory(category: CategoryInput) : Category
-    deleteCategoryById(id: ID!) : Boolean
+    createCategory(categoryInput: CategoryCreateInput) : Category
+    updateCategory(categoryInput: CategoryUpdateInput) : Category
+    deleteCategoryById(id: ID!): Boolean
 
-    createCoin(coin : CoinInput) : Coin
-    updateCoin(coin: CoinInput) : Coin
-    deleteCoinById(id: ID!) : Boolean
+    createCoin(coinInput: CoinCreateInput) : Coin
+    updateCoin(coinInput: CoinUpdateInput) : Coin
+    deleteCoinById(id: ID!): Boolean
 
-    createDebtor(debtor : DebtorInput) : Debtor
-    updateDebtor(debtor: DebtorInput) : Debtor
+    createDebtor(debtorInput: DebtorCreateInput) : Debtor
+    updateDebtor(debtorInput: DebtorUpdateInput) : Debtor
     deleteDebtorById(id: ID!) : Boolean
 
-    createDeposit(deposit : DepositInput) : Deposit
-    updateDeposit(deposit: DepositInput) : Deposit
+    createDeposit(depositInput: DepositCreateInput) : Deposit
+    updateDeposit(depositInput: DepositUpdateInput) : Deposit
     deleteDepositById(id: ID!) : Boolean
 
-    createFile(file : FileCreateInput) : File
-    updateFile(file: FileUpdateInput) : File
+    createFile(fileInput: FileCreateInput) : File
+    updateFile(fileInput: FileUpdateInput) : File
     deleteFileById(id: ID!) : Boolean
 
-    createFrequentlyAskedQuestion(frequentlyAskedQuestion : FrequentlyAskedQuestionInput) : FrequentlyAskedQuestion
-    updateFrequentlyAskedQuestion(frequentlyAskedQuestion: FrequentlyAskedQuestionInput) : FrequentlyAskedQuestion
+    createFrequentlyAskedQuestion(frequentlyAskedQuestionInput: FrequentlyAskedQuestionCreateInput) : FrequentlyAskedQuestion
+    updateFrequentlyAskedQuestion(frequentlyAskedQuestionInput: FrequentlyAskedQuestionUpdateInput) : FrequentlyAskedQuestion
     deleteFrequentlyAskedQuestionById(id: ID!) : Boolean
 
-    createLanguage(language : LanguageInput) : Language
-    updateLanguage(language: LanguageInput) : Language
+    createLanguage(languageInput: LanguageCreateInput) : Language
+    updateLanguage(languageInput: LanguageUpdateInput) : Language
     deleteLanguageById(id: ID!) : Boolean
 
-    createNotification(notification : NotificationInput) : Notification
-    updateNotification(notification: NotificationInput) : Notification
+    createNotification(notificationInput: NotificationCreateInput) : Notification
+    updateNotification(notificationInput: NotificationUpdateInput) : Notification
     deleteNotificationById(id: ID!) : Boolean
 
-    createPasswordReset(passwordReset : PasswordResetInput) : PasswordReset
-    updatePasswordReset(passwordReset: PasswordResetInput) : PasswordReset
+    createPasswordReset(passwordResetInput : PasswordResetCreateInput) : PasswordReset
+    updatePasswordReset(passwordResetInput: PasswordResetUpdateInput) : PasswordReset
     deletePasswordResetById(id: ID!) : Boolean
 
-    createRating(rating : RatingInput) : Rating
-    updateRating(rating: RatingInput) : Rating
+    createRating(ratingInput : RatingCreateInput) : Rating
+    updateRating(ratingInput: RatingUpdateInput) : Rating
     deleteRatingById(id: ID!) : Boolean
 
-    createRole(role : RoleInput) : Role
-    updateRole(role: RoleInput) : Role
+    createRole(roleInput : RoleCreateInput) : Role
+    updateRole(roleInput: RoleUpdateInput) : Role
     deleteRoleById(id: ID!) : Boolean
 
-    createTheme(theme : ThemeCreateInput) : Theme
-    updateTheme(theme: ThemeUpdateInput) : Theme
+    createTheme(themeInput : ThemeCreateInput) : Theme
+    updateTheme(themeInput: ThemeUpdateInput) : Theme
     deleteThemeById(id: ID!) : Boolean
 
-    createTranslatorProfile(translatorProfile : TranslatorProfileCreateInput) : TranslatorProfile
-    updateTranslatorProfile( translatorProfile: TranslatorProfileUpdateInput) : TranslatorProfile
+    createTranslatorProfile(translatorProfileInput : TranslatorProfileCreateInput) : TranslatorProfile
+    updateTranslatorProfile(translatorProfileInput: TranslatorProfileUpdateInput) : TranslatorProfile
     deleteTranslatorProfileById(id: ID!) : Boolean
 
-    createUser(user : UserCreateInput) : User
-    updateUser(user: UserUpdateInput) : User
+    createUser(userInput : UserCreateInput) : User
+    updateUser(userInput: UserUpdateInput) : User
     deleteUserById(id: ID!) : Boolean
 
-    createUserProfile(userProfile : UserProfileCreateInput) : UserProfile
-    updateUserProfile(userProfile: UserProfileUpdateInput) : UserProfile
+    createUserProfile(userProfileInput : UserProfileCreateInput) : UserProfile
+    updateUserProfile(userProfileInput: UserProfileUpdateInput) : UserProfile
     deleteUserProfileById(id: ID!) : Boolean
 
-    createUserWithdrawal(withdrawal : WithdrawalInput) : Withdrawal
-    updateUserWithdrawal(withdrawal: WithdrawalInput) : Withdrawal
+    createUserWithdrawal(withdrawalInput : WithdrawalCreateInput) : Withdrawal
+    updateUserWithdrawal(withdrawalInput: WithdrawalUpdateInput) : Withdrawal
     deleteUserWithdrawalById(id: ID!) : Boolean
 
-    signup(signUpUser : SignUpUserCreateInput) : User
+    registration(registrationUserInput : RegistrationUserCreateInput) : User
 
 }

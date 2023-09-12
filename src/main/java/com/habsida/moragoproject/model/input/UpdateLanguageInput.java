@@ -8,5 +8,6 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdateLanguageInput {
+    private Long id;
     private String name;
 }

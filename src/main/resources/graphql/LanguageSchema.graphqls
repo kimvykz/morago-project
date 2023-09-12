@@ -1,7 +1,11 @@
-input LanguageInput {
+input LanguageCreateInput {
+    name: String
+}
+input LanguageUpdateInput {
+    id: ID!
     name: String
 }
 type Language {
-    id: ID!
+    id: ID
     name: String
 }

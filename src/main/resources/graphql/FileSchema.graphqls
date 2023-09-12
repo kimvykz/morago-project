@@ -10,7 +10,7 @@ input FileUpdateInput {
     type: String
 }
 type File {
-    id: ID!
+    id: ID
     originalTitle: String
     path: String
     type: String

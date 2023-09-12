@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.UserProfile;
+import com.habsida.moragoproject.model.input.CreateUserProfileInput;
+import com.habsida.moragoproject.model.input.UpdateUserProfileInput;
 import com.habsida.moragoproject.repository.UserProfileRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -11,9 +14,11 @@ import java.util.List;
 @Service
 public class UserProfileServiceImpl implements UserProfileService{
     private UserProfileRepository userProfileRepository;
+    private ModelMapper modelMapper;
 
-    public UserProfileServiceImpl (UserProfileRepository userProfileRepository) {
+    public UserProfileServiceImpl (UserProfileRepository userProfileRepository, ModelMapper modelMapper) {
         this.userProfileRepository = userProfileRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -34,12 +39,15 @@ public class UserProfileServiceImpl implements UserProfileService{
     }
 
     @Override
-    public UserProfile create (UserProfile userProfile) {
+    public UserProfile create (CreateUserProfileInput createUserProfileInput) {
+        UserProfile userProfile = modelMapper.map(createUserProfileInput, UserProfile.class);
         return userProfileRepository.save(userProfile);
     }
 
     @Override
-    public UserProfile update (UserProfile userProfile) {
+    public UserProfile update (UpdateUserProfileInput updateUserProfileInput) {
+        UserProfile userProfile = getById(updateUserProfileInput.getId());
+        modelMapper.map(updateUserProfileInput, userProfile);
         return userProfileRepository.save(userProfile);
     }
 

@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @Getter
 public class UpdateRatingInput {
+    private Long id;
     private Double grade;
 
     //private User user;

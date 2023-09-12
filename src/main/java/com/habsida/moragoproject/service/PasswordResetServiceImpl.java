@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.PasswordReset;
+import com.habsida.moragoproject.model.input.CreatePasswordResetInput;
+import com.habsida.moragoproject.model.input.UpdatePasswordResetInput;
 import com.habsida.moragoproject.repository.PasswordResetRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -11,9 +14,11 @@ import java.util.List;
 @Service
 public class PasswordResetServiceImpl implements PasswordResetService {
     private PasswordResetRepository passwordResetRepository;
+    private ModelMapper modelMapper;
 
-    public PasswordResetServiceImpl (PasswordResetRepository passwordResetRepository) {
+    public PasswordResetServiceImpl (PasswordResetRepository passwordResetRepository, ModelMapper modelMapper) {
         this.passwordResetRepository = passwordResetRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -34,12 +39,15 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     }
 
     @Override
-    public PasswordReset create (PasswordReset passwordReset) {
+    public PasswordReset create (CreatePasswordResetInput createPasswordResetInput) {
+        PasswordReset passwordReset = modelMapper.map(createPasswordResetInput, PasswordReset.class);
         return passwordResetRepository.save(passwordReset);
     }
 
     @Override
-    public PasswordReset update (PasswordReset passwordReset) {
+    public PasswordReset update (UpdatePasswordResetInput updatePasswordResetInput) {
+        PasswordReset passwordReset = getById(updatePasswordResetInput.getId());
+        modelMapper.map(updatePasswordResetInput, passwordReset);
         return passwordResetRepository.save(passwordReset);
     }
 

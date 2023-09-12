@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class DebtorController {
-    private ModelMapper modelMapper;
 
     private DebtorService debtorService;
 
-    public DebtorController(ModelMapper modelMapper,
-                            DebtorService debtorService) {
-        this.modelMapper = modelMapper;
+    public DebtorController(DebtorService debtorService) {
         this.debtorService = debtorService;
     }
 
@@ -43,17 +40,15 @@ public class DebtorController {
     }
 
     @MutationMapping(name = "createDebtor")
-    public Debtor create (@Valid @Argument(name = "debtor") CreateDebtorInput createDebtorInput) {
-        Debtor debtor = modelMapper.map(createDebtorInput, Debtor.class);
-        return debtorService.create(debtor);
+    public Debtor create (@Valid @Argument(name = "debtorInput") CreateDebtorInput createDebtorInput) {
+
+        return debtorService.create(createDebtorInput);
     }
 
-    @MutationMapping(name = "updateDebtorById")
-    public Debtor updateById (@Valid @Argument Long id,
-                              @Argument(name = "debtor") UpdateDebtorInput updateDebtorInput) {
-        Debtor debtor = debtorService.getById(id);
-        modelMapper.map(updateDebtorInput, debtor);
-        return debtorService.update(debtor);
+    @MutationMapping(name = "updateDebtor")
+    public Debtor update (@Valid @Argument(name = "debtorInput") UpdateDebtorInput updateDebtorInput) {
+
+        return debtorService.update(updateDebtorInput);
     }
 
     @MutationMapping(name = "deleteDebtorById")

@@ -8,6 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdateCoinInput {
+    private Long id;
     private Double coin;
     private Double won;
 }

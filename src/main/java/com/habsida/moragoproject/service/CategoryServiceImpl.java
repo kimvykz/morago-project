@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Category;
+import com.habsida.moragoproject.model.input.CreateCategoryInput;
+import com.habsida.moragoproject.model.input.UpdateCategoryInput;
 import com.habsida.moragoproject.repository.CategoryRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,9 +15,11 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService{
 
     private CategoryRepository categoryRepository;
+    private ModelMapper modelMapper;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {
         this.categoryRepository = categoryRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -35,12 +40,15 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Category create(Category category) {
+    public Category create(CreateCategoryInput createCategoryInput) {
+        Category category = modelMapper.map(createCategoryInput, Category.class);
         return categoryRepository.save(category);
     }
 
     @Override
-    public Category update(Category category) {
+    public Category update(UpdateCategoryInput updateCategoryInput) {
+        Category category = getById(updateCategoryInput.getId());
+        modelMapper.map(updateCategoryInput, category);
         return categoryRepository.save(category);
     }
 

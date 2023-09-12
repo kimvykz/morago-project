@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
@@ -17,24 +18,22 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController {
-    private ModelMapper modelMapper;
 
     private UserService userService;
 
-    public UserController(ModelMapper modelMapper,
-                          UserService userService) {
-        this.modelMapper = modelMapper;
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @QueryMapping(name = "getUsers")
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole( 'ROLE_ADMIN')")
     public Iterable<User> getAll (){
         return userService.getAll();
     }
 
     @QueryMapping(name = "getUserById")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PostAuthorize("returnObject.phone == authentication.name")
     public User getById (@Argument Long id) {
         return userService.getById(id);
     }
@@ -48,17 +47,14 @@ public class UserController {
 
     @MutationMapping(name = "createUser")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public User create (@Valid @Argument(name = "user") CreateUserInput createUserInput) {
-        User user = modelMapper.map(createUserInput, User.class);
-        return userService.create(user);
+    public User create (@Valid @Argument(name = "userInput") CreateUserInput createUserInput) {
+        return userService.create(createUserInput);
     }
 
     @MutationMapping(name = "updateUser")
     @PreAuthorize("hasAnyRole( 'ROLE_ADMIN')")
-    public User update (@Valid @Argument(name = "user") UpdateUserInput updateUserInput) {
-        User user = userService.getById(updateUserInput.getId());
-        modelMapper.map(updateUserInput, user);
-        return userService.update(user);
+    public User update (@Valid @Argument(name = "userInput") UpdateUserInput updateUserInput) {
+        return userService.update(updateUserInput);
     }
 
     @MutationMapping(name = "deleteUserById")

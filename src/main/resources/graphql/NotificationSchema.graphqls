@@ -1,4 +1,12 @@
-input NotificationInput {
+input NotificationCreateInput {
+    platform: EPlatform!
+    date: String #DateTime
+    text: String
+    time: String #DateTime
+    title: String
+}
+input NotificationUpdateInput {
+    id: ID!
     platform: EPlatform!
     date: String #DateTime
     text: String
@@ -6,7 +14,7 @@ input NotificationInput {
     title: String
 }
 type Notification {
-    id: ID!
+    id: ID
     date: String #DateTime
     text: String
     time: String #DateTime

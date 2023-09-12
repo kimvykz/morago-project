@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public class UpdateNotificationInput {
+    private Long id;
     private LocalDate date;
     private String text;
     private LocalTime time;

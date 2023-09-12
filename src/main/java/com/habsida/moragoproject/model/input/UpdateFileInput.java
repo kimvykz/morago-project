@@ -8,6 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdateFileInput {
+    private Long id;
     private String originalTitle;
     private String path;
     private String type;

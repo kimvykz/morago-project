@@ -9,6 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UpdateDebtorInput {
+    private Long id;
     private String accountHolder;
     private Boolean isPaid;
     private String nameOfBank;

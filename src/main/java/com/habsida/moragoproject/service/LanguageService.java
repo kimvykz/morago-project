@@ -1,6 +1,9 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Language;
+import com.habsida.moragoproject.model.input.CreateFileInput;
+import com.habsida.moragoproject.model.input.CreateLanguageInput;
+import com.habsida.moragoproject.model.input.UpdateLanguageInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -10,7 +13,7 @@ public interface LanguageService {
     List<Language> getAll();
     Page<Language> getAllPaged(PageRequest pageRequest);
     Language getById(Long id);
-    Language create(Language language);
-    Language update(Language language);
+    Language create(CreateLanguageInput createLanguageInput);
+    Language update(UpdateLanguageInput updateLanguageInput);
     Boolean deleteById(Long id);
 }

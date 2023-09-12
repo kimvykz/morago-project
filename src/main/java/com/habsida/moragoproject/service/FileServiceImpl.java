@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.File;
+import com.habsida.moragoproject.model.input.CreateFileInput;
+import com.habsida.moragoproject.model.input.UpdateFileInput;
 import com.habsida.moragoproject.repository.FileRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,9 +15,11 @@ import java.util.List;
 public class FileServiceImpl implements FileService{
 
     private FileRepository fileRepository;
+    private ModelMapper modelMapper;
 
-    public FileServiceImpl(FileRepository fileRepository) {
+    public FileServiceImpl(FileRepository fileRepository, ModelMapper modelMapper) {
         this.fileRepository = fileRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -35,12 +40,15 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public File create(File file) {
+    public File create(CreateFileInput createFileInput) {
+        File file = modelMapper.map(createFileInput, File.class);
         return fileRepository.save(file);
     }
 
     @Override
-    public File update(File file) {
+    public File update(UpdateFileInput updateFileInput) {
+        File file = getById(updateFileInput.getId());
+        modelMapper.map(updateFileInput, file);
         return fileRepository.save(file);
     }
 

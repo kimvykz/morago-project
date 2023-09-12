@@ -2,7 +2,10 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.enums.ERole;
+import com.habsida.moragoproject.model.input.CreateRoleInput;
+import com.habsida.moragoproject.model.input.UpdateRoleInput;
 import com.habsida.moragoproject.repository.RoleRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -13,9 +16,11 @@ import java.util.Optional;
 @Service
 public class RoleServiceImpl implements RoleService{
     private RoleRepository roleRepository;
+    private ModelMapper modelMapper;
 
-    public RoleServiceImpl (RoleRepository roleRepository) {
+    public RoleServiceImpl (RoleRepository roleRepository, ModelMapper modelMapper) {
         this.roleRepository = roleRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -36,12 +41,15 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public Role create (Role role) {
+    public Role create (CreateRoleInput createRoleInput) {
+        Role role = modelMapper.map(createRoleInput, Role.class);
         return roleRepository.save(role);
     }
 
     @Override
-    public Role update (Role role) {
+    public Role update (UpdateRoleInput updateRoleInput) {
+        Role role = getById(updateRoleInput.getId());
+        modelMapper.map(updateRoleInput, role);
         return roleRepository.save(role);
     }
 

@@ -1,20 +1,26 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.AppVersion;
+import com.habsida.moragoproject.model.input.CreateAppVersionInput;
+import com.habsida.moragoproject.model.input.UpdateAppVersionInput;
 import com.habsida.moragoproject.repository.AppVersionRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppVersionServiceImpl implements AppVersionService{
 
     private AppVersionRepository appVersionRepository;
+    private ModelMapper modelMapper;
 
-    public AppVersionServiceImpl (AppVersionRepository appVersionRepository) {
+    public AppVersionServiceImpl (AppVersionRepository appVersionRepository, ModelMapper modelMapper) {
         this.appVersionRepository = appVersionRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -36,7 +42,10 @@ public class AppVersionServiceImpl implements AppVersionService{
     }
 
     @Override
-    public AppVersion create (AppVersion appVersion) {
+    public AppVersion create (CreateAppVersionInput createAppVersionInput) {
+
+        AppVersion appVersion = modelMapper.map(createAppVersionInput, AppVersion.class);
+
         if (appVersion.getPlatform() == null) {
             throw new IllegalArgumentException("field platform cannot be empty");
         }
@@ -50,7 +59,12 @@ public class AppVersionServiceImpl implements AppVersionService{
     }
 
     @Override
-    public AppVersion update (AppVersion appVersion) {
+    public AppVersion update (UpdateAppVersionInput updateAppVersionInput) {
+
+        AppVersion appVersion = getById(updateAppVersionInput.getId());
+
+        modelMapper.map(updateAppVersionInput, appVersion);
+
         if (appVersion.getPlatform() == null) {
             throw new IllegalArgumentException("field platform cannot be empty");
         }

@@ -10,6 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UpdateDepositInput {
+    private Long id;
     private String accountHolder;
     private Double coin;
     private String nameOfBank;

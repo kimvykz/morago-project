@@ -25,11 +25,8 @@ public class SecurityConfig {
 
     private JwtAuthEntryPoint authEntryPoint;
 
-    private CustomUserDetailsService userDetailsService;
-
-    public SecurityConfig(JwtAuthEntryPoint authEntryPoint, CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(JwtAuthEntryPoint authEntryPoint) {
         this.authEntryPoint = authEntryPoint;
-        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -47,9 +44,6 @@ public class SecurityConfig {
                 })
                 .httpBasic(Customizer.withDefaults());
 
-         HttpSecurity httpSecurity = http.getSharedObject(HttpSecurity.class);
-
-         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
          return http.build();
     }
 

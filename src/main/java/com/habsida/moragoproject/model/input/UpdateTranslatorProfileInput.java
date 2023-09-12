@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdateTranslatorProfileInput {
-
+    private Long id;
     private String dateOfBirth;
     private String email;
     private Boolean isAvailable;

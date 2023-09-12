@@ -8,11 +8,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SignInPayload {
+public class LoginPayload {
     private User user;
     private String token;
 
-    public SignInPayload(User user, String token) {
+    public LoginPayload(User user, String token) {
         this.user = user;
         this.token = token;
     }

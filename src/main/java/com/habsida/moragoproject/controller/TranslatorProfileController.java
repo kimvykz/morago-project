@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class TranslatorProfileController {
-    private ModelMapper modelMapper;
 
     private TranslatorProfileService translatorProfileService;
 
-    public TranslatorProfileController(ModelMapper modelMapper,
-                                       TranslatorProfileService translatorProfileService) {
-        this.modelMapper = modelMapper;
+    public TranslatorProfileController(TranslatorProfileService translatorProfileService) {
         this.translatorProfileService = translatorProfileService;
     }
 
@@ -43,17 +40,14 @@ public class TranslatorProfileController {
     }
 
     @MutationMapping(name = "createTranslatorProfile")
-    public TranslatorProfile create (@Valid @Argument(name = "translatorProfile") CreateTranslatorProfileInput createTranslatorProfileInput) {
-        TranslatorProfile translatorProfile = modelMapper.map(createTranslatorProfileInput, TranslatorProfile.class);
-        return translatorProfileService.create(translatorProfile);
+    public TranslatorProfile create (@Valid @Argument(name = "translatorProfileInput") CreateTranslatorProfileInput createTranslatorProfileInput) {
+        return translatorProfileService.create(createTranslatorProfileInput);
     }
 
-    @MutationMapping(name = "updateTranslatorProfileById")
-    public TranslatorProfile updateById (@Valid @Argument Long id,
-                              @Argument(name = "translatorProfile") UpdateTranslatorProfileInput updateTranslatorProfileInput) {
-        TranslatorProfile translatorProfile = translatorProfileService.getById(id);
-        modelMapper.map(updateTranslatorProfileInput, translatorProfile);
-        return translatorProfileService.update(translatorProfile);
+    @MutationMapping(name = "updateTranslatorProfile")
+    public TranslatorProfile update (@Valid
+        @Argument(name = "translatorProfileInput") UpdateTranslatorProfileInput updateTranslatorProfileInput) {
+        return translatorProfileService.update(updateTranslatorProfileInput);
     }
 
     @MutationMapping(name = "deleteTranslatorProfileById")

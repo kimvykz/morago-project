@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UpdateUserProfileInput {
+    private Long id;
     private Boolean isFreeCallMade;
 
     //private User user;

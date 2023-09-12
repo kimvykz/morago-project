@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Coin;
+import com.habsida.moragoproject.model.input.CreateCoinInput;
+import com.habsida.moragoproject.model.input.UpdateCoinInput;
 import com.habsida.moragoproject.repository.CoinRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,9 +15,11 @@ import java.util.List;
 public class CoinServiceImpl implements CoinService{
 
     private CoinRepository coinRepository;
+    private ModelMapper modelMapper;
 
-    public CoinServiceImpl(CoinRepository coinRepository) {
+    public CoinServiceImpl(CoinRepository coinRepository, ModelMapper modelMapper) {
         this.coinRepository = coinRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -35,12 +40,15 @@ public class CoinServiceImpl implements CoinService{
     }
 
     @Override
-    public Coin create(Coin coin) {
+    public Coin create(CreateCoinInput createCoinInput) {
+        Coin coin = modelMapper.map(createCoinInput, Coin.class);
         return coinRepository.save(coin);
     }
 
     @Override
-    public Coin update(Coin coin) {
+    public Coin update(UpdateCoinInput updateCoinInput) {
+        Coin coin = getById(updateCoinInput.getId());
+        modelMapper.map(updateCoinInput, coin);
         return coinRepository.save(coin);
     }
 

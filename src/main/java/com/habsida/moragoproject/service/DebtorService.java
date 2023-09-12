@@ -1,6 +1,8 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Debtor;
+import com.habsida.moragoproject.model.input.CreateDebtorInput;
+import com.habsida.moragoproject.model.input.UpdateDebtorInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -10,7 +12,7 @@ public interface DebtorService {
     List<Debtor> getAll();
     Page<Debtor> getAllPaged(PageRequest pageRequest);
     Debtor getById(Long id);
-    Debtor create(Debtor debtor);
-    Debtor update(Debtor debtor);
+    Debtor create(CreateDebtorInput createDebtorInput);
+    Debtor update(UpdateDebtorInput updateDebtorInput);
     Boolean deleteById(Long id);
 }

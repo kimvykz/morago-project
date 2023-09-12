@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class ThemeController {
-    private ModelMapper modelMapper;
 
     private ThemeService themeService;
 
-    public ThemeController(ModelMapper modelMapper,
-                           ThemeService themeService) {
-        this.modelMapper = modelMapper;
+    public ThemeController(ThemeService themeService) {
         this.themeService = themeService;
     }
 
@@ -43,17 +40,13 @@ public class ThemeController {
     }
 
     @MutationMapping(name = "createTheme")
-    public Theme create (@Valid @Argument(name = "theme") CreateThemeInput createThemeInput) {
-        Theme theme = modelMapper.map(createThemeInput, Theme.class);
-        return themeService.create(theme);
+    public Theme create (@Valid @Argument(name = "themeInput") CreateThemeInput createThemeInput) {
+        return themeService.create(createThemeInput);
     }
 
-    @MutationMapping(name = "updateThemeById")
-    public Theme updateById (@Valid @Argument Long id,
-                              @Argument(name = "theme") UpdateThemeInput updateThemeInput) {
-        Theme theme = themeService.getById(id);
-        modelMapper.map(updateThemeInput, theme);
-        return themeService.update(theme);
+    @MutationMapping(name = "updateTheme")
+    public Theme update (@Valid @Argument(name = "themeInput") UpdateThemeInput updateThemeInput) {
+        return themeService.update(updateThemeInput);
     }
 
     @MutationMapping(name = "deleteThemeById")

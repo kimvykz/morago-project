@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdateFrequentlyAskedQuestionInput {
-
+    private Long id;
     private String answer;
     private EFAQCategory category;
     private String question;

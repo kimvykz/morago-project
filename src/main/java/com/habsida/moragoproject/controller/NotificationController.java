@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class NotificationController {
-    private ModelMapper modelMapper;
 
     private NotificationService notificationService;
 
-    public NotificationController(ModelMapper modelMapper,
-                                  NotificationService notificationService) {
-        this.modelMapper = modelMapper;
+    public NotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
     }
 
@@ -43,17 +40,13 @@ public class NotificationController {
     }
 
     @MutationMapping(name = "createNotification")
-    public Notification create (@Valid @Argument(name = "notification") CreateNotificationInput createNotificationInput) {
-        Notification notification = modelMapper.map(createNotificationInput, Notification.class);
-        return notificationService.create(notification);
+    public Notification create (@Valid @Argument(name = "notificationInput") CreateNotificationInput createNotificationInput) {
+        return notificationService.create(createNotificationInput);
     }
 
-    @MutationMapping(name = "updateNotificationById")
-    public Notification updateById (@Valid @Argument Long id,
-                              @Argument(name = "notification") UpdateNotificationInput updateNotificationInput) {
-        Notification notification = notificationService.getById(id);
-        modelMapper.map(updateNotificationInput, notification);
-        return notificationService.update(notification);
+    @MutationMapping(name = "updateNotification")
+    public Notification update (@Valid @Argument(name = "notificationInput") UpdateNotificationInput updateNotificationInput) {
+        return notificationService.update(updateNotificationInput);
     }
 
     @MutationMapping(name = "deleteNotificationById")

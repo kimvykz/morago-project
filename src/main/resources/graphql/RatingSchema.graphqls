@@ -1,7 +1,11 @@
-input RatingInput {
+input RatingCreateInput {
+    grade: Float
+}
+input RatingUpdateInput {
+    id: ID!
     grade: Float
 }
 type Rating {
-    id: ID!
+    id: ID
     grade: Float
 }

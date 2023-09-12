@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Notification;
+import com.habsida.moragoproject.model.input.CreateNotificationInput;
+import com.habsida.moragoproject.model.input.UpdateNotificationInput;
 import com.habsida.moragoproject.repository.NotificationRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -11,9 +14,11 @@ import java.util.List;
 @Service
 public class NotificationServiceImpl implements NotificationService{
     private NotificationRepository notificationRepository;
+    private ModelMapper modelMapper;
 
-    public NotificationServiceImpl(NotificationRepository notificationRepository) {
+    public NotificationServiceImpl(NotificationRepository notificationRepository, ModelMapper modelMapper) {
         this.notificationRepository = notificationRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -34,12 +39,15 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     @Override
-    public Notification create(Notification notification) {
+    public Notification create(CreateNotificationInput createNotificationInput) {
+        Notification notification = modelMapper.map(createNotificationInput, Notification.class);
         return notificationRepository.save(notification);
     }
 
     @Override
-    public Notification update(Notification notification) {
+    public Notification update(UpdateNotificationInput updateNotificationInput) {
+        Notification notification = getById(updateNotificationInput.getId());
+        modelMapper.map(updateNotificationInput, notification);
         return notificationRepository.save(notification);
     }
 

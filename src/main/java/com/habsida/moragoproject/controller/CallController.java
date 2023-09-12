@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class CallController {
-    private ModelMapper modelMapper;
 
     private CallService callService;
 
-    public CallController(ModelMapper modelMapper,
-                          CallService callService) {
-        this.modelMapper = modelMapper;
+    public CallController(CallService callService) {
         this.callService = callService;
     }
 
@@ -43,16 +40,13 @@ public class CallController {
     }
 
     @MutationMapping(name = "createCall")
-    public Call create (@Valid @Argument(name = "call") CreateCallInput createCallInput) {
-        Call call = modelMapper.map(createCallInput, Call.class);
-        return callService.create(call);
+    public Call create (@Valid @Argument(name = "callInput") CreateCallInput createCallInput) {
+        return callService.create(createCallInput);
     }
 
     @MutationMapping(name = "updateCall")
-    public Call updateById (@Valid @Argument(name = "call") UpdateCallInput updateCallInput) {
-        Call call = callService.getById(updateCallInput.getId());
-        modelMapper.map(updateCallInput, call);
-        return callService.update(call);
+    public Call update (@Valid @Argument(name = "callInput") UpdateCallInput updateCallInput) {
+        return callService.update(updateCallInput);
     }
 
     @MutationMapping(name = "deleteCallById")

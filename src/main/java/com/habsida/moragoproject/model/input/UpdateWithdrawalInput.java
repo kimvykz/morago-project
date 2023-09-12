@@ -9,6 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdateWithdrawalInput {
+    private Long id;
     private String accountHolder;
     private String accountNumber;
     private String nameOfBank;

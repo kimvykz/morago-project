@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Rating;
+import com.habsida.moragoproject.model.input.CreateRatingInput;
+import com.habsida.moragoproject.model.input.UpdateRatingInput;
 import com.habsida.moragoproject.repository.RatingRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -11,9 +14,11 @@ import java.util.List;
 @Service
 public class RatingServiceImpl implements RatingService{
     private RatingRepository ratingRepository;
+    private ModelMapper modelMapper;
 
-    public RatingServiceImpl(RatingRepository ratingRepository) {
+    public RatingServiceImpl(RatingRepository ratingRepository, ModelMapper modelMapper) {
         this.ratingRepository = ratingRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -34,12 +39,15 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public Rating create (Rating rating) {
+    public Rating create (CreateRatingInput createRatingInput) {
+        Rating rating = modelMapper.map(createRatingInput, Rating.class);
         return ratingRepository.save(rating);
     }
 
     @Override
-    public Rating update (Rating rating) {
+    public Rating update (UpdateRatingInput updateRatingInput) {
+        Rating rating = getById(updateRatingInput.getId());
+        modelMapper.map(updateRatingInput, rating);
         return ratingRepository.save(rating);
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
-public class SignUpUserInput {
+public class RegistrationUserInput {
     @NotBlank(message = "phone cannot be blank")
     private String phone;
     @NotBlank(message = "password cannot be blank")

@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class RatingController {
-    private ModelMapper modelMapper;
 
     private RatingService ratingService;
 
-    public RatingController(ModelMapper modelMapper,
-                            RatingService ratingService) {
-        this.modelMapper = modelMapper;
+    public RatingController(RatingService ratingService) {
         this.ratingService = ratingService;
     }
 
@@ -43,17 +40,13 @@ public class RatingController {
     }
 
     @MutationMapping(name = "createRating")
-    public Rating create (@Valid @Argument(name = "rating") CreateRatingInput createRatingInput) {
-        Rating rating = modelMapper.map(createRatingInput, Rating.class);
-        return ratingService.create(rating);
+    public Rating create (@Valid @Argument(name = "ratingInput") CreateRatingInput createRatingInput) {
+        return ratingService.create(createRatingInput);
     }
 
-    @MutationMapping(name = "updateRatingById")
-    public Rating updateById (@Valid @Argument Long id,
-                              @Argument(name = "rating") UpdateRatingInput updateRatingInput) {
-        Rating rating = ratingService.getById(id);
-        modelMapper.map(updateRatingInput, rating);
-        return ratingService.update(rating);
+    @MutationMapping(name = "updateRating")
+    public Rating update (@Valid @Argument(name = "ratingInput") UpdateRatingInput updateRatingInput) {
+        return ratingService.update(updateRatingInput);
     }
 
     @MutationMapping(name = "deleteRatingById")

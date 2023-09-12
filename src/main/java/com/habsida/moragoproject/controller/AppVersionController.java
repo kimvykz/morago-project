@@ -17,13 +17,11 @@ import javax.validation.Valid;
 
 @Controller
 public class AppVersionController {
-    private ModelMapper modelMapper;
+
 
     private AppVersionService appVersionService;
 
-    public AppVersionController(ModelMapper modelMapper,
-                                AppVersionService appVersionService) {
-        this.modelMapper = modelMapper;
+    public AppVersionController(AppVersionService appVersionService) {
         this.appVersionService = appVersionService;
     }
 
@@ -48,17 +46,16 @@ public class AppVersionController {
 
     @MutationMapping(name = "createAppVersion")
     @PreAuthorize("hasAnyRole( 'ROLE_ADMIN')")
-    public AppVersion create (@Valid @Argument(name = "appVersion") CreateAppVersionInput createAppVersionInput) {
-        AppVersion appVersion = modelMapper.map(createAppVersionInput, AppVersion.class);
-        return appVersionService.create(appVersion);
+    public AppVersion create (@Valid @Argument(name = "appVersionInput") CreateAppVersionInput createAppVersionInput) {
+
+        return appVersionService.create(createAppVersionInput);
     }
 
     @MutationMapping(name = "updateAppVersion")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public AppVersion update (@Valid @Argument(name = "appVersion") UpdateAppVersionInput updateAppVersionInput) {
-        AppVersion appVersion = appVersionService.getById(updateAppVersionInput.getId());
-        modelMapper.map(updateAppVersionInput, appVersion);
-        return appVersionService.update(appVersion);
+    public AppVersion update (@Valid @Argument(name = "appVersionInput") UpdateAppVersionInput updateAppVersionInput) {
+
+        return appVersionService.update(updateAppVersionInput);
     }
 
     @MutationMapping(name = "deleteAppVersionById")

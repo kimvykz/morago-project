@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.FrequentlyAskedQuestion;
+import com.habsida.moragoproject.model.input.CreateFrequentlyAskedQuestionInput;
+import com.habsida.moragoproject.model.input.UpdateFrequentlyAskedQuestionInput;
 import com.habsida.moragoproject.repository.FrequentlyAskedQuestionRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -11,9 +14,12 @@ import java.util.List;
 @Service
 public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuestionService{
     private FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository;
+    private ModelMapper modelMapper;
 
-    public FrequentlyAskedQuestionServiceImpl(FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository) {
+    public FrequentlyAskedQuestionServiceImpl(FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository,
+                                              ModelMapper modelMapper) {
         this.frequentlyAskedQuestionRepository = frequentlyAskedQuestionRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -34,12 +40,18 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     }
 
     @Override
-    public FrequentlyAskedQuestion create(FrequentlyAskedQuestion frequentlyAskedQuestion) {
+    public FrequentlyAskedQuestion create(CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
+        FrequentlyAskedQuestion frequentlyAskedQuestion =
+                modelMapper.map(createFrequentlyAskedQuestionInput, FrequentlyAskedQuestion.class);
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
     }
 
     @Override
-    public FrequentlyAskedQuestion update(FrequentlyAskedQuestion frequentlyAskedQuestion) {
+    public FrequentlyAskedQuestion update(UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput) {
+        FrequentlyAskedQuestion frequentlyAskedQuestion =
+                getById(updateFrequentlyAskedQuestionInput.getId());
+        modelMapper.map(updateFrequentlyAskedQuestionInput, frequentlyAskedQuestion);
+
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
     }
 

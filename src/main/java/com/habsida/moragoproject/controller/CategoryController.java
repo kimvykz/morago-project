@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class CategoryController {
-    private ModelMapper modelMapper;
 
     private CategoryService categoryService;
 
-    public CategoryController(ModelMapper modelMapper,
-                              CategoryService categoryService) {
-        this.modelMapper = modelMapper;
+    public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -43,17 +40,13 @@ public class CategoryController {
     }
 
     @MutationMapping(name = "createCategory")
-    public Category create (@Valid @Argument(name = "category") CreateCategoryInput createCategoryInput) {
-        Category category = modelMapper.map(createCategoryInput, Category.class);
-        return categoryService.create(category);
+    public Category create (@Valid @Argument(name = "categoryInput") CreateCategoryInput createCategoryInput) {
+        return categoryService.create(createCategoryInput);
     }
 
-    @MutationMapping(name = "updateCategoryById")
-    public Category updateById (@Valid @Argument Long id,
-                              @Argument(name = "category") UpdateCategoryInput updateCategoryInput) {
-        Category category = categoryService.getById(id);
-        modelMapper.map(updateCategoryInput, category);
-        return categoryService.update(category);
+    @MutationMapping(name = "updateCategory")
+    public Category update (@Valid @Argument(name = "categoryInput") UpdateCategoryInput updateCategoryInput) {
+        return categoryService.update(updateCategoryInput);
     }
 
     @MutationMapping(name = "deleteCategoryById")

@@ -1,4 +1,12 @@
-input DepositInput {
+input DepositCreateInput {
+    accountHolder: String
+    coin: Float
+    nameOfBank: String
+    eStatus: EStatus
+    won: Float
+}
+input DepositUpdateInput {
+    id: ID!
     accountHolder: String
     coin: Float
     nameOfBank: String
@@ -6,7 +14,7 @@ input DepositInput {
     won: Float
 }
 type Deposit {
-    id: ID!
+    id: ID
     accountHolder: String
     coin: Float
     nameOfBank: String

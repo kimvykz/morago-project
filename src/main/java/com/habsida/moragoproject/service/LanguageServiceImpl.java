@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Language;
+import com.habsida.moragoproject.model.input.CreateLanguageInput;
+import com.habsida.moragoproject.model.input.UpdateLanguageInput;
 import com.habsida.moragoproject.repository.LanguageRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -11,9 +14,11 @@ import java.util.List;
 @Service
 public class LanguageServiceImpl implements LanguageService{
     private LanguageRepository languageRepository;
+    private ModelMapper modelMapper;
 
-    public LanguageServiceImpl(LanguageRepository languageRepository) {
+    public LanguageServiceImpl(LanguageRepository languageRepository, ModelMapper modelMapper) {
         this.languageRepository = languageRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -34,12 +39,15 @@ public class LanguageServiceImpl implements LanguageService{
     }
 
     @Override
-    public Language create(Language language) {
+    public Language create(CreateLanguageInput createLanguageInput) {
+        Language language = modelMapper.map(createLanguageInput, Language.class);
         return languageRepository.save(language);
     }
 
     @Override
-    public Language update(Language language) {
+    public Language update(UpdateLanguageInput updateLanguageInput) {
+        Language language = getById(updateLanguageInput.getId());
+        modelMapper.map(updateLanguageInput, language);
         return languageRepository.save(language);
     }
 

@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class FrequentlyAskedQuestionController {
-    private ModelMapper modelMapper;
 
     private FrequentlyAskedQuestionService frequentlyAskedQuestionService;
 
-    public FrequentlyAskedQuestionController(ModelMapper modelMapper,
-                                             FrequentlyAskedQuestionService frequentlyAskedQuestionService) {
-        this.modelMapper = modelMapper;
+    public FrequentlyAskedQuestionController(FrequentlyAskedQuestionService frequentlyAskedQuestionService) {
         this.frequentlyAskedQuestionService = frequentlyAskedQuestionService;
     }
 
@@ -43,17 +40,15 @@ public class FrequentlyAskedQuestionController {
     }
 
     @MutationMapping(name = "createFrequentlyAskedQuestion")
-    public FrequentlyAskedQuestion create (@Valid @Argument(name = "frequentlyAskedQuestion") CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
-        FrequentlyAskedQuestion frequentlyAskedQuestion = modelMapper.map(createFrequentlyAskedQuestionInput, FrequentlyAskedQuestion.class);
-        return frequentlyAskedQuestionService.create(frequentlyAskedQuestion);
+    public FrequentlyAskedQuestion create (@Valid
+        @Argument(name = "frequentlyAskedQuestionInput") CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
+        return frequentlyAskedQuestionService.create(createFrequentlyAskedQuestionInput);
     }
 
-    @MutationMapping(name = "updateFrequentlyAskedQuestionById")
-    public FrequentlyAskedQuestion updateById (@Valid @Argument Long id,
-                              @Argument(name = "frequentlyAskedQuestion") UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput) {
-        FrequentlyAskedQuestion frequentlyAskedQuestion = frequentlyAskedQuestionService.getById(id);
-        modelMapper.map(updateFrequentlyAskedQuestionInput, frequentlyAskedQuestion);
-        return frequentlyAskedQuestionService.update(frequentlyAskedQuestion);
+    @MutationMapping(name = "updateFrequentlyAskedQuestion")
+    public FrequentlyAskedQuestion update (@Valid
+        @Argument(name = "frequentlyAskedQuestionInput") UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput) {
+        return frequentlyAskedQuestionService.update(updateFrequentlyAskedQuestionInput);
     }
 
     @MutationMapping(name = "deleteFrequentlyAskedQuestionById")

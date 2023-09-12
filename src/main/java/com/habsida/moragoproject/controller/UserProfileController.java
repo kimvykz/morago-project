@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class UserProfileController {
-    private ModelMapper modelMapper;
 
     private UserProfileService userProfileService;
 
-    public UserProfileController(ModelMapper modelMapper,
-                                 UserProfileService userProfileService) {
-        this.modelMapper = modelMapper;
+    public UserProfileController(UserProfileService userProfileService) {
         this.userProfileService = userProfileService;
     }
 
@@ -43,17 +40,13 @@ public class UserProfileController {
     }
 
     @MutationMapping(name = "createUserProfile")
-    public UserProfile create (@Valid @Argument(name = "userProfile") CreateUserProfileInput createUserProfileInput) {
-        UserProfile userProfile = modelMapper.map(createUserProfileInput, UserProfile.class);
-        return userProfileService.create(userProfile);
+    public UserProfile create (@Valid @Argument(name = "userProfileInput") CreateUserProfileInput createUserProfileInput) {
+        return userProfileService.create(createUserProfileInput);
     }
 
-    @MutationMapping(name = "updateUserProfileById")
-    public UserProfile updateById (@Valid @Argument Long id,
-                              @Argument(name = "userProfile") UpdateUserProfileInput updateUserProfileInput) {
-        UserProfile userProfile = userProfileService.getById(id);
-        modelMapper.map(updateUserProfileInput, userProfile);
-        return userProfileService.update(userProfile);
+    @MutationMapping(name = "updateUserProfile")
+    public UserProfile update (@Valid @Argument(name = "userProfileInput") UpdateUserProfileInput updateUserProfileInput) {
+        return userProfileService.update(updateUserProfileInput);
     }
 
     @MutationMapping(name = "deleteUserProfileById")

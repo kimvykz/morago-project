@@ -8,6 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdateThemeInput {
+    private Long id;
     private String description;
     private Boolean isActive;
     private Boolean isPopular;

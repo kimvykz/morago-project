@@ -6,6 +6,6 @@ input UserProfileUpdateInput {
     isFreeCallMade: Boolean
 }
 type UserProfile {
-    id: ID!
+    id: ID
     isFreeCallMade: Boolean
 }

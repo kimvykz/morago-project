@@ -18,7 +18,7 @@ input ThemeUpdateInput {
     price: Float
 }
 type Theme {
-    id: ID!
+    id: ID
     description: String
     isActive: Boolean
     isPopular: Boolean

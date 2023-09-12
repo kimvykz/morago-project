@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class FileController {
-    private ModelMapper modelMapper;
 
     private FileService fileService;
 
-    public FileController(ModelMapper modelMapper,
-                          FileService fileService) {
-        this.modelMapper = modelMapper;
+    public FileController(FileService fileService) {
         this.fileService = fileService;
     }
 
@@ -43,17 +40,15 @@ public class FileController {
     }
 
     @MutationMapping(name = "createFile")
-    public File create (@Valid @Argument(name = "file") CreateFileInput createFileInput) {
-        File file = modelMapper.map(createFileInput, File.class);
-        return fileService.create(file);
+    public File create (@Valid @Argument(name = "fileInput") CreateFileInput createFileInput) {
+
+        return fileService.create(createFileInput);
     }
 
-    @MutationMapping(name = "updateFileById")
-    public File updateById (@Valid @Argument Long id,
-                              @Argument(name = "file") UpdateFileInput updateFileInput) {
-        File file = fileService.getById(id);
-        modelMapper.map(updateFileInput, file);
-        return fileService.update(file);
+    @MutationMapping(name = "updateFile")
+    public File update (@Valid @Argument(name = "fileInput") UpdateFileInput updateFileInput) {
+
+        return fileService.update(updateFileInput);
     }
 
     @MutationMapping(name = "deleteFileById")

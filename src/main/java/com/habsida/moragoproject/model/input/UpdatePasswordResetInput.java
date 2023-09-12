@@ -8,6 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdatePasswordResetInput {
+    private Long id;
     private String phone;
     private Integer resetCode;
     private String token;

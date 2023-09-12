@@ -1,10 +1,16 @@
-input FrequentlyAskedQuestionInput {
+input FrequentlyAskedQuestionCreateInput {
+    answer: String
+    category: EFAQCategory
+    question: String
+}
+input FrequentlyAskedQuestionUpdateInput {
+    id: ID!
     answer: String
     category: EFAQCategory
     question: String
 }
 type FrequentlyAskedQuestion {
-    id: ID!
+    id: ID
     answer: String
     category: EFAQCategory
     question: String

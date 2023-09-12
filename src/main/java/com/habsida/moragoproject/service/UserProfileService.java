@@ -1,6 +1,8 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.UserProfile;
+import com.habsida.moragoproject.model.input.CreateUserProfileInput;
+import com.habsida.moragoproject.model.input.UpdateUserProfileInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -10,7 +12,7 @@ public interface UserProfileService {
     List<UserProfile> getAll ();
     Page<UserProfile> getAllPaged (PageRequest pageRequest);
     UserProfile getById (Long id);
-    UserProfile create (UserProfile userProfile);
-    UserProfile update (UserProfile userProfile);
+    UserProfile create (CreateUserProfileInput createUserProfileInput);
+    UserProfile update (UpdateUserProfileInput updateUserProfileInput);
     Boolean deleteById (Long id);
 }

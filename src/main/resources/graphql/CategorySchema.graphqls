@@ -1,11 +1,14 @@
-input CategoryInput {
-    platform: EPlatform!
-    latest: String
-    min: String
+input CategoryCreateInput {
+    isActive: Boolean
+    name: String
+}
+input CategoryUpdateInput {
+    id: ID!
+    isActive: Boolean
+    name: String
 }
 type Category {
-    id: ID!
-    platform: EPlatform!
-    latest: String
-    min: String
+    id: ID
+    isActive: Boolean
+    name: String
 }

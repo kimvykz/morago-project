@@ -3,47 +3,57 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.enums.ERole;
-import com.habsida.moragoproject.repository.ThemeRepository;
+import com.habsida.moragoproject.model.input.CreateUserInput;
+import com.habsida.moragoproject.model.input.RegistrationUserInput;
+import com.habsida.moragoproject.model.input.UpdateUserInput;
+import com.habsida.moragoproject.repository.RoleRepository;
 import com.habsida.moragoproject.repository.UserRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
-import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
-    private RoleService roleService;
+    private RoleRepository roleRepository;
+    private ModelMapper modelMapper;
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl (UserRepository userRepository,
-                           RoleService roleService) {
+                            RoleRepository roleRepository,
+                            ModelMapper modelMapper,
+                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.roleService = roleService;
+        this.roleRepository = roleRepository;
+        this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    private List<Role> setIdForExistingRoles (List<Role> roles) {
-        List<Role> managedRoles = new ArrayList<>();
+    private List<Role> defineIdForExistingRoles (List<Role> roles) {
+        List<Role> userRoles = new ArrayList<>();
         for(Role role : roles) {
             if (role.getId() == null){
-                Role existRole = roleService.getByName(role.getName());
-                if (existRole != null) {
-                    managedRoles.add(existRole);
+                Optional<Role> existRole = roleRepository.findByName(role.getName());
+                if (existRole.isPresent()) {
+                    userRoles.add(existRole.get());
                 } else {
-                    managedRoles.add(role);
+                    userRoles.add(role);
                 }
             } else {
-                managedRoles.add(role);
+                userRoles.add(role);
             }
         }
-        return managedRoles;
+        return userRoles;
     }
     @Override
     public List<User> getAll () {
@@ -63,7 +73,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User create (User user) {
+    public User create (CreateUserInput createUserInput) {
+
+        User user = modelMapper.map(createUserInput, User.class);
+
 
         if (isExistsByPhone(user.getPhone())) {
             throw new KeyAlreadyExistsException("User is already existed with phone - "
@@ -119,12 +132,15 @@ public class UserServiceImpl implements UserService{
             //here I need to know logic
         }
 
-        user.setRoles(setIdForExistingRoles(user.getRoles()));
+        user.setRoles(defineIdForExistingRoles(user.getRoles()));
         return userRepository.save(user);
     }
 
     @Override
-    public User update (User user) {
+    public User update (UpdateUserInput updateUserInput) {
+
+        User user = getById(updateUserInput.getId());
+        modelMapper.map(updateUserInput, user);
 
         if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
             throw new IllegalArgumentException("field firstName cannot be Empty");
@@ -175,7 +191,7 @@ public class UserServiceImpl implements UserService{
             //here I need to know logic
         }
 
-        user.setRoles(setIdForExistingRoles(user.getRoles()));
+        user.setRoles(defineIdForExistingRoles(user.getRoles()));
 
         return userRepository.save(user);
     }
@@ -196,5 +212,30 @@ public class UserServiceImpl implements UserService{
         return userRepository.existsByPhone(phone);
     }
 
+    @Override
+    public User signUpUser(RegistrationUserInput registrationUserInput) {
+        if (isExistsByPhone(registrationUserInput.getPhone())) {
+            throw new IllegalArgumentException("User is already existed with phone - " + registrationUserInput.getPhone());
+        }
+        if (registrationUserInput.getPhone() == null || registrationUserInput.getPhone().trim().isEmpty()) {
+            throw new IllegalArgumentException("Phone cannot be null");
+        }
+        if (registrationUserInput.getPassword() == null ) {
+            throw new IllegalArgumentException("Password cannot be null");
+        }
 
+        User user = modelMapper.map(registrationUserInput, User.class);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        user.setBalance(0.0f);
+        user.setFirstName("");
+        user.setIsActive(true);
+        user.setIsDebtor(false);
+        user.setLastName("");
+        user.setOnBoardingStatus(0);
+        user.setRatings(0.0);
+        user.setTotalRatings(0);
+
+        return userRepository.save(user);
+    }
 }

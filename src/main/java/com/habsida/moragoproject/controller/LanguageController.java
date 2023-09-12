@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class LanguageController {
-    private ModelMapper modelMapper;
 
     private LanguageService languageService;
 
-    public LanguageController(ModelMapper modelMapper,
-                              LanguageService languageService) {
-        this.modelMapper = modelMapper;
+    public LanguageController(LanguageService languageService) {
         this.languageService = languageService;
     }
 
@@ -43,17 +40,13 @@ public class LanguageController {
     }
 
     @MutationMapping(name = "createLanguage")
-    public Language create (@Valid @Argument(name = "language") CreateLanguageInput createLanguageInput) {
-        Language language = modelMapper.map(createLanguageInput, Language.class);
-        return languageService.create(language);
+    public Language create (@Valid @Argument(name = "languageInput") CreateLanguageInput createLanguageInput) {
+        return languageService.create(createLanguageInput);
     }
 
-    @MutationMapping(name = "updateLanguageById")
-    public Language updateById (@Valid @Argument Long id,
-                              @Argument(name = "language") UpdateLanguageInput updateLanguageInput) {
-        Language language = languageService.getById(id);
-        modelMapper.map(updateLanguageInput, language);
-        return languageService.update(language);
+    @MutationMapping(name = "updateLanguage")
+    public Language update (@Valid @Argument(name = "languageInput") UpdateLanguageInput updateLanguageInput) {
+        return languageService.update(updateLanguageInput);
     }
 
     @MutationMapping(name = "deleteLanguageById")

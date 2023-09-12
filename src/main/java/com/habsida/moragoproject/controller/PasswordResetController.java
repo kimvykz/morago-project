@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class PasswordResetController {
-    private ModelMapper modelMapper;
 
     private PasswordResetService passwordResetService;
 
-    public PasswordResetController(ModelMapper modelMapper,
-                                   PasswordResetService passwordResetService) {
-        this.modelMapper = modelMapper;
+    public PasswordResetController (PasswordResetService passwordResetService) {
         this.passwordResetService = passwordResetService;
     }
 
@@ -43,17 +40,13 @@ public class PasswordResetController {
     }
 
     @MutationMapping(name = "createPasswordReset")
-    public PasswordReset create (@Valid @Argument(name = "passwordReset") CreatePasswordResetInput createPasswordResetInput) {
-        PasswordReset passwordReset = modelMapper.map(createPasswordResetInput, PasswordReset.class);
-        return passwordResetService.create(passwordReset);
+    public PasswordReset create (@Valid @Argument(name = "passwordResetInput") CreatePasswordResetInput createPasswordResetInput) {
+        return passwordResetService.create(createPasswordResetInput);
     }
 
-    @MutationMapping(name = "updatePasswordResetById")
-    public PasswordReset updateById (@Valid @Argument Long id,
-                              @Argument(name = "passwordReset") UpdatePasswordResetInput updatePasswordResetInput) {
-        PasswordReset passwordReset = passwordResetService.getById(id);
-        modelMapper.map(updatePasswordResetInput, passwordReset);
-        return passwordResetService.update(passwordReset);
+    @MutationMapping(name = "updatePasswordReset")
+    public PasswordReset update (@Valid @Argument(name = "passwordResetInput") UpdatePasswordResetInput updatePasswordResetInput) {
+        return passwordResetService.update(updatePasswordResetInput);
     }
 
     @MutationMapping(name = "deletePasswordResetById")

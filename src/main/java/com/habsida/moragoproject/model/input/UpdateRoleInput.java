@@ -9,5 +9,6 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UpdateRoleInput {
+    private Long id;
     private ERole name;
 }

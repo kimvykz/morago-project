@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class DepositController {
-    private ModelMapper modelMapper;
 
     private DepositService depositService;
 
-    public DepositController(ModelMapper modelMapper,
-                             DepositService depositService) {
-        this.modelMapper = modelMapper;
+    public DepositController(DepositService depositService) {
         this.depositService = depositService;
     }
 
@@ -43,17 +40,15 @@ public class DepositController {
     }
 
     @MutationMapping(name = "createDeposit")
-    public Deposit create (@Valid @Argument(name = "deposit") CreateDepositInput createDepositInput) {
-        Deposit deposit = modelMapper.map(createDepositInput, Deposit.class);
-        return depositService.create(deposit);
+    public Deposit create (@Valid @Argument(name = "depositInput") CreateDepositInput createDepositInput) {
+
+        return depositService.create(createDepositInput);
     }
 
-    @MutationMapping(name = "updateDepositById")
-    public Deposit updateById (@Valid @Argument Long id,
-                              @Argument(name = "deposit") UpdateDepositInput updateDepositInput) {
-        Deposit deposit = depositService.getById(id);
-        modelMapper.map(updateDepositInput, deposit);
-        return depositService.update(deposit);
+    @MutationMapping(name = "updateDeposit")
+    public Deposit update (@Valid @Argument(name = "depositInput") UpdateDepositInput updateDepositInput) {
+
+        return depositService.update(updateDepositInput);
     }
 
     @MutationMapping(name = "deleteDepositById")

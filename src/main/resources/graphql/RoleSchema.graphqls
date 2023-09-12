@@ -1,7 +1,11 @@
-input RoleInput {
+input RoleCreateInput {
+    name: ERole
+}
+input RoleUpdateInput {
+    id: ID!
     name: ERole
 }
 type Role {
-    id: ID!
+    id: ID
     name: ERole
 }

@@ -1,10 +1,16 @@
 
-input CoinInput {
+input CoinCreateInput {
+    coin: Float
+    won: Float
+}
+
+input CoinUpdateInput {
+    id: ID!
     coin: Float
     won: Float
 }
 type Coin {
-    id: ID!
+    id: ID
     coin: Float
     won: Float
 }

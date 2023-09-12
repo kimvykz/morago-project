@@ -11,7 +11,7 @@ input UserCreateInput {
     phone: String
     ratings: Float
     totalRatings: Int
-    roles: [RoleInput]
+    roles: [RoleCreateInput]
     userProfile: UserProfileCreateInput
     translatorProfile: TranslatorProfileCreateInput
 }
@@ -29,7 +29,7 @@ input UserUpdateInput {
     phone: String
     ratings: Float
     totalRatings: Int
-    roles: [RoleInput]
+    roles: [RoleUpdateInput]
     userProfile: UserProfileUpdateInput
     translatorProfile: TranslatorProfileUpdateInput
 }

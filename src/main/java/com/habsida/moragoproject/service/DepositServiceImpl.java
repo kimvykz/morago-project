@@ -1,7 +1,10 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Deposit;
+import com.habsida.moragoproject.model.input.CreateDepositInput;
+import com.habsida.moragoproject.model.input.UpdateDepositInput;
 import com.habsida.moragoproject.repository.DepositRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,9 +15,11 @@ import java.util.List;
 public class DepositServiceImpl implements DepositService{
 
     private DepositRepository depositRepository;
+    private ModelMapper modelMapper;
 
-    public DepositServiceImpl(DepositRepository depositRepository) {
+    public DepositServiceImpl(DepositRepository depositRepository, ModelMapper modelMapper) {
         this.depositRepository = depositRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -35,12 +40,15 @@ public class DepositServiceImpl implements DepositService{
     }
 
     @Override
-    public Deposit create(Deposit deposit) {
+    public Deposit create(CreateDepositInput createDepositInput) {
+        Deposit deposit = modelMapper.map(createDepositInput, Deposit.class);
         return depositRepository.save(deposit);
     }
 
     @Override
-    public Deposit update(Deposit deposit) {
+    public Deposit update(UpdateDepositInput updateDepositInput) {
+        Deposit deposit = getById(updateDepositInput.getId());
+        modelMapper.map(updateDepositInput, deposit);
         return depositRepository.save(deposit);
     }
 

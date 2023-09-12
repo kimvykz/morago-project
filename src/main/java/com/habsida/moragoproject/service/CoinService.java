@@ -1,6 +1,8 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Coin;
+import com.habsida.moragoproject.model.input.CreateCoinInput;
+import com.habsida.moragoproject.model.input.UpdateCoinInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -10,7 +12,7 @@ public interface CoinService {
     List<Coin> getAll();
     Page<Coin> getAllPaged(PageRequest pageRequest);
     Coin getById(Long id);
-    Coin create(Coin coin);
-    Coin update(Coin coin);
+    Coin create(CreateCoinInput createCoinInput);
+    Coin update(UpdateCoinInput updateCoinInput);
     Boolean deleteById(Long id);
 }

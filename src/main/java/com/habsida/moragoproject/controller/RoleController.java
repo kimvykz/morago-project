@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class RoleController {
-    private ModelMapper modelMapper;
 
     private RoleService roleService;
 
-    public RoleController(ModelMapper modelMapper,
-                          RoleService roleService) {
-        this.modelMapper = modelMapper;
+    public RoleController(RoleService roleService) {
         this.roleService = roleService;
     }
 
@@ -43,17 +40,13 @@ public class RoleController {
     }
 
     @MutationMapping(name = "createRole")
-    public Role create (@Valid @Argument(name = "role") CreateRoleInput createRoleInput) {
-        Role role = modelMapper.map(createRoleInput, Role.class);
-        return roleService.create(role);
+    public Role create (@Valid @Argument(name = "roleInput") CreateRoleInput createRoleInput) {
+        return roleService.create(createRoleInput);
     }
 
-    @MutationMapping(name = "updateRoleById")
-    public Role updateById (@Valid @Argument Long id,
-                              @Argument(name = "role") UpdateRoleInput updateRoleInput) {
-        Role role = roleService.getById(id);
-        modelMapper.map(updateRoleInput, role);
-        return roleService.update(role);
+    @MutationMapping(name = "updateRole")
+    public Role update (@Valid @Argument(name = "roleInput") UpdateRoleInput updateRoleInput) {
+        return roleService.update(updateRoleInput);
     }
 
     @MutationMapping(name = "deleteRoleById")

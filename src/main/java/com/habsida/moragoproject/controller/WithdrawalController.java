@@ -16,13 +16,10 @@ import javax.validation.Valid;
 
 @Controller
 public class WithdrawalController {
-    private ModelMapper modelMapper;
 
     private WithdrawalService withdrawalService;
 
-    public WithdrawalController(ModelMapper modelMapper,
-                                WithdrawalService withdrawalService) {
-        this.modelMapper = modelMapper;
+    public WithdrawalController(WithdrawalService withdrawalService) {
         this.withdrawalService = withdrawalService;
     }
 
@@ -43,17 +40,13 @@ public class WithdrawalController {
     }
 
     @MutationMapping(name = "createWithdrawal")
-    public Withdrawal create (@Valid @Argument(name = "withdrawal") CreateWithdrawalInput createWithdrawalInput) {
-        Withdrawal withdrawal = modelMapper.map(createWithdrawalInput, Withdrawal.class);
-        return withdrawalService.create(withdrawal);
+    public Withdrawal create (@Valid @Argument(name = "withdrawalInput") CreateWithdrawalInput createWithdrawalInput) {
+        return withdrawalService.create(createWithdrawalInput);
     }
 
-    @MutationMapping(name = "updateWithdrawalById")
-    public Withdrawal updateById (@Valid @Argument Long id,
-                              @Argument(name = "withdrawal") UpdateWithdrawalInput updateWithdrawalInput) {
-        Withdrawal withdrawal = withdrawalService.getById(id);
-        modelMapper.map(updateWithdrawalInput, withdrawal);
-        return withdrawalService.update(withdrawal);
+    @MutationMapping(name = "updateWithdrawal")
+    public Withdrawal update (@Valid @Argument(name = "withdrawalInput") UpdateWithdrawalInput updateWithdrawalInput) {
+        return withdrawalService.update(updateWithdrawalInput);
     }
 
     @MutationMapping(name = "deleteWithdrawalById")

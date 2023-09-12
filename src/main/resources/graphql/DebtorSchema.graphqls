@@ -1,10 +1,18 @@
-input DebtorInput {
+input DebtorCreateInput {
     accountHolder: String
     isPaid: Boolean
     nameOfBank: String
 }
-type Debtor {
+
+input DebtorUpdateInput {
     id: ID!
+    accountHolder: String
+    isPaid: Boolean
+    nameOfBank: String
+}
+
+type Debtor {
+    id: ID
     accountHolder: String
     isPaid: Boolean
     nameOfBank: String

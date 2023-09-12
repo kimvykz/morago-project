@@ -1,25 +1,26 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Call;
-import com.habsida.moragoproject.model.entity.File;
-import com.habsida.moragoproject.model.entity.Theme;
-import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.enums.ECallStatus;
+import com.habsida.moragoproject.model.input.CreateCallInput;
+import com.habsida.moragoproject.model.input.UpdateAppVersionInput;
+import com.habsida.moragoproject.model.input.UpdateCallInput;
 import com.habsida.moragoproject.repository.CallRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Service
 public class CallServiceImpl implements CallService{
 
     private CallRepository callRepository;
+    private ModelMapper modelMapper;
 
-    public CallServiceImpl (CallRepository callRepository) {
+    public CallServiceImpl (CallRepository callRepository, ModelMapper modelMapper) {
         this.callRepository = callRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -40,7 +41,9 @@ public class CallServiceImpl implements CallService{
     }
 
     @Override
-    public Call create (Call call) {
+    public Call create (CreateCallInput createCallInput) {
+        Call call = modelMapper.map(createCallInput, Call.class);
+
         if (call.getCallStatus() == null) {
             throw new IllegalArgumentException("Field callStatus cannot be null");
         }
@@ -85,7 +88,10 @@ public class CallServiceImpl implements CallService{
     }
 
     @Override
-    public Call update (Call call) {
+    public Call update (UpdateCallInput updateCallInput) {
+        Call call = getById(updateCallInput.getId());
+        modelMapper.map(updateCallInput, call);
+
         if (call.getCallStatus() == null) {
             throw new IllegalArgumentException("Field callStatus cannot be null");
         }

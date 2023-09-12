@@ -1,12 +1,20 @@
-input WithdrawalInput {
+input WithdrawalCreateInput {
      accountHolder: String
      accountNumber: String
      nameOfBank: String
      status: EStatus
      sum: Float
 }
-type Withdrawal {
+input WithdrawalUpdateInput {
     id: ID!
+    accountHolder: String
+    accountNumber: String
+    nameOfBank: String
+    status: EStatus
+    sum: Float
+}
+type Withdrawal {
+    id: ID
     accountHolder: String
     accountNumber: String
     nameOfBank: String

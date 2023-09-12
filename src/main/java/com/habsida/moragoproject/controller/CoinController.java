@@ -16,13 +16,11 @@ import javax.validation.Valid;
 
 @Controller
 public class CoinController {
-    private ModelMapper modelMapper;
+
 
     private CoinService coinService;
 
-    public CoinController(ModelMapper modelMapper,
-                          CoinService coinService) {
-        this.modelMapper = modelMapper;
+    public CoinController(CoinService coinService) {
         this.coinService = coinService;
     }
 
@@ -43,17 +41,15 @@ public class CoinController {
     }
 
     @MutationMapping(name = "createCoin")
-    public Coin create (@Valid @Argument(name = "coin") CreateCoinInput createCoinInput) {
-        Coin coin = modelMapper.map(createCoinInput, Coin.class);
-        return coinService.create(coin);
+    public Coin create (@Valid @Argument(name = "coinInput") CreateCoinInput createCoinInput) {
+
+        return coinService.create(createCoinInput);
     }
 
-    @MutationMapping(name = "updateCoinById")
-    public Coin updateById (@Valid @Argument Long id,
-                              @Argument(name = "coin") UpdateCoinInput updateCoinInput) {
-        Coin coin = coinService.getById(id);
-        modelMapper.map(updateCoinInput, coin);
-        return coinService.update(coin);
+    @MutationMapping(name = "updateCoin")
+    public Coin update (@Valid @Argument(name = "coinInput") UpdateCoinInput updateCoinInput) {
+
+        return coinService.update(updateCoinInput);
     }
 
     @MutationMapping(name = "deleteCoinById")
