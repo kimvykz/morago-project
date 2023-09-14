@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateCallInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateCallInput;
 import com.habsida.moragoproject.model.entity.Call;
 import com.habsida.moragoproject.service.CallService;
@@ -34,8 +35,8 @@ public class CallController {
     }
 
     @QueryMapping(name = "getCallsPaged")
-    public Page<Call> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Call> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return callService.getAllPaged(pageRequest);
     }
 

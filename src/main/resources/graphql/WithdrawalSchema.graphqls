@@ -4,6 +4,7 @@ input WithdrawalCreateInput {
      nameOfBank: String
      status: EStatus
      sum: Float
+    user: UserCreateInput
 }
 input WithdrawalUpdateInput {
     id: ID!
@@ -12,6 +13,7 @@ input WithdrawalUpdateInput {
     nameOfBank: String
     status: EStatus
     sum: Float
+    user: UserUpdateInput
 }
 type Withdrawal {
     id: ID
@@ -20,4 +22,5 @@ type Withdrawal {
     nameOfBank: String
     status: EStatus
     sum: Float
+    user: User
 }

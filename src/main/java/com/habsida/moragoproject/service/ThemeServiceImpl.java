@@ -17,11 +17,9 @@ import java.util.List;
 @Service
 public class ThemeServiceImpl implements ThemeService {
     private ThemeRepository themeRepository;
-    private ModelMapper modelMapper;
 
-    public ThemeServiceImpl (ThemeRepository themeRepository, ModelMapper modelMapper) {
+    public ThemeServiceImpl (ThemeRepository themeRepository) {
         this.themeRepository = themeRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -43,34 +41,55 @@ public class ThemeServiceImpl implements ThemeService {
 
     @Override
     public Theme create (CreateThemeInput createThemeInput) {
-        Theme theme = modelMapper.map(createThemeInput, Theme.class);
+        Theme theme = new Theme();
 
-        if (theme.getDescription() == null) {
+        if (createThemeInput.getDescription() == null
+            || createThemeInput.getDescription().isBlank()) {
             throw new IllegalArgumentException("field description cannot be null");
+        } else {
+            theme.setDescription(createThemeInput.getDescription());
         }
-        if (theme.getIsActive() == null) {
+        if (createThemeInput.getIsActive() == null) {
             throw new IllegalArgumentException("field isActive cannot be null");
+        } else {
+            theme.setIsActive(createThemeInput.getIsActive());
         }
-        if (theme.getIsPopular() == null) {
+        if (createThemeInput.getIsPopular() == null) {
             throw new IllegalArgumentException("field isPopular cannot be null");
+        } else {
+            theme.setIsPopular(createThemeInput.getIsPopular());
         }
-        if (theme.getKoreanTitle() == null) {
+        if (createThemeInput.getKoreanTitle() == null
+            || createThemeInput.getKoreanTitle().isBlank()) {
             throw new IllegalArgumentException("field koreanTitle cannot be null");
+        } else {
+            theme.setKoreanTitle(createThemeInput.getKoreanTitle());
         }
-        if (theme.getName() == null) {
+        if (createThemeInput.getName() == null
+            || createThemeInput.getName().isBlank()) {
             throw new IllegalArgumentException("field name cannot be null");
+        } else {
+            theme.setName(createThemeInput.getName());
         }
-        if (theme.getNightPrice() == null) {
+        if (createThemeInput.getNightPrice() == null) {
             throw new IllegalArgumentException("field nightPrice cannot be null");
+        } else {
+            theme.setNightPrice(createThemeInput.getNightPrice());
         }
         if (theme.getPrice() == null) {
             throw new IllegalArgumentException("field price cannot be null");
+        } else {
+            theme.setPrice(createThemeInput.getPrice());
         }
         if (theme.getCategory() == null) {
             throw new IllegalArgumentException("field category cannot be null");
+        } else {
+            theme.setCategory(createThemeInput.getCategory());
         }
         if (theme.getFile() == null) {
-            //throw new IllegalArgumentException("field file cannot be null");
+            throw new IllegalArgumentException("field file cannot be null");
+        } else {
+            theme.setFile(createThemeInput.getFile());
         }
 
         return themeRepository.save(theme);
@@ -79,33 +98,45 @@ public class ThemeServiceImpl implements ThemeService {
     @Override
     public Theme update (UpdateThemeInput updateThemeInput) {
         Theme theme = getById(updateThemeInput.getId());
-        modelMapper.map(updateThemeInput, theme);
-        if (theme.getDescription() == null) {
-            throw new IllegalArgumentException("field description cannot be null");
+
+        if (updateThemeInput.getDescription() != null
+            && !updateThemeInput.getDescription().isBlank()
+            && !theme.getDescription().equals(updateThemeInput.getDescription())) {
+            theme.setDescription(updateThemeInput.getDescription());
         }
-        if (theme.getIsActive() == null) {
-            throw new IllegalArgumentException("field isActive cannot be null");
+        if (updateThemeInput.getIsActive() != null
+            && !theme.getIsActive().equals(updateThemeInput.getIsActive())) {
+            theme.setIsActive(updateThemeInput.getIsActive());
         }
-        if (theme.getIsPopular() == null) {
-            throw new IllegalArgumentException("field isPopular cannot be null");
+        if (updateThemeInput.getIsPopular() != null
+            && !theme.getIsPopular().equals(updateThemeInput.getIsPopular())) {
+            theme.setIsPopular(updateThemeInput.getIsPopular());
         }
-        if (theme.getKoreanTitle() == null) {
-            throw new IllegalArgumentException("field koreanTitle cannot be null");
+        if (updateThemeInput.getKoreanTitle() != null
+            && !theme.getKoreanTitle().equals(updateThemeInput.getKoreanTitle())
+            && !updateThemeInput.getKoreanTitle().isBlank()) {
+            theme.setKoreanTitle(updateThemeInput.getKoreanTitle());
         }
-        if (theme.getName() == null) {
-            throw new IllegalArgumentException("field name cannot be null");
+        if (updateThemeInput.getName() != null
+            && !theme.getName().equals(updateThemeInput.getName())
+            && !updateThemeInput.getName().isBlank()) {
+            theme.setName(updateThemeInput.getName());
         }
-        if (theme.getNightPrice() == null) {
-            throw new IllegalArgumentException("field nightPrice cannot be null");
+        if (updateThemeInput.getNightPrice() != null
+            && !theme.getNightPrice().equals(updateThemeInput.getNightPrice())) {
+            theme.setNightPrice(updateThemeInput.getNightPrice());
         }
-        if (theme.getPrice() == null) {
-            throw new IllegalArgumentException("field price cannot be null");
+        if (updateThemeInput.getPrice() != null
+            && !theme.getPrice().equals(updateThemeInput.getPrice())) {
+            theme.setPrice(updateThemeInput.getPrice());
         }
-        if (theme.getCategory() == null) {
-            throw new IllegalArgumentException("field category cannot be null");
+        if (updateThemeInput.getCategory() != null
+            && !theme.getCategory().equals(updateThemeInput.getCategory())) {
+            theme.setCategory(updateThemeInput.getCategory());
         }
-        if (theme.getFile() == null) {
-            //throw new IllegalArgumentException("field file cannot be null");
+        if (updateThemeInput.getFile() != null
+            && !theme.getFile().equals(updateThemeInput.getFile())) {
+            theme.setFile(updateThemeInput.getFile());
         }
         return themeRepository.save(theme);
     }

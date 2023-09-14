@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateDepositInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateDepositInput;
 import com.habsida.moragoproject.model.entity.Deposit;
 import com.habsida.moragoproject.service.DepositService;
@@ -34,8 +35,8 @@ public class DepositController {
     }
 
     @QueryMapping(name = "getDepositsPaged")
-    public Page<Deposit> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Deposit> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return depositService.getAllPaged(pageRequest);
     }
 

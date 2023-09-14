@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateUserInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateUserInput;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.service.UserService;
@@ -40,8 +41,8 @@ public class UserController {
 
     @QueryMapping(name = "getUsersPaged")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public Page<User> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<User> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return userService.getAllPaged(pageRequest);
     }
 

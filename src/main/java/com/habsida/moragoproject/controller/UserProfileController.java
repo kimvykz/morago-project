@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateUserProfileInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateUserProfileInput;
 import com.habsida.moragoproject.model.entity.UserProfile;
 import com.habsida.moragoproject.service.UserProfileService;
@@ -34,8 +35,8 @@ public class UserProfileController {
     }
 
     @QueryMapping(name = "getUserProfilesPaged")
-    public Page<UserProfile> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<UserProfile> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return userProfileService.getAllPaged(pageRequest);
     }
 

@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateFrequentlyAskedQuestionInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateFrequentlyAskedQuestionInput;
 import com.habsida.moragoproject.model.entity.FrequentlyAskedQuestion;
 import com.habsida.moragoproject.service.FrequentlyAskedQuestionService;
@@ -34,8 +35,8 @@ public class FrequentlyAskedQuestionController {
     }
 
     @QueryMapping(name = "getFrequentlyAskedQuestionsPaged")
-    public Page<FrequentlyAskedQuestion> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<FrequentlyAskedQuestion> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return frequentlyAskedQuestionService.getAllPaged(pageRequest);
     }
 

@@ -21,11 +21,9 @@ import java.util.List;
 public class DepositServiceImpl implements DepositService{
 
     private DepositRepository depositRepository;
-    private ModelMapper modelMapper;
 
-    public DepositServiceImpl(DepositRepository depositRepository, ModelMapper modelMapper) {
+    public DepositServiceImpl(DepositRepository depositRepository) {
         this.depositRepository = depositRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -47,25 +45,39 @@ public class DepositServiceImpl implements DepositService{
 
     @Override
     public Deposit create(CreateDepositInput createDepositInput) {
-        Deposit deposit = modelMapper.map(createDepositInput, Deposit.class);
+        Deposit deposit = new Deposit();
 
-        if (deposit.getAccountHolder() == null) {
+        if (createDepositInput.getAccountHolder() == null
+            || createDepositInput.getAccountHolder().isBlank()) {
             throw new IllegalArgumentException("field accountHolder cannot be null");
+        } else {
+            deposit.setAccountHolder(createDepositInput.getAccountHolder());
         }
-        if (deposit.getCoin() == null) {
+        if (createDepositInput.getCoin() == null) {
             throw new IllegalArgumentException("field coin cannot be null");
+        } else {
+            deposit.setCoin(createDepositInput.getCoin());
         }
-        if (deposit.getNameOfBank() == null) {
+        if (createDepositInput.getNameOfBank() == null
+            || createDepositInput.getNameOfBank().isBlank()) {
             throw new IllegalArgumentException("field nameOfBank cannot be null");
+        } else {
+            deposit.setNameOfBank(createDepositInput.getNameOfBank());
         }
-        if (deposit.getStatus() == null) {
+        if (createDepositInput.getStatus() == null) {
             throw new IllegalArgumentException("field status cannot be null");
+        } else {
+            deposit.setStatus(createDepositInput.getStatus());
         }
-        if (deposit.getWon() == null) {
+        if (createDepositInput.getWon() == null) {
             throw new IllegalArgumentException("field won cannot be null");
+        } else {
+            deposit.setWon(createDepositInput.getWon());
         }
-        if (deposit.getUser() == null) {
+        if (createDepositInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
+        } else {
+            deposit.setUser(createDepositInput.getUser());
         }
 
         return depositRepository.save(deposit);
@@ -74,25 +86,32 @@ public class DepositServiceImpl implements DepositService{
     @Override
     public Deposit update(UpdateDepositInput updateDepositInput) {
         Deposit deposit = getById(updateDepositInput.getId());
-        modelMapper.map(updateDepositInput, deposit);
 
-        if (deposit.getAccountHolder() == null) {
-            throw new IllegalArgumentException("field accountHolder cannot be null");
+        if (updateDepositInput.getAccountHolder() != null
+            && !deposit.getAccountHolder().equals(updateDepositInput.getAccountHolder())
+            && !updateDepositInput.getAccountHolder().isBlank()) {
+            deposit.setAccountHolder(updateDepositInput.getAccountHolder());
         }
-        if (deposit.getCoin() == null) {
-            throw new IllegalArgumentException("field coin cannot be null");
+        if (updateDepositInput.getCoin() != null
+            && !deposit.getCoin().equals(updateDepositInput.getCoin())) {
+            deposit.setCoin(updateDepositInput.getCoin());
         }
-        if (deposit.getNameOfBank() == null) {
-            throw new IllegalArgumentException("field nameOfBank cannot be null");
+        if (updateDepositInput.getNameOfBank() != null
+            && !updateDepositInput.getNameOfBank().isBlank()
+            && !deposit.getNameOfBank().equals(updateDepositInput.getNameOfBank())) {
+            deposit.setNameOfBank(updateDepositInput.getNameOfBank());
         }
-        if (deposit.getStatus() == null) {
-            throw new IllegalArgumentException("field status cannot be null");
+        if (updateDepositInput.getStatus() != null
+            && !deposit.getStatus().equals(updateDepositInput.getStatus())) {
+            deposit.setStatus(updateDepositInput.getStatus());
         }
-        if (deposit.getWon() == null) {
-            throw new IllegalArgumentException("field won cannot be null");
+        if (updateDepositInput.getWon() != null
+            && !deposit.getWon().equals(updateDepositInput.getWon())) {
+            deposit.setWon(updateDepositInput.getWon());
         }
-        if (deposit.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
+        if (updateDepositInput.getUser() != null
+            && !deposit.getUser().equals(updateDepositInput.getUser())) {
+            deposit.setUser(updateDepositInput.getUser());
         }
 
         return depositRepository.save(deposit);

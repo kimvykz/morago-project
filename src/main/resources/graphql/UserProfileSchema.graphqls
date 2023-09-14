@@ -1,11 +1,14 @@
 input UserProfileCreateInput {
-     isFreeCallMade: Boolean
+    isFreeCallMade: Boolean
+    user: UserCreateInput
 }
 input UserProfileUpdateInput {
     id: ID!
     isFreeCallMade: Boolean
+    user: UserUpdateInput
 }
 type UserProfile {
     id: ID
     isFreeCallMade: Boolean
+    user: User
 }

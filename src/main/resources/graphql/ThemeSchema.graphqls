@@ -1,11 +1,13 @@
 input ThemeCreateInput {
-      description: String
-      isActive: Boolean
-      isPopular: Boolean
-      koreanTitle: String
-      name: String
-      nightPrice: Float
-      price: Float
+    description: String
+    isActive: Boolean
+    isPopular: Boolean
+    koreanTitle: String
+    name: String
+    nightPrice: Float
+    price: Float
+    category: CategoryCreateInput
+    files: [FileUpdateInput]
 }
 input ThemeUpdateInput {
     id: ID!
@@ -16,6 +18,8 @@ input ThemeUpdateInput {
     name: String
     nightPrice: Float
     price: Float
+    category: CategoryUpdateInput
+    files: [FileUpdateInput]
 }
 type Theme {
     id: ID
@@ -26,4 +30,6 @@ type Theme {
     name: String
     nightPrice: Float
     price: Float
+    category: Category
+    files: [File]
 }

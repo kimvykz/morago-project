@@ -21,11 +21,9 @@ import java.util.List;
 @Service
 public class NotificationServiceImpl implements NotificationService{
     private NotificationRepository notificationRepository;
-    private ModelMapper modelMapper;
 
-    public NotificationServiceImpl(NotificationRepository notificationRepository, ModelMapper modelMapper) {
+    public NotificationServiceImpl(NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -47,21 +45,34 @@ public class NotificationServiceImpl implements NotificationService{
 
     @Override
     public Notification create(CreateNotificationInput createNotificationInput) {
-        Notification notification = modelMapper.map(createNotificationInput, Notification.class);
-        if (notification.getDate() == null) {
+        Notification notification = new Notification();
+
+        if (createNotificationInput.getDate() == null) {
             throw new IllegalArgumentException("field date cannot be null");
+        } else {
+            notification.setDate(createNotificationInput.getDate());
         }
-        if (notification.getText() == null) {
+        if (createNotificationInput.getText() == null
+            || createNotificationInput.getText().isBlank()) {
             throw new IllegalArgumentException("field text cannot be null");
+        } else {
+            notification.setText(createNotificationInput.getText());
         }
-        if (notification.getTime() == null) {
+        if (createNotificationInput.getTime() == null) {
             throw new IllegalArgumentException("field time cannot be null");
+        } else {
+            notification.setTime(createNotificationInput.getTime());
         }
-        if (notification.getTitle() == null) {
+        if (createNotificationInput.getTitle() == null
+            || createNotificationInput.getTitle().isBlank()) {
             throw new IllegalArgumentException("field title cannot be null");
+        } else {
+            notification.setTitle(createNotificationInput.getTitle());
         }
-        if (notification.getUser() == null) {
+        if (createNotificationInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
+        } else {
+            notification.setUser(createNotificationInput.getUser());
         }
         return notificationRepository.save(notification);
     }
@@ -69,21 +80,28 @@ public class NotificationServiceImpl implements NotificationService{
     @Override
     public Notification update(UpdateNotificationInput updateNotificationInput) {
         Notification notification = getById(updateNotificationInput.getId());
-        modelMapper.map(updateNotificationInput, notification);
-        if (notification.getDate() == null) {
-            throw new IllegalArgumentException("field date cannot be null");
+
+        if (updateNotificationInput.getDate() != null
+            && !notification.getDate().equals(updateNotificationInput.getDate())) {
+            notification.setDate(updateNotificationInput.getDate());
         }
-        if (notification.getText() == null) {
-            throw new IllegalArgumentException("field text cannot be null");
+        if (updateNotificationInput.getText() != null
+            && !updateNotificationInput.getText().isBlank()
+            && !notification.getText().equals(updateNotificationInput.getText())) {
+            notification.setText(updateNotificationInput.getText());
         }
-        if (notification.getTime() == null) {
-            throw new IllegalArgumentException("field time cannot be null");
+        if (updateNotificationInput.getTime() != null
+            && !notification.getTime().equals(updateNotificationInput.getTime())) {
+            notification.setTime(updateNotificationInput.getTime());
         }
-        if (notification.getTitle() == null) {
-            throw new IllegalArgumentException("field title cannot be null");
+        if (updateNotificationInput.getTitle() != null
+            && !updateNotificationInput.getTitle().isBlank()
+            && !notification.getTitle().equals(updateNotificationInput.getTitle())) {
+            notification.setTitle(updateNotificationInput.getTitle());
         }
-        if (notification.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
+        if (updateNotificationInput.getUser() != null
+            && !notification.getUser().equals(updateNotificationInput.getUser())) {
+            notification.setUser(updateNotificationInput.getUser());
         }
         return notificationRepository.save(notification);
     }

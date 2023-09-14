@@ -2,23 +2,23 @@
 
 type Query {
     getAppVersions: [AppVersion]
-    getAppVersionsPaged(page: Int, size: Int): [AppVersion]
+    getAppVersionsPaged(paginationInput: PaginationInput): [AppVersion]
     getAppVersionById(id: Int): AppVersion
 
     getCalls: [Call]
-    getCallsPaged(page: Int, size: Int): [Call]
+    getCallsPaged(paginationInput: PaginationInput): [Call]
     getCallById(id: Int): Call
 
     getCategories: [Category]
-    getCategoriesPaged(page: Int, size: Int): [Category]
+    getCategoriesPaged(paginationInput: PaginationInput): [Category]
     getCategoryById(id: Int): Category
 
     getCoins: [Coin]
-    getCoinsPaged(page: Int, size: Int): [Coin]
+    getCoinsPaged(paginationInput: PaginationInput): [Coin]
     getCoinById(id: Int): Coin
 
     getDebtors: [Debtor]
-    getDebtorsPaged(page: Int, size: Int): [Debtor]
+    getDebtorsPaged(paginationInput: PaginationInput): [Debtor]
     getDebtorById(id: Int): Debtor
 
     getDeposits: [Deposit]
@@ -26,51 +26,51 @@ type Query {
     getDepositById(id: Int): Deposit
 
     getFiles: [File]
-    getFilesPaged(page: Int, size: Int): [File]
+    getFilesPaged(paginationInput: PaginationInput): [File]
     getFileById(id: Int): File
 
     getFrequentlyAskedQuestions: [FrequentlyAskedQuestion]
-    getFrequentlyAskedQuestionsPaged(page: Int, size: Int): [FrequentlyAskedQuestion]
+    getFrequentlyAskedQuestionsPaged(paginationInput: PaginationInput): [FrequentlyAskedQuestion]
     getFrequentlyAskedQuestionById(id: Int): FrequentlyAskedQuestion
 
     getLanguages: [Language]
-    getLanguagesPaged(page: Int, size: Int): [Language]
+    getLanguagesPaged(paginationInput: PaginationInput): [Language]
     getLanguageById(id: Int): Language
 
     getNotifications: [Notification]
-    getNotificationsPaged(page: Int, size: Int): [Notification]
+    getNotificationsPaged(paginationInput: PaginationInput): [Notification]
     getNotificationById(id: Int): Notification
 
     getPasswordResets: [PasswordReset]
-    getPasswordResetsPaged(page: Int, size: Int): [PasswordReset]
+    getPasswordResetsPaged(paginationInput: PaginationInput): [PasswordReset]
     getPasswordResetById(id: Int): PasswordReset
 
     getRatings: [Rating]
-    getRatingsPaged(page: Int, size: Int): [Rating]
+    getRatingsPaged(paginationInput: PaginationInput): [Rating]
     getRatingById(id: Int): Rating
 
     getRoles: [Role]
-    getRolesPaged(page: Int, size: Int): [Role]
+    getRolesPaged(paginationInput: PaginationInput): [Role]
     getRoleById(id: Int): Role
 
     getThemes: [Theme]
-    getThemesPaged(page: Int, size: Int): [Theme]
+    getThemesPaged(paginationInput: PaginationInput): [Theme]
     getThemeById(id: Int): Theme
 
     getTranslatorProfiles: [TranslatorProfile]
-    getTranslatorProfilesPaged(page: Int, size: Int): [TranslatorProfile]
+    getTranslatorProfilesPaged(paginationInput: PaginationInput): [TranslatorProfile]
     getTranslatorProfileById(id: Int): TranslatorProfile
 
     getUsers: [User]
-    getUsersPaged(page: Int, size: Int): [User]
+    getUsersPaged(paginationInput: PaginationInput): [User]
     getUserById(id: Int): User
 
     getUserProfiles: [UserProfile]
-    getUserProfilesPaged(page: Int, size: Int): [UserProfile]
+    getUserProfilesPaged(paginationInput: PaginationInput): [UserProfile]
     getUserProfileById(id: Int): UserProfile
 
     getUserWithdrawals: [Withdrawal]
-    getUserWithdrawalsPaged(page: Int, size: Int): [Withdrawal]
+    getUserWithdrawalsPaged(paginationInput: PaginationInput): [Withdrawal]
     getUserWithdrawalById(id: Int): Withdrawal
 
     login(loginUserInput: LoginUserInput) : LoginPayload

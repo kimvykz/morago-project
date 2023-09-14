@@ -2,6 +2,7 @@ input DebtorCreateInput {
     accountHolder: String
     isPaid: Boolean
     nameOfBank: String
+    user: UserCreateInput
 }
 
 input DebtorUpdateInput {
@@ -9,6 +10,7 @@ input DebtorUpdateInput {
     accountHolder: String
     isPaid: Boolean
     nameOfBank: String
+    user: UserUpdateInput
 }
 
 type Debtor {
@@ -16,4 +18,5 @@ type Debtor {
     accountHolder: String
     isPaid: Boolean
     nameOfBank: String
+    user: User
 }

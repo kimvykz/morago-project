@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateWithdrawalInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateWithdrawalInput;
 import com.habsida.moragoproject.model.entity.Withdrawal;
 import com.habsida.moragoproject.service.WithdrawalService;
@@ -34,8 +35,8 @@ public class WithdrawalController {
     }
 
     @QueryMapping(name = "getWithdrawalsPaged")
-    public Page<Withdrawal> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Withdrawal> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return withdrawalService.getAllPaged(pageRequest);
     }
 

@@ -10,7 +10,8 @@ import java.util.List;
 
 @Configuration
 public class AppConfig {
-    public static Long JWT_EXPIRATION = 3600000L;
+    public static Long JWT_EXPIRATION_MS = (2 * 60 * 60 ) * 1000L;
+    public static Long JWT_REFRESH_EXPIRATION_MS = (365 * 24 * 60 * 60) * 1000L;
     public static final String JWT_SECRET = "secret";
 
     @Bean
@@ -22,10 +23,10 @@ public class AppConfig {
     }
 
     public static Long getJwtExpiration() {
-        return JWT_EXPIRATION;
+        return JWT_EXPIRATION_MS;
     }
 
     public static void setJwtExpiration(Long jwtExpiration) {
-        JWT_EXPIRATION = jwtExpiration;
+        JWT_EXPIRATION_MS = jwtExpiration;
     }
 }

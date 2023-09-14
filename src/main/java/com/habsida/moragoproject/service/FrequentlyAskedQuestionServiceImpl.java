@@ -15,12 +15,9 @@ import java.util.List;
 @Service
 public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuestionService{
     private FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository;
-    private ModelMapper modelMapper;
 
-    public FrequentlyAskedQuestionServiceImpl(FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository,
-                                              ModelMapper modelMapper) {
+    public FrequentlyAskedQuestionServiceImpl(FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository) {
         this.frequentlyAskedQuestionRepository = frequentlyAskedQuestionRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -43,15 +40,24 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     @Override
     public FrequentlyAskedQuestion create(CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
         FrequentlyAskedQuestion frequentlyAskedQuestion =
-                modelMapper.map(createFrequentlyAskedQuestionInput, FrequentlyAskedQuestion.class);
-        if (frequentlyAskedQuestion.getAnswer() == null) {
+                new FrequentlyAskedQuestion();
+
+        if (createFrequentlyAskedQuestionInput.getAnswer() == null
+            || createFrequentlyAskedQuestionInput.getAnswer().isBlank()) {
             throw new IllegalArgumentException("field answer cannot be null");
+        } else {
+            frequentlyAskedQuestion.setAnswer(createFrequentlyAskedQuestionInput.getAnswer());
         }
-        if (frequentlyAskedQuestion.getCategory() == null) {
+        if (createFrequentlyAskedQuestionInput.getCategory() == null) {
             throw new IllegalArgumentException("field category cannot be null");
+        } else {
+            frequentlyAskedQuestion.setCategory(createFrequentlyAskedQuestionInput.getCategory());
         }
-        if (frequentlyAskedQuestion.getQuestion() == null) {
+        if (createFrequentlyAskedQuestionInput.getQuestion() == null
+            || createFrequentlyAskedQuestionInput.getQuestion().isBlank()) {
             throw new IllegalArgumentException("field question cannot be null");
+        } else {
+            frequentlyAskedQuestion.setQuestion(createFrequentlyAskedQuestionInput.getQuestion());
         }
 
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
@@ -61,16 +67,20 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     public FrequentlyAskedQuestion update(UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput) {
         FrequentlyAskedQuestion frequentlyAskedQuestion =
                 getById(updateFrequentlyAskedQuestionInput.getId());
-        modelMapper.map(updateFrequentlyAskedQuestionInput, frequentlyAskedQuestion);
 
-        if (frequentlyAskedQuestion.getAnswer() == null) {
-            throw new IllegalArgumentException("field answer cannot be null");
+        if (updateFrequentlyAskedQuestionInput.getAnswer() != null
+            && !updateFrequentlyAskedQuestionInput.getQuestion().isBlank()
+            && !frequentlyAskedQuestion.getQuestion().equals(updateFrequentlyAskedQuestionInput.getQuestion())) {
+            frequentlyAskedQuestion.setQuestion(updateFrequentlyAskedQuestionInput.getQuestion());
         }
-        if (frequentlyAskedQuestion.getCategory() == null) {
-            throw new IllegalArgumentException("field category cannot be null");
+        if (updateFrequentlyAskedQuestionInput.getCategory() != null
+            && !frequentlyAskedQuestion.getCategory().equals(updateFrequentlyAskedQuestionInput.getCategory())) {
+            frequentlyAskedQuestion.setCategory(updateFrequentlyAskedQuestionInput.getCategory());
         }
-        if (frequentlyAskedQuestion.getQuestion() == null) {
-            throw new IllegalArgumentException("field question cannot be null");
+        if (updateFrequentlyAskedQuestionInput.getQuestion() != null
+            && !frequentlyAskedQuestion.getQuestion().equals(updateFrequentlyAskedQuestionInput.getQuestion())
+            && !updateFrequentlyAskedQuestionInput.getQuestion().isBlank()) {
+            frequentlyAskedQuestion.setQuestion(updateFrequentlyAskedQuestionInput.getQuestion());
         }
 
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);

@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateFileInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateFileInput;
 import com.habsida.moragoproject.model.entity.File;
 import com.habsida.moragoproject.service.FileService;
@@ -34,8 +35,8 @@ public class FileController {
     }
 
     @QueryMapping(name = "getFilesPaged")
-    public Page<File> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<File> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return fileService.getAllPaged(pageRequest);
     }
 

@@ -19,11 +19,9 @@ import java.util.List;
 @Service
 public class RatingServiceImpl implements RatingService{
     private RatingRepository ratingRepository;
-    private ModelMapper modelMapper;
 
-    public RatingServiceImpl(RatingRepository ratingRepository, ModelMapper modelMapper) {
+    public RatingServiceImpl(RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -45,12 +43,17 @@ public class RatingServiceImpl implements RatingService{
 
     @Override
     public Rating create (CreateRatingInput createRatingInput) {
-        Rating rating = modelMapper.map(createRatingInput, Rating.class);
-        if (rating.getGrade() == null) {
+        Rating rating = new Rating();
+
+        if (createRatingInput.getGrade() == null) {
             throw new IllegalArgumentException("field grade cannot be null");
+        } else {
+            rating.setGrade(createRatingInput.getGrade());
         }
-        if (rating.getUser() == null) {
+        if (createRatingInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
+        } else {
+            rating.setUser(createRatingInput.getUser());
         }
         return ratingRepository.save(rating);
     }
@@ -58,12 +61,14 @@ public class RatingServiceImpl implements RatingService{
     @Override
     public Rating update (UpdateRatingInput updateRatingInput) {
         Rating rating = getById(updateRatingInput.getId());
-        modelMapper.map(updateRatingInput, rating);
-        if (rating.getGrade() == null) {
-            throw new IllegalArgumentException("field grade cannot be null");
+
+        if (updateRatingInput.getGrade() != null
+            && !rating.getGrade().equals(updateRatingInput.getGrade())) {
+            rating.setGrade(updateRatingInput.getGrade());
         }
-        if (rating.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
+        if (updateRatingInput.getUser() != null
+            && !rating.getUser().equals(updateRatingInput.getUser())) {
+            rating.setUser(updateRatingInput.getUser());
         }
         return ratingRepository.save(rating);
     }

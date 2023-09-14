@@ -15,11 +15,9 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService{
 
     private CategoryRepository categoryRepository;
-    private ModelMapper modelMapper;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -41,13 +39,18 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Category create(CreateCategoryInput createCategoryInput) {
-        Category category = modelMapper.map(createCategoryInput, Category.class);
+        Category category = new Category();
 
-        if (category.getIsActive() == null) {
+        if (createCategoryInput.getIsActive() == null) {
             throw new IllegalArgumentException("field isActive cannot be null");
+        } else {
+            category.setIsActive(createCategoryInput.getIsActive());
         }
-        if (category.getName() == null) {
+        if (createCategoryInput.getName() == null
+            || createCategoryInput.getName().isBlank()) {
             throw new IllegalArgumentException("field name cannot be null");
+        } else {
+            category.setName(createCategoryInput.getName());
         }
         return categoryRepository.save(category);
     }
@@ -55,13 +58,15 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public Category update(UpdateCategoryInput updateCategoryInput) {
         Category category = getById(updateCategoryInput.getId());
-        modelMapper.map(updateCategoryInput, category);
 
-        if (category.getIsActive() == null) {
-            throw new IllegalArgumentException("field isActive cannot be null");
+        if (updateCategoryInput.getIsActive() != null
+            && !category.getIsActive().equals(updateCategoryInput.getIsActive())) {
+            category.setIsActive(updateCategoryInput.getIsActive());
         }
-        if (category.getName() == null) {
-            throw new IllegalArgumentException("field name cannot be null");
+        if (updateCategoryInput.getName() != null
+            && !category.getName().equals(updateCategoryInput.getName())
+            && !updateCategoryInput.getName().isBlank()) {
+            category.setName(updateCategoryInput.getName());
         }
         return categoryRepository.save(category);
     }

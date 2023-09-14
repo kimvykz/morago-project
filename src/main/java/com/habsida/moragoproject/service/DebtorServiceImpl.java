@@ -20,11 +20,9 @@ import java.util.List;
 public class DebtorServiceImpl implements DebtorService{
 
     private DebtorRepository debtorRepository;
-    private ModelMapper modelMapper;
 
-    public DebtorServiceImpl(DebtorRepository debtorRepository, ModelMapper modelMapper) {
+    public DebtorServiceImpl(DebtorRepository debtorRepository) {
         this.debtorRepository = debtorRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -46,18 +44,29 @@ public class DebtorServiceImpl implements DebtorService{
 
     @Override
     public Debtor create(CreateDebtorInput createDebtorInput) {
-        Debtor debtor = modelMapper.map(createDebtorInput, Debtor.class);
-        if (debtor.getAccountHolder() == null) {
+        Debtor debtor = new Debtor();
+
+        if (createDebtorInput.getAccountHolder() == null
+            || createDebtorInput.getAccountHolder().isBlank()) {
             throw new IllegalArgumentException("field accountHolder cannot be null");
+        } else {
+            debtor.setAccountHolder(createDebtorInput.getAccountHolder());
         }
-        if (debtor.getIsPaid() == null) {
+        if (createDebtorInput.getIsPaid() == null) {
             throw new IllegalArgumentException("field isPaid cannot be null");
+        } else {
+            debtor.setAccountHolder(createDebtorInput.getAccountHolder());
         }
-        if (debtor.getNameOfBank() == null) {
+        if (createDebtorInput.getNameOfBank() == null
+            || createDebtorInput.getNameOfBank().isBlank()) {
             throw new IllegalArgumentException("field nameOfBank cannot be null");
+        } else {
+            debtor.setNameOfBank(createDebtorInput.getNameOfBank());
         }
-        if (debtor.getUser() == null) {
+        if (createDebtorInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
+        } else {
+            debtor.setUser(createDebtorInput.getUser());
         }
 
         return debtorRepository.save(debtor);
@@ -66,19 +75,24 @@ public class DebtorServiceImpl implements DebtorService{
     @Override
     public Debtor update(UpdateDebtorInput updateDebtorInput) {
         Debtor debtor = getById(updateDebtorInput.getId());
-        modelMapper.map(updateDebtorInput, debtor);
 
-        if (debtor.getAccountHolder() == null) {
-            throw new IllegalArgumentException("field accountHolder cannot be null");
+        if (updateDebtorInput.getAccountHolder() != null
+            && !debtor.getAccountHolder().equals(updateDebtorInput.getAccountHolder())
+            && !updateDebtorInput.getAccountHolder().isBlank()) {
+            debtor.setAccountHolder(updateDebtorInput.getAccountHolder());
         }
-        if (debtor.getIsPaid() == null) {
-            throw new IllegalArgumentException("field isPaid cannot be null");
+        if (updateDebtorInput.getIsPaid() != null
+            && !debtor.getIsPaid().equals(updateDebtorInput.getIsPaid())) {
+            debtor.setIsPaid(updateDebtorInput.getIsPaid());
         }
-        if (debtor.getNameOfBank() == null) {
-            throw new IllegalArgumentException("field nameOfBank cannot be null");
+        if (updateDebtorInput.getNameOfBank() != null
+            && !updateDebtorInput.getNameOfBank().isBlank()
+            && !debtor.getNameOfBank().equals(updateDebtorInput.getNameOfBank())) {
+            debtor.setNameOfBank(updateDebtorInput.getNameOfBank());
         }
-        if (debtor.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
+        if (updateDebtorInput.getUser() != null
+            && !debtor.getUser().equals(updateDebtorInput.getUser())) {
+            debtor.setUser(updateDebtorInput.getUser());
         }
         return debtorRepository.save(debtor);
     }

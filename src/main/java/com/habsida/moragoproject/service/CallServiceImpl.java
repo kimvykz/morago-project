@@ -16,11 +16,9 @@ import java.util.List;
 public class CallServiceImpl implements CallService{
 
     private CallRepository callRepository;
-    private ModelMapper modelMapper;
 
-    public CallServiceImpl (CallRepository callRepository, ModelMapper modelMapper) {
+    public CallServiceImpl (CallRepository callRepository) {
         this.callRepository = callRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -42,46 +40,72 @@ public class CallServiceImpl implements CallService{
 
     @Override
     public Call create (CreateCallInput createCallInput) {
-        Call call = modelMapper.map(createCallInput, Call.class);
+        Call call = new Call();
 
-        if (call.getCallStatus() == null) {
+        if (createCallInput.getCallStatus() == null) {
             throw new IllegalArgumentException("Field callStatus cannot be null");
+        } else {
+            call.setCallStatus(createCallInput.getCallStatus());
         }
-        if (call.getChannelName() == null) {
+        if (createCallInput.getChannelName() == null) {
             throw new IllegalArgumentException("Field channelName cannot be null");
+        } else {
+            call.setChannelName(createCallInput.getChannelName());
         }
-        if (call.getCommission() == null) {
+        if (createCallInput.getCommission() == null) {
             throw new IllegalArgumentException("Field commission cannot be null");
+        } else {
+            call.setCommission(createCallInput.getCommission());
         }
-        if (call.getDuration() == null) {
+        if (createCallInput.getDuration() == null) {
             throw new IllegalArgumentException("Field duration cannot be null");
+        } else {
+            call.setDuration(createCallInput.getDuration());
         }
-        if (call.getIsEndCall() == null) {
+        if (createCallInput.getIsEndCall() == null) {
             throw new IllegalArgumentException("Field isEndCall cannot be null");
+        } else {
+            call.setIsEndCall(createCallInput.getIsEndCall());
         }
-        if (call.getStatus() == null) {
+        if (createCallInput.getStatus() == null) {
             throw new IllegalArgumentException("Field status cannot be null");
+        } else {
+            call.setStatus(createCallInput.getStatus());
         }
-        if (call.getSum() == null) {
+        if (createCallInput.getSum() == null) {
             throw new IllegalArgumentException("Field sum cannot be null");
+        } else {
+            call.setSum(createCallInput.getSum());
         }
         if (call.getTranslatorHasRated() == null) {
             throw new IllegalArgumentException("Field translatorHasRated cannot be null");
+        } else {
+            call.setTranslatorHasRated(createCallInput.getTranslatorHasRated());
         }
-        if (call.getUserHasRated() == null) {
+        if (createCallInput.getUserHasRated() == null) {
             throw new IllegalArgumentException("Field userHasRated cannot be null");
+        } else {
+            call.setUserHasRated(createCallInput.getUserHasRated());
         }
-        if (call.getFile() == null) {
+        if (createCallInput.getFile() == null) {
             //throw new IllegalArgumentException("Field file cannot be null");
+        } else {
+            call.setFile(createCallInput.getFile());
         }
-        if (call.getTheme() == null) {
+        if (createCallInput.getTheme() == null) {
             //throw new IllegalArgumentException("Field theme cannot be null");
+        } else {
+            call.setTheme(createCallInput.getTheme());
         }
-        if (call.getCaller() == null) {
+        if (createCallInput.getCaller() == null) {
             throw new IllegalArgumentException("Field caller cannot be null");
+        } else {
+            call.setCaller(createCallInput.getCaller());
         }
-        if (call.getRecipient() == null) {
+        if (createCallInput.getRecipient() == null) {
             throw new IllegalArgumentException("Field recipient cannot be null");
+        } else {
+            call.setRecipient(createCallInput.getRecipient());
         }
 
         return callRepository.save(call);
@@ -90,46 +114,61 @@ public class CallServiceImpl implements CallService{
     @Override
     public Call update (UpdateCallInput updateCallInput) {
         Call call = getById(updateCallInput.getId());
-        modelMapper.map(updateCallInput, call);
 
-        if (call.getCallStatus() == null) {
-            throw new IllegalArgumentException("Field callStatus cannot be null");
+
+        if (updateCallInput.getCallStatus() != null
+            && !call.getCallStatus().equals(updateCallInput.getCallStatus())
+            ) {
+            call.setCallStatus(updateCallInput.getCallStatus());
         }
-        if (call.getChannelName() == null) {
-            throw new IllegalArgumentException("Field channelName cannot be null");
+        if (updateCallInput.getChannelName() != null
+            && !updateCallInput.getChannelName().isBlank()
+            && !call.getChannelName().equals(updateCallInput.getChannelName())) {
+            call.setChannelName(updateCallInput.getChannelName());
         }
-        if (call.getCommission() == null) {
-            throw new IllegalArgumentException("Field commission cannot be null");
+        if (updateCallInput.getCommission() != null
+            && !call.getCommission().equals(updateCallInput.getCommission())) {
+            call.setCommission(updateCallInput.getCommission());
         }
-        if (call.getDuration() == null) {
-            throw new IllegalArgumentException("Field duration cannot be null");
+        if (updateCallInput.getDuration() != null
+            && !call.getDuration().equals(updateCallInput.getDuration())) {
+            call.setDuration(updateCallInput.getDuration());
         }
-        if (call.getIsEndCall() == null) {
-            throw new IllegalArgumentException("Field isEndCall cannot be null");
+        if (updateCallInput.getIsEndCall() != null
+            && !call.getIsEndCall().equals(updateCallInput.getIsEndCall())) {
+            call.setIsEndCall(updateCallInput.getIsEndCall());
         }
-        if (call.getStatus() == null) {
-            throw new IllegalArgumentException("Field status cannot be null");
+        if (updateCallInput.getStatus() != null
+            && !call.getStatus().equals(updateCallInput.getStatus())) {
+            call.setStatus(updateCallInput.getStatus());
         }
-        if (call.getSum() == null) {
-            throw new IllegalArgumentException("Field sum cannot be null");
+        if (updateCallInput.getSum() != null
+            && !call.getSum().equals(updateCallInput.getSum())) {
+            call.setSum(updateCallInput.getSum());
         }
-        if (call.getTranslatorHasRated() == null) {
-            throw new IllegalArgumentException("Field translatorHasRated cannot be null");
+        if (updateCallInput.getTranslatorHasRated() != null
+            && !call.getTranslatorHasRated().equals(updateCallInput.getTranslatorHasRated())) {
+            call.setTranslatorHasRated(updateCallInput.getTranslatorHasRated());
         }
-        if (call.getUserHasRated() == null) {
-            throw new IllegalArgumentException("Field userHasRated cannot be null");
+        if (updateCallInput.getUserHasRated() != null
+            && !call.getUserHasRated().equals(updateCallInput.getUserHasRated())) {
+            call.setUserHasRated(updateCallInput.getUserHasRated());
         }
-        if (call.getFile() == null) {
-            //throw new IllegalArgumentException("Field file cannot be null");
+        if (updateCallInput.getFile() != null
+            && !call.getFile().equals(updateCallInput.getFile())) {
+            call.setFile(updateCallInput.getFile());
         }
-        if (call.getTheme() == null) {
-            //throw new IllegalArgumentException("Field theme cannot be null");
+        if (updateCallInput.getTheme() != null
+            && !call.getTheme().equals(updateCallInput.getTheme())) {
+            call.setTheme(updateCallInput.getTheme());
         }
-        if (call.getCaller() == null) {
-            throw new IllegalArgumentException("Field caller cannot be null");
+        if (updateCallInput.getCaller() != null
+            && !call.getCaller().equals(updateCallInput.getCaller())) {
+            call.setCaller(updateCallInput.getCaller());
         }
-        if (call.getRecipient() == null) {
-            throw new IllegalArgumentException("Field recipient cannot be null");
+        if (updateCallInput.getRecipient() != null
+            && !call.getRecipient().equals(updateCallInput.getRecipient())) {
+            call.setRecipient(updateCallInput.getRecipient());
         }
         
         return callRepository.save(call);

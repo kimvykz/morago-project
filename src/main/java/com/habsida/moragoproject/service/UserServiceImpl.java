@@ -4,13 +4,20 @@ import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.enums.ERole;
 import com.habsida.moragoproject.model.input.CreateUserInput;
+import com.habsida.moragoproject.model.input.LoginUserInput;
 import com.habsida.moragoproject.model.input.RegistrationUserInput;
 import com.habsida.moragoproject.model.input.UpdateUserInput;
+import com.habsida.moragoproject.model.payload.LoginPayload;
 import com.habsida.moragoproject.repository.RoleRepository;
 import com.habsida.moragoproject.repository.UserRepository;
+import com.habsida.moragoproject.security.JwtGenerator;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,16 +33,12 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private ModelMapper modelMapper;
     private PasswordEncoder passwordEncoder;
-
     public UserServiceImpl (UserRepository userRepository,
                             RoleRepository roleRepository,
-                            ModelMapper modelMapper,
                             PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -75,61 +78,92 @@ public class UserServiceImpl implements UserService{
     @Override
     public User create (CreateUserInput createUserInput) {
 
-        User user = modelMapper.map(createUserInput, User.class);
-
+        User user = new User();
 
         if (isExistsByPhone(user.getPhone())) {
             throw new KeyAlreadyExistsException("User is already existed with phone - "
                     + user.getPhone());
         }
 
-        if (user.getFirstName() == null ) {
+        if (createUserInput.getFirstName() == null) {
             throw new IllegalArgumentException("field firstName cannot be null");
+        } else {
+            user.setFirstName(createUserInput.getFirstName());
         }
-        if (user.getLastName() == null ) {
+        if (createUserInput.getLastName() == null) {
             throw new IllegalArgumentException("field lastName cannot be null");
+        } else {
+            user.setLastName(createUserInput.getLastName());
         }
-        if (user.getPhone() == null || user.getPhone().trim().isEmpty()) {
+        if (createUserInput.getPhone() == null
+                || createUserInput.getPhone().isBlank()) {
             throw new IllegalArgumentException("field phone cannot be Empty");
+        } else {
+            user.setPhone(createUserInput.getPhone());
         }
-        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
+        if (createUserInput.getPassword() == null
+                || createUserInput.getPassword().isBlank()) {
             throw new IllegalArgumentException("field password cannot be Empty");
+        } else {
+            user.setPassword(passwordEncoder.encode(createUserInput.getPassword()));
         }
-        if (user.getIsActive() == null) {
+        if (createUserInput.getIsActive() == null) {
             throw new IllegalArgumentException("field isActive cannot be null");
+        } else {
+            user.setIsActive(createUserInput.getIsActive());
         }
-        if (user.getIsDebtor() == null) {
+        if (createUserInput.getIsDebtor() == null) {
             throw new IllegalArgumentException("field isDebtor cannot be null");
+        } else {
+            user.setIsDebtor(createUserInput.getIsDebtor());
         }
-        if (user.getRatings() == null) {
+        if (createUserInput.getRatings() == null) {
             throw new IllegalArgumentException("field rating cannot be null");
+        } else {
+            user.setRatings(createUserInput.getRatings());
         }
-        if (user.getTotalRatings() == null) {
+        if (createUserInput.getTotalRatings() == null) {
             throw new IllegalArgumentException("field totalRatings cannot be null");
+        } else {
+            user.setTotalRatings(createUserInput.getTotalRatings());
         }
-        if (user.getBalance() == null) {
+        if (createUserInput.getBalance() == null) {
             throw new IllegalArgumentException("field balance cannot be null");
+        } else {
+            user.setBalance(createUserInput.getBalance());
         }
-        if (user.getOnBoardingStatus() == null) {
+        if (createUserInput.getOnBoardingStatus() == null) {
             throw new IllegalArgumentException("field getOnBoardingStatus cannot be null");
+        } else {
+            user.setOnBoardingStatus(createUserInput.getOnBoardingStatus());
         }
-        if (user.getApnToken() == null) {
+        if (createUserInput.getApnToken() == null) {
             //user.setApnToken("token");  //here I need to know how to process this field
+        } else {
+            user.setApnToken(createUserInput.getApnToken());
         }
-        if (user.getFcmToken() == null) {
+        if (createUserInput.getFcmToken() == null) {
             //user.setFcmToken("token");  //here I need to know how to process this field
+        } else {
+            user.setFcmToken(createUserInput.getFcmToken());
         }
-        if (user.getRoles() == null) {
+        if (createUserInput.getRoles() == null) {
             throw new IllegalArgumentException("User must have at least 1 role");
-        } else if (user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
+        } else if (createUserInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
                 .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
             throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
+        } else {
+            user.setRoles(createUserInput.getRoles());
         }
-        if (user.getUserProfile() == null) {
+        if (createUserInput.getUserProfile() == null) {
             //here I need to know logic
+        } else {
+            user.setUserProfile(createUserInput.getUserProfile());
         }
-        if (user.getTranslatorProfile() == null) {
+        if (createUserInput.getTranslatorProfile() == null) {
             //here I need to know logic
+        } else {
+            user.setTranslatorProfile(createUserInput.getTranslatorProfile());
         }
 
         user.setRoles(defineIdForExistingRoles(user.getRoles()));
@@ -140,55 +174,74 @@ public class UserServiceImpl implements UserService{
     public User update (UpdateUserInput updateUserInput) {
 
         User user = getById(updateUserInput.getId());
-        modelMapper.map(updateUserInput, user);
 
-        if (user.getFirstName() == null || user.getFirstName().trim().isEmpty()) {
-            throw new IllegalArgumentException("field firstName cannot be Empty");
+        if (updateUserInput.getFirstName() != null
+           && !updateUserInput.getFirstName().isBlank()
+            && !user.getFirstName().equals(updateUserInput.getFirstName())) {
+            user.setFirstName(updateUserInput.getFirstName());
         }
-        if (user.getLastName() == null || user.getLastName().trim().isEmpty()) {
-            throw new IllegalArgumentException("field lastName cannot be Empty");
+        if (updateUserInput.getLastName() != null
+            && !updateUserInput.getLastName().isBlank()
+            && !user.getLastName().equals(updateUserInput.getLastName())) {
+            user.setLastName(updateUserInput.getLastName());
         }
-        if (user.getPhone() == null || user.getPhone().trim().isEmpty()) {
-            throw new IllegalArgumentException("field phone cannot be Empty");
+        if (updateUserInput.getPhone() != null
+            && !updateUserInput.getPhone().isBlank()
+            && !user.getPhone().equals(updateUserInput.getPhone())) {
+            user.setPhone(updateUserInput.getPhone());
         }
-        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
-            throw new IllegalArgumentException("field password cannot be Empty");
+        if (updateUserInput.getPassword() != null
+            && !updateUserInput.getPassword().isBlank()
+            && !user.getPassword().equals(passwordEncoder.encode(updateUserInput.getPassword()))) {
+            user.setPassword(passwordEncoder.encode(updateUserInput.getPassword()));
         }
-        if (user.getIsActive() == null) {
-            throw new IllegalArgumentException("field isActive cannot be null");
+        if (updateUserInput.getIsActive() != null
+            && !user.getIsActive().equals(updateUserInput.getIsActive())) {
+            user.setIsActive(updateUserInput.getIsActive());
         }
-        if (user.getIsDebtor() == null) {
-            throw new IllegalArgumentException("field isDebtor cannot be null");
+        if (updateUserInput.getIsDebtor() != null
+            && !user.getIsDebtor().equals(updateUserInput.getIsDebtor())) {
+            user.setIsDebtor(updateUserInput.getIsDebtor());
         }
-        if (user.getRatings() == null) {
-            throw new IllegalArgumentException("field rating cannot be null");
+        if (updateUserInput.getRatings() != null
+            && !user.getRatings().equals(updateUserInput.getRatings())) {
+            user.setRatings(updateUserInput.getRatings());
         }
-        if (user.getTotalRatings() == null) {
-            throw new IllegalArgumentException("field totalRatings cannot be null");
+        if (updateUserInput.getTotalRatings() != null
+            && !user.getTotalRatings().equals(updateUserInput.getTotalRatings())) {
+            user.setTotalRatings(updateUserInput.getTotalRatings());
         }
-        if (user.getBalance() == null) {
-            throw new IllegalArgumentException("field balance cannot be null");
+        if (updateUserInput.getBalance() != null
+            && !user.getBalance().equals(updateUserInput.getBalance())) {
+            user.setBalance(updateUserInput.getBalance());
         }
-        if (user.getOnBoardingStatus() == null) {
-            throw new IllegalArgumentException("field getOnBoardingStatus cannot be null");
+        if (updateUserInput.getOnBoardingStatus() != null
+            && !user.getOnBoardingStatus().equals(updateUserInput.getOnBoardingStatus())) {
+            user.setOnBoardingStatus(updateUserInput.getOnBoardingStatus());
         }
-        if (user.getApnToken() == null) {
-            //user.setApnToken("token");  //here I need to know how to process this field
+        if (updateUserInput.getApnToken() != null
+            && !user.getApnToken().equals(updateUserInput.getApnToken())) {
+            user.setApnToken(updateUserInput.getApnToken());
         }
-        if (user.getFcmToken() == null) {
-            //user.setFcmToken("token");  //here I need to know how to process this field
+        if (updateUserInput.getFcmToken() != null
+            && !user.getFcmToken().equals(updateUserInput.getFcmToken())) {
+            user.setFcmToken(updateUserInput.getFcmToken());
         }
-        if (user.getRoles() == null) {
-            throw new IllegalArgumentException("User must have at least 1 role");
-        } else if (user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
+        if (updateUserInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
                 .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
             throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
         }
-        if (user.getUserProfile() == null) {
-            //here I need to know logic
+        if (updateUserInput.getRoles() != null
+                && !user.getRoles().equals(updateUserInput.getRoles())) {
+            user.setRoles(updateUserInput.getRoles());
         }
-        if (user.getTranslatorProfile() == null) {
-            //here I need to know logic
+        if (updateUserInput.getUserProfile() != null
+            && !user.getUserProfile().equals(updateUserInput.getUserProfile())) {
+            user.setUserProfile(updateUserInput.getUserProfile());
+        }
+        if (updateUserInput.getTranslatorProfile() != null
+            && !user.getTranslatorProfile().equals(updateUserInput.getTranslatorProfile())) {
+            user.setTranslatorProfile(updateUserInput.getTranslatorProfile());
         }
 
         user.setRoles(defineIdForExistingRoles(user.getRoles()));
@@ -212,30 +265,4 @@ public class UserServiceImpl implements UserService{
         return userRepository.existsByPhone(phone);
     }
 
-    @Override
-    public User signUpUser(RegistrationUserInput registrationUserInput) {
-        if (isExistsByPhone(registrationUserInput.getPhone())) {
-            throw new IllegalArgumentException("User is already existed with phone - " + registrationUserInput.getPhone());
-        }
-        if (registrationUserInput.getPhone() == null || registrationUserInput.getPhone().trim().isEmpty()) {
-            throw new IllegalArgumentException("Phone cannot be null");
-        }
-        if (registrationUserInput.getPassword() == null ) {
-            throw new IllegalArgumentException("Password cannot be null");
-        }
-
-        User user = modelMapper.map(registrationUserInput, User.class);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        user.setBalance(0.0f);
-        user.setFirstName("");
-        user.setIsActive(true);
-        user.setIsDebtor(false);
-        user.setLastName("");
-        user.setOnBoardingStatus(0);
-        user.setRatings(0.0);
-        user.setTotalRatings(0);
-
-        return userRepository.save(user);
-    }
 }

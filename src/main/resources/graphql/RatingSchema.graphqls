@@ -1,11 +1,14 @@
 input RatingCreateInput {
     grade: Float
+    user: UserCreateInput
 }
 input RatingUpdateInput {
     id: ID!
     grade: Float
+    user: UserUpdateInput
 }
 type Rating {
     id: ID
     grade: Float
+    user: User
 }

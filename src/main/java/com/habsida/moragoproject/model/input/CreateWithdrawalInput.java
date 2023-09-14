@@ -1,5 +1,6 @@
 package com.habsida.moragoproject.model.input;
 
+import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.enums.EStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,5 +16,5 @@ public class CreateWithdrawalInput {
     private EStatus status;
     private Double sum;
 
-    //private User user;
+    private User user;
 }

@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateTranslatorProfileInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateTranslatorProfileInput;
 import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import com.habsida.moragoproject.service.TranslatorProfileService;
@@ -34,8 +35,8 @@ public class TranslatorProfileController {
     }
 
     @QueryMapping(name = "getTranslatorProfilesPaged")
-    public Page<TranslatorProfile> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<TranslatorProfile> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return translatorProfileService.getAllPaged(pageRequest);
     }
 

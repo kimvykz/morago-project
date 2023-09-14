@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateNotificationInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateNotificationInput;
 import com.habsida.moragoproject.model.entity.Notification;
 import com.habsida.moragoproject.service.NotificationService;
@@ -34,8 +35,8 @@ public class NotificationController {
     }
 
     @QueryMapping(name = "getNotificationsPaged")
-    public Page<Notification> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Notification> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return notificationService.getAllPaged(pageRequest);
     }
 

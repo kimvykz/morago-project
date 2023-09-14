@@ -1,5 +1,6 @@
 package com.habsida.moragoproject.model.input;
 
+import com.habsida.moragoproject.model.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,5 +17,5 @@ public class CreateNotificationInput {
     private LocalTime time;
     private String title;
 
-    //private User user;
+    private User user;
 }

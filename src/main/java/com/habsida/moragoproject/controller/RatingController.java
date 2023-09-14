@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateRatingInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateRatingInput;
 import com.habsida.moragoproject.model.entity.Rating;
 import com.habsida.moragoproject.service.RatingService;
@@ -34,8 +35,8 @@ public class RatingController {
     }
 
     @QueryMapping(name = "getRatingsPaged")
-    public Page<Rating> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Rating> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return ratingService.getAllPaged(pageRequest);
     }
 

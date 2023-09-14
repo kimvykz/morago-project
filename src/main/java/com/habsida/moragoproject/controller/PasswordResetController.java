@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreatePasswordResetInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdatePasswordResetInput;
 import com.habsida.moragoproject.model.entity.PasswordReset;
 import com.habsida.moragoproject.service.PasswordResetService;
@@ -34,8 +35,8 @@ public class PasswordResetController {
     }
 
     @QueryMapping(name = "getPasswordResetsPaged")
-    public Page<PasswordReset> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<PasswordReset> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return passwordResetService.getAllPaged(pageRequest);
     }
 

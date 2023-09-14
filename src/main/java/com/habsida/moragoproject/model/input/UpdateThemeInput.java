@@ -1,8 +1,12 @@
 package com.habsida.moragoproject.model.input;
 
+import com.habsida.moragoproject.model.entity.Category;
+import com.habsida.moragoproject.model.entity.File;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @ToString
 @Getter
@@ -17,7 +21,7 @@ public class UpdateThemeInput {
     private Double nightPrice;
     private Double price;
 
-    //private Category category;
+    private Category category;
 
-    //private List<File> file;
+    private List<File> file;
 }

@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateAppVersionInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateAppVersionInput;
 import com.habsida.moragoproject.model.entity.AppVersion;
 import com.habsida.moragoproject.service.AppVersionService;
@@ -39,8 +40,8 @@ public class AppVersionController {
 
     @QueryMapping(name = "getAppVersionsPaged")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public Page<AppVersion> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<AppVersion> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return appVersionService.getAllPaged(pageRequest);
     }
 

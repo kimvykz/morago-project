@@ -19,7 +19,6 @@ import java.io.IOException;
 @NoArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-
     private JwtGenerator tokenGenerator;
 
     private CustomUserDetailsService customUserDetailsService;

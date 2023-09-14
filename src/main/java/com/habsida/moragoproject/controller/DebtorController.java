@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateDebtorInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateDebtorInput;
 import com.habsida.moragoproject.model.entity.Debtor;
 import com.habsida.moragoproject.service.DebtorService;
@@ -34,8 +35,8 @@ public class DebtorController {
     }
 
     @QueryMapping(name = "getDebtorsPaged")
-    public Page<Debtor> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Debtor> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return debtorService.getAllPaged(pageRequest);
     }
 

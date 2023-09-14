@@ -10,17 +10,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AppVersionServiceImpl implements AppVersionService{
 
     private AppVersionRepository appVersionRepository;
-    private ModelMapper modelMapper;
 
-    public AppVersionServiceImpl (AppVersionRepository appVersionRepository, ModelMapper modelMapper) {
+    public AppVersionServiceImpl (AppVersionRepository appVersionRepository) {
         this.appVersionRepository = appVersionRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -44,16 +41,24 @@ public class AppVersionServiceImpl implements AppVersionService{
     @Override
     public AppVersion create (CreateAppVersionInput createAppVersionInput) {
 
-        AppVersion appVersion = modelMapper.map(createAppVersionInput, AppVersion.class);
+        AppVersion appVersion = new AppVersion();
 
-        if (appVersion.getPlatform() == null) {
+        if (createAppVersionInput.getPlatform() == null) {
             throw new IllegalArgumentException("field platform cannot be empty");
+        } else {
+            appVersion.setPlatform(createAppVersionInput.getPlatform());
         }
-        if (appVersion.getLatest() == null || appVersion.getLatest().trim().isEmpty()) {
+        if (createAppVersionInput.getLatest() == null
+                || appVersion.getLatest().isBlank()) {
             throw new IllegalArgumentException("field latest cannot be empty");
+        } else {
+            appVersion.setLatest(createAppVersionInput.getLatest());
         }
-        if (appVersion.getMin() == null || appVersion.getLatest().trim().isEmpty()) {
+        if (createAppVersionInput.getMin() == null
+                || appVersion.getLatest().isBlank()) {
             throw new IllegalArgumentException("field min cannot be empty");
+        } else {
+            appVersion.setMin(createAppVersionInput.getMin());
         }
         return appVersionRepository.save(appVersion);
     }
@@ -63,16 +68,19 @@ public class AppVersionServiceImpl implements AppVersionService{
 
         AppVersion appVersion = getById(updateAppVersionInput.getId());
 
-        modelMapper.map(updateAppVersionInput, appVersion);
-
-        if (appVersion.getPlatform() == null) {
-            throw new IllegalArgumentException("field platform cannot be empty");
+        if (updateAppVersionInput.getPlatform() != null
+                && !appVersion.getPlatform().equals(updateAppVersionInput.getPlatform())) {
+            appVersion.setPlatform(updateAppVersionInput.getPlatform());
         }
-        if (appVersion.getLatest() == null || appVersion.getLatest().trim().isEmpty()) {
-            throw new IllegalArgumentException("field latest cannot be empty");
+        if (updateAppVersionInput.getLatest() != null
+                && !updateAppVersionInput.getLatest().isBlank()
+                && !appVersion.getLatest().equals(updateAppVersionInput.getLatest())) {
+            appVersion.setLatest(updateAppVersionInput.getLatest());
         }
-        if (appVersion.getMin() == null || appVersion.getLatest().trim().isEmpty()) {
-            throw new IllegalArgumentException("field min cannot be empty");
+        if (updateAppVersionInput.getMin() != null
+                && !appVersion.getLatest().isBlank()
+                && !appVersion.getMin().equals(updateAppVersionInput.getMin())) {
+            appVersion.setMin(updateAppVersionInput.getMin());
         }
         return appVersionRepository.save(appVersion);
     }

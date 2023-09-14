@@ -21,11 +21,9 @@ import java.util.List;
 public class FileServiceImpl implements FileService{
 
     private FileRepository fileRepository;
-    private ModelMapper modelMapper;
 
-    public FileServiceImpl(FileRepository fileRepository, ModelMapper modelMapper) {
+    public FileServiceImpl(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -47,21 +45,35 @@ public class FileServiceImpl implements FileService{
 
     @Override
     public File create(CreateFileInput createFileInput) {
-        File file = modelMapper.map(createFileInput, File.class);
-        if (file.getOriginalTitle() == null) {
+        File file = new File();
+
+        if (createFileInput.getOriginalTitle() == null
+            || createFileInput.getOriginalTitle().isBlank()) {
             throw new IllegalArgumentException("field originalTitle cannot be null");
+        } else {
+            file.setOriginalTitle(createFileInput.getOriginalTitle());
         }
-        if (file.getPath() == null) {
+        if (createFileInput.getPath() == null
+            || createFileInput.getPath().isBlank()) {
             throw new IllegalArgumentException("field path cannot be null");
+        } else {
+            file.setPath(createFileInput.getPath());
         }
-        if (file.getType() == null) {
+        if (createFileInput.getType() == null
+            || createFileInput.getType().isBlank()) {
             throw new IllegalArgumentException("field type cannot be null");
+        } else {
+            file.setType(createFileInput.getType());
         }
-        if (file.getUser() == null) {
+        if (createFileInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
+        } else {
+            file.setUser(createFileInput.getUser());
         }
-        if (file.getTheme() == null) {
+        if (createFileInput.getTheme() == null) {
             throw new IllegalArgumentException("field theme cannot be null");
+        } else {
+            file.setTheme(createFileInput.getTheme());
         }
 
         return fileRepository.save(file);
@@ -70,22 +82,29 @@ public class FileServiceImpl implements FileService{
     @Override
     public File update(UpdateFileInput updateFileInput) {
         File file = getById(updateFileInput.getId());
-        modelMapper.map(updateFileInput, file);
 
-        if (file.getOriginalTitle() == null) {
-            throw new IllegalArgumentException("field originalTitle cannot be null");
+        if (updateFileInput.getOriginalTitle() != null
+            && !updateFileInput.getOriginalTitle().isBlank()
+            && !file.getOriginalTitle().equals(updateFileInput.getOriginalTitle())) {
+            file.setOriginalTitle(updateFileInput.getOriginalTitle());
         }
-        if (file.getPath() == null) {
-            throw new IllegalArgumentException("field path cannot be null");
+        if (updateFileInput.getPath() != null
+            && !file.getPath().equals(updateFileInput.getPath())
+            && !updateFileInput.getPath().isBlank()) {
+            file.setPath(updateFileInput.getPath());
         }
-        if (file.getType() == null) {
-            throw new IllegalArgumentException("field type cannot be null");
+        if (updateFileInput.getType() != null
+            && !updateFileInput.getType().isBlank()
+            && !file.getType().equals(updateFileInput.getType())) {
+            file.setType(updateFileInput.getType());
         }
-        if (file.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
+        if (updateFileInput.getUser() != null
+            && !file.getUser().equals(updateFileInput.getUser())) {
+            file.setUser(updateFileInput.getUser());
         }
-        if (file.getTheme() == null) {
-            throw new IllegalArgumentException("field theme cannot be null");
+        if (updateFileInput.getTheme() != null
+            && !file.getTheme().equals(updateFileInput.getTheme())) {
+            file.setTheme(updateFileInput.getTheme());
         }
 
         return fileRepository.save(file);

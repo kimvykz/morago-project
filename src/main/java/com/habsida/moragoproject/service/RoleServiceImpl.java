@@ -16,11 +16,9 @@ import java.util.Optional;
 @Service
 public class RoleServiceImpl implements RoleService{
     private RoleRepository roleRepository;
-    private ModelMapper modelMapper;
 
-    public RoleServiceImpl (RoleRepository roleRepository, ModelMapper modelMapper) {
+    public RoleServiceImpl (RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -42,9 +40,12 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public Role create (CreateRoleInput createRoleInput) {
-        Role role = modelMapper.map(createRoleInput, Role.class);
-        if (role.getName() == null) {
+        Role role = new Role();
+
+        if (createRoleInput.getName() == null) {
             throw new IllegalArgumentException("field name cannot be null");
+        } else {
+            role.setName(createRoleInput.getName());
         }
         return roleRepository.save(role);
     }
@@ -52,9 +53,10 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public Role update (UpdateRoleInput updateRoleInput) {
         Role role = getById(updateRoleInput.getId());
-        modelMapper.map(updateRoleInput, role);
-        if (role.getName() == null) {
-            throw new IllegalArgumentException("field name cannot be null");
+
+        if (updateRoleInput.getName() != null
+            && !role.getName().equals(updateRoleInput.getName())) {
+            role.setName(updateRoleInput.getName());
         }
         return roleRepository.save(role);
     }

@@ -15,11 +15,9 @@ import java.util.List;
 public class CoinServiceImpl implements CoinService{
 
     private CoinRepository coinRepository;
-    private ModelMapper modelMapper;
 
-    public CoinServiceImpl(CoinRepository coinRepository, ModelMapper modelMapper) {
+    public CoinServiceImpl(CoinRepository coinRepository) {
         this.coinRepository = coinRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -41,13 +39,17 @@ public class CoinServiceImpl implements CoinService{
 
     @Override
     public Coin create(CreateCoinInput createCoinInput) {
-        Coin coin = modelMapper.map(createCoinInput, Coin.class);
+        Coin coin = new Coin();
 
-        if (coin.getCoin() == null) {
+        if (createCoinInput.getCoin() == null) {
             throw new IllegalArgumentException("field coin cannot be null");
+        } else {
+            coin.setCoin(createCoinInput.getCoin());
         }
-        if (coin.getCoin() == null) {
+        if (createCoinInput.getWon() == null) {
             throw new IllegalArgumentException("field won cannot be null");
+        } else {
+            coin.setWon(createCoinInput.getWon());
         }
 
         return coinRepository.save(coin);
@@ -56,13 +58,14 @@ public class CoinServiceImpl implements CoinService{
     @Override
     public Coin update(UpdateCoinInput updateCoinInput) {
         Coin coin = getById(updateCoinInput.getId());
-        modelMapper.map(updateCoinInput, coin);
 
-        if (coin.getCoin() == null) {
-            throw new IllegalArgumentException("field coin cannot be null");
+        if (updateCoinInput.getCoin() != null
+            && !coin.getCoin().equals(updateCoinInput.getCoin())) {
+            coin.setCoin(updateCoinInput.getCoin());
         }
-        if (coin.getCoin() == null) {
-            throw new IllegalArgumentException("field won cannot be null");
+        if (updateCoinInput.getWon() != null
+            && !coin.getWon().equals(updateCoinInput.getWon())) {
+            coin.setWon(updateCoinInput.getWon());
         }
 
         return coinRepository.save(coin);

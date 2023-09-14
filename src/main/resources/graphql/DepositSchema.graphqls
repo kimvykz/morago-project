@@ -4,6 +4,7 @@ input DepositCreateInput {
     nameOfBank: String
     eStatus: EStatus
     won: Float
+    user: UserCreateInput
 }
 input DepositUpdateInput {
     id: ID!
@@ -12,6 +13,7 @@ input DepositUpdateInput {
     nameOfBank: String
     eStatus: EStatus
     won: Float
+    user: UserUpdateInput
 }
 type Deposit {
     id: ID
@@ -20,4 +22,5 @@ type Deposit {
     nameOfBank: String
     eStatus: EStatus
     won: Float
+    user: User
 }

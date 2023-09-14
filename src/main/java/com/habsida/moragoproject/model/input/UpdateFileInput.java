@@ -1,5 +1,7 @@
 package com.habsida.moragoproject.model.input;
 
+import com.habsida.moragoproject.model.entity.Theme;
+import com.habsida.moragoproject.model.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,7 +15,7 @@ public class UpdateFileInput {
     private String path;
     private String type;
 
-    //private User user;
+    private User user;
 
-    //private Theme theme;
+    private Theme theme;
 }

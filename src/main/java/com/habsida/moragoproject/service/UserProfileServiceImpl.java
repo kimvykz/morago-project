@@ -19,11 +19,9 @@ import java.util.List;
 @Service
 public class UserProfileServiceImpl implements UserProfileService{
     private UserProfileRepository userProfileRepository;
-    private ModelMapper modelMapper;
 
-    public UserProfileServiceImpl (UserProfileRepository userProfileRepository, ModelMapper modelMapper) {
+    public UserProfileServiceImpl (UserProfileRepository userProfileRepository) {
         this.userProfileRepository = userProfileRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -45,12 +43,17 @@ public class UserProfileServiceImpl implements UserProfileService{
 
     @Override
     public UserProfile create (CreateUserProfileInput createUserProfileInput) {
-        UserProfile userProfile = modelMapper.map(createUserProfileInput, UserProfile.class);
-        if (userProfile.getIsFreeCallMade() == null) {
+        UserProfile userProfile = new UserProfile();
+
+        if (createUserProfileInput.getIsFreeCallMade() == null) {
             throw new IllegalArgumentException("field isFreeCallMade cannot be null");
+        } else {
+            userProfile.setIsFreeCallMade(createUserProfileInput.getIsFreeCallMade());
         }
-        if (userProfile.getUser() == null) {
+        if (createUserProfileInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
+        } else {
+            userProfile.setUser(createUserProfileInput.getUser());
         }
 
         return userProfileRepository.save(userProfile);
@@ -59,12 +62,14 @@ public class UserProfileServiceImpl implements UserProfileService{
     @Override
     public UserProfile update (UpdateUserProfileInput updateUserProfileInput) {
         UserProfile userProfile = getById(updateUserProfileInput.getId());
-        modelMapper.map(updateUserProfileInput, userProfile);
-        if (userProfile.getIsFreeCallMade() == null) {
-            throw new IllegalArgumentException("field isFreeCallMade cannot be null");
+
+        if (updateUserProfileInput.getIsFreeCallMade() != null
+            && !userProfile.getIsFreeCallMade().equals(updateUserProfileInput.getIsFreeCallMade())) {
+            userProfile.setIsFreeCallMade(updateUserProfileInput.getIsFreeCallMade());
         }
-        if (userProfile.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
+        if (updateUserProfileInput.getUser() != null
+            && !userProfile.getUser().equals(updateUserProfileInput.getUser())) {
+            userProfile.setUser(updateUserProfileInput.getUser());
         }
         return userProfileRepository.save(userProfile);
     }

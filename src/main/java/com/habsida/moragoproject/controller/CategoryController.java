@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateCategoryInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateCategoryInput;
 import com.habsida.moragoproject.model.entity.Category;
 import com.habsida.moragoproject.service.CategoryService;
@@ -34,8 +35,8 @@ public class CategoryController {
     }
 
     @QueryMapping(name = "getCategoriesPaged")
-    public Page<Category> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Category> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return categoryService.getAllPaged(pageRequest);
     }
 

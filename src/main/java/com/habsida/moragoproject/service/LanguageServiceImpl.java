@@ -14,11 +14,9 @@ import java.util.List;
 @Service
 public class LanguageServiceImpl implements LanguageService{
     private LanguageRepository languageRepository;
-    private ModelMapper modelMapper;
 
-    public LanguageServiceImpl(LanguageRepository languageRepository, ModelMapper modelMapper) {
+    public LanguageServiceImpl(LanguageRepository languageRepository) {
         this.languageRepository = languageRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -40,9 +38,12 @@ public class LanguageServiceImpl implements LanguageService{
 
     @Override
     public Language create(CreateLanguageInput createLanguageInput) {
-        Language language = modelMapper.map(createLanguageInput, Language.class);
-        if (language.getName() == null) {
+        Language language = new Language();
+        if (createLanguageInput.getName() == null
+            || createLanguageInput.getName().isBlank()) {
             throw new IllegalArgumentException("field name cannot be null");
+        } else {
+            language.setName(createLanguageInput.getName());
         }
         return languageRepository.save(language);
     }
@@ -50,9 +51,11 @@ public class LanguageServiceImpl implements LanguageService{
     @Override
     public Language update(UpdateLanguageInput updateLanguageInput) {
         Language language = getById(updateLanguageInput.getId());
-        modelMapper.map(updateLanguageInput, language);
-        if (language.getName() == null) {
-            throw new IllegalArgumentException("field name cannot be null");
+
+        if (updateLanguageInput.getName() != null
+            && !updateLanguageInput.getName().isBlank()
+            && !language.getName().equals(updateLanguageInput.getName())) {
+            language.setName(updateLanguageInput.getName());
         }
         return languageRepository.save(language);
     }

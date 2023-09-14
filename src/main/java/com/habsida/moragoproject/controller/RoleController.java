@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateRoleInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateRoleInput;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.service.RoleService;
@@ -34,8 +35,8 @@ public class RoleController {
     }
 
     @QueryMapping(name = "getRolesPaged")
-    public Page<Role> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Role> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return roleService.getAllPaged(pageRequest);
     }
 

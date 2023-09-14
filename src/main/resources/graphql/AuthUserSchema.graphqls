@@ -1,7 +1,7 @@
 input RegistrationUserCreateInput {
     phone: String!
     password: String!
-    roles: [RoleInput]!
+    roles: [RoleCreateInput]!
 }
 
 input LoginUserInput {

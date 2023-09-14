@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.CreateLanguageInput;
+import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.UpdateLanguageInput;
 import com.habsida.moragoproject.model.entity.Language;
 import com.habsida.moragoproject.service.LanguageService;
@@ -34,8 +35,8 @@ public class LanguageController {
     }
 
     @QueryMapping(name = "getLanguagesPaged")
-    public Page<Language> getAllPaged (@Argument int page, @Argument int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    public Page<Language> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+        PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
         return languageService.getAllPaged(pageRequest);
     }
 

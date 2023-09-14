@@ -20,11 +20,9 @@ import java.util.List;
 @Service
 public class WithdrawalServiceImpl implements WithdrawalService{
     private WithdrawalRepository withdrawalRepository;
-    private ModelMapper modelMapper;
 
-    public WithdrawalServiceImpl (WithdrawalRepository withdrawalRepository, ModelMapper modelMapper) {
+    public WithdrawalServiceImpl (WithdrawalRepository withdrawalRepository) {
         this.withdrawalRepository = withdrawalRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -46,24 +44,40 @@ public class WithdrawalServiceImpl implements WithdrawalService{
 
     @Override
     public Withdrawal create (CreateWithdrawalInput createWithdrawalInput) {
-        Withdrawal withdrawal = modelMapper.map(createWithdrawalInput, Withdrawal.class);
-        if (withdrawal.getAccountHolder() == null) {
+        Withdrawal withdrawal = new Withdrawal();
+
+        if (createWithdrawalInput.getAccountHolder() == null
+            || createWithdrawalInput.getAccountHolder().isBlank()) {
             throw new IllegalArgumentException("field accountHolder cannot be null");
+        } else {
+            withdrawal.setAccountHolder(createWithdrawalInput.getAccountHolder());
         }
-        if (withdrawal.getAccountNumber() == null) {
+        if (createWithdrawalInput.getAccountNumber() == null
+            || createWithdrawalInput.getAccountHolder().isBlank()) {
             throw new IllegalArgumentException("field accountNumber cannot be null");
+        } else {
+            withdrawal.setAccountNumber(createWithdrawalInput.getAccountNumber());
         }
-        if (withdrawal.getNameOfBank() == null) {
+        if (createWithdrawalInput.getNameOfBank() == null
+            || createWithdrawalInput.getNameOfBank().isBlank()) {
             throw new IllegalArgumentException("field nameOfBank cannot be null");
+        } else {
+            withdrawal.setNameOfBank(createWithdrawalInput.getNameOfBank());
         }
-        if (withdrawal.getStatus() == null) {
+        if (createWithdrawalInput.getStatus() == null) {
             throw new IllegalArgumentException("field status cannot be null");
+        } else {
+            withdrawal.setStatus(createWithdrawalInput.getStatus());
         }
-        if (withdrawal.getSum() == null) {
+        if (createWithdrawalInput.getSum() == null) {
             throw new IllegalArgumentException("field sum cannot be null");
+        } else {
+            withdrawal.setSum(createWithdrawalInput.getSum());
         }
-        if (withdrawal.getUser() == null) {
+        if (createWithdrawalInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
+        } else {
+            withdrawal.setUser(createWithdrawalInput.getUser());
         }
 
         return withdrawalRepository.save(withdrawal);
@@ -72,25 +86,33 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     @Override
     public Withdrawal update(UpdateWithdrawalInput updateWithdrawalInput) {
         Withdrawal withdrawal = getById(updateWithdrawalInput.getId());
-        modelMapper.map(updateWithdrawalInput, withdrawal);
 
-        if (withdrawal.getAccountHolder() == null) {
-            throw new IllegalArgumentException("field accountHolder cannot be null");
+        if (updateWithdrawalInput.getAccountHolder() != null
+            && !withdrawal.getAccountHolder().equals(updateWithdrawalInput.getAccountHolder())
+            && !updateWithdrawalInput.getAccountHolder().isBlank()) {
+            withdrawal.setAccountHolder(updateWithdrawalInput.getAccountHolder());
         }
-        if (withdrawal.getAccountNumber() == null) {
-            throw new IllegalArgumentException("field accountNumber cannot be null");
+        if (updateWithdrawalInput.getAccountNumber() != null
+            && !updateWithdrawalInput.getAccountNumber().isBlank()
+            && !withdrawal.getAccountNumber().equals(updateWithdrawalInput.getAccountNumber())) {
+            withdrawal.setAccountNumber(updateWithdrawalInput.getAccountNumber());
         }
-        if (withdrawal.getNameOfBank() == null) {
-            throw new IllegalArgumentException("field nameOfBank cannot be null");
+        if (updateWithdrawalInput.getNameOfBank() != null
+            && !updateWithdrawalInput.getNameOfBank().isBlank()
+            && !withdrawal.getNameOfBank().equals(updateWithdrawalInput.getNameOfBank())) {
+            withdrawal.setNameOfBank(updateWithdrawalInput.getNameOfBank());
         }
-        if (withdrawal.getStatus() == null) {
-            throw new IllegalArgumentException("field status cannot be null");
+        if (updateWithdrawalInput.getStatus() != null
+            && !withdrawal.getStatus().equals(updateWithdrawalInput.getStatus())) {
+            withdrawal.setStatus(updateWithdrawalInput.getStatus());
         }
-        if (withdrawal.getSum() == null) {
-            throw new IllegalArgumentException("field sum cannot be null");
+        if (updateWithdrawalInput.getSum() != null
+            && !withdrawal.getSum().equals(updateWithdrawalInput.getSum())) {
+            withdrawal.setSum(updateWithdrawalInput.getSum());
         }
-        if (withdrawal.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
+        if (updateWithdrawalInput.getUser() != null
+            && !withdrawal.getUser().equals(updateWithdrawalInput.getUser())) {
+            withdrawal.setUser(updateWithdrawalInput.getUser());
         }
 
         return withdrawalRepository.save(withdrawal);

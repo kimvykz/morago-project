@@ -1,9 +1,12 @@
 input TranslatorProfileCreateInput {
-      dateOfBirth: String
-      email: String
-      isAvailable: Boolean
-      isOnline: Boolean
-      levelOfKorean: String
+    dateOfBirth: String
+    email: String
+    isAvailable: Boolean
+    isOnline: Boolean
+    levelOfKorean: String
+    user: UserCreateInput
+    languages: [LanguageCreateInput]
+    themes: [ThemeCreateInput]
 }
 input TranslatorProfileUpdateInput {
     id: ID!
@@ -12,6 +15,9 @@ input TranslatorProfileUpdateInput {
     isAvailable: Boolean
     isOnline: Boolean
     levelOfKorean: String
+    user: UserUpdateInput
+    languages: [LanguageUpdateInput]
+    themes: [ThemeUpdateInput]
 }
 type TranslatorProfile {
     id: ID
@@ -20,4 +26,7 @@ type TranslatorProfile {
     isAvailable: Boolean
     isOnline: Boolean
     levelOfKorean: String
+    user: User
+    languages: [Language]
+    themes: [Theme]
 }

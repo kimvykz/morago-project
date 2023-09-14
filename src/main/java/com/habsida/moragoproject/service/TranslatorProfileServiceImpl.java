@@ -18,11 +18,9 @@ import java.util.List;
 @Service
 public class TranslatorProfileServiceImpl implements TranslatorProfileService{
     private TranslatorProfileRepository translatorProfileRepository;
-    private ModelMapper modelMapper;
 
-    public TranslatorProfileServiceImpl (TranslatorProfileRepository translatorProfileRepository, ModelMapper modelMapper) {
+    public TranslatorProfileServiceImpl (TranslatorProfileRepository translatorProfileRepository) {
         this.translatorProfileRepository = translatorProfileRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -44,31 +42,49 @@ public class TranslatorProfileServiceImpl implements TranslatorProfileService{
 
     @Override
     public TranslatorProfile create (CreateTranslatorProfileInput createTranslatorProfileInput) {
-        TranslatorProfile translatorProfile = modelMapper.map(createTranslatorProfileInput, TranslatorProfile.class);
+        TranslatorProfile translatorProfile = new TranslatorProfile();
 
-        if (translatorProfile.getDateOfBirth() == null) {
+        if (createTranslatorProfileInput.getDateOfBirth() == null) {
             throw new IllegalArgumentException("field dateOfBirth cannot be null");
+        } else {
+            translatorProfile.setDateOfBirth(createTranslatorProfileInput.getDateOfBirth());
         }
-        if (translatorProfile.getEmail() == null) {
+        if (createTranslatorProfileInput.getEmail() == null
+            && createTranslatorProfileInput.getEmail().isBlank()) {
             throw new IllegalArgumentException("field email cannot be null");
+        } else {
+            translatorProfile.setEmail(createTranslatorProfileInput.getEmail());
         }
-        if (translatorProfile.getIsAvailable() == null) {
+        if (createTranslatorProfileInput.getIsAvailable() == null) {
             throw new IllegalArgumentException("field isAvailable cannot be null");
+        } else {
+            translatorProfile.setIsAvailable(createTranslatorProfileInput.getIsAvailable());
         }
-        if (translatorProfile.getIsOnline() == null) {
+        if (createTranslatorProfileInput.getIsOnline() == null) {
             throw new IllegalArgumentException("field isOnline cannot be null");
+        } else {
+            translatorProfile.setIsOnline(createTranslatorProfileInput.getIsOnline());
         }
-        if (translatorProfile.getLevelOfKorean() == null) {
+        if (createTranslatorProfileInput.getLevelOfKorean() == null
+            && createTranslatorProfileInput.getLevelOfKorean().isBlank()) {
             throw new IllegalArgumentException("field levelOfKorean cannot be null");
+        } else {
+            translatorProfile.setLevelOfKorean(createTranslatorProfileInput.getLevelOfKorean());
         }
-        if (translatorProfile.getUser() == null) {
+        if (createTranslatorProfileInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
+        } else {
+            translatorProfile.setUser(createTranslatorProfileInput.getUser());
         }
-        if (translatorProfile.getLanguages() == null) {
+        if (createTranslatorProfileInput.getLanguages() == null) {
             throw new IllegalArgumentException("field languages cannot be null");
+        } else {
+            translatorProfile.setLanguages(createTranslatorProfileInput.getLanguages());
         }
-        if (translatorProfile.getThemes() == null) {
+        if (createTranslatorProfileInput.getThemes() == null) {
             throw new IllegalArgumentException("field themes cannot be null");
+        } else {
+            translatorProfile.setThemes(createTranslatorProfileInput.getThemes());
         }
 
         return translatorProfileRepository.save(translatorProfile);
@@ -77,30 +93,40 @@ public class TranslatorProfileServiceImpl implements TranslatorProfileService{
     @Override
     public TranslatorProfile update (UpdateTranslatorProfileInput updateTranslatorProfileInput) {
         TranslatorProfile translatorProfile = getById(updateTranslatorProfileInput.getId());
-        modelMapper.map(updateTranslatorProfileInput, translatorProfile);
-        if (translatorProfile.getDateOfBirth() == null) {
-            throw new IllegalArgumentException("field dateOfBirth cannot be null");
+
+        if (updateTranslatorProfileInput.getDateOfBirth() != null
+            && !translatorProfile.getDateOfBirth().equals(updateTranslatorProfileInput.getDateOfBirth())) {
+            translatorProfile.setDateOfBirth(updateTranslatorProfileInput.getDateOfBirth());
         }
-        if (translatorProfile.getEmail() == null) {
-            throw new IllegalArgumentException("field email cannot be null");
+        if (updateTranslatorProfileInput.getEmail() != null
+            && !updateTranslatorProfileInput.getEmail().isBlank()
+            && !translatorProfile.getEmail().equals(updateTranslatorProfileInput.getEmail())) {
+            translatorProfile.setEmail(updateTranslatorProfileInput.getEmail());
         }
-        if (translatorProfile.getIsAvailable() == null) {
-            throw new IllegalArgumentException("field isAvailable cannot be null");
+        if (updateTranslatorProfileInput.getIsAvailable() != null
+            && !translatorProfile.getIsAvailable().equals(updateTranslatorProfileInput.getIsAvailable())) {
+            translatorProfile.setIsAvailable(updateTranslatorProfileInput.getIsAvailable());
         }
-        if (translatorProfile.getIsOnline() == null) {
-            throw new IllegalArgumentException("field isOnline cannot be null");
+        if (updateTranslatorProfileInput.getIsOnline() != null
+            && !translatorProfile.getIsOnline().equals(updateTranslatorProfileInput.getIsOnline())) {
+            translatorProfile.setIsOnline(updateTranslatorProfileInput.getIsOnline());
         }
-        if (translatorProfile.getLevelOfKorean() == null) {
-            throw new IllegalArgumentException("field levelOfKorean cannot be null");
+        if (updateTranslatorProfileInput.getLevelOfKorean() != null
+            && !updateTranslatorProfileInput.getLevelOfKorean().isBlank()
+            && !translatorProfile.getLevelOfKorean().equals(updateTranslatorProfileInput.getLevelOfKorean())) {
+            translatorProfile.setLevelOfKorean(updateTranslatorProfileInput.getLevelOfKorean());
         }
-        if (translatorProfile.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
+        if (updateTranslatorProfileInput.getUser() != null
+            && !translatorProfile.getUser().equals(updateTranslatorProfileInput.getUser())) {
+            translatorProfile.setUser(updateTranslatorProfileInput.getUser());
         }
-        if (translatorProfile.getLanguages() == null) {
-            throw new IllegalArgumentException("field languages cannot be null");
+        if (updateTranslatorProfileInput.getLanguages() != null
+            && !translatorProfile.getLanguages().equals(updateTranslatorProfileInput.getLanguages())) {
+            translatorProfile.setLanguages(updateTranslatorProfileInput.getLanguages());
         }
-        if (translatorProfile.getThemes() == null) {
-            throw new IllegalArgumentException("field themes cannot be null");
+        if (updateTranslatorProfileInput.getThemes() != null
+            && !translatorProfile.getThemes().equals(updateTranslatorProfileInput.getThemes())) {
+            translatorProfile.setThemes(updateTranslatorProfileInput.getThemes());
         }
         return translatorProfileRepository.save(translatorProfile);
     }
