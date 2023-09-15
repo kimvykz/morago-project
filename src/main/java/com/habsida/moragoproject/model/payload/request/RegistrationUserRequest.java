@@ -1,4 +1,4 @@
-package com.habsida.moragoproject.model.input;
+package com.habsida.moragoproject.model.payload.request;
 
 import com.habsida.moragoproject.model.entity.Role;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
-public class RegistrationUserInput {
+public class RegistrationUserRequest {
     @NotBlank(message = "phone cannot be blank")
     private String phone;
     @NotBlank(message = "password cannot be blank")

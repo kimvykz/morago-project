@@ -4,20 +4,12 @@ import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.enums.ERole;
 import com.habsida.moragoproject.model.input.CreateUserInput;
-import com.habsida.moragoproject.model.input.LoginUserInput;
-import com.habsida.moragoproject.model.input.RegistrationUserInput;
 import com.habsida.moragoproject.model.input.UpdateUserInput;
-import com.habsida.moragoproject.model.payload.LoginPayload;
+import com.habsida.moragoproject.model.input.UpdateUserRolesInput;
 import com.habsida.moragoproject.repository.RoleRepository;
 import com.habsida.moragoproject.repository.UserRepository;
-import com.habsida.moragoproject.security.JwtGenerator;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -227,24 +219,24 @@ public class UserServiceImpl implements UserService{
             && !user.getFcmToken().equals(updateUserInput.getFcmToken())) {
             user.setFcmToken(updateUserInput.getFcmToken());
         }
-        if (updateUserInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
-                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
-            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
-        }
-        if (updateUserInput.getRoles() != null
-                && !user.getRoles().equals(updateUserInput.getRoles())) {
-            user.setRoles(updateUserInput.getRoles());
-        }
-        if (updateUserInput.getUserProfile() != null
-            && !user.getUserProfile().equals(updateUserInput.getUserProfile())) {
-            user.setUserProfile(updateUserInput.getUserProfile());
-        }
-        if (updateUserInput.getTranslatorProfile() != null
-            && !user.getTranslatorProfile().equals(updateUserInput.getTranslatorProfile())) {
-            user.setTranslatorProfile(updateUserInput.getTranslatorProfile());
-        }
+//        if (updateUserInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
+//                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
+//            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
+//        }
+//        if (updateUserInput.getRoles() != null
+//                && !user.getRoles().equals(updateUserInput.getRoles())) {
+//            user.setRoles(updateUserInput.getRoles());
+//        }
+//        if (updateUserInput.getUserProfile() != null
+//            && !user.getUserProfile().equals(updateUserInput.getUserProfile())) {
+//            user.setUserProfile(updateUserInput.getUserProfile());
+//        }
+//        if (updateUserInput.getTranslatorProfile() != null
+//            && !user.getTranslatorProfile().equals(updateUserInput.getTranslatorProfile())) {
+//            user.setTranslatorProfile(updateUserInput.getTranslatorProfile());
+//        }
 
-        user.setRoles(defineIdForExistingRoles(user.getRoles()));
+        //user.setRoles(defineIdForExistingRoles(user.getRoles()));
 
         return userRepository.save(user);
     }
@@ -263,6 +255,18 @@ public class UserServiceImpl implements UserService{
     @Override
     public Boolean isExistsByPhone (String phone) {
         return userRepository.existsByPhone(phone);
+    }
+
+    @Override
+    public User updateRolesByUserId(UpdateUserRolesInput updateUserRolesInput) {
+        if (updateUserRolesInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
+                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
+            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
+        }
+        User user = getById(updateUserRolesInput.getUserId());
+        user.setRoles(defineIdForExistingRoles(updateUserRolesInput.getRoles()));
+
+        return userRepository.save(user);
     }
 
 }

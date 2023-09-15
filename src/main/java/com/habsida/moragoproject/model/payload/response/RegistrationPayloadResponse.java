@@ -1,4 +1,4 @@
-package com.habsida.moragoproject.model.payload;
+package com.habsida.moragoproject.model.payload.response;
 
 import com.habsida.moragoproject.model.entity.User;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationPayload {
+public class RegistrationPayloadResponse {
     private User user;
-    private String token;
+    private String refreshToken;
+
 }

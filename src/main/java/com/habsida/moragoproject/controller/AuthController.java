@@ -1,14 +1,17 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.LoginUserInput;
-import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.input.RegistrationUserInput;
-import com.habsida.moragoproject.model.payload.LoginPayload;
+import com.habsida.moragoproject.model.payload.request.LoginUserRequest;
+import com.habsida.moragoproject.model.payload.request.RegistrationUserRequest;
+import com.habsida.moragoproject.model.payload.request.RefreshTokenRequest;
+import com.habsida.moragoproject.model.payload.response.LoginPayloadResponse;
+import com.habsida.moragoproject.model.payload.response.RegistrationPayloadResponse;
+import com.habsida.moragoproject.model.payload.response.RefreshTokenResponse;
 import com.habsida.moragoproject.service.AuthService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
@@ -24,14 +27,21 @@ public class AuthController {
 
 
     @QueryMapping("login")
-    public LoginPayload login(@Argument(name = "loginUserInput") LoginUserInput loginUserInput) {
+    public LoginPayloadResponse login(@Argument(name = "loginUserInput") LoginUserRequest loginUserRequest) {
 
-        return authService.loginUser(loginUserInput);
+        return authService.loginUser(loginUserRequest);
     }
 
     @MutationMapping(name = "registration")
-    public User registration (@Valid @Argument(name = "registrationUserInput") RegistrationUserInput registrationUserInput) {
+    public RegistrationPayloadResponse registration (@Valid @Argument(name = "registrationUserInput") RegistrationUserRequest registrationUserRequest) {
 
-        return authService.registerUser(registrationUserInput);
+        return authService.registerUser(registrationUserRequest);
     }
+
+    @QueryMapping("refreshToken")
+    public RefreshTokenResponse refreshToken(@Argument(name = "refreshTokenInput") RefreshTokenRequest refreshTokenRequest) {
+
+        return authService.refreshToken(refreshTokenRequest);
+    }
+
 }

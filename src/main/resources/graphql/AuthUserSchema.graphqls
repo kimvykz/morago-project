@@ -9,9 +9,24 @@ input LoginUserInput {
     password: String!
 }
 
+input RefreshTokenInput {
+    refreshToken: String!
+}
+
 type LoginPayload {
     user: User
     token: String
+    refreshToken: String
+}
+
+type RegistrationPayload {
+    user: User
+    refreshToken: String
+}
+
+type RefreshTokenPayload {
+    accessToken: String
+    refreshToken: String
 }
 
 

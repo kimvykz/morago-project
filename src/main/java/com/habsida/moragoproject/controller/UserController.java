@@ -1,8 +1,6 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateUserInput;
-import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateUserInput;
+import com.habsida.moragoproject.model.input.*;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -64,5 +62,10 @@ public class UserController {
         return userService.deleteById(id);
     }
 
+    @MutationMapping(name = "updateUserRolesByUserId")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public User updateRolesByUserId(@Argument(name = "userRolesInput") UpdateUserRolesInput updateUserRolesInput) {
+        return userService.updateRolesByUserId(updateUserRolesInput);
+    }
 
 }

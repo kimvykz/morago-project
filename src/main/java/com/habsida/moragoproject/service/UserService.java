@@ -2,10 +2,8 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.input.CreateUserInput;
-import com.habsida.moragoproject.model.input.LoginUserInput;
-import com.habsida.moragoproject.model.input.RegistrationUserInput;
 import com.habsida.moragoproject.model.input.UpdateUserInput;
-import com.habsida.moragoproject.model.payload.LoginPayload;
+import com.habsida.moragoproject.model.input.UpdateUserRolesInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -20,5 +18,6 @@ public interface UserService {
     Boolean deleteById (Long id);
     User getByPhone(String phone);
     Boolean isExistsByPhone(String phone);
+    User updateRolesByUserId(UpdateUserRolesInput updateUserRolesInput);
 
 }

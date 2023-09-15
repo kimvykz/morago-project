@@ -33,6 +33,12 @@ input UserUpdateInput {
     userProfile: UserProfileUpdateInput
     translatorProfile: TranslatorProfileUpdateInput
 }
+
+input UserRolesUpdateInput{
+    userId: ID!
+    roles: [RoleCreateInput]!
+}
+
 type User {
     id: ID
     apnToken: String

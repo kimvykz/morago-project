@@ -74,6 +74,7 @@ type Query {
     getUserWithdrawalById(id: Int): Withdrawal
 
     login(loginUserInput: LoginUserInput) : LoginPayload
+    refreshToken(refreshTokenInput : RefreshTokenInput) : RefreshTokenPayload
 }
 
 type Mutation {
@@ -140,6 +141,7 @@ type Mutation {
     createUser(userInput : UserCreateInput) : User
     updateUser(userInput: UserUpdateInput) : User
     deleteUserById(id: ID!) : Boolean
+    updateUserRolesByUserId(userRolesInput: UserRolesUpdateInput) : User
 
     createUserProfile(userProfileInput : UserProfileCreateInput) : UserProfile
     updateUserProfile(userProfileInput: UserProfileUpdateInput) : UserProfile
@@ -149,6 +151,7 @@ type Mutation {
     updateUserWithdrawal(withdrawalInput: WithdrawalUpdateInput) : Withdrawal
     deleteUserWithdrawalById(id: ID!) : Boolean
 
-    registration(registrationUserInput : RegistrationUserCreateInput) : User
+    registration(registrationUserInput : RegistrationUserCreateInput) : RegistrationPayload
+
 
 }
