@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface WithdrawalService {
     List<Withdrawal> getAll ();
-    Page<Withdrawal> getAllPaged (PageRequest pageRequest);
+    Page<Withdrawal> getAllByPaging (PageRequest pageRequest);
     Withdrawal getById (Long id);
     Withdrawal create (CreateWithdrawalInput createWithdrawalInput);
     Withdrawal update (UpdateWithdrawalInput updateWithdrawalInput);

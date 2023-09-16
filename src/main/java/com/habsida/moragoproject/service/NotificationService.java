@@ -9,10 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface NotificationService {
-    List<Notification> getAll();
-    Page<Notification> getAllPaged(PageRequest pageRequest);
-    Notification getById(Long id);
-    Notification create(CreateNotificationInput createNotificationInput);
-    Notification update(UpdateNotificationInput updateNotificationInput);
-    Boolean deleteById(Long id);
+    List<Notification> getAll ();
+    Page<Notification> getAllByPaging (PageRequest pageRequest);
+    Notification getById (Long id);
+    Notification create (CreateNotificationInput createNotificationInput);
+    Notification update (UpdateNotificationInput updateNotificationInput);
+    Boolean deleteById (Long id);
 }

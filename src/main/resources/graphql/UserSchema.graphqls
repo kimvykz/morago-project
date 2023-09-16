@@ -39,6 +39,16 @@ input UserRolesUpdateInput{
     roles: [RoleCreateInput]!
 }
 
+input UserApnTokenUpdateInput{
+    userId: ID!
+    apnToken: String!
+}
+
+input UserFcmTokenUpdateInput{
+    userId: ID!
+    apnToken: String!
+}
+
 type User {
     id: ID
     apnToken: String

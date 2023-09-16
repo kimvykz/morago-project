@@ -20,7 +20,7 @@ public class UserProfileController {
 
     private UserProfileService userProfileService;
 
-    public UserProfileController(UserProfileService userProfileService) {
+    public UserProfileController (UserProfileService userProfileService) {
         this.userProfileService = userProfileService;
     }
 
@@ -34,10 +34,10 @@ public class UserProfileController {
         return userProfileService.getById(id);
     }
 
-    @QueryMapping(name = "getUserProfilesPaged")
-    public Page<UserProfile> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getUserProfilesByPaging")
+    public Page<UserProfile> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return userProfileService.getAllPaged(pageRequest);
+        return userProfileService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createUserProfile")

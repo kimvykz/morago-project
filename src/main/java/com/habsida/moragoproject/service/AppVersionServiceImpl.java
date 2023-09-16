@@ -26,7 +26,7 @@ public class AppVersionServiceImpl implements AppVersionService{
     }
 
     @Override
-    public Page<AppVersion> getAllPaged (PageRequest pageRequest) {
+    public Page<AppVersion> getAllByPaging (PageRequest pageRequest) {
         return appVersionRepository.findAll(pageRequest);
     }
 

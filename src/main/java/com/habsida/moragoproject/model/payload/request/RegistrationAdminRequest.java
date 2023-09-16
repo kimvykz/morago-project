@@ -4,10 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
+@ToString
 @Getter
 @Setter
-@ToString
-public class LoginUserRequest {
+public class RegistrationAdminRequest {
+    @NotBlank(message = "phone cannot be blank")
     private String phone;
+    @NotBlank(message = "password cannot be blank")
     private String password;
+
 }

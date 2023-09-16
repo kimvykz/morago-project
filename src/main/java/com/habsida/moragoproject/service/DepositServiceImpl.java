@@ -22,29 +22,29 @@ public class DepositServiceImpl implements DepositService{
 
     private DepositRepository depositRepository;
 
-    public DepositServiceImpl(DepositRepository depositRepository) {
+    public DepositServiceImpl (DepositRepository depositRepository) {
         this.depositRepository = depositRepository;
     }
 
     @Override
-    public List<Deposit> getAll() {
+    public List<Deposit> getAll () {
         return depositRepository.findAll();
     }
 
     @Override
-    public Page<Deposit> getAllPaged(PageRequest pageRequest) {
+    public Page<Deposit> getAllByPaging (PageRequest pageRequest) {
         return depositRepository.findAll(pageRequest);
     }
 
     @Override
-    public Deposit getById(Long id) {
+    public Deposit getById (Long id) {
         return depositRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Deposit is not found for the id - " + id);
         });
     }
 
     @Override
-    public Deposit create(CreateDepositInput createDepositInput) {
+    public Deposit create (CreateDepositInput createDepositInput) {
         Deposit deposit = new Deposit();
 
         if (createDepositInput.getAccountHolder() == null
@@ -84,7 +84,7 @@ public class DepositServiceImpl implements DepositService{
     }
 
     @Override
-    public Deposit update(UpdateDepositInput updateDepositInput) {
+    public Deposit update (UpdateDepositInput updateDepositInput) {
         Deposit deposit = getById(updateDepositInput.getId());
 
         if (updateDepositInput.getAccountHolder() != null
@@ -118,7 +118,7 @@ public class DepositServiceImpl implements DepositService{
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById (Long id) {
         depositRepository.deleteById(id);
         return true;
     }

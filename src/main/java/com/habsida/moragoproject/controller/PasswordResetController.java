@@ -34,10 +34,10 @@ public class PasswordResetController {
         return passwordResetService.getById(id);
     }
 
-    @QueryMapping(name = "getPasswordResetsPaged")
-    public Page<PasswordReset> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getPasswordResetsByPaging")
+    public Page<PasswordReset> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return passwordResetService.getAllPaged(pageRequest);
+        return passwordResetService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createPasswordReset")

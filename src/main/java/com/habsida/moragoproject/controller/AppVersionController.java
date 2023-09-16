@@ -38,11 +38,11 @@ public class AppVersionController {
         return appVersionService.getById(id);
     }
 
-    @QueryMapping(name = "getAppVersionsPaged")
+    @QueryMapping(name = "getAppVersionsByPaging")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public Page<AppVersion> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    public Page<AppVersion> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return appVersionService.getAllPaged(pageRequest);
+        return appVersionService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createAppVersion")

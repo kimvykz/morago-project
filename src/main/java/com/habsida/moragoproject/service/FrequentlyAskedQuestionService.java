@@ -9,10 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface FrequentlyAskedQuestionService {
-    List<FrequentlyAskedQuestion> getAll();
-    Page<FrequentlyAskedQuestion> getAllPaged(PageRequest pageRequest);
-    FrequentlyAskedQuestion getById(Long id);
-    FrequentlyAskedQuestion create(CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput);
-    FrequentlyAskedQuestion update(UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput);
-    Boolean deleteById(Long id);
+    List<FrequentlyAskedQuestion> getAll ();
+    Page<FrequentlyAskedQuestion> getAllByPaging (PageRequest pageRequest);
+    FrequentlyAskedQuestion getById (Long id);
+    FrequentlyAskedQuestion create (CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput);
+    FrequentlyAskedQuestion update (UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput);
+    Boolean deleteById (Long id);
 }

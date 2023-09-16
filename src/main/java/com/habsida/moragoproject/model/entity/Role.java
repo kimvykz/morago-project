@@ -18,4 +18,8 @@ public class Role extends AuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private ERole name;
+
+    public Role(ERole name) {
+        this.name = name;
+    }
 }

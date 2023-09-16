@@ -1,8 +1,7 @@
 package com.habsida.moragoproject.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.habsida.moragoproject.audit.AuditableEntity;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -12,7 +11,9 @@ import java.time.Instant;
 @Getter
 @Setter
 @ToString
-public class RefreshToken {
+@NoArgsConstructor
+@AllArgsConstructor
+public class RefreshToken extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

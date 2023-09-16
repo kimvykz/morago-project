@@ -22,29 +22,29 @@ public class FileServiceImpl implements FileService{
 
     private FileRepository fileRepository;
 
-    public FileServiceImpl(FileRepository fileRepository) {
+    public FileServiceImpl (FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 
     @Override
-    public List<File> getAll() {
+    public List<File> getAll () {
         return fileRepository.findAll();
     }
 
     @Override
-    public Page<File> getAllPaged(PageRequest pageRequest) {
+    public Page<File> getAllByPaging (PageRequest pageRequest) {
         return fileRepository.findAll(pageRequest);
     }
 
     @Override
-    public File getById(Long id) {
+    public File getById (Long id) {
         return fileRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("File is not found for the id - " + id);
         });
     }
 
     @Override
-    public File create(CreateFileInput createFileInput) {
+    public File create (CreateFileInput createFileInput) {
         File file = new File();
 
         if (createFileInput.getOriginalTitle() == null
@@ -80,7 +80,7 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public File update(UpdateFileInput updateFileInput) {
+    public File update (UpdateFileInput updateFileInput) {
         File file = getById(updateFileInput.getId());
 
         if (updateFileInput.getOriginalTitle() != null
@@ -111,7 +111,7 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById (Long id) {
         fileRepository.deleteById(id);
         return true;
     }

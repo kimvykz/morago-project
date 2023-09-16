@@ -11,7 +11,7 @@ import java.util.List;
 public interface AppVersionService {
 
     List<AppVersion> getAll ();
-    Page<AppVersion> getAllPaged (PageRequest pageRequest);
+    Page<AppVersion> getAllByPaging (PageRequest pageRequest);
     AppVersion getById (Long id);
     AppVersion create (CreateAppVersionInput createAppVersionInput);
     AppVersion update (UpdateAppVersionInput updateAppVersionInput);

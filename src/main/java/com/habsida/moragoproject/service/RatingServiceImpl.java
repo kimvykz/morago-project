@@ -20,7 +20,7 @@ import java.util.List;
 public class RatingServiceImpl implements RatingService{
     private RatingRepository ratingRepository;
 
-    public RatingServiceImpl(RatingRepository ratingRepository) {
+    public RatingServiceImpl (RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
     }
 
@@ -30,7 +30,7 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public Page<Rating> getAllPaged(PageRequest pageRequest) {
+    public Page<Rating> getAllByPaging (PageRequest pageRequest) {
         return ratingRepository.findAll(pageRequest);
     }
 

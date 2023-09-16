@@ -1,7 +1,16 @@
 input RegistrationUserCreateInput {
     phone: String!
     password: String!
-    roles: [RoleCreateInput]!
+}
+
+input RegistrationAdminCreateInput {
+    phone: String!
+    password: String!
+}
+
+input RegistrationTranslatorCreateInput {
+    phone: String!
+    password: String!
 }
 
 input LoginUserInput {
@@ -14,13 +23,12 @@ input RefreshTokenInput {
 }
 
 type LoginPayload {
-    user: User
-    token: String
+    accessToken: String
     refreshToken: String
 }
 
 type RegistrationPayload {
-    user: User
+    accessToken: String
     refreshToken: String
 }
 

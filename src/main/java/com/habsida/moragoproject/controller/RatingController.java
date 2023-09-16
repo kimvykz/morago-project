@@ -34,10 +34,10 @@ public class RatingController {
         return ratingService.getById(id);
     }
 
-    @QueryMapping(name = "getRatingsPaged")
-    public Page<Rating> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getRatingsByPaging")
+    public Page<Rating> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return ratingService.getAllPaged(pageRequest);
+        return ratingService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createRating")

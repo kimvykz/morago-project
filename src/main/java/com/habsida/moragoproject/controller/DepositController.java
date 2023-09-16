@@ -34,10 +34,10 @@ public class DepositController {
         return depositService.getById(id);
     }
 
-    @QueryMapping(name = "getDepositsPaged")
-    public Page<Deposit> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getDepositsByPaging")
+    public Page<Deposit> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return depositService.getAllPaged(pageRequest);
+        return depositService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createDeposit")

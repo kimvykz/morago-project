@@ -9,10 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface PasswordResetService {
-    List<PasswordReset> getAll();
-    Page<PasswordReset> getAllPaged(PageRequest pageRequest);
-    PasswordReset getById(Long id);
-    PasswordReset create(CreatePasswordResetInput createPasswordResetInput);
-    PasswordReset update(UpdatePasswordResetInput updatePasswordResetInput);
-    Boolean deleteById(Long id);
+    List<PasswordReset> getAll ();
+    Page<PasswordReset> getAllByPaging (PageRequest pageRequest);
+    PasswordReset getById (Long id);
+    PasswordReset create (CreatePasswordResetInput createPasswordResetInput);
+    PasswordReset update (UpdatePasswordResetInput updatePasswordResetInput);
+    Boolean deleteById (Long id);
 }

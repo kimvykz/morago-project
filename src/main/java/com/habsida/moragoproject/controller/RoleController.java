@@ -34,10 +34,10 @@ public class RoleController {
         return roleService.getById(id);
     }
 
-    @QueryMapping(name = "getRolesPaged")
-    public Page<Role> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getRolesByPaging")
+    public Page<Role> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return roleService.getAllPaged(pageRequest);
+        return roleService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createRole")

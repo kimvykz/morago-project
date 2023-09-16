@@ -9,10 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface DepositService {
-    List<Deposit> getAll();
-    Page<Deposit> getAllPaged(PageRequest pageRequest);
-    Deposit getById(Long id);
-    Deposit create(CreateDepositInput createDepositInput);
-    Deposit update(UpdateDepositInput updateDepositInput);
-    Boolean deleteById(Long id);
+    List<Deposit> getAll ();
+    Page<Deposit> getAllByPaging (PageRequest pageRequest);
+    Deposit getById (Long id);
+    Deposit create (CreateDepositInput createDepositInput);
+    Deposit update (UpdateDepositInput updateDepositInput);
+    Boolean deleteById (Long id);
 }

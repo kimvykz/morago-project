@@ -34,10 +34,10 @@ public class NotificationController {
         return notificationService.getById(id);
     }
 
-    @QueryMapping(name = "getNotificationsPaged")
-    public Page<Notification> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getNotificationsByPaging")
+    public Page<Notification> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return notificationService.getAllPaged(pageRequest);
+        return notificationService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createNotification")

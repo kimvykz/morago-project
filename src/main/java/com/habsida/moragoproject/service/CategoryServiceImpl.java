@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Page<Category> getAllPaged(PageRequest pageRequest) {
+    public Page<Category> getAllByPaging(PageRequest pageRequest) {
         return categoryRepository.findAll(pageRequest);
     }
 

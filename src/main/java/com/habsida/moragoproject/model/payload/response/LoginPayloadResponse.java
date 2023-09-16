@@ -9,15 +9,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class LoginPayloadResponse {
-    private User user;
-    private String token;
+    private String accessToken;
     private String refreshToken;
 
-    public LoginPayloadResponse(User user,
-                                String token,
+    public LoginPayloadResponse(String accessToken,
                                 String refreshToken) {
-        this.user = user;
-        this.token = token;
+        this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
 }

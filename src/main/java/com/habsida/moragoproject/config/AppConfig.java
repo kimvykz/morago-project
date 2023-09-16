@@ -11,8 +11,9 @@ import java.util.List;
 @Configuration
 public class AppConfig {
     public static Long JWT_EXPIRATION_MS = (2 * 60 * 60 ) * 1000L;
-    public static Long JWT_REFRESH_EXPIRATION_MS = (365 * 24 * 60 * 60) * 1000L;
-    public static final String JWT_SECRET = "secret";
+    public static Long REFRESH_TOKEN_EXPIRATION_MS = (365 * 24 * 60 * 60) * 1000L;
+    public static final String JWT_SECRET = "iamjwttokensecret";
+    public static final String REFRESH_TOKEN_SECRET = "iamrefreshtokensecret";
 
     @Bean
     public ModelMapper configureModelMapper(){

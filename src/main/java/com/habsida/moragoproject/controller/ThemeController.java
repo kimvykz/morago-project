@@ -34,10 +34,10 @@ public class ThemeController {
         return themeService.getById(id);
     }
 
-    @QueryMapping(name = "getThemesPaged")
-    public Page<Theme> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getThemesByPaging")
+    public Page<Theme> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return themeService.getAllPaged(pageRequest);
+        return themeService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createTheme")

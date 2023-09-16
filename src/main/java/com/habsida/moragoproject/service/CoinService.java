@@ -9,10 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface CoinService {
-    List<Coin> getAll();
-    Page<Coin> getAllPaged(PageRequest pageRequest);
-    Coin getById(Long id);
-    Coin create(CreateCoinInput createCoinInput);
-    Coin update(UpdateCoinInput updateCoinInput);
-    Boolean deleteById(Long id);
+    List<Coin> getAll ();
+    Page<Coin> getAllByPaging (PageRequest pageRequest);
+    Coin getById (Long id);
+    Coin create (CreateCoinInput createCoinInput);
+    Coin update (UpdateCoinInput updateCoinInput);
+    Boolean deleteById (Long id);
 }

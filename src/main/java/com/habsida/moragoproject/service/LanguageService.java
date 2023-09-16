@@ -10,10 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface LanguageService {
-    List<Language> getAll();
-    Page<Language> getAllPaged(PageRequest pageRequest);
-    Language getById(Long id);
-    Language create(CreateLanguageInput createLanguageInput);
-    Language update(UpdateLanguageInput updateLanguageInput);
-    Boolean deleteById(Long id);
+    List<Language> getAll ();
+    Page<Language> getAllByPaging (PageRequest pageRequest);
+    Language getById (Long id);
+    Language create (CreateLanguageInput createLanguageInput);
+    Language update (UpdateLanguageInput updateLanguageInput);
+    Boolean deleteById (Long id);
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserProfileService {
     List<UserProfile> getAll ();
-    Page<UserProfile> getAllPaged (PageRequest pageRequest);
+    Page<UserProfile> getAllByPaging (PageRequest pageRequest);
     UserProfile getById (Long id);
     UserProfile create (CreateUserProfileInput createUserProfileInput);
     UserProfile update (UpdateUserProfileInput updateUserProfileInput);

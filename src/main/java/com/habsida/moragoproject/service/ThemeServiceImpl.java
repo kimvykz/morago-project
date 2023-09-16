@@ -28,7 +28,7 @@ public class ThemeServiceImpl implements ThemeService {
     }
 
     @Override
-    public Page<Theme> getAllPaged(PageRequest pageRequest) {
+    public Page<Theme> getAllByPaging (PageRequest pageRequest) {
         return themeRepository.findAll(pageRequest);
     }
 

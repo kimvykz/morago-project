@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ThemeService {
     List<Theme> getAll ();
-    Page<Theme> getAllPaged(PageRequest pageRequest);
+    Page<Theme> getAllByPaging (PageRequest pageRequest);
     Theme getById (Long id);
     Theme create (CreateThemeInput createThemeInput);
     Theme update (UpdateThemeInput updateThemeInput);

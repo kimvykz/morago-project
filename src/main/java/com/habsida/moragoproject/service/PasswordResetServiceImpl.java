@@ -25,7 +25,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     }
 
     @Override
-    public Page<PasswordReset> getAllPaged(PageRequest pageRequest) {
+    public Page<PasswordReset> getAllByPaging (PageRequest pageRequest) {
         return passwordResetRepository.findAll(pageRequest);
     }
 

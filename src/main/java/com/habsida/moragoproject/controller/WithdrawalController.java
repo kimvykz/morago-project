@@ -20,7 +20,7 @@ public class WithdrawalController {
 
     private WithdrawalService withdrawalService;
 
-    public WithdrawalController(WithdrawalService withdrawalService) {
+    public WithdrawalController (WithdrawalService withdrawalService) {
         this.withdrawalService = withdrawalService;
     }
 
@@ -34,10 +34,10 @@ public class WithdrawalController {
         return withdrawalService.getById(id);
     }
 
-    @QueryMapping(name = "getWithdrawalsPaged")
-    public Page<Withdrawal> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getWithdrawalsByPaging")
+    public Page<Withdrawal> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return withdrawalService.getAllPaged(pageRequest);
+        return withdrawalService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createWithdrawal")

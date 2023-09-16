@@ -2,75 +2,75 @@
 
 type Query {
     getAppVersions: [AppVersion]
-    getAppVersionsPaged(paginationInput: PaginationInput): [AppVersion]
+    getAppVersionsByPaging(paginationInput: PaginationInput): [AppVersion]
     getAppVersionById(id: Int): AppVersion
 
     getCalls: [Call]
-    getCallsPaged(paginationInput: PaginationInput): [Call]
+    getCallsByPaging(paginationInput: PaginationInput): [Call]
     getCallById(id: Int): Call
 
     getCategories: [Category]
-    getCategoriesPaged(paginationInput: PaginationInput): [Category]
+    getCategoriesByPaging(paginationInput: PaginationInput): [Category]
     getCategoryById(id: Int): Category
 
     getCoins: [Coin]
-    getCoinsPaged(paginationInput: PaginationInput): [Coin]
+    getCoinsByPaging(paginationInput: PaginationInput): [Coin]
     getCoinById(id: Int): Coin
 
     getDebtors: [Debtor]
-    getDebtorsPaged(paginationInput: PaginationInput): [Debtor]
+    getDebtorsByPaging(paginationInput: PaginationInput): [Debtor]
     getDebtorById(id: Int): Debtor
 
     getDeposits: [Deposit]
-    getDepositsPaged(page: Int, size: Int): [Deposit]
+    getDepositsByPaging(page: Int, size: Int): [Deposit]
     getDepositById(id: Int): Deposit
 
     getFiles: [File]
-    getFilesPaged(paginationInput: PaginationInput): [File]
+    getFilesByPaging(paginationInput: PaginationInput): [File]
     getFileById(id: Int): File
 
     getFrequentlyAskedQuestions: [FrequentlyAskedQuestion]
-    getFrequentlyAskedQuestionsPaged(paginationInput: PaginationInput): [FrequentlyAskedQuestion]
+    getFrequentlyAskedQuestionsByPaging(paginationInput: PaginationInput): [FrequentlyAskedQuestion]
     getFrequentlyAskedQuestionById(id: Int): FrequentlyAskedQuestion
 
     getLanguages: [Language]
-    getLanguagesPaged(paginationInput: PaginationInput): [Language]
+    getLanguagesByPaging(paginationInput: PaginationInput): [Language]
     getLanguageById(id: Int): Language
 
     getNotifications: [Notification]
-    getNotificationsPaged(paginationInput: PaginationInput): [Notification]
+    getNotificationsByPaging(paginationInput: PaginationInput): [Notification]
     getNotificationById(id: Int): Notification
 
     getPasswordResets: [PasswordReset]
-    getPasswordResetsPaged(paginationInput: PaginationInput): [PasswordReset]
+    getPasswordResetsByPaging(paginationInput: PaginationInput): [PasswordReset]
     getPasswordResetById(id: Int): PasswordReset
 
     getRatings: [Rating]
-    getRatingsPaged(paginationInput: PaginationInput): [Rating]
+    getRatingsByPaging(paginationInput: PaginationInput): [Rating]
     getRatingById(id: Int): Rating
 
     getRoles: [Role]
-    getRolesPaged(paginationInput: PaginationInput): [Role]
+    getRolesByPaging(paginationInput: PaginationInput): [Role]
     getRoleById(id: Int): Role
 
     getThemes: [Theme]
-    getThemesPaged(paginationInput: PaginationInput): [Theme]
+    getThemesByPaging(paginationInput: PaginationInput): [Theme]
     getThemeById(id: Int): Theme
 
     getTranslatorProfiles: [TranslatorProfile]
-    getTranslatorProfilesPaged(paginationInput: PaginationInput): [TranslatorProfile]
+    getTranslatorProfilesByPaging(paginationInput: PaginationInput): [TranslatorProfile]
     getTranslatorProfileById(id: Int): TranslatorProfile
 
     getUsers: [User]
-    getUsersPaged(paginationInput: PaginationInput): [User]
+    getUsersByPaging(paginationInput: PaginationInput): [User]
     getUserById(id: Int): User
 
     getUserProfiles: [UserProfile]
-    getUserProfilesPaged(paginationInput: PaginationInput): [UserProfile]
+    getUserProfilesByPaging(paginationInput: PaginationInput): [UserProfile]
     getUserProfileById(id: Int): UserProfile
 
     getUserWithdrawals: [Withdrawal]
-    getUserWithdrawalsPaged(paginationInput: PaginationInput): [Withdrawal]
+    getUserWithdrawalsByPaging(paginationInput: PaginationInput): [Withdrawal]
     getUserWithdrawalById(id: Int): Withdrawal
 
     login(loginUserInput: LoginUserInput) : LoginPayload
@@ -142,6 +142,10 @@ type Mutation {
     updateUser(userInput: UserUpdateInput) : User
     deleteUserById(id: ID!) : Boolean
     updateUserRolesByUserId(userRolesInput: UserRolesUpdateInput) : User
+    updateUserApnTokenByUserId(userApnTokenInput: UserApnTokenUpdateInput) : User
+    updateUserFcmTokenByUserId(userFcmTokenInput: UserFcmTokenUpdateInput) : User
+    deleteUserApnTokenByUserId(userId: ID!) : User
+    deleteUserFcmTokenByUserId(userId: ID!) : User
 
     createUserProfile(userProfileInput : UserProfileCreateInput) : UserProfile
     updateUserProfile(userProfileInput: UserProfileUpdateInput) : UserProfile
@@ -151,7 +155,9 @@ type Mutation {
     updateUserWithdrawal(withdrawalInput: WithdrawalUpdateInput) : Withdrawal
     deleteUserWithdrawalById(id: ID!) : Boolean
 
-    registration(registrationUserInput : RegistrationUserCreateInput) : RegistrationPayload
+    registrationUser(registrationUserInput : RegistrationUserCreateInput) : RegistrationPayload
+    registrationTranslator(registrationTranslatorInput : RegistrationTranslatorCreateInput) : RegistrationPayload
+    registrationAdmin(registrationAdminInput : RegistrationAdminCreateInput) : RegistrationPayload
 
 
 }

@@ -1,49 +1,54 @@
-package com.habsida.moragoproject.service;
+package com.habsida.moragoproject.security;
 
 import com.habsida.moragoproject.config.AppConfig;
 import com.habsida.moragoproject.exception.TokenRefreshException;
 import com.habsida.moragoproject.model.entity.RefreshToken;
 import com.habsida.moragoproject.repository.RefreshTokenRepository;
 import com.habsida.moragoproject.repository.UserRepository;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class RefreshTokenServiceImpl implements RefreshTokenService{
-    private Long refreshTokenDurationMs = AppConfig.JWT_REFRESH_EXPIRATION_MS;
+public class RefreshTokenGenerator {
+    private Long refreshTokenDurationMs = AppConfig.REFRESH_TOKEN_EXPIRATION_MS;
+    private String refreshTokenSecret = AppConfig.REFRESH_TOKEN_SECRET;
     private RefreshTokenRepository refreshTokenRepository;
     private UserRepository userRepository;
 
     @Autowired
-    public RefreshTokenServiceImpl(RefreshTokenRepository refreshTokenRepository,
-                                   UserRepository userRepository) {
+    public RefreshTokenGenerator(RefreshTokenRepository refreshTokenRepository,
+                                 UserRepository userRepository) {
         this.refreshTokenRepository = refreshTokenRepository;
         this.userRepository = userRepository;
     }
 
-    @Override
-    public Optional<RefreshToken> findByToken(String token) {
+
+    public Optional<RefreshToken> findByToken (String token) {
         return refreshTokenRepository.findByToken(token);
     }
 
-    @Override
-    public RefreshToken createRefreshToken(Long userId) {
 
+    public RefreshToken createRefreshToken (Long userId) {
+        RefreshToken refreshToken = new RefreshToken();
         Optional<RefreshToken> oldRefToken =
                 refreshTokenRepository.findByUser(userRepository.findById(userId).get());
         if (oldRefToken.isPresent()) {
-            refreshTokenRepository.delete(oldRefToken.get());
+            refreshToken.setUser(oldRefToken.get().getUser());
+            refreshToken.setId(oldRefToken.get().getId());
+        } else {
+            refreshToken.setUser(userRepository.findById(userId).get());
         }
 
-        RefreshToken refreshToken = new RefreshToken();
 
-        refreshToken.setUser(userRepository.findById(userId).get());
         refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenDurationMs));
-        refreshToken.setToken(UUID.randomUUID().toString());
+        refreshToken.setToken(generateJwtRefreshToken());
 
         refreshToken = refreshTokenRepository.save(refreshToken);
 
@@ -51,8 +56,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
 
     }
 
-    @Override
-    public RefreshToken verifyExpiration(RefreshToken token) {
+    public RefreshToken verifyExpiration (RefreshToken token) {
         if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(token);
             throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new login request");
@@ -60,8 +64,21 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
         return token;
     }
 
-    @Override
-    public int deleteByUserId(Long userId) {
+
+    public int deleteByUserId (Long userId) {
         return refreshTokenRepository.deleteByUser(userRepository.findById(userId).get());
     }
+
+    private String generateJwtRefreshToken () {
+        Date currentDate = new Date();
+        Date expireDate = new Date(currentDate.getTime() + refreshTokenDurationMs);
+        String token = Jwts
+                .builder()
+                .setIssuedAt(new Date())
+                .setExpiration(expireDate)
+                .signWith(SignatureAlgorithm.HS256, refreshTokenSecret)
+                .compact();
+        return token;
+    }
+
 }

@@ -9,10 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface FileService {
-    List<File> getAll();
-    Page<File> getAllPaged(PageRequest pageRequest);
-    File getById(Long id);
-    File create(CreateFileInput createFileInput);
-    File update(UpdateFileInput updateFileInput);
-    Boolean deleteById(Long id);
+    List<File> getAll ();
+    Page<File> getAllByPaging (PageRequest pageRequest);
+    File getById (Long id);
+    File create (CreateFileInput createFileInput);
+    File update (UpdateFileInput updateFileInput);
+    Boolean deleteById (Long id);
 }

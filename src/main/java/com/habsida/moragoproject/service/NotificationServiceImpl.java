@@ -22,29 +22,29 @@ import java.util.List;
 public class NotificationServiceImpl implements NotificationService{
     private NotificationRepository notificationRepository;
 
-    public NotificationServiceImpl(NotificationRepository notificationRepository) {
+    public NotificationServiceImpl (NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;
     }
 
     @Override
-    public List<Notification> getAll() {
+    public List<Notification> getAll () {
         return notificationRepository.findAll();
     }
 
     @Override
-    public Page<Notification> getAllPaged(PageRequest pageRequest) {
+    public Page<Notification> getAllByPaging (PageRequest pageRequest) {
         return notificationRepository.findAll(pageRequest);
     }
 
     @Override
-    public Notification getById(Long id) {
+    public Notification getById (Long id) {
         return notificationRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Notification is not found for the id - " + id );
         });
     }
 
     @Override
-    public Notification create(CreateNotificationInput createNotificationInput) {
+    public Notification create (CreateNotificationInput createNotificationInput) {
         Notification notification = new Notification();
 
         if (createNotificationInput.getDate() == null) {
@@ -78,7 +78,7 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     @Override
-    public Notification update(UpdateNotificationInput updateNotificationInput) {
+    public Notification update (UpdateNotificationInput updateNotificationInput) {
         Notification notification = getById(updateNotificationInput.getId());
 
         if (updateNotificationInput.getDate() != null
@@ -107,7 +107,7 @@ public class NotificationServiceImpl implements NotificationService{
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById (Long id) {
         notificationRepository.deleteById(id);
         return true;
     }

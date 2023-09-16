@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface RoleService {
     List<Role> getAll ();
-    Page<Role> getAllPaged(PageRequest pageRequest);
+    Page<Role> getAllByPaging (PageRequest pageRequest);
     Role getById (Long id);
     Role create (CreateRoleInput createRoleInput);
     Role update (UpdateRoleInput updateRoleInput);

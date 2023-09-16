@@ -31,17 +31,17 @@ public class UserController {
     }
 
     @QueryMapping(name = "getUserById")
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostAuthorize("returnObject.phone == authentication.name")
     public User getById (@Argument Long id) {
         return userService.getById(id);
     }
 
-    @QueryMapping(name = "getUsersPaged")
+    @QueryMapping(name = "getUsersByPaging")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public Page<User> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    public Page<User> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return userService.getAllPaged(pageRequest);
+        return userService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createUser")
@@ -64,8 +64,32 @@ public class UserController {
 
     @MutationMapping(name = "updateUserRolesByUserId")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public User updateRolesByUserId(@Argument(name = "userRolesInput") UpdateUserRolesInput updateUserRolesInput) {
+    public User updateUserRolesByUserId(@Argument(name = "userRolesInput") UpdateUserRolesInput updateUserRolesInput) {
         return userService.updateRolesByUserId(updateUserRolesInput);
+    }
+
+    @MutationMapping(name = "updateUserApnTokenByUserId")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
+    public User updateUserApnTokenByUserId(@Argument(name = "userApnTokenInput") UpdateUserApnTokenInput updateUserApnTokenInput) {
+        return userService.updateApnTokenByUserId(updateUserApnTokenInput);
+    }
+
+    @MutationMapping(name = "updateUserFcmTokenByUserId")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
+    public User updateUserFcmTokenByUserId(@Argument(name = "userFcmTokenInput") UpdateUserFcmTokenInput updateUserFcmTokenInput) {
+        return userService.updateFcmTokenByUserId(updateUserFcmTokenInput);
+    }
+
+    @MutationMapping(name = "deleteUserApnTokenByUserId")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
+    public User deleteUserApnTokenByUserId(@Argument(name = "userId") Long id) {
+        return userService.deleteApnTokenByUserId(id);
+    }
+
+    @MutationMapping(name = "deleteUserFcmTokenByUserId")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
+    public User deleteUserFcmTokenByUserId(@Argument(name = "userId") Long id) {
+        return userService.deleteFcmTokenByUserId(id);
     }
 
 }

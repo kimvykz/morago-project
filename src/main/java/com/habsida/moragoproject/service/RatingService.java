@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RatingService {
     List<Rating> getAll ();
-    Page<Rating> getAllPaged(PageRequest pageRequest);
+    Page<Rating> getAllByPaging (PageRequest pageRequest);
     Rating getById (Long id);
     Rating create (CreateRatingInput createRatingInput);
     Rating update (UpdateRatingInput updateRatingInput);

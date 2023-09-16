@@ -20,7 +20,7 @@ public class LanguageController {
 
     private LanguageService languageService;
 
-    public LanguageController(LanguageService languageService) {
+    public LanguageController (LanguageService languageService) {
         this.languageService = languageService;
     }
 
@@ -34,10 +34,10 @@ public class LanguageController {
         return languageService.getById(id);
     }
 
-    @QueryMapping(name = "getLanguagesPaged")
-    public Page<Language> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getLanguagesByPaging")
+    public Page<Language> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return languageService.getAllPaged(pageRequest);
+        return languageService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createLanguage")

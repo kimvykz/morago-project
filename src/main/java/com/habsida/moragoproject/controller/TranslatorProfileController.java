@@ -34,10 +34,10 @@ public class TranslatorProfileController {
         return translatorProfileService.getById(id);
     }
 
-    @QueryMapping(name = "getTranslatorProfilesPaged")
-    public Page<TranslatorProfile> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getTranslatorProfilesByPaging")
+    public Page<TranslatorProfile> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return translatorProfileService.getAllPaged(pageRequest);
+        return translatorProfileService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createTranslatorProfile")

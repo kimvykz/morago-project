@@ -30,7 +30,7 @@ public class UserProfileServiceImpl implements UserProfileService{
     }
 
     @Override
-    public Page<UserProfile> getAllPaged(PageRequest pageRequest) {
+    public Page<UserProfile> getAllByPaging (PageRequest pageRequest) {
         return userProfileRepository.findAll(pageRequest);
     }
 
@@ -75,7 +75,7 @@ public class UserProfileServiceImpl implements UserProfileService{
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById (Long id) {
         userProfileRepository.deleteById(id);
         return true;
     }

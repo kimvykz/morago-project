@@ -27,7 +27,7 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public Page<Role> getAllPaged(PageRequest pageRequest) {
+    public Page<Role> getAllByPaging (PageRequest pageRequest) {
         return roleRepository.findAll(pageRequest);
     }
 

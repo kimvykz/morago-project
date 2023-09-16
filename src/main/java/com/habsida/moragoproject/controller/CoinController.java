@@ -35,10 +35,10 @@ public class CoinController {
         return coinService.getById(id);
     }
 
-    @QueryMapping(name = "getCoinsPaged")
-    public Page<Coin> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getCoinsByPaging")
+    public Page<Coin> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return coinService.getAllPaged(pageRequest);
+        return coinService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createCoin")

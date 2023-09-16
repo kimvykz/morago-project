@@ -16,29 +16,29 @@ public class CoinServiceImpl implements CoinService{
 
     private CoinRepository coinRepository;
 
-    public CoinServiceImpl(CoinRepository coinRepository) {
+    public CoinServiceImpl (CoinRepository coinRepository) {
         this.coinRepository = coinRepository;
     }
 
     @Override
-    public List<Coin> getAll() {
+    public List<Coin> getAll () {
         return coinRepository.findAll();
     }
 
     @Override
-    public Page<Coin> getAllPaged(PageRequest pageRequest) {
+    public Page<Coin> getAllByPaging (PageRequest pageRequest) {
         return coinRepository.findAll(pageRequest);
     }
 
     @Override
-    public Coin getById(Long id) {
+    public Coin getById (Long id) {
         return coinRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Coin is not found for the id - " + id);
         });
     }
 
     @Override
-    public Coin create(CreateCoinInput createCoinInput) {
+    public Coin create (CreateCoinInput createCoinInput) {
         Coin coin = new Coin();
 
         if (createCoinInput.getCoin() == null) {
@@ -56,7 +56,7 @@ public class CoinServiceImpl implements CoinService{
     }
 
     @Override
-    public Coin update(UpdateCoinInput updateCoinInput) {
+    public Coin update (UpdateCoinInput updateCoinInput) {
         Coin coin = getById(updateCoinInput.getId());
 
         if (updateCoinInput.getCoin() != null
@@ -72,7 +72,7 @@ public class CoinServiceImpl implements CoinService{
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById (Long id) {
         coinRepository.deleteById(id);
         return true;
     }

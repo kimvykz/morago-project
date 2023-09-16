@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TranslatorProfileService {
     List<TranslatorProfile> getAll ();
-    Page<TranslatorProfile> getAllPaged (PageRequest pageRequest);
+    Page<TranslatorProfile> getAllByPaging (PageRequest pageRequest);
     TranslatorProfile getById (Long id);
     TranslatorProfile create (CreateTranslatorProfileInput createTranslatorProfileInput);
     TranslatorProfile update (UpdateTranslatorProfileInput updateTranslatorProfileInput);

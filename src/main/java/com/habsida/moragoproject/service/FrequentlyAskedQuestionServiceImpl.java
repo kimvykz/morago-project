@@ -16,29 +16,29 @@ import java.util.List;
 public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuestionService{
     private FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository;
 
-    public FrequentlyAskedQuestionServiceImpl(FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository) {
+    public FrequentlyAskedQuestionServiceImpl (FrequentlyAskedQuestionRepository frequentlyAskedQuestionRepository) {
         this.frequentlyAskedQuestionRepository = frequentlyAskedQuestionRepository;
     }
 
     @Override
-    public List<FrequentlyAskedQuestion> getAll() {
+    public List<FrequentlyAskedQuestion> getAll () {
         return frequentlyAskedQuestionRepository.findAll();
     }
 
     @Override
-    public Page<FrequentlyAskedQuestion> getAllPaged(PageRequest pageRequest) {
+    public Page<FrequentlyAskedQuestion> getAllByPaging (PageRequest pageRequest) {
         return frequentlyAskedQuestionRepository.findAll(pageRequest);
     }
 
     @Override
-    public FrequentlyAskedQuestion getById(Long id) {
+    public FrequentlyAskedQuestion getById (Long id) {
         return frequentlyAskedQuestionRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("FrequentlyAskedQuestion is not found for the id - " + id);
         });
     }
 
     @Override
-    public FrequentlyAskedQuestion create(CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
+    public FrequentlyAskedQuestion create (CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
         FrequentlyAskedQuestion frequentlyAskedQuestion =
                 new FrequentlyAskedQuestion();
 
@@ -64,7 +64,7 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     }
 
     @Override
-    public FrequentlyAskedQuestion update(UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput) {
+    public FrequentlyAskedQuestion update (UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput) {
         FrequentlyAskedQuestion frequentlyAskedQuestion =
                 getById(updateFrequentlyAskedQuestionInput.getId());
 
@@ -87,7 +87,7 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById (Long id) {
         frequentlyAskedQuestionRepository.deleteById(id);
         return true;
     }

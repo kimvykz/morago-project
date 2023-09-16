@@ -17,20 +17,20 @@ import java.util.stream.Collectors;
 public class CustomUserDetailsService implements UserDetailsService {
     private UserService userService;
 
-    public CustomUserDetailsService(UserService userService) {
+    public CustomUserDetailsService (UserService userService) {
         this.userService = userService;
     }
 
 
     @Override
-    public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername (String phone) throws UsernameNotFoundException {
         User user = userService.getByPhone(phone);
         return new org.springframework.security.core.userdetails.User(user.getPhone(),
                 user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
+    private Collection<GrantedAuthority> mapRolesToAuthorities (List<Role> roles) {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().toString()))
                 .collect(Collectors.toList());

@@ -29,7 +29,7 @@ public class TranslatorProfileServiceImpl implements TranslatorProfileService{
     }
 
     @Override
-    public Page<TranslatorProfile> getAllPaged(PageRequest pageRequest) {
+    public Page<TranslatorProfile> getAllByPaging (PageRequest pageRequest) {
         return translatorProfileRepository.findAll(pageRequest);
     }
 

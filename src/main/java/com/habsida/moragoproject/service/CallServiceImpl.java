@@ -27,7 +27,7 @@ public class CallServiceImpl implements CallService{
     }
 
     @Override
-    public Page<Call> getAllPaged (PageRequest pageRequest) {
+    public Page<Call> getAllByPaging (PageRequest pageRequest) {
         return callRepository.findAll(pageRequest);
     }
 

@@ -20,7 +20,7 @@ public class FileController {
 
     private FileService fileService;
 
-    public FileController(FileService fileService) {
+    public FileController (FileService fileService) {
         this.fileService = fileService;
     }
 
@@ -34,10 +34,10 @@ public class FileController {
         return fileService.getById(id);
     }
 
-    @QueryMapping(name = "getFilesPaged")
-    public Page<File> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getFilesByPaging")
+    public Page<File> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return fileService.getAllPaged(pageRequest);
+        return fileService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createFile")

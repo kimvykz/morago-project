@@ -3,9 +3,7 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.enums.ERole;
-import com.habsida.moragoproject.model.input.CreateUserInput;
-import com.habsida.moragoproject.model.input.UpdateUserInput;
-import com.habsida.moragoproject.model.input.UpdateUserRolesInput;
+import com.habsida.moragoproject.model.input.*;
 import com.habsida.moragoproject.repository.RoleRepository;
 import com.habsida.moragoproject.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -56,7 +54,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Page<User> getAllPaged (PageRequest pageRequest) {
+    public Page<User> getAllByPaging (PageRequest pageRequest) {
         return userRepository.findAll(pageRequest);
     }
 
@@ -141,10 +139,7 @@ public class UserServiceImpl implements UserService{
         }
         if (createUserInput.getRoles() == null) {
             throw new IllegalArgumentException("User must have at least 1 role");
-        } else if (createUserInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
-                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
-            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
-        } else {
+        }  else {
             user.setRoles(createUserInput.getRoles());
         }
         if (createUserInput.getUserProfile() == null) {
@@ -259,14 +254,41 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User updateRolesByUserId(UpdateUserRolesInput updateUserRolesInput) {
-        if (updateUserRolesInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
-                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
-            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
-        }
+//        if (updateUserRolesInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
+//                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
+//            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
+//        }
         User user = getById(updateUserRolesInput.getUserId());
         user.setRoles(defineIdForExistingRoles(updateUserRolesInput.getRoles()));
 
         return userRepository.save(user);
     }
 
+    @Override
+    public User updateApnTokenByUserId(UpdateUserApnTokenInput updateUserApnTokenInput) {
+        User user = getById(updateUserApnTokenInput.getUserId());
+        user.setApnToken(updateUserApnTokenInput.getApnToken());
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updateFcmTokenByUserId(UpdateUserFcmTokenInput updateUserFcmTokenInput) {
+        User user = getById(updateUserFcmTokenInput.getUserId());
+        user.setFcmToken(updateUserFcmTokenInput.getFcmToken());
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User deleteApnTokenByUserId(Long id) {
+        User user = getById(id);
+        user.setApnToken(null);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User deleteFcmTokenByUserId(Long id) {
+        User user = getById(id);
+        user.setFcmToken(null);
+        return userRepository.save(user);
+    }
 }

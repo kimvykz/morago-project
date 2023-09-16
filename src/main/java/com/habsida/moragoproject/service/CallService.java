@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface CallService {
     List<Call> getAll ();
-    Page<Call> getAllPaged (PageRequest pageRequest);
+    Page<Call> getAllByPaging (PageRequest pageRequest);
     Call getById (Long id);
     Call create (CreateCallInput createCallInput);
     Call update (UpdateCallInput updateCallInput);

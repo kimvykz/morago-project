@@ -31,7 +31,7 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     }
 
     @Override
-    public Page<Withdrawal> getAllPaged(PageRequest pageRequest) {
+    public Page<Withdrawal> getAllByPaging (PageRequest pageRequest) {
         return withdrawalRepository.findAll(pageRequest);
     }
 
@@ -119,7 +119,7 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById (Long id) {
         withdrawalRepository.deleteById(id);
         return true;
     }

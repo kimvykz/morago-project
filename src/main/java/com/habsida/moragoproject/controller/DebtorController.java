@@ -34,10 +34,10 @@ public class DebtorController {
         return debtorService.getById(id);
     }
 
-    @QueryMapping(name = "getDebtorsPaged")
-    public Page<Debtor> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getDebtorsByPaging")
+    public Page<Debtor> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return debtorService.getAllPaged(pageRequest);
+        return debtorService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createDebtor")

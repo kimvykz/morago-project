@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegistrationPayloadResponse {
-    private User user;
+    private String accessToken;
     private String refreshToken;
 
 }

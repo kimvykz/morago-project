@@ -20,7 +20,7 @@ public class FrequentlyAskedQuestionController {
 
     private FrequentlyAskedQuestionService frequentlyAskedQuestionService;
 
-    public FrequentlyAskedQuestionController(FrequentlyAskedQuestionService frequentlyAskedQuestionService) {
+    public FrequentlyAskedQuestionController (FrequentlyAskedQuestionService frequentlyAskedQuestionService) {
         this.frequentlyAskedQuestionService = frequentlyAskedQuestionService;
     }
 
@@ -34,10 +34,10 @@ public class FrequentlyAskedQuestionController {
         return frequentlyAskedQuestionService.getById(id);
     }
 
-    @QueryMapping(name = "getFrequentlyAskedQuestionsPaged")
-    public Page<FrequentlyAskedQuestion> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getFrequentlyAskedQuestionsByPaging")
+    public Page<FrequentlyAskedQuestion> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return frequentlyAskedQuestionService.getAllPaged(pageRequest);
+        return frequentlyAskedQuestionService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createFrequentlyAskedQuestion")

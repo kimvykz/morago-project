@@ -34,10 +34,10 @@ public class CallController {
         return callService.getById(id);
     }
 
-    @QueryMapping(name = "getCallsPaged")
-    public Page<Call> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getCallsByPaging")
+    public Page<Call> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return callService.getAllPaged(pageRequest);
+        return callService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createCall")

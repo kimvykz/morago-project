@@ -20,7 +20,7 @@ public class CategoryController {
 
     private CategoryService categoryService;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController (CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -34,10 +34,10 @@ public class CategoryController {
         return categoryService.getById(id);
     }
 
-    @QueryMapping(name = "getCategoriesPaged")
-    public Page<Category> getAllPaged (@Argument(name = "paginationInput") PaginationInput paginationInput) {
+    @QueryMapping(name = "getCategoriesByPaging")
+    public Page<Category> getAllByPaging (@Argument(name = "paginationInput") PaginationInput paginationInput) {
         PageRequest pageRequest = PageRequest.of(paginationInput.getPage(), paginationInput.getSize());
-        return categoryService.getAllPaged(pageRequest);
+        return categoryService.getAllByPaging(pageRequest);
     }
 
     @MutationMapping(name = "createCategory")

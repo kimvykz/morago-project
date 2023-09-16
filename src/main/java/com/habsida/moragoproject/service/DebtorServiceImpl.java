@@ -21,29 +21,29 @@ public class DebtorServiceImpl implements DebtorService{
 
     private DebtorRepository debtorRepository;
 
-    public DebtorServiceImpl(DebtorRepository debtorRepository) {
+    public DebtorServiceImpl (DebtorRepository debtorRepository) {
         this.debtorRepository = debtorRepository;
     }
 
     @Override
-    public List<Debtor> getAll() {
+    public List<Debtor> getAll () {
         return debtorRepository.findAll();
     }
 
     @Override
-    public Page<Debtor> getAllPaged(PageRequest pageRequest) {
+    public Page<Debtor> getAllByPaging (PageRequest pageRequest) {
         return debtorRepository.findAll(pageRequest);
     }
 
     @Override
-    public Debtor getById(Long id) {
+    public Debtor getById (Long id) {
         return debtorRepository.findById(id).orElseThrow(() -> {
         throw new IllegalArgumentException("Debtor is not found for the id - " + id);
         });
     }
 
     @Override
-    public Debtor create(CreateDebtorInput createDebtorInput) {
+    public Debtor create (CreateDebtorInput createDebtorInput) {
         Debtor debtor = new Debtor();
 
         if (createDebtorInput.getAccountHolder() == null
@@ -73,7 +73,7 @@ public class DebtorServiceImpl implements DebtorService{
     }
 
     @Override
-    public Debtor update(UpdateDebtorInput updateDebtorInput) {
+    public Debtor update (UpdateDebtorInput updateDebtorInput) {
         Debtor debtor = getById(updateDebtorInput.getId());
 
         if (updateDebtorInput.getAccountHolder() != null
@@ -98,7 +98,7 @@ public class DebtorServiceImpl implements DebtorService{
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById (Long id) {
         debtorRepository.deleteById(id);
         return true;
     }
