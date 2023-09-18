@@ -2,7 +2,7 @@ input FileCreateInput {
     originalTitle: String
     path: String
     type: String
-    user: UserCreateInput
+    #user: UserCreateInput
     theme: ThemeCreateInput
 }
 input FileUpdateInput {
@@ -10,7 +10,7 @@ input FileUpdateInput {
     originalTitle: String
     path: String
     type: String
-    user: UserCreateInput
+    #user: UserCreateInput
     theme: ThemeUpdateInput
 }
 type File {
@@ -18,6 +18,6 @@ type File {
     originalTitle: String
     path: String
     type: String
-    user: User
+    #user: User
     theme: Theme
 }

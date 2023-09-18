@@ -22,5 +22,5 @@ public class CreateThemeInput {
 
     private Category category;
 
-    private List<File> file;
+    private List<File> files;
 }

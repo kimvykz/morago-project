@@ -23,5 +23,5 @@ public class UpdateThemeInput {
 
     private Category category;
 
-    private List<File> file;
+    private List<File> files;
 }

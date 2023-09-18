@@ -18,7 +18,6 @@ public class UserProfile extends AuditableEntity {
     private Long id;
     private Boolean isFreeCallMade;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "userProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
 }

@@ -3,6 +3,7 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.exception.TokenRefreshException;
 import com.habsida.moragoproject.model.entity.RefreshToken;
 import com.habsida.moragoproject.model.entity.Role;
+import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.enums.ERole;
 import com.habsida.moragoproject.model.input.CreateUserInput;
@@ -10,6 +11,7 @@ import com.habsida.moragoproject.model.payload.request.*;
 import com.habsida.moragoproject.model.payload.response.LoginPayloadResponse;
 import com.habsida.moragoproject.model.payload.response.RegistrationPayloadResponse;
 import com.habsida.moragoproject.model.payload.response.RefreshTokenResponse;
+import com.habsida.moragoproject.repository.TranslatorProfileRepository;
 import com.habsida.moragoproject.security.JwtGenerator;
 import com.habsida.moragoproject.security.RefreshTokenGenerator;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthServiceImpl implements AuthService{
@@ -28,15 +31,18 @@ public class AuthServiceImpl implements AuthService{
     private UserService userService;
     private JwtGenerator jwtGenerator;
     private RefreshTokenGenerator refreshTokenGenerator;
+    private TranslatorProfileRepository translatorProfileRepository;
 
     public AuthServiceImpl(AuthenticationManager authenticationManager,
                            UserService userService,
                            JwtGenerator jwtGenerator,
-                           RefreshTokenGenerator refreshTokenGenerator) {
+                           RefreshTokenGenerator refreshTokenGenerator,
+                           TranslatorProfileRepository translatorProfileRepository) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.jwtGenerator = jwtGenerator;
         this.refreshTokenGenerator = refreshTokenGenerator;
+        this.translatorProfileRepository = translatorProfileRepository;
     }
 
     @Override
@@ -77,6 +83,8 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public RegistrationPayloadResponse registrationTranslator(RegistrationTranslatorRequest registrationTranslatorRequest) {
+        System.out.println(registrationTranslatorRequest.getTranslatorProfile().getThemes());
+
         CreateUserInput createUserInput = new CreateUserInput();
 
         if (userService.isExistsByPhone(registrationTranslatorRequest.getPhone())) {
@@ -103,7 +111,19 @@ public class AuthServiceImpl implements AuthService{
         createUserInput.setTotalRatings(0);
         createUserInput.setRoles(Arrays.asList(new Role(ERole.ROLE_TRANSLATOR)));
 
+        TranslatorProfile translatorProfile = registrationTranslatorRequest.getTranslatorProfile();
+        translatorProfile.setIsOnline(false);
+        translatorProfile.setIsAvailable(false);
+
+        //createUserInput.setTranslatorProfile(translatorProfile);
+
         User newUser = userService.create(createUserInput);
+        translatorProfile.setUser(newUser);
+        translatorProfile.getThemes().stream()
+                        .flatMap(theme -> theme.getFiles().stream())
+                                .forEach(file -> file.setUser(newUser));
+
+        translatorProfileRepository.save(translatorProfile);
 
         String jwtToken = jwtGenerator.generateTokenFromUsername(newUser.getPhone());
         RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(newUser.getId());

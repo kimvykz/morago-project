@@ -4,7 +4,7 @@ input TranslatorProfileCreateInput {
     isAvailable: Boolean
     isOnline: Boolean
     levelOfKorean: String
-    user: UserCreateInput
+    #user: UserCreateInput
     languages: [LanguageCreateInput]
     themes: [ThemeCreateInput]
 }
@@ -15,7 +15,7 @@ input TranslatorProfileUpdateInput {
     isAvailable: Boolean
     isOnline: Boolean
     levelOfKorean: String
-    user: UserUpdateInput
+    #user: UserUpdateInput
     languages: [LanguageUpdateInput]
     themes: [ThemeUpdateInput]
 }
@@ -26,7 +26,7 @@ type TranslatorProfile {
     isAvailable: Boolean
     isOnline: Boolean
     levelOfKorean: String
-    user: User
+    #user: User
     languages: [Language]
     themes: [Theme]
 }

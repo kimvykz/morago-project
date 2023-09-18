@@ -71,11 +71,11 @@ public class TranslatorProfileServiceImpl implements TranslatorProfileService{
         } else {
             translatorProfile.setLevelOfKorean(createTranslatorProfileInput.getLevelOfKorean());
         }
-        if (createTranslatorProfileInput.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
-        } else {
-            translatorProfile.setUser(createTranslatorProfileInput.getUser());
-        }
+//        if (createTranslatorProfileInput.getUser() == null) {
+//            throw new IllegalArgumentException("field user cannot be null");
+//        } else {
+//            translatorProfile.setUser(createTranslatorProfileInput.getUser());
+//        }
         if (createTranslatorProfileInput.getLanguages() == null) {
             throw new IllegalArgumentException("field languages cannot be null");
         } else {

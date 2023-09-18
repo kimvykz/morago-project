@@ -38,10 +38,12 @@ public class User extends AuditableEntity {
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "translator_profile_id")
     private TranslatorProfile translatorProfile;
 
 

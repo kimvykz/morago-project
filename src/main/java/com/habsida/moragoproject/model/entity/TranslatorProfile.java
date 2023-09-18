@@ -23,7 +23,7 @@ public class TranslatorProfile extends AuditableEntity {
     private Boolean isOnline;
     private String levelOfKorean;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
