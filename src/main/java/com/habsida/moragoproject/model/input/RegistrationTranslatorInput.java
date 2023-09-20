@@ -1,4 +1,4 @@
-package com.habsida.moragoproject.model.payload.request;
+package com.habsida.moragoproject.model.input;
 
 import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 @Getter
 @Setter
-public class RegistrationTranslatorRequest {
+public class RegistrationTranslatorInput {
     @NotBlank(message = "Phone cannot be blank")
     private String phone;
     @NotBlank(message = "Password cannot be blank")

@@ -2,6 +2,7 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.input.*;
+import com.habsida.moragoproject.model.payload.CurrentUserPayload;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -21,5 +22,6 @@ public interface UserService {
     User updateFcmTokenByUserId(UpdateUserFcmTokenInput updateUserFcmTokenInput);
     User deleteApnTokenByUserId(Long id);
     User deleteFcmTokenByUserId(Long id);
+    CurrentUserPayload getCurrentUserByJwtToken(String jwtToken);
 
 }

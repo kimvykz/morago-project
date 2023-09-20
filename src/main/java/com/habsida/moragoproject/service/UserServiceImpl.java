@@ -2,10 +2,12 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.enums.ERole;
 import com.habsida.moragoproject.model.input.*;
+import com.habsida.moragoproject.model.payload.CurrentUserPayload;
 import com.habsida.moragoproject.repository.RoleRepository;
 import com.habsida.moragoproject.repository.UserRepository;
+import com.habsida.moragoproject.security.JwtGenerator;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,22 +16,22 @@ import org.springframework.stereotype.Service;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private JwtGenerator jwtGenerator;
     public UserServiceImpl (UserRepository userRepository,
                             RoleRepository roleRepository,
-                            PasswordEncoder passwordEncoder) {
+                            PasswordEncoder passwordEncoder, JwtGenerator jwtGenerator) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtGenerator = jwtGenerator;
     }
 
     private List<Role> defineIdForExistingRoles (List<Role> roles) {
@@ -267,15 +269,25 @@ public class UserServiceImpl implements UserService{
     @Override
     public User updateApnTokenByUserId(UpdateUserApnTokenInput updateUserApnTokenInput) {
         User user = getById(updateUserApnTokenInput.getUserId());
-        user.setApnToken(updateUserApnTokenInput.getApnToken());
-        return userRepository.save(user);
+        if (updateUserApnTokenInput.getApnToken() != null
+            && !updateUserApnTokenInput.getApnToken().isBlank()
+            && !user.getApnToken().equals(updateUserApnTokenInput.getApnToken())) {
+            user.setApnToken(updateUserApnTokenInput.getApnToken());
+            return userRepository.save(user);
+        }
+        return user;
     }
 
     @Override
     public User updateFcmTokenByUserId(UpdateUserFcmTokenInput updateUserFcmTokenInput) {
         User user = getById(updateUserFcmTokenInput.getUserId());
-        user.setFcmToken(updateUserFcmTokenInput.getFcmToken());
-        return userRepository.save(user);
+        if (updateUserFcmTokenInput.getFcmToken() != null
+            && !updateUserFcmTokenInput.getFcmToken().isBlank()
+            && !updateUserFcmTokenInput.getFcmToken().isBlank()) {
+            user.setFcmToken(updateUserFcmTokenInput.getFcmToken());
+            return userRepository.save(user);
+        }
+        return user;
     }
 
     @Override
@@ -290,5 +302,36 @@ public class UserServiceImpl implements UserService{
         User user = getById(id);
         user.setFcmToken(null);
         return userRepository.save(user);
+    }
+
+    @Override
+    public CurrentUserPayload getCurrentUserByJwtToken(String jwtToken) {
+        User user = getByPhone(jwtGenerator.getUsernameFromJwt(jwtToken));
+        CurrentUserPayload currentUserPayload = new CurrentUserPayload();
+
+        currentUserPayload.setId(user.getId());
+        currentUserPayload.setApnToken(user.getApnToken());
+        currentUserPayload.setBalance(user.getBalance());
+        currentUserPayload.setFcmToken(user.getFcmToken());
+        currentUserPayload.setFirstName(user.getFirstName());
+        currentUserPayload.setIsActive(user.getIsActive());
+        currentUserPayload.setIsDebtor(user.getIsDebtor());
+        currentUserPayload.setLastName(user.getLastName());
+        currentUserPayload.setOnBoardingStatus(user.getOnBoardingStatus());
+        currentUserPayload.setPhone(user.getPhone());
+        currentUserPayload.setRatings(user.getRatings());
+        currentUserPayload.setTotalRatings(user.getTotalRatings());
+        currentUserPayload.setRoles(user.getRoles());
+        if (user.getTranslatorProfile() != null)
+        {
+            currentUserPayload.setTranslatorProfile(user.getTranslatorProfile());
+            currentUserPayload.setWhoAmI("TRANSLATOR");
+        } else if (user.getUserProfile() != null) {
+            currentUserPayload.setUserProfile(user.getUserProfile());
+            currentUserPayload.setWhoAmI("USER");
+        }
+
+        return currentUserPayload;
+
     }
 }

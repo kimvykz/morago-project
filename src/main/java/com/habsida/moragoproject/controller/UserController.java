@@ -2,6 +2,7 @@ package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.*;
 import com.habsida.moragoproject.model.entity.User;
+import com.habsida.moragoproject.model.payload.CurrentUserPayload;
 import com.habsida.moragoproject.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 
@@ -32,7 +34,7 @@ public class UserController {
 
     @QueryMapping(name = "getUserById")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @PostAuthorize("returnObject.phone == authentication.name")
+    //@PostAuthorize("returnObject.phone == authentication.name")
     public User getById (@Argument Long id) {
         return userService.getById(id);
     }
@@ -90,6 +92,14 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
     public User deleteUserFcmTokenByUserId(@Argument(name = "userId") Long id) {
         return userService.deleteFcmTokenByUserId(id);
+    }
+
+    @QueryMapping(name = "getCurrentUserByJwtToken")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
+    //@PostAuthorize("returnObject.phone == authentication.name")
+    public CurrentUserPayload getCurrentUserByJwt (@Argument(name = "jwtToken") String jwtToken) {
+        System.out.println(jwtToken);
+        return userService.getCurrentUserByJwtToken(jwtToken);
     }
 
 }

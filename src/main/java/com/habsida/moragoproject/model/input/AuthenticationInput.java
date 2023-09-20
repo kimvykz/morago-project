@@ -1,18 +1,15 @@
-package com.habsida.moragoproject.model.payload.request;
+package com.habsida.moragoproject.model.input;
 
-import com.habsida.moragoproject.model.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @ToString
 @Getter
 @Setter
-public class RegistrationUserRequest {
+public class AuthenticationInput {
     @NotBlank(message = "phone cannot be blank")
     private String phone;
     @NotBlank(message = "password cannot be blank")

@@ -1,18 +1,18 @@
-package com.habsida.moragoproject.model.payload.response;
+package com.habsida.moragoproject.model.payload;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @ToString
-public class RefreshTokenResponse {
+public class AuthorizationPayload {
     private String accessToken;
     private String refreshToken;
-    private String tokenType = "Bearer";
 
-    public RefreshTokenResponse(String accessToken, String refreshToken) {
+    public AuthorizationPayload(String accessToken,
+                                String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }

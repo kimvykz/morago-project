@@ -1,9 +1,9 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.payload.request.*;
-import com.habsida.moragoproject.model.payload.response.LoginPayloadResponse;
-import com.habsida.moragoproject.model.payload.response.RegistrationPayloadResponse;
-import com.habsida.moragoproject.model.payload.response.RefreshTokenResponse;
+import com.habsida.moragoproject.model.input.AuthenticationInput;
+import com.habsida.moragoproject.model.input.RefreshTokenInput;
+import com.habsida.moragoproject.model.input.RegistrationTranslatorInput;
+import com.habsida.moragoproject.model.payload.AuthorizationPayload;
 import com.habsida.moragoproject.service.AuthService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -23,33 +23,33 @@ public class AuthController {
     }
 
     @QueryMapping("login")
-    public LoginPayloadResponse login(@Argument(name = "loginUserInput") LoginRequest loginRequest) {
+    public AuthorizationPayload login(@Argument(name = "loginUserInput") AuthenticationInput authenticationInput) {
 
-        return authService.loginUser(loginRequest);
+        return authService.loginUser(authenticationInput);
     }
 
     @MutationMapping(name = "registrationUser")
-    public RegistrationPayloadResponse registrationUser (@Valid @Argument(name = "registrationUserInput") RegistrationUserRequest registrationUserRequest) {
+    public AuthorizationPayload registrationUser (@Valid @Argument(name = "registrationUserInput") AuthenticationInput authenticationInput) {
 
-        return authService.registrationUser(registrationUserRequest);
+        return authService.registrationUser(authenticationInput);
     }
 
     @MutationMapping(name = "registrationTranslator")
-    public RegistrationPayloadResponse registrationTranslator (@Valid @Argument(name = "registrationTranslatorInput") RegistrationTranslatorRequest registrationTranslatorRequest) {
+    public AuthorizationPayload registrationTranslator (@Valid @Argument(name = "registrationTranslatorInput") RegistrationTranslatorInput registrationTranslatorInput) {
 
-        return authService.registrationTranslator(registrationTranslatorRequest);
+        return authService.registrationTranslator(registrationTranslatorInput);
     }
 
     @MutationMapping(name = "registrationAdmin")
-    public RegistrationPayloadResponse registrationAdmin (@Valid @Argument(name = "registrationAdminInput") RegistrationAdminRequest registrationAdminRequest) {
+    public AuthorizationPayload registrationAdmin (@Valid @Argument(name = "registrationAdminInput") AuthenticationInput authenticationInput) {
 
-        return authService.registrationAdmin(registrationAdminRequest);
+        return authService.registrationAdmin(authenticationInput);
     }
 
     @QueryMapping("refreshToken")
-    public RefreshTokenResponse refreshToken(@Argument(name = "refreshTokenInput") RefreshTokenRequest refreshTokenRequest) {
+    public AuthorizationPayload refreshToken(@Argument(name = "refreshTokenInput") RefreshTokenInput refreshTokenInput) {
 
-        return authService.refreshToken(refreshTokenRequest);
+        return authService.refreshToken(refreshTokenInput);
     }
 
 }

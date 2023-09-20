@@ -6,11 +6,11 @@ import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.enums.ERole;
+import com.habsida.moragoproject.model.input.AuthenticationInput;
 import com.habsida.moragoproject.model.input.CreateUserInput;
-import com.habsida.moragoproject.model.payload.request.*;
-import com.habsida.moragoproject.model.payload.response.LoginPayloadResponse;
-import com.habsida.moragoproject.model.payload.response.RegistrationPayloadResponse;
-import com.habsida.moragoproject.model.payload.response.RefreshTokenResponse;
+import com.habsida.moragoproject.model.input.RefreshTokenInput;
+import com.habsida.moragoproject.model.input.RegistrationTranslatorInput;
+import com.habsida.moragoproject.model.payload.AuthorizationPayload;
 import com.habsida.moragoproject.repository.TranslatorProfileRepository;
 import com.habsida.moragoproject.security.JwtGenerator;
 import com.habsida.moragoproject.security.RefreshTokenGenerator;
@@ -22,7 +22,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @Service
 public class AuthServiceImpl implements AuthService{
@@ -46,21 +45,21 @@ public class AuthServiceImpl implements AuthService{
     }
 
     @Override
-    public RegistrationPayloadResponse registrationUser(RegistrationUserRequest registrationUserRequest) {
+    public AuthorizationPayload registrationUser(AuthenticationInput authenticationInput) {
         CreateUserInput createUserInput = new CreateUserInput();
 
-        if (userService.isExistsByPhone(registrationUserRequest.getPhone())) {
-            throw new IllegalArgumentException("User is already existed with phone - " + registrationUserRequest.getPhone());
+        if (userService.isExistsByPhone(authenticationInput.getPhone())) {
+            throw new IllegalArgumentException("User is already existed with phone - " + authenticationInput.getPhone());
         }
-        if (registrationUserRequest.getPhone() == null || registrationUserRequest.getPhone().isBlank()) {
+        if (authenticationInput.getPhone() == null || authenticationInput.getPhone().isBlank()) {
             throw new IllegalArgumentException("Phone cannot be null");
         } else {
-            createUserInput.setPhone(registrationUserRequest.getPhone());
+            createUserInput.setPhone(authenticationInput.getPhone());
         }
-        if (registrationUserRequest.getPassword() == null || registrationUserRequest.getPassword().isBlank()) {
+        if (authenticationInput.getPassword() == null || authenticationInput.getPassword().isBlank()) {
             throw new IllegalArgumentException("Password cannot be null");
         } else {
-            createUserInput.setPassword(registrationUserRequest.getPassword());
+            createUserInput.setPassword(authenticationInput.getPassword());
         }
 
         createUserInput.setBalance(0.0f);
@@ -76,29 +75,29 @@ public class AuthServiceImpl implements AuthService{
         User newUser = userService.create(createUserInput);
 
         String jwtToken = jwtGenerator.generateTokenFromUsername(newUser.getPhone());
-        RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(newUser.getId());
+        com.habsida.moragoproject.model.entity.RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(newUser.getId());
 
-        return new RegistrationPayloadResponse(jwtToken, refreshToken.getToken());
+        return new AuthorizationPayload(jwtToken, refreshToken.getToken());
     }
 
     @Override
-    public RegistrationPayloadResponse registrationTranslator(RegistrationTranslatorRequest registrationTranslatorRequest) {
-        System.out.println(registrationTranslatorRequest.getTranslatorProfile().getThemes());
+    public AuthorizationPayload registrationTranslator(RegistrationTranslatorInput registrationTranslatorInput) {
+        System.out.println(registrationTranslatorInput.getTranslatorProfile().getThemes());
 
         CreateUserInput createUserInput = new CreateUserInput();
 
-        if (userService.isExistsByPhone(registrationTranslatorRequest.getPhone())) {
-            throw new IllegalArgumentException("User is already existed with phone - " + registrationTranslatorRequest.getPhone());
+        if (userService.isExistsByPhone(registrationTranslatorInput.getPhone())) {
+            throw new IllegalArgumentException("User is already existed with phone - " + registrationTranslatorInput.getPhone());
         }
-        if (registrationTranslatorRequest.getPhone() == null || registrationTranslatorRequest.getPhone().isBlank()) {
+        if (registrationTranslatorInput.getPhone() == null || registrationTranslatorInput.getPhone().isBlank()) {
             throw new IllegalArgumentException("Phone cannot be null");
         } else {
-            createUserInput.setPhone(registrationTranslatorRequest.getPhone());
+            createUserInput.setPhone(registrationTranslatorInput.getPhone());
         }
-        if (registrationTranslatorRequest.getPassword() == null || registrationTranslatorRequest.getPassword().isBlank()) {
+        if (registrationTranslatorInput.getPassword() == null || registrationTranslatorInput.getPassword().isBlank()) {
             throw new IllegalArgumentException("Password cannot be null");
         } else {
-            createUserInput.setPassword(registrationTranslatorRequest.getPassword());
+            createUserInput.setPassword(registrationTranslatorInput.getPassword());
         }
 
         createUserInput.setBalance(0.0f);
@@ -111,7 +110,7 @@ public class AuthServiceImpl implements AuthService{
         createUserInput.setTotalRatings(0);
         createUserInput.setRoles(Arrays.asList(new Role(ERole.ROLE_TRANSLATOR)));
 
-        TranslatorProfile translatorProfile = registrationTranslatorRequest.getTranslatorProfile();
+        TranslatorProfile translatorProfile = registrationTranslatorInput.getTranslatorProfile();
         translatorProfile.setIsOnline(false);
         translatorProfile.setIsAvailable(false);
 
@@ -126,27 +125,27 @@ public class AuthServiceImpl implements AuthService{
         translatorProfileRepository.save(translatorProfile);
 
         String jwtToken = jwtGenerator.generateTokenFromUsername(newUser.getPhone());
-        RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(newUser.getId());
+        com.habsida.moragoproject.model.entity.RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(newUser.getId());
 
-        return new RegistrationPayloadResponse(jwtToken, refreshToken.getToken());
+        return new AuthorizationPayload(jwtToken, refreshToken.getToken());
     }
 
     @Override
-    public RegistrationPayloadResponse registrationAdmin(RegistrationAdminRequest registrationAdminRequest) {
+    public AuthorizationPayload registrationAdmin(AuthenticationInput authenticationInput) {
         CreateUserInput createUserInput = new CreateUserInput();
 
-        if (userService.isExistsByPhone(registrationAdminRequest.getPhone())) {
-            throw new IllegalArgumentException("User is already existed with phone - " + registrationAdminRequest.getPhone());
+        if (userService.isExistsByPhone(authenticationInput.getPhone())) {
+            throw new IllegalArgumentException("User is already existed with phone - " + authenticationInput.getPhone());
         }
-        if (registrationAdminRequest.getPhone() == null || registrationAdminRequest.getPhone().isBlank()) {
+        if (authenticationInput.getPhone() == null || authenticationInput.getPhone().isBlank()) {
             throw new IllegalArgumentException("Phone cannot be null");
         } else {
-            createUserInput.setPhone(registrationAdminRequest.getPhone());
+            createUserInput.setPhone(authenticationInput.getPhone());
         }
-        if (registrationAdminRequest.getPassword() == null || registrationAdminRequest.getPassword().isBlank()) {
+        if (authenticationInput.getPassword() == null || authenticationInput.getPassword().isBlank()) {
             throw new IllegalArgumentException("Password cannot be null");
         } else {
-            createUserInput.setPassword(registrationAdminRequest.getPassword());
+            createUserInput.setPassword(authenticationInput.getPassword());
         }
 
         createUserInput.setBalance(0.0f);
@@ -164,38 +163,38 @@ public class AuthServiceImpl implements AuthService{
         User newUser = userService.create(createUserInput);
 
         String jwtToken = jwtGenerator.generateTokenFromUsername(newUser.getPhone());
-        RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(newUser.getId());
+        com.habsida.moragoproject.model.entity.RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(newUser.getId());
 
-        return new RegistrationPayloadResponse(jwtToken, refreshToken.getToken());
+        return new AuthorizationPayload(jwtToken, refreshToken.getToken());
     }
 
     @Override
-    public LoginPayloadResponse loginUser(LoginRequest loginRequest) {
+    public AuthorizationPayload loginUser(AuthenticationInput authenticationInput) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getPhone(),
-                        loginRequest.getPassword()));
+                        authenticationInput.getPhone(),
+                        authenticationInput.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String jwtToken = jwtGenerator.generateJwtToken(userDetails);
 
-        RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(userService.getByPhone(userDetails.getUsername()).getId());
-        return new LoginPayloadResponse(
+        com.habsida.moragoproject.model.entity.RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(userService.getByPhone(userDetails.getUsername()).getId());
+        return new AuthorizationPayload(
                 jwtToken,
                 refreshToken.getToken());
     }
 
     @Override
-    public RefreshTokenResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
-        String refreshToken = refreshTokenRequest.getRefreshToken();
+    public AuthorizationPayload refreshToken(RefreshTokenInput refreshTokenInput) {
+        String refreshToken = refreshTokenInput.getRefreshToken();
 
         return refreshTokenGenerator.findByToken(refreshToken)
                 .map(refreshTokenGenerator::verifyExpiration)
                 .map(RefreshToken::getUser)
                 .map(user -> {
                     String jwtToken = jwtGenerator.generateTokenFromUsername(user.getPhone());
-                    return new RefreshTokenResponse(jwtToken, refreshToken);
+                    return new AuthorizationPayload(jwtToken, refreshToken);
                         })
                 .orElseThrow(() -> new TokenRefreshException(refreshToken, "Refresh token is not in database!"));
     }

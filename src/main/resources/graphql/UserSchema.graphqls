@@ -67,3 +67,22 @@ type User {
     userProfile: UserProfile
     translatorProfile: TranslatorProfile
 }
+
+type CurrentUser {
+    id: ID
+    apnToken: String
+    balance: Float
+    fcmToken: String
+    firstName: String
+    isActive: Boolean
+    isDebtor: Boolean
+    lastName: String
+    onBoardingStatus: Int
+    phone: String
+    ratings: Float
+    totalRatings: Int
+    roles: [Role]
+    userProfile: UserProfile
+    translatorProfile: TranslatorProfile
+    whoAmI: String
+}

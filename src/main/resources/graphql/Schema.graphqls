@@ -68,6 +68,7 @@ type Query {
     getUserProfiles: [UserProfile]
     getUserProfilesByPaging(paginationInput: PaginationInput): [UserProfile]
     getUserProfileById(id: Int): UserProfile
+    getCurrentUserByJwtToken(jwtToken: String): CurrentUser
 
     getUserWithdrawals: [Withdrawal]
     getUserWithdrawalsByPaging(paginationInput: PaginationInput): [Withdrawal]

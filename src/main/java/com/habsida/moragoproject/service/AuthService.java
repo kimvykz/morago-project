@@ -1,14 +1,15 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.model.payload.request.*;
-import com.habsida.moragoproject.model.payload.response.LoginPayloadResponse;
-import com.habsida.moragoproject.model.payload.response.RegistrationPayloadResponse;
-import com.habsida.moragoproject.model.payload.response.RefreshTokenResponse;
+import com.habsida.moragoproject.model.entity.RefreshToken;
+import com.habsida.moragoproject.model.input.AuthenticationInput;
+import com.habsida.moragoproject.model.input.RefreshTokenInput;
+import com.habsida.moragoproject.model.input.RegistrationTranslatorInput;
+import com.habsida.moragoproject.model.payload.AuthorizationPayload;
 
 public interface AuthService {
-    RegistrationPayloadResponse registrationUser(RegistrationUserRequest registrationUserRequest);
-    RegistrationPayloadResponse registrationTranslator(RegistrationTranslatorRequest registrationTranslatorRequest);
-    RegistrationPayloadResponse registrationAdmin(RegistrationAdminRequest registrationAdminRequest);
-    LoginPayloadResponse loginUser(LoginRequest loginRequest);
-    RefreshTokenResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
+    AuthorizationPayload registrationUser(AuthenticationInput authenticationInput);
+    AuthorizationPayload registrationTranslator(RegistrationTranslatorInput registrationTranslatorInput);
+    AuthorizationPayload registrationAdmin(AuthenticationInput authenticationInput);
+    AuthorizationPayload loginUser(AuthenticationInput authenticationInput);
+    AuthorizationPayload refreshToken(RefreshTokenInput refreshTokenInput);
 }
