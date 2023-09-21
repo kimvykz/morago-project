@@ -1,10 +1,9 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Coin;
-import com.habsida.moragoproject.model.input.CreateCoinInput;
-import com.habsida.moragoproject.model.input.UpdateCoinInput;
+import com.habsida.moragoproject.model.input.CoinCreateInput;
+import com.habsida.moragoproject.model.input.CoinUpdateInput;
 import com.habsida.moragoproject.repository.CoinRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -38,34 +37,34 @@ public class CoinServiceImpl implements CoinService{
     }
 
     @Override
-    public Coin create (CreateCoinInput createCoinInput) {
+    public Coin create (CoinCreateInput coinCreateInput) {
         Coin coin = new Coin();
 
-        if (createCoinInput.getCoin() == null) {
+        if (coinCreateInput.getCoin() == null) {
             throw new IllegalArgumentException("field coin cannot be null");
         } else {
-            coin.setCoin(createCoinInput.getCoin());
+            coin.setCoin(coinCreateInput.getCoin());
         }
-        if (createCoinInput.getWon() == null) {
+        if (coinCreateInput.getWon() == null) {
             throw new IllegalArgumentException("field won cannot be null");
         } else {
-            coin.setWon(createCoinInput.getWon());
+            coin.setWon(coinCreateInput.getWon());
         }
 
         return coinRepository.save(coin);
     }
 
     @Override
-    public Coin update (UpdateCoinInput updateCoinInput) {
-        Coin coin = getById(updateCoinInput.getId());
+    public Coin update (CoinUpdateInput coinUpdateInput) {
+        Coin coin = getById(coinUpdateInput.getId());
 
-        if (updateCoinInput.getCoin() != null
-            && !coin.getCoin().equals(updateCoinInput.getCoin())) {
-            coin.setCoin(updateCoinInput.getCoin());
+        if (coinUpdateInput.getCoin() != null
+            && !coin.getCoin().equals(coinUpdateInput.getCoin())) {
+            coin.setCoin(coinUpdateInput.getCoin());
         }
-        if (updateCoinInput.getWon() != null
-            && !coin.getWon().equals(updateCoinInput.getWon())) {
-            coin.setWon(updateCoinInput.getWon());
+        if (coinUpdateInput.getWon() != null
+            && !coin.getWon().equals(coinUpdateInput.getWon())) {
+            coin.setWon(coinUpdateInput.getWon());
         }
 
         return coinRepository.save(coin);

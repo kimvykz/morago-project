@@ -19,7 +19,11 @@ public class Rating extends AuditableEntity {
     private Double grade;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "rater_user_id")
+    private User raterUser;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "assessed_user_id")
+    private User assessedUser;
 
 }

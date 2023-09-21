@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateUserProfileInput;
+import com.habsida.moragoproject.model.input.UserProfileCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateUserProfileInput;
+import com.habsida.moragoproject.model.input.UserProfileUpdateInput;
 import com.habsida.moragoproject.model.entity.UserProfile;
 import com.habsida.moragoproject.service.UserProfileService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,13 +40,13 @@ public class UserProfileController {
     }
 
     @MutationMapping(name = "createUserProfile")
-    public UserProfile create (@Valid @Argument(name = "userProfileInput") CreateUserProfileInput createUserProfileInput) {
-        return userProfileService.create(createUserProfileInput);
+    public UserProfile create (@Valid @Argument(name = "userProfileInput") UserProfileCreateInput userProfileCreateInput) {
+        return userProfileService.create(userProfileCreateInput);
     }
 
     @MutationMapping(name = "updateUserProfile")
-    public UserProfile update (@Valid @Argument(name = "userProfileInput") UpdateUserProfileInput updateUserProfileInput) {
-        return userProfileService.update(updateUserProfileInput);
+    public UserProfile update (@Valid @Argument(name = "userProfileInput") UserProfileUpdateInput userProfileUpdateInput) {
+        return userProfileService.update(userProfileUpdateInput);
     }
 
     @MutationMapping(name = "deleteUserProfileById")

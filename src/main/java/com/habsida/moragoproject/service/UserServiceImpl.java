@@ -3,13 +3,15 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.input.*;
+import com.habsida.moragoproject.model.payload.CommonProfilePayload;
 import com.habsida.moragoproject.model.payload.CurrentUserPayload;
 import com.habsida.moragoproject.repository.RoleRepository;
 import com.habsida.moragoproject.repository.UserRepository;
 import com.habsida.moragoproject.security.JwtGenerator;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,14 +26,12 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
-    private JwtGenerator jwtGenerator;
     public UserServiceImpl (UserRepository userRepository,
                             RoleRepository roleRepository,
-                            PasswordEncoder passwordEncoder, JwtGenerator jwtGenerator) {
+                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
-        this.jwtGenerator = jwtGenerator;
     }
 
     private List<Role> defineIdForExistingRoles (List<Role> roles) {
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User create (CreateUserInput createUserInput) {
+    public User create (UserCreateInput userCreateInput) {
 
         User user = new User();
 
@@ -77,82 +77,82 @@ public class UserServiceImpl implements UserService{
                     + user.getPhone());
         }
 
-        if (createUserInput.getFirstName() == null) {
+        if (userCreateInput.getFirstName() == null) {
             throw new IllegalArgumentException("field firstName cannot be null");
         } else {
-            user.setFirstName(createUserInput.getFirstName());
+            user.setFirstName(userCreateInput.getFirstName());
         }
-        if (createUserInput.getLastName() == null) {
+        if (userCreateInput.getLastName() == null) {
             throw new IllegalArgumentException("field lastName cannot be null");
         } else {
-            user.setLastName(createUserInput.getLastName());
+            user.setLastName(userCreateInput.getLastName());
         }
-        if (createUserInput.getPhone() == null
-                || createUserInput.getPhone().isBlank()) {
+        if (userCreateInput.getPhone() == null
+                || userCreateInput.getPhone().isBlank()) {
             throw new IllegalArgumentException("field phone cannot be Empty");
         } else {
-            user.setPhone(createUserInput.getPhone());
+            user.setPhone(userCreateInput.getPhone());
         }
-        if (createUserInput.getPassword() == null
-                || createUserInput.getPassword().isBlank()) {
+        if (userCreateInput.getPassword() == null
+                || userCreateInput.getPassword().isBlank()) {
             throw new IllegalArgumentException("field password cannot be Empty");
         } else {
-            user.setPassword(passwordEncoder.encode(createUserInput.getPassword()));
+            user.setPassword(passwordEncoder.encode(userCreateInput.getPassword()));
         }
-        if (createUserInput.getIsActive() == null) {
+        if (userCreateInput.getIsActive() == null) {
             throw new IllegalArgumentException("field isActive cannot be null");
         } else {
-            user.setIsActive(createUserInput.getIsActive());
+            user.setIsActive(userCreateInput.getIsActive());
         }
-        if (createUserInput.getIsDebtor() == null) {
+        if (userCreateInput.getIsDebtor() == null) {
             throw new IllegalArgumentException("field isDebtor cannot be null");
         } else {
-            user.setIsDebtor(createUserInput.getIsDebtor());
+            user.setIsDebtor(userCreateInput.getIsDebtor());
         }
-        if (createUserInput.getRatings() == null) {
+        if (userCreateInput.getRatings() == null) {
             throw new IllegalArgumentException("field rating cannot be null");
         } else {
-            user.setRatings(createUserInput.getRatings());
+            user.setRatings(userCreateInput.getRatings());
         }
-        if (createUserInput.getTotalRatings() == null) {
+        if (userCreateInput.getTotalRatings() == null) {
             throw new IllegalArgumentException("field totalRatings cannot be null");
         } else {
-            user.setTotalRatings(createUserInput.getTotalRatings());
+            user.setTotalRatings(userCreateInput.getTotalRatings());
         }
-        if (createUserInput.getBalance() == null) {
+        if (userCreateInput.getBalance() == null) {
             throw new IllegalArgumentException("field balance cannot be null");
         } else {
-            user.setBalance(createUserInput.getBalance());
+            user.setBalance(userCreateInput.getBalance());
         }
-        if (createUserInput.getOnBoardingStatus() == null) {
+        if (userCreateInput.getOnBoardingStatus() == null) {
             throw new IllegalArgumentException("field getOnBoardingStatus cannot be null");
         } else {
-            user.setOnBoardingStatus(createUserInput.getOnBoardingStatus());
+            user.setOnBoardingStatus(userCreateInput.getOnBoardingStatus());
         }
-        if (createUserInput.getApnToken() == null) {
+        if (userCreateInput.getApnToken() == null) {
             //user.setApnToken("token");  //here I need to know how to process this field
         } else {
-            user.setApnToken(createUserInput.getApnToken());
+            user.setApnToken(userCreateInput.getApnToken());
         }
-        if (createUserInput.getFcmToken() == null) {
+        if (userCreateInput.getFcmToken() == null) {
             //user.setFcmToken("token");  //here I need to know how to process this field
         } else {
-            user.setFcmToken(createUserInput.getFcmToken());
+            user.setFcmToken(userCreateInput.getFcmToken());
         }
-        if (createUserInput.getRoles() == null) {
+        if (userCreateInput.getRoles() == null) {
             throw new IllegalArgumentException("User must have at least 1 role");
         }  else {
-            user.setRoles(createUserInput.getRoles());
+            user.setRoles(userCreateInput.getRoles());
         }
-        if (createUserInput.getUserProfile() == null) {
+        if (userCreateInput.getUserProfile() == null) {
             //here I need to know logic
         } else {
-            user.setUserProfile(createUserInput.getUserProfile());
+            user.setUserProfile(userCreateInput.getUserProfile());
         }
-        if (createUserInput.getTranslatorProfile() == null) {
+        if (userCreateInput.getTranslatorProfile() == null) {
             //here I need to know logic
         } else {
-            user.setTranslatorProfile(createUserInput.getTranslatorProfile());
+            user.setTranslatorProfile(userCreateInput.getTranslatorProfile());
         }
 
         user.setRoles(defineIdForExistingRoles(user.getRoles()));
@@ -160,61 +160,61 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User update (UpdateUserInput updateUserInput) {
+    public User update (UserUpdateInput userUpdateInput) {
 
-        User user = getById(updateUserInput.getId());
+        User user = getById(userUpdateInput.getId());
 
-        if (updateUserInput.getFirstName() != null
-           && !updateUserInput.getFirstName().isBlank()
-            && !user.getFirstName().equals(updateUserInput.getFirstName())) {
-            user.setFirstName(updateUserInput.getFirstName());
+        if (userUpdateInput.getFirstName() != null
+           && !userUpdateInput.getFirstName().isBlank()
+            && !user.getFirstName().equals(userUpdateInput.getFirstName())) {
+            user.setFirstName(userUpdateInput.getFirstName());
         }
-        if (updateUserInput.getLastName() != null
-            && !updateUserInput.getLastName().isBlank()
-            && !user.getLastName().equals(updateUserInput.getLastName())) {
-            user.setLastName(updateUserInput.getLastName());
+        if (userUpdateInput.getLastName() != null
+            && !userUpdateInput.getLastName().isBlank()
+            && !user.getLastName().equals(userUpdateInput.getLastName())) {
+            user.setLastName(userUpdateInput.getLastName());
         }
-        if (updateUserInput.getPhone() != null
-            && !updateUserInput.getPhone().isBlank()
-            && !user.getPhone().equals(updateUserInput.getPhone())) {
-            user.setPhone(updateUserInput.getPhone());
+        if (userUpdateInput.getPhone() != null
+            && !userUpdateInput.getPhone().isBlank()
+            && !user.getPhone().equals(userUpdateInput.getPhone())) {
+            user.setPhone(userUpdateInput.getPhone());
         }
-        if (updateUserInput.getPassword() != null
-            && !updateUserInput.getPassword().isBlank()
-            && !user.getPassword().equals(passwordEncoder.encode(updateUserInput.getPassword()))) {
-            user.setPassword(passwordEncoder.encode(updateUserInput.getPassword()));
+        if (userUpdateInput.getPassword() != null
+            && !userUpdateInput.getPassword().isBlank()
+            && !user.getPassword().equals(passwordEncoder.encode(userUpdateInput.getPassword()))) {
+            user.setPassword(passwordEncoder.encode(userUpdateInput.getPassword()));
         }
-        if (updateUserInput.getIsActive() != null
-            && !user.getIsActive().equals(updateUserInput.getIsActive())) {
-            user.setIsActive(updateUserInput.getIsActive());
+        if (userUpdateInput.getIsActive() != null
+            && !user.getIsActive().equals(userUpdateInput.getIsActive())) {
+            user.setIsActive(userUpdateInput.getIsActive());
         }
-        if (updateUserInput.getIsDebtor() != null
-            && !user.getIsDebtor().equals(updateUserInput.getIsDebtor())) {
-            user.setIsDebtor(updateUserInput.getIsDebtor());
+        if (userUpdateInput.getIsDebtor() != null
+            && !user.getIsDebtor().equals(userUpdateInput.getIsDebtor())) {
+            user.setIsDebtor(userUpdateInput.getIsDebtor());
         }
-        if (updateUserInput.getRatings() != null
-            && !user.getRatings().equals(updateUserInput.getRatings())) {
-            user.setRatings(updateUserInput.getRatings());
+        if (userUpdateInput.getRatings() != null
+            && !user.getRatings().equals(userUpdateInput.getRatings())) {
+            user.setRatings(userUpdateInput.getRatings());
         }
-        if (updateUserInput.getTotalRatings() != null
-            && !user.getTotalRatings().equals(updateUserInput.getTotalRatings())) {
-            user.setTotalRatings(updateUserInput.getTotalRatings());
+        if (userUpdateInput.getTotalRatings() != null
+            && !user.getTotalRatings().equals(userUpdateInput.getTotalRatings())) {
+            user.setTotalRatings(userUpdateInput.getTotalRatings());
         }
-        if (updateUserInput.getBalance() != null
-            && !user.getBalance().equals(updateUserInput.getBalance())) {
-            user.setBalance(updateUserInput.getBalance());
+        if (userUpdateInput.getBalance() != null
+            && !user.getBalance().equals(userUpdateInput.getBalance())) {
+            user.setBalance(userUpdateInput.getBalance());
         }
-        if (updateUserInput.getOnBoardingStatus() != null
-            && !user.getOnBoardingStatus().equals(updateUserInput.getOnBoardingStatus())) {
-            user.setOnBoardingStatus(updateUserInput.getOnBoardingStatus());
+        if (userUpdateInput.getOnBoardingStatus() != null
+            && !user.getOnBoardingStatus().equals(userUpdateInput.getOnBoardingStatus())) {
+            user.setOnBoardingStatus(userUpdateInput.getOnBoardingStatus());
         }
-        if (updateUserInput.getApnToken() != null
-            && !user.getApnToken().equals(updateUserInput.getApnToken())) {
-            user.setApnToken(updateUserInput.getApnToken());
+        if (userUpdateInput.getApnToken() != null
+            && !user.getApnToken().equals(userUpdateInput.getApnToken())) {
+            user.setApnToken(userUpdateInput.getApnToken());
         }
-        if (updateUserInput.getFcmToken() != null
-            && !user.getFcmToken().equals(updateUserInput.getFcmToken())) {
-            user.setFcmToken(updateUserInput.getFcmToken());
+        if (userUpdateInput.getFcmToken() != null
+            && !user.getFcmToken().equals(userUpdateInput.getFcmToken())) {
+            user.setFcmToken(userUpdateInput.getFcmToken());
         }
 //        if (updateUserInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
 //                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
@@ -255,36 +255,36 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateRolesByUserId(UpdateUserRolesInput updateUserRolesInput) {
+    public User updateRolesByUserId(UserRolesUpdateInput userRolesUpdateInput) {
 //        if (updateUserRolesInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
 //                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
 //            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
 //        }
-        User user = getById(updateUserRolesInput.getUserId());
-        user.setRoles(defineIdForExistingRoles(updateUserRolesInput.getRoles()));
+        User user = getById(userRolesUpdateInput.getUserId());
+        user.setRoles(defineIdForExistingRoles(userRolesUpdateInput.getRoles()));
 
         return userRepository.save(user);
     }
 
     @Override
-    public User updateApnTokenByUserId(UpdateUserApnTokenInput updateUserApnTokenInput) {
-        User user = getById(updateUserApnTokenInput.getUserId());
-        if (updateUserApnTokenInput.getApnToken() != null
-            && !updateUserApnTokenInput.getApnToken().isBlank()
-            && !user.getApnToken().equals(updateUserApnTokenInput.getApnToken())) {
-            user.setApnToken(updateUserApnTokenInput.getApnToken());
+    public User updateApnTokenByUserId(UserApnTokenUpdateInput userApnTokenUpdateInput) {
+        User user = getById(userApnTokenUpdateInput.getUserId());
+        if (userApnTokenUpdateInput.getApnToken() != null
+            && !userApnTokenUpdateInput.getApnToken().isBlank()
+            && !user.getApnToken().equals(userApnTokenUpdateInput.getApnToken())) {
+            user.setApnToken(userApnTokenUpdateInput.getApnToken());
             return userRepository.save(user);
         }
         return user;
     }
 
     @Override
-    public User updateFcmTokenByUserId(UpdateUserFcmTokenInput updateUserFcmTokenInput) {
-        User user = getById(updateUserFcmTokenInput.getUserId());
-        if (updateUserFcmTokenInput.getFcmToken() != null
-            && !updateUserFcmTokenInput.getFcmToken().isBlank()
-            && !updateUserFcmTokenInput.getFcmToken().isBlank()) {
-            user.setFcmToken(updateUserFcmTokenInput.getFcmToken());
+    public User updateFcmTokenByUserId(UserFcmTokenUpdateInput userFcmTokenUpdateInput) {
+        User user = getById(userFcmTokenUpdateInput.getUserId());
+        if (userFcmTokenUpdateInput.getFcmToken() != null
+            && !userFcmTokenUpdateInput.getFcmToken().isBlank()
+            && !userFcmTokenUpdateInput.getFcmToken().isBlank()) {
+            user.setFcmToken(userFcmTokenUpdateInput.getFcmToken());
             return userRepository.save(user);
         }
         return user;
@@ -305,9 +305,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public CurrentUserPayload getCurrentUserByJwtToken(String jwtToken) {
-        User user = getByPhone(jwtGenerator.getUsernameFromJwt(jwtToken));
+    public CurrentUserPayload getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = getByPhone(authentication.getName());
         CurrentUserPayload currentUserPayload = new CurrentUserPayload();
+        CommonProfilePayload commonProfilePayload = new CommonProfilePayload();
 
         currentUserPayload.setId(user.getId());
         currentUserPayload.setApnToken(user.getApnToken());
@@ -324,10 +327,18 @@ public class UserServiceImpl implements UserService{
         currentUserPayload.setRoles(user.getRoles());
         if (user.getTranslatorProfile() != null)
         {
-            currentUserPayload.setTranslatorProfile(user.getTranslatorProfile());
+            commonProfilePayload.setEmail(user.getTranslatorProfile().getEmail());
+            commonProfilePayload.setDateOfBirth(user.getTranslatorProfile().getDateOfBirth());
+            commonProfilePayload.setLanguages(user.getTranslatorProfile().getLanguages());
+            commonProfilePayload.setLevelOfKorean(user.getTranslatorProfile().getLevelOfKorean());
+            commonProfilePayload.setThemes(user.getTranslatorProfile().getThemes());
+            commonProfilePayload.setIsAvailable(user.getTranslatorProfile().getIsAvailable());
+            commonProfilePayload.setIsOnline(user.getTranslatorProfile().getIsOnline());
+            currentUserPayload.setCommonProfilePayload(commonProfilePayload);
+
             currentUserPayload.setWhoAmI("TRANSLATOR");
         } else if (user.getUserProfile() != null) {
-            currentUserPayload.setUserProfile(user.getUserProfile());
+            currentUserPayload.getCommonProfilePayload().setIsFreeCallMade(user.getUserProfile().getIsFreeCallMade());
             currentUserPayload.setWhoAmI("USER");
         }
 

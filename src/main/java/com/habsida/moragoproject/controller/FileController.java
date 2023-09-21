@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateFileInput;
+import com.habsida.moragoproject.model.input.FileCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateFileInput;
+import com.habsida.moragoproject.model.input.FileUpdateInput;
 import com.habsida.moragoproject.model.entity.File;
 import com.habsida.moragoproject.service.FileService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,15 +40,15 @@ public class FileController {
     }
 
     @MutationMapping(name = "createFile")
-    public File create (@Valid @Argument(name = "fileInput") CreateFileInput createFileInput) {
+    public File create (@Valid @Argument(name = "fileInput") FileCreateInput fileCreateInput) {
 
-        return fileService.create(createFileInput);
+        return fileService.create(fileCreateInput);
     }
 
     @MutationMapping(name = "updateFile")
-    public File update (@Valid @Argument(name = "fileInput") UpdateFileInput updateFileInput) {
+    public File update (@Valid @Argument(name = "fileInput") FileUpdateInput fileUpdateInput) {
 
-        return fileService.update(updateFileInput);
+        return fileService.update(fileUpdateInput);
     }
 
     @MutationMapping(name = "deleteFileById")

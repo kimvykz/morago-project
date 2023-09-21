@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateCallInput;
+import com.habsida.moragoproject.model.input.CallCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateCallInput;
+import com.habsida.moragoproject.model.input.CallUpdateInput;
 import com.habsida.moragoproject.model.entity.Call;
 import com.habsida.moragoproject.service.CallService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,13 +40,13 @@ public class CallController {
     }
 
     @MutationMapping(name = "createCall")
-    public Call create (@Valid @Argument(name = "callInput") CreateCallInput createCallInput) {
-        return callService.create(createCallInput);
+    public Call create (@Valid @Argument(name = "callInput") CallCreateInput callCreateInput) {
+        return callService.create(callCreateInput);
     }
 
     @MutationMapping(name = "updateCall")
-    public Call update (@Valid @Argument(name = "callInput") UpdateCallInput updateCallInput) {
-        return callService.update(updateCallInput);
+    public Call update (@Valid @Argument(name = "callInput") CallUpdateInput callUpdateInput) {
+        return callService.update(callUpdateInput);
     }
 
     @MutationMapping(name = "deleteCallById")

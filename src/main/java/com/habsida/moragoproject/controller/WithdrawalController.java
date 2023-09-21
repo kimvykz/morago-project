@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateWithdrawalInput;
+import com.habsida.moragoproject.model.input.WithdrawalCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateWithdrawalInput;
+import com.habsida.moragoproject.model.input.WithdrawalUpdateInput;
 import com.habsida.moragoproject.model.entity.Withdrawal;
 import com.habsida.moragoproject.service.WithdrawalService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,13 +40,13 @@ public class WithdrawalController {
     }
 
     @MutationMapping(name = "createWithdrawal")
-    public Withdrawal create (@Valid @Argument(name = "withdrawalInput") CreateWithdrawalInput createWithdrawalInput) {
-        return withdrawalService.create(createWithdrawalInput);
+    public Withdrawal create (@Valid @Argument(name = "withdrawalInput") WithdrawalCreateInput withdrawalCreateInput) {
+        return withdrawalService.create(withdrawalCreateInput);
     }
 
     @MutationMapping(name = "updateWithdrawal")
-    public Withdrawal update (@Valid @Argument(name = "withdrawalInput") UpdateWithdrawalInput updateWithdrawalInput) {
-        return withdrawalService.update(updateWithdrawalInput);
+    public Withdrawal update (@Valid @Argument(name = "withdrawalInput") WithdrawalUpdateInput withdrawalUpdateInput) {
+        return withdrawalService.update(withdrawalUpdateInput);
     }
 
     @MutationMapping(name = "deleteWithdrawalById")

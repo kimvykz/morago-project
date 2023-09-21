@@ -25,11 +25,11 @@ public class Theme extends AuditableEntity {
     private Double nightPrice;
     private Double price;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "theme", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<File> files;
+    @OneToOne(mappedBy = "theme", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private File file;
 
 }

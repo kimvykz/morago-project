@@ -11,6 +11,8 @@ input RegistrationAdminCreateInput {
 input RegistrationTranslatorCreateInput {
     phone: String!
     password: String!
+    firstName: String!
+    lastName: String!
     translatorProfile: TranslatorProfileCreateInput!
 }
 

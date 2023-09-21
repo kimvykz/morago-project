@@ -1,10 +1,9 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.PasswordReset;
-import com.habsida.moragoproject.model.input.CreatePasswordResetInput;
-import com.habsida.moragoproject.model.input.UpdatePasswordResetInput;
+import com.habsida.moragoproject.model.input.PasswordResetCreateInput;
+import com.habsida.moragoproject.model.input.PasswordResetUpdateInput;
 import com.habsida.moragoproject.repository.PasswordResetRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -37,47 +36,47 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     }
 
     @Override
-    public PasswordReset create (CreatePasswordResetInput createPasswordResetInput) {
+    public PasswordReset create (PasswordResetCreateInput passwordResetCreateInput) {
         PasswordReset passwordReset = new PasswordReset();
 
-        if (createPasswordResetInput.getPhone() == null
-            || createPasswordResetInput.getPhone().isBlank()) {
+        if (passwordResetCreateInput.getPhone() == null
+            || passwordResetCreateInput.getPhone().isBlank()) {
             throw new IllegalArgumentException("field phone cannot be null");
         } else {
-            passwordReset.setPhone(createPasswordResetInput.getPhone());
+            passwordReset.setPhone(passwordResetCreateInput.getPhone());
         }
-        if (createPasswordResetInput.getResetCode() == null) {
+        if (passwordResetCreateInput.getResetCode() == null) {
             throw new IllegalArgumentException("field resetCode cannot be null");
         } else {
-            passwordReset.setResetCode(createPasswordResetInput.getResetCode());
+            passwordReset.setResetCode(passwordResetCreateInput.getResetCode());
         }
-        if (createPasswordResetInput.getToken() == null
-            || createPasswordResetInput.getToken().isBlank()) {
+        if (passwordResetCreateInput.getToken() == null
+            || passwordResetCreateInput.getToken().isBlank()) {
             throw new IllegalArgumentException("field token cannot be null");
         } else {
-            passwordReset.setToken(createPasswordResetInput.getToken());
+            passwordReset.setToken(passwordResetCreateInput.getToken());
         }
 
         return passwordResetRepository.save(passwordReset);
     }
 
     @Override
-    public PasswordReset update (UpdatePasswordResetInput updatePasswordResetInput) {
-        PasswordReset passwordReset = getById(updatePasswordResetInput.getId());
+    public PasswordReset update (PasswordResetUpdateInput passwordResetUpdateInput) {
+        PasswordReset passwordReset = getById(passwordResetUpdateInput.getId());
 
-        if (updatePasswordResetInput.getPhone() != null
-            && !updatePasswordResetInput.getPhone().isBlank()
-            && !passwordReset.getPhone().equals(updatePasswordResetInput.getPhone())) {
-            passwordReset.setPhone(updatePasswordResetInput.getPhone());
+        if (passwordResetUpdateInput.getPhone() != null
+            && !passwordResetUpdateInput.getPhone().isBlank()
+            && !passwordReset.getPhone().equals(passwordResetUpdateInput.getPhone())) {
+            passwordReset.setPhone(passwordResetUpdateInput.getPhone());
         }
-        if (updatePasswordResetInput.getResetCode() != null
-            && !passwordReset.getResetCode().equals(updatePasswordResetInput.getResetCode())) {
-            passwordReset.setResetCode(updatePasswordResetInput.getResetCode());
+        if (passwordResetUpdateInput.getResetCode() != null
+            && !passwordReset.getResetCode().equals(passwordResetUpdateInput.getResetCode())) {
+            passwordReset.setResetCode(passwordResetUpdateInput.getResetCode());
         }
-        if (updatePasswordResetInput.getToken() != null
-            && !passwordReset.getToken().equals(updatePasswordResetInput.getToken())
-            && !updatePasswordResetInput.getToken().isBlank()) {
-            passwordReset.setToken(updatePasswordResetInput.getToken());
+        if (passwordResetUpdateInput.getToken() != null
+            && !passwordReset.getToken().equals(passwordResetUpdateInput.getToken())
+            && !passwordResetUpdateInput.getToken().isBlank()) {
+            passwordReset.setToken(passwordResetUpdateInput.getToken());
         }
         return passwordResetRepository.save(passwordReset);
     }

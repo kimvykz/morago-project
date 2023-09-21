@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreatePasswordResetInput;
+import com.habsida.moragoproject.model.input.PasswordResetCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdatePasswordResetInput;
+import com.habsida.moragoproject.model.input.PasswordResetUpdateInput;
 import com.habsida.moragoproject.model.entity.PasswordReset;
 import com.habsida.moragoproject.service.PasswordResetService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,13 +40,13 @@ public class PasswordResetController {
     }
 
     @MutationMapping(name = "createPasswordReset")
-    public PasswordReset create (@Valid @Argument(name = "passwordResetInput") CreatePasswordResetInput createPasswordResetInput) {
-        return passwordResetService.create(createPasswordResetInput);
+    public PasswordReset create (@Valid @Argument(name = "passwordResetInput") PasswordResetCreateInput passwordResetCreateInput) {
+        return passwordResetService.create(passwordResetCreateInput);
     }
 
     @MutationMapping(name = "updatePasswordReset")
-    public PasswordReset update (@Valid @Argument(name = "passwordResetInput") UpdatePasswordResetInput updatePasswordResetInput) {
-        return passwordResetService.update(updatePasswordResetInput);
+    public PasswordReset update (@Valid @Argument(name = "passwordResetInput") PasswordResetUpdateInput passwordResetUpdateInput) {
+        return passwordResetService.update(passwordResetUpdateInput);
     }
 
     @MutationMapping(name = "deletePasswordResetById")

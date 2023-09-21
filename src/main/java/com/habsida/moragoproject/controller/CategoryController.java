@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateCategoryInput;
+import com.habsida.moragoproject.model.input.CategoryCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateCategoryInput;
+import com.habsida.moragoproject.model.input.CategoryUpdateInput;
 import com.habsida.moragoproject.model.entity.Category;
 import com.habsida.moragoproject.service.CategoryService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,13 +40,13 @@ public class CategoryController {
     }
 
     @MutationMapping(name = "createCategory")
-    public Category create (@Valid @Argument(name = "categoryInput") CreateCategoryInput createCategoryInput) {
-        return categoryService.create(createCategoryInput);
+    public Category create (@Valid @Argument(name = "categoryInput") CategoryCreateInput categoryCreateInput) {
+        return categoryService.create(categoryCreateInput);
     }
 
     @MutationMapping(name = "updateCategory")
-    public Category update (@Valid @Argument(name = "categoryInput") UpdateCategoryInput updateCategoryInput) {
-        return categoryService.update(updateCategoryInput);
+    public Category update (@Valid @Argument(name = "categoryInput") CategoryUpdateInput categoryUpdateInput) {
+        return categoryService.update(categoryUpdateInput);
     }
 
     @MutationMapping(name = "deleteCategoryById")

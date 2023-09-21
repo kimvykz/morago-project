@@ -1,8 +1,8 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Rating;
-import com.habsida.moragoproject.model.input.CreateRatingInput;
-import com.habsida.moragoproject.model.input.UpdateRatingInput;
+import com.habsida.moragoproject.model.input.RatingCreateInput;
+import com.habsida.moragoproject.model.input.RatingUpdateInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -12,7 +12,7 @@ public interface RatingService {
     List<Rating> getAll ();
     Page<Rating> getAllByPaging (PageRequest pageRequest);
     Rating getById (Long id);
-    Rating create (CreateRatingInput createRatingInput);
-    Rating update (UpdateRatingInput updateRatingInput);
+    Rating create (RatingCreateInput ratingCreateInput);
+    Rating update (RatingUpdateInput ratingUpdateInput);
     Boolean deleteById (Long id);
 }

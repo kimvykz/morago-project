@@ -12,16 +12,16 @@ public interface UserService {
     List<User> getAll ();
     Page<User> getAllByPaging (PageRequest pageRequest);
     User getById (Long id);
-    User create (CreateUserInput createUserInput);
-    User update (UpdateUserInput updateUserInput);
+    User create (UserCreateInput userCreateInput);
+    User update (UserUpdateInput userUpdateInput);
     Boolean deleteById (Long id);
     User getByPhone(String phone);
     Boolean isExistsByPhone (String phone);
-    User updateRolesByUserId (UpdateUserRolesInput updateUserRolesInput);
-    User updateApnTokenByUserId(UpdateUserApnTokenInput updateUserApnTokenInput);
-    User updateFcmTokenByUserId(UpdateUserFcmTokenInput updateUserFcmTokenInput);
+    User updateRolesByUserId (UserRolesUpdateInput userRolesUpdateInput);
+    User updateApnTokenByUserId(UserApnTokenUpdateInput userApnTokenUpdateInput);
+    User updateFcmTokenByUserId(UserFcmTokenUpdateInput userFcmTokenUpdateInput);
     User deleteApnTokenByUserId(Long id);
     User deleteFcmTokenByUserId(Long id);
-    CurrentUserPayload getCurrentUserByJwtToken(String jwtToken);
+    CurrentUserPayload getCurrentUser();
 
 }

@@ -1,19 +1,13 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Debtor;
-import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.input.CreateDebtorInput;
-import com.habsida.moragoproject.model.input.UpdateDebtorInput;
+import com.habsida.moragoproject.model.input.DebtorCreateInput;
+import com.habsida.moragoproject.model.input.DebtorUpdateInput;
 import com.habsida.moragoproject.repository.DebtorRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Service
@@ -43,56 +37,56 @@ public class DebtorServiceImpl implements DebtorService{
     }
 
     @Override
-    public Debtor create (CreateDebtorInput createDebtorInput) {
+    public Debtor create (DebtorCreateInput debtorCreateInput) {
         Debtor debtor = new Debtor();
 
-        if (createDebtorInput.getAccountHolder() == null
-            || createDebtorInput.getAccountHolder().isBlank()) {
+        if (debtorCreateInput.getAccountHolder() == null
+            || debtorCreateInput.getAccountHolder().isBlank()) {
             throw new IllegalArgumentException("field accountHolder cannot be null");
         } else {
-            debtor.setAccountHolder(createDebtorInput.getAccountHolder());
+            debtor.setAccountHolder(debtorCreateInput.getAccountHolder());
         }
-        if (createDebtorInput.getIsPaid() == null) {
+        if (debtorCreateInput.getIsPaid() == null) {
             throw new IllegalArgumentException("field isPaid cannot be null");
         } else {
-            debtor.setAccountHolder(createDebtorInput.getAccountHolder());
+            debtor.setAccountHolder(debtorCreateInput.getAccountHolder());
         }
-        if (createDebtorInput.getNameOfBank() == null
-            || createDebtorInput.getNameOfBank().isBlank()) {
+        if (debtorCreateInput.getNameOfBank() == null
+            || debtorCreateInput.getNameOfBank().isBlank()) {
             throw new IllegalArgumentException("field nameOfBank cannot be null");
         } else {
-            debtor.setNameOfBank(createDebtorInput.getNameOfBank());
+            debtor.setNameOfBank(debtorCreateInput.getNameOfBank());
         }
-        if (createDebtorInput.getUser() == null) {
+        if (debtorCreateInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
         } else {
-            debtor.setUser(createDebtorInput.getUser());
+            debtor.setUser(debtorCreateInput.getUser());
         }
 
         return debtorRepository.save(debtor);
     }
 
     @Override
-    public Debtor update (UpdateDebtorInput updateDebtorInput) {
-        Debtor debtor = getById(updateDebtorInput.getId());
+    public Debtor update (DebtorUpdateInput debtorUpdateInput) {
+        Debtor debtor = getById(debtorUpdateInput.getId());
 
-        if (updateDebtorInput.getAccountHolder() != null
-            && !debtor.getAccountHolder().equals(updateDebtorInput.getAccountHolder())
-            && !updateDebtorInput.getAccountHolder().isBlank()) {
-            debtor.setAccountHolder(updateDebtorInput.getAccountHolder());
+        if (debtorUpdateInput.getAccountHolder() != null
+            && !debtor.getAccountHolder().equals(debtorUpdateInput.getAccountHolder())
+            && !debtorUpdateInput.getAccountHolder().isBlank()) {
+            debtor.setAccountHolder(debtorUpdateInput.getAccountHolder());
         }
-        if (updateDebtorInput.getIsPaid() != null
-            && !debtor.getIsPaid().equals(updateDebtorInput.getIsPaid())) {
-            debtor.setIsPaid(updateDebtorInput.getIsPaid());
+        if (debtorUpdateInput.getIsPaid() != null
+            && !debtor.getIsPaid().equals(debtorUpdateInput.getIsPaid())) {
+            debtor.setIsPaid(debtorUpdateInput.getIsPaid());
         }
-        if (updateDebtorInput.getNameOfBank() != null
-            && !updateDebtorInput.getNameOfBank().isBlank()
-            && !debtor.getNameOfBank().equals(updateDebtorInput.getNameOfBank())) {
-            debtor.setNameOfBank(updateDebtorInput.getNameOfBank());
+        if (debtorUpdateInput.getNameOfBank() != null
+            && !debtorUpdateInput.getNameOfBank().isBlank()
+            && !debtor.getNameOfBank().equals(debtorUpdateInput.getNameOfBank())) {
+            debtor.setNameOfBank(debtorUpdateInput.getNameOfBank());
         }
-        if (updateDebtorInput.getUser() != null
-            && !debtor.getUser().equals(updateDebtorInput.getUser())) {
-            debtor.setUser(updateDebtorInput.getUser());
+        if (debtorUpdateInput.getUser() != null
+            && !debtor.getUser().equals(debtorUpdateInput.getUser())) {
+            debtor.setUser(debtorUpdateInput.getUser());
         }
         return debtorRepository.save(debtor);
     }

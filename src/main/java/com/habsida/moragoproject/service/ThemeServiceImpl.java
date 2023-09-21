@@ -1,17 +1,13 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.model.entity.Category;
-import com.habsida.moragoproject.model.entity.File;
 import com.habsida.moragoproject.model.entity.Theme;
-import com.habsida.moragoproject.model.input.CreateThemeInput;
-import com.habsida.moragoproject.model.input.UpdateThemeInput;
+import com.habsida.moragoproject.model.input.ThemeCreateInput;
+import com.habsida.moragoproject.model.input.ThemeUpdateInput;
 import com.habsida.moragoproject.repository.ThemeRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Service
@@ -40,103 +36,103 @@ public class ThemeServiceImpl implements ThemeService {
     }
 
     @Override
-    public Theme create (CreateThemeInput createThemeInput) {
+    public Theme create (ThemeCreateInput themeCreateInput) {
         Theme theme = new Theme();
 
-        if (createThemeInput.getDescription() == null
-            || createThemeInput.getDescription().isBlank()) {
+        if (themeCreateInput.getDescription() == null
+            || themeCreateInput.getDescription().isBlank()) {
             throw new IllegalArgumentException("field description cannot be null");
         } else {
-            theme.setDescription(createThemeInput.getDescription());
+            theme.setDescription(themeCreateInput.getDescription());
         }
-        if (createThemeInput.getIsActive() == null) {
+        if (themeCreateInput.getIsActive() == null) {
             throw new IllegalArgumentException("field isActive cannot be null");
         } else {
-            theme.setIsActive(createThemeInput.getIsActive());
+            theme.setIsActive(themeCreateInput.getIsActive());
         }
-        if (createThemeInput.getIsPopular() == null) {
+        if (themeCreateInput.getIsPopular() == null) {
             throw new IllegalArgumentException("field isPopular cannot be null");
         } else {
-            theme.setIsPopular(createThemeInput.getIsPopular());
+            theme.setIsPopular(themeCreateInput.getIsPopular());
         }
-        if (createThemeInput.getKoreanTitle() == null
-            || createThemeInput.getKoreanTitle().isBlank()) {
+        if (themeCreateInput.getKoreanTitle() == null
+            || themeCreateInput.getKoreanTitle().isBlank()) {
             throw new IllegalArgumentException("field koreanTitle cannot be null");
         } else {
-            theme.setKoreanTitle(createThemeInput.getKoreanTitle());
+            theme.setKoreanTitle(themeCreateInput.getKoreanTitle());
         }
-        if (createThemeInput.getName() == null
-            || createThemeInput.getName().isBlank()) {
+        if (themeCreateInput.getName() == null
+            || themeCreateInput.getName().isBlank()) {
             throw new IllegalArgumentException("field name cannot be null");
         } else {
-            theme.setName(createThemeInput.getName());
+            theme.setName(themeCreateInput.getName());
         }
-        if (createThemeInput.getNightPrice() == null) {
+        if (themeCreateInput.getNightPrice() == null) {
             throw new IllegalArgumentException("field nightPrice cannot be null");
         } else {
-            theme.setNightPrice(createThemeInput.getNightPrice());
+            theme.setNightPrice(themeCreateInput.getNightPrice());
         }
         if (theme.getPrice() == null) {
             throw new IllegalArgumentException("field price cannot be null");
         } else {
-            theme.setPrice(createThemeInput.getPrice());
+            theme.setPrice(themeCreateInput.getPrice());
         }
         if (theme.getCategory() == null) {
             throw new IllegalArgumentException("field category cannot be null");
         } else {
-            theme.setCategory(createThemeInput.getCategory());
+            theme.setCategory(themeCreateInput.getCategory());
         }
-        if (theme.getFiles() == null) {
+        if (theme.getFile() == null) {
             throw new IllegalArgumentException("field file cannot be null");
         } else {
-            theme.setFiles(createThemeInput.getFiles());
+            theme.setFile(themeCreateInput.getFile());
         }
 
         return themeRepository.save(theme);
     }
 
     @Override
-    public Theme update (UpdateThemeInput updateThemeInput) {
-        Theme theme = getById(updateThemeInput.getId());
+    public Theme update (ThemeUpdateInput themeUpdateInput) {
+        Theme theme = getById(themeUpdateInput.getId());
 
-        if (updateThemeInput.getDescription() != null
-            && !updateThemeInput.getDescription().isBlank()
-            && !theme.getDescription().equals(updateThemeInput.getDescription())) {
-            theme.setDescription(updateThemeInput.getDescription());
+        if (themeUpdateInput.getDescription() != null
+            && !themeUpdateInput.getDescription().isBlank()
+            && !theme.getDescription().equals(themeUpdateInput.getDescription())) {
+            theme.setDescription(themeUpdateInput.getDescription());
         }
-        if (updateThemeInput.getIsActive() != null
-            && !theme.getIsActive().equals(updateThemeInput.getIsActive())) {
-            theme.setIsActive(updateThemeInput.getIsActive());
+        if (themeUpdateInput.getIsActive() != null
+            && !theme.getIsActive().equals(themeUpdateInput.getIsActive())) {
+            theme.setIsActive(themeUpdateInput.getIsActive());
         }
-        if (updateThemeInput.getIsPopular() != null
-            && !theme.getIsPopular().equals(updateThemeInput.getIsPopular())) {
-            theme.setIsPopular(updateThemeInput.getIsPopular());
+        if (themeUpdateInput.getIsPopular() != null
+            && !theme.getIsPopular().equals(themeUpdateInput.getIsPopular())) {
+            theme.setIsPopular(themeUpdateInput.getIsPopular());
         }
-        if (updateThemeInput.getKoreanTitle() != null
-            && !theme.getKoreanTitle().equals(updateThemeInput.getKoreanTitle())
-            && !updateThemeInput.getKoreanTitle().isBlank()) {
-            theme.setKoreanTitle(updateThemeInput.getKoreanTitle());
+        if (themeUpdateInput.getKoreanTitle() != null
+            && !theme.getKoreanTitle().equals(themeUpdateInput.getKoreanTitle())
+            && !themeUpdateInput.getKoreanTitle().isBlank()) {
+            theme.setKoreanTitle(themeUpdateInput.getKoreanTitle());
         }
-        if (updateThemeInput.getName() != null
-            && !theme.getName().equals(updateThemeInput.getName())
-            && !updateThemeInput.getName().isBlank()) {
-            theme.setName(updateThemeInput.getName());
+        if (themeUpdateInput.getName() != null
+            && !theme.getName().equals(themeUpdateInput.getName())
+            && !themeUpdateInput.getName().isBlank()) {
+            theme.setName(themeUpdateInput.getName());
         }
-        if (updateThemeInput.getNightPrice() != null
-            && !theme.getNightPrice().equals(updateThemeInput.getNightPrice())) {
-            theme.setNightPrice(updateThemeInput.getNightPrice());
+        if (themeUpdateInput.getNightPrice() != null
+            && !theme.getNightPrice().equals(themeUpdateInput.getNightPrice())) {
+            theme.setNightPrice(themeUpdateInput.getNightPrice());
         }
-        if (updateThemeInput.getPrice() != null
-            && !theme.getPrice().equals(updateThemeInput.getPrice())) {
-            theme.setPrice(updateThemeInput.getPrice());
+        if (themeUpdateInput.getPrice() != null
+            && !theme.getPrice().equals(themeUpdateInput.getPrice())) {
+            theme.setPrice(themeUpdateInput.getPrice());
         }
-        if (updateThemeInput.getCategory() != null
-            && !theme.getCategory().equals(updateThemeInput.getCategory())) {
-            theme.setCategory(updateThemeInput.getCategory());
+        if (themeUpdateInput.getCategory() != null
+            && !theme.getCategory().equals(themeUpdateInput.getCategory())) {
+            theme.setCategory(themeUpdateInput.getCategory());
         }
-        if (updateThemeInput.getFiles() != null
-            && !theme.getFiles().equals(updateThemeInput.getFiles())) {
-            theme.setFiles(updateThemeInput.getFiles());
+        if (themeUpdateInput.getFile() != null
+            && !theme.getFile().equals(themeUpdateInput.getFile())) {
+            theme.setFile(themeUpdateInput.getFile());
         }
         return themeRepository.save(theme);
     }

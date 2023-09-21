@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateCoinInput;
+import com.habsida.moragoproject.model.input.CoinCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateCoinInput;
+import com.habsida.moragoproject.model.input.CoinUpdateInput;
 import com.habsida.moragoproject.model.entity.Coin;
 import com.habsida.moragoproject.service.CoinService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -42,15 +41,15 @@ public class CoinController {
     }
 
     @MutationMapping(name = "createCoin")
-    public Coin create (@Valid @Argument(name = "coinInput") CreateCoinInput createCoinInput) {
+    public Coin create (@Valid @Argument(name = "coinInput") CoinCreateInput coinCreateInput) {
 
-        return coinService.create(createCoinInput);
+        return coinService.create(coinCreateInput);
     }
 
     @MutationMapping(name = "updateCoin")
-    public Coin update (@Valid @Argument(name = "coinInput") UpdateCoinInput updateCoinInput) {
+    public Coin update (@Valid @Argument(name = "coinInput") CoinUpdateInput coinUpdateInput) {
 
-        return coinService.update(updateCoinInput);
+        return coinService.update(coinUpdateInput);
     }
 
     @MutationMapping(name = "deleteCoinById")

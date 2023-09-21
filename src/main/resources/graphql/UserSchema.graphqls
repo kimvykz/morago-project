@@ -82,7 +82,17 @@ type CurrentUser {
     ratings: Float
     totalRatings: Int
     roles: [Role]
-    userProfile: UserProfile
-    translatorProfile: TranslatorProfile
+    commonProfilePayload: CommonProfilePayload
     whoAmI: String
+}
+
+type CommonProfilePayload {
+    dateOfBirth: String
+    email: String
+    isAvailable: Boolean
+    isOnline: Boolean
+    levelOfKorean: String
+    languages: [Language]
+    themes: [Theme]
+    isFreeCallMade: Boolean
 }

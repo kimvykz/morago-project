@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateRoleInput;
+import com.habsida.moragoproject.model.input.RoleCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateRoleInput;
+import com.habsida.moragoproject.model.input.RoleUpdateInput;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.service.RoleService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,13 +40,13 @@ public class RoleController {
     }
 
     @MutationMapping(name = "createRole")
-    public Role create (@Valid @Argument(name = "roleInput") CreateRoleInput createRoleInput) {
-        return roleService.create(createRoleInput);
+    public Role create (@Valid @Argument(name = "roleInput") RoleCreateInput roleCreateInput) {
+        return roleService.create(roleCreateInput);
     }
 
     @MutationMapping(name = "updateRole")
-    public Role update (@Valid @Argument(name = "roleInput") UpdateRoleInput updateRoleInput) {
-        return roleService.update(updateRoleInput);
+    public Role update (@Valid @Argument(name = "roleInput") RoleUpdateInput roleUpdateInput) {
+        return roleService.update(roleUpdateInput);
     }
 
     @MutationMapping(name = "deleteRoleById")

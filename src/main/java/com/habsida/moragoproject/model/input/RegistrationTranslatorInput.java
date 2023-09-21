@@ -16,6 +16,10 @@ public class RegistrationTranslatorInput {
     private String phone;
     @NotBlank(message = "Password cannot be blank")
     private String password;
+    @NotBlank(message = "FirstName cannot be blank")
+    private String firstName;
+    @NotBlank(message = "LastName cannot be blank")
+    private String lastName;
     @NotNull(message = "Translator profile cannot be null for Translator")
     private TranslatorProfile translatorProfile;
 

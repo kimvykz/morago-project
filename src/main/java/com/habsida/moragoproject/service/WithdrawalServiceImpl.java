@@ -1,20 +1,13 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.entity.Withdrawal;
-import com.habsida.moragoproject.model.enums.EStatus;
-import com.habsida.moragoproject.model.input.CreateWithdrawalInput;
-import com.habsida.moragoproject.model.input.UpdateWithdrawalInput;
+import com.habsida.moragoproject.model.input.WithdrawalCreateInput;
+import com.habsida.moragoproject.model.input.WithdrawalUpdateInput;
 import com.habsida.moragoproject.repository.WithdrawalRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Service
@@ -43,76 +36,76 @@ public class WithdrawalServiceImpl implements WithdrawalService{
     }
 
     @Override
-    public Withdrawal create (CreateWithdrawalInput createWithdrawalInput) {
+    public Withdrawal create (WithdrawalCreateInput withdrawalCreateInput) {
         Withdrawal withdrawal = new Withdrawal();
 
-        if (createWithdrawalInput.getAccountHolder() == null
-            || createWithdrawalInput.getAccountHolder().isBlank()) {
+        if (withdrawalCreateInput.getAccountHolder() == null
+            || withdrawalCreateInput.getAccountHolder().isBlank()) {
             throw new IllegalArgumentException("field accountHolder cannot be null");
         } else {
-            withdrawal.setAccountHolder(createWithdrawalInput.getAccountHolder());
+            withdrawal.setAccountHolder(withdrawalCreateInput.getAccountHolder());
         }
-        if (createWithdrawalInput.getAccountNumber() == null
-            || createWithdrawalInput.getAccountHolder().isBlank()) {
+        if (withdrawalCreateInput.getAccountNumber() == null
+            || withdrawalCreateInput.getAccountHolder().isBlank()) {
             throw new IllegalArgumentException("field accountNumber cannot be null");
         } else {
-            withdrawal.setAccountNumber(createWithdrawalInput.getAccountNumber());
+            withdrawal.setAccountNumber(withdrawalCreateInput.getAccountNumber());
         }
-        if (createWithdrawalInput.getNameOfBank() == null
-            || createWithdrawalInput.getNameOfBank().isBlank()) {
+        if (withdrawalCreateInput.getNameOfBank() == null
+            || withdrawalCreateInput.getNameOfBank().isBlank()) {
             throw new IllegalArgumentException("field nameOfBank cannot be null");
         } else {
-            withdrawal.setNameOfBank(createWithdrawalInput.getNameOfBank());
+            withdrawal.setNameOfBank(withdrawalCreateInput.getNameOfBank());
         }
-        if (createWithdrawalInput.getStatus() == null) {
+        if (withdrawalCreateInput.getStatus() == null) {
             throw new IllegalArgumentException("field status cannot be null");
         } else {
-            withdrawal.setStatus(createWithdrawalInput.getStatus());
+            withdrawal.setStatus(withdrawalCreateInput.getStatus());
         }
-        if (createWithdrawalInput.getSum() == null) {
+        if (withdrawalCreateInput.getSum() == null) {
             throw new IllegalArgumentException("field sum cannot be null");
         } else {
-            withdrawal.setSum(createWithdrawalInput.getSum());
+            withdrawal.setSum(withdrawalCreateInput.getSum());
         }
-        if (createWithdrawalInput.getUser() == null) {
+        if (withdrawalCreateInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
         } else {
-            withdrawal.setUser(createWithdrawalInput.getUser());
+            withdrawal.setUser(withdrawalCreateInput.getUser());
         }
 
         return withdrawalRepository.save(withdrawal);
     }
 
     @Override
-    public Withdrawal update(UpdateWithdrawalInput updateWithdrawalInput) {
-        Withdrawal withdrawal = getById(updateWithdrawalInput.getId());
+    public Withdrawal update(WithdrawalUpdateInput withdrawalUpdateInput) {
+        Withdrawal withdrawal = getById(withdrawalUpdateInput.getId());
 
-        if (updateWithdrawalInput.getAccountHolder() != null
-            && !withdrawal.getAccountHolder().equals(updateWithdrawalInput.getAccountHolder())
-            && !updateWithdrawalInput.getAccountHolder().isBlank()) {
-            withdrawal.setAccountHolder(updateWithdrawalInput.getAccountHolder());
+        if (withdrawalUpdateInput.getAccountHolder() != null
+            && !withdrawal.getAccountHolder().equals(withdrawalUpdateInput.getAccountHolder())
+            && !withdrawalUpdateInput.getAccountHolder().isBlank()) {
+            withdrawal.setAccountHolder(withdrawalUpdateInput.getAccountHolder());
         }
-        if (updateWithdrawalInput.getAccountNumber() != null
-            && !updateWithdrawalInput.getAccountNumber().isBlank()
-            && !withdrawal.getAccountNumber().equals(updateWithdrawalInput.getAccountNumber())) {
-            withdrawal.setAccountNumber(updateWithdrawalInput.getAccountNumber());
+        if (withdrawalUpdateInput.getAccountNumber() != null
+            && !withdrawalUpdateInput.getAccountNumber().isBlank()
+            && !withdrawal.getAccountNumber().equals(withdrawalUpdateInput.getAccountNumber())) {
+            withdrawal.setAccountNumber(withdrawalUpdateInput.getAccountNumber());
         }
-        if (updateWithdrawalInput.getNameOfBank() != null
-            && !updateWithdrawalInput.getNameOfBank().isBlank()
-            && !withdrawal.getNameOfBank().equals(updateWithdrawalInput.getNameOfBank())) {
-            withdrawal.setNameOfBank(updateWithdrawalInput.getNameOfBank());
+        if (withdrawalUpdateInput.getNameOfBank() != null
+            && !withdrawalUpdateInput.getNameOfBank().isBlank()
+            && !withdrawal.getNameOfBank().equals(withdrawalUpdateInput.getNameOfBank())) {
+            withdrawal.setNameOfBank(withdrawalUpdateInput.getNameOfBank());
         }
-        if (updateWithdrawalInput.getStatus() != null
-            && !withdrawal.getStatus().equals(updateWithdrawalInput.getStatus())) {
-            withdrawal.setStatus(updateWithdrawalInput.getStatus());
+        if (withdrawalUpdateInput.getStatus() != null
+            && !withdrawal.getStatus().equals(withdrawalUpdateInput.getStatus())) {
+            withdrawal.setStatus(withdrawalUpdateInput.getStatus());
         }
-        if (updateWithdrawalInput.getSum() != null
-            && !withdrawal.getSum().equals(updateWithdrawalInput.getSum())) {
-            withdrawal.setSum(updateWithdrawalInput.getSum());
+        if (withdrawalUpdateInput.getSum() != null
+            && !withdrawal.getSum().equals(withdrawalUpdateInput.getSum())) {
+            withdrawal.setSum(withdrawalUpdateInput.getSum());
         }
-        if (updateWithdrawalInput.getUser() != null
-            && !withdrawal.getUser().equals(updateWithdrawalInput.getUser())) {
-            withdrawal.setUser(updateWithdrawalInput.getUser());
+        if (withdrawalUpdateInput.getUser() != null
+            && !withdrawal.getUser().equals(withdrawalUpdateInput.getUser())) {
+            withdrawal.setUser(withdrawalUpdateInput.getUser());
         }
 
         return withdrawalRepository.save(withdrawal);

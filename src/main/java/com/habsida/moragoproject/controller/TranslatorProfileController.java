@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateTranslatorProfileInput;
+import com.habsida.moragoproject.model.input.TranslatorProfileCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateTranslatorProfileInput;
+import com.habsida.moragoproject.model.input.TranslatorProfileUpdateInput;
 import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import com.habsida.moragoproject.service.TranslatorProfileService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,14 +40,14 @@ public class TranslatorProfileController {
     }
 
     @MutationMapping(name = "createTranslatorProfile")
-    public TranslatorProfile create (@Valid @Argument(name = "translatorProfileInput") CreateTranslatorProfileInput createTranslatorProfileInput) {
-        return translatorProfileService.create(createTranslatorProfileInput);
+    public TranslatorProfile create (@Valid @Argument(name = "translatorProfileInput") TranslatorProfileCreateInput translatorProfileCreateInput) {
+        return translatorProfileService.create(translatorProfileCreateInput);
     }
 
     @MutationMapping(name = "updateTranslatorProfile")
     public TranslatorProfile update (@Valid
-        @Argument(name = "translatorProfileInput") UpdateTranslatorProfileInput updateTranslatorProfileInput) {
-        return translatorProfileService.update(updateTranslatorProfileInput);
+        @Argument(name = "translatorProfileInput") TranslatorProfileUpdateInput translatorProfileUpdateInput) {
+        return translatorProfileService.update(translatorProfileUpdateInput);
     }
 
     @MutationMapping(name = "deleteTranslatorProfileById")

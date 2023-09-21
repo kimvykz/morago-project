@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateRatingInput;
+import com.habsida.moragoproject.model.input.RatingCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateRatingInput;
+import com.habsida.moragoproject.model.input.RatingUpdateInput;
 import com.habsida.moragoproject.model.entity.Rating;
 import com.habsida.moragoproject.service.RatingService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,13 +40,13 @@ public class RatingController {
     }
 
     @MutationMapping(name = "createRating")
-    public Rating create (@Valid @Argument(name = "ratingInput") CreateRatingInput createRatingInput) {
-        return ratingService.create(createRatingInput);
+    public Rating create (@Valid @Argument(name = "ratingInput") RatingCreateInput ratingCreateInput) {
+        return ratingService.create(ratingCreateInput);
     }
 
     @MutationMapping(name = "updateRating")
-    public Rating update (@Valid @Argument(name = "ratingInput") UpdateRatingInput updateRatingInput) {
-        return ratingService.update(updateRatingInput);
+    public Rating update (@Valid @Argument(name = "ratingInput") RatingUpdateInput ratingUpdateInput) {
+        return ratingService.update(ratingUpdateInput);
     }
 
     @MutationMapping(name = "deleteRatingById")

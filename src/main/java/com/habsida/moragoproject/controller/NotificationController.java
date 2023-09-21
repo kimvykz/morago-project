@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateNotificationInput;
+import com.habsida.moragoproject.model.input.NotificationCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateNotificationInput;
+import com.habsida.moragoproject.model.input.NotificationUpdateInput;
 import com.habsida.moragoproject.model.entity.Notification;
 import com.habsida.moragoproject.service.NotificationService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,13 +40,13 @@ public class NotificationController {
     }
 
     @MutationMapping(name = "createNotification")
-    public Notification create (@Valid @Argument(name = "notificationInput") CreateNotificationInput createNotificationInput) {
-        return notificationService.create(createNotificationInput);
+    public Notification create (@Valid @Argument(name = "notificationInput") NotificationCreateInput notificationCreateInput) {
+        return notificationService.create(notificationCreateInput);
     }
 
     @MutationMapping(name = "updateNotification")
-    public Notification update (@Valid @Argument(name = "notificationInput") UpdateNotificationInput updateNotificationInput) {
-        return notificationService.update(updateNotificationInput);
+    public Notification update (@Valid @Argument(name = "notificationInput") NotificationUpdateInput notificationUpdateInput) {
+        return notificationService.update(notificationUpdateInput);
     }
 
     @MutationMapping(name = "deleteNotificationById")

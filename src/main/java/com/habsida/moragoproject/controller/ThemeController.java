@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateThemeInput;
+import com.habsida.moragoproject.model.input.ThemeCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateThemeInput;
+import com.habsida.moragoproject.model.input.ThemeUpdateInput;
 import com.habsida.moragoproject.model.entity.Theme;
 import com.habsida.moragoproject.service.ThemeService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -41,13 +40,13 @@ public class ThemeController {
     }
 
     @MutationMapping(name = "createTheme")
-    public Theme create (@Valid @Argument(name = "themeInput") CreateThemeInput createThemeInput) {
-        return themeService.create(createThemeInput);
+    public Theme create (@Valid @Argument(name = "themeInput") ThemeCreateInput themeCreateInput) {
+        return themeService.create(themeCreateInput);
     }
 
     @MutationMapping(name = "updateTheme")
-    public Theme update (@Valid @Argument(name = "themeInput") UpdateThemeInput updateThemeInput) {
-        return themeService.update(updateThemeInput);
+    public Theme update (@Valid @Argument(name = "themeInput") ThemeUpdateInput themeUpdateInput) {
+        return themeService.update(themeUpdateInput);
     }
 
     @MutationMapping(name = "deleteThemeById")

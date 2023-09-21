@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
@@ -31,11 +34,13 @@ public class JwtGenerator {
     }
 
     public String generateTokenFromUsername (String username) {
+        Date expireDate = new Date();
+        Duration duration = Duration.ofDays(jwtExpirationDays);
+        expireDate.setTime(expireDate.getTime() + duration.toMillis());
 
         User user = userRepository.findByPhone(username)
                 .orElseThrow(() -> new IllegalArgumentException("User is not found"));
 
-        Date expireDate = Date.from(ZonedDateTime.now().plusDays(jwtExpirationDays).toInstant());// currentDate.getTime() + AppConfig.JWT_EXPIRATION_MS);
         String token = Jwts
                 .builder()
                 .setSubject(username)

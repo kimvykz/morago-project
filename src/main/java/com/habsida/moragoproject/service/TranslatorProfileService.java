@@ -1,8 +1,8 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.TranslatorProfile;
-import com.habsida.moragoproject.model.input.CreateTranslatorProfileInput;
-import com.habsida.moragoproject.model.input.UpdateTranslatorProfileInput;
+import com.habsida.moragoproject.model.input.TranslatorProfileCreateInput;
+import com.habsida.moragoproject.model.input.TranslatorProfileUpdateInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -12,7 +12,7 @@ public interface TranslatorProfileService {
     List<TranslatorProfile> getAll ();
     Page<TranslatorProfile> getAllByPaging (PageRequest pageRequest);
     TranslatorProfile getById (Long id);
-    TranslatorProfile create (CreateTranslatorProfileInput createTranslatorProfileInput);
-    TranslatorProfile update (UpdateTranslatorProfileInput updateTranslatorProfileInput);
+    TranslatorProfile create (TranslatorProfileCreateInput translatorProfileCreateInput);
+    TranslatorProfile update (TranslatorProfileUpdateInput translatorProfileUpdateInput);
     Boolean deleteById (Long id);
 }

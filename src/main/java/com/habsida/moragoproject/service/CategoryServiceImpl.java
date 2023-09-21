@@ -1,10 +1,9 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Category;
-import com.habsida.moragoproject.model.input.CreateCategoryInput;
-import com.habsida.moragoproject.model.input.UpdateCategoryInput;
+import com.habsida.moragoproject.model.input.CategoryCreateInput;
+import com.habsida.moragoproject.model.input.CategoryUpdateInput;
 import com.habsida.moragoproject.repository.CategoryRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -38,35 +37,35 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Category create(CreateCategoryInput createCategoryInput) {
+    public Category create(CategoryCreateInput categoryCreateInput) {
         Category category = new Category();
 
-        if (createCategoryInput.getIsActive() == null) {
+        if (categoryCreateInput.getIsActive() == null) {
             throw new IllegalArgumentException("field isActive cannot be null");
         } else {
-            category.setIsActive(createCategoryInput.getIsActive());
+            category.setIsActive(categoryCreateInput.getIsActive());
         }
-        if (createCategoryInput.getName() == null
-            || createCategoryInput.getName().isBlank()) {
+        if (categoryCreateInput.getName() == null
+            || categoryCreateInput.getName().isBlank()) {
             throw new IllegalArgumentException("field name cannot be null");
         } else {
-            category.setName(createCategoryInput.getName());
+            category.setName(categoryCreateInput.getName());
         }
         return categoryRepository.save(category);
     }
 
     @Override
-    public Category update(UpdateCategoryInput updateCategoryInput) {
-        Category category = getById(updateCategoryInput.getId());
+    public Category update(CategoryUpdateInput categoryUpdateInput) {
+        Category category = getById(categoryUpdateInput.getId());
 
-        if (updateCategoryInput.getIsActive() != null
-            && !category.getIsActive().equals(updateCategoryInput.getIsActive())) {
-            category.setIsActive(updateCategoryInput.getIsActive());
+        if (categoryUpdateInput.getIsActive() != null
+            && !category.getIsActive().equals(categoryUpdateInput.getIsActive())) {
+            category.setIsActive(categoryUpdateInput.getIsActive());
         }
-        if (updateCategoryInput.getName() != null
-            && !category.getName().equals(updateCategoryInput.getName())
-            && !updateCategoryInput.getName().isBlank()) {
-            category.setName(updateCategoryInput.getName());
+        if (categoryUpdateInput.getName() != null
+            && !category.getName().equals(categoryUpdateInput.getName())
+            && !categoryUpdateInput.getName().isBlank()) {
+            category.setName(categoryUpdateInput.getName());
         }
         return categoryRepository.save(category);
     }

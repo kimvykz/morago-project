@@ -64,11 +64,12 @@ type Query {
     getUsers: [User]
     getUsersByPaging(paginationInput: PaginationInput): [User]
     getUserById(id: Int): User
+    getCurrentUser: CurrentUser
 
     getUserProfiles: [UserProfile]
     getUserProfilesByPaging(paginationInput: PaginationInput): [UserProfile]
     getUserProfileById(id: Int): UserProfile
-    getCurrentUserByJwtToken(jwtToken: String): CurrentUser
+
 
     getUserWithdrawals: [Withdrawal]
     getUserWithdrawalsByPaging(paginationInput: PaginationInput): [Withdrawal]
@@ -159,6 +160,5 @@ type Mutation {
     registrationUser(registrationUserInput : RegistrationUserCreateInput) : RegistrationPayload
     registrationTranslator(registrationTranslatorInput : RegistrationTranslatorCreateInput) : RegistrationPayload
     registrationAdmin(registrationAdminInput : RegistrationAdminCreateInput) : RegistrationPayload
-
 
 }

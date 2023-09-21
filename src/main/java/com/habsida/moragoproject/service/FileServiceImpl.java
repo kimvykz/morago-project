@@ -1,20 +1,13 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.File;
-import com.habsida.moragoproject.model.entity.Theme;
-import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.input.CreateFileInput;
-import com.habsida.moragoproject.model.input.UpdateFileInput;
+import com.habsida.moragoproject.model.input.FileCreateInput;
+import com.habsida.moragoproject.model.input.FileUpdateInput;
 import com.habsida.moragoproject.repository.FileRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Service
@@ -44,67 +37,58 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public File create (CreateFileInput createFileInput) {
+    public File create (FileCreateInput fileCreateInput) {
         File file = new File();
 
-        if (createFileInput.getOriginalTitle() == null
-            || createFileInput.getOriginalTitle().isBlank()) {
+        if (fileCreateInput.getOriginalTitle() == null
+            || fileCreateInput.getOriginalTitle().isBlank()) {
             throw new IllegalArgumentException("field originalTitle cannot be null");
         } else {
-            file.setOriginalTitle(createFileInput.getOriginalTitle());
+            file.setOriginalTitle(fileCreateInput.getOriginalTitle());
         }
-        if (createFileInput.getPath() == null
-            || createFileInput.getPath().isBlank()) {
+        if (fileCreateInput.getPath() == null
+            || fileCreateInput.getPath().isBlank()) {
             throw new IllegalArgumentException("field path cannot be null");
         } else {
-            file.setPath(createFileInput.getPath());
+            file.setPath(fileCreateInput.getPath());
         }
-        if (createFileInput.getType() == null
-            || createFileInput.getType().isBlank()) {
+        if (fileCreateInput.getType() == null
+            || fileCreateInput.getType().isBlank()) {
             throw new IllegalArgumentException("field type cannot be null");
         } else {
-            file.setType(createFileInput.getType());
+            file.setType(fileCreateInput.getType());
         }
-        if (createFileInput.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
-        } else {
-            file.setUser(createFileInput.getUser());
-        }
-        if (createFileInput.getTheme() == null) {
+        if (fileCreateInput.getTheme() == null) {
             throw new IllegalArgumentException("field theme cannot be null");
         } else {
-            file.setTheme(createFileInput.getTheme());
+            file.setTheme(fileCreateInput.getTheme());
         }
 
         return fileRepository.save(file);
     }
 
     @Override
-    public File update (UpdateFileInput updateFileInput) {
-        File file = getById(updateFileInput.getId());
+    public File update (FileUpdateInput fileUpdateInput) {
+        File file = getById(fileUpdateInput.getId());
 
-        if (updateFileInput.getOriginalTitle() != null
-            && !updateFileInput.getOriginalTitle().isBlank()
-            && !file.getOriginalTitle().equals(updateFileInput.getOriginalTitle())) {
-            file.setOriginalTitle(updateFileInput.getOriginalTitle());
+        if (fileUpdateInput.getOriginalTitle() != null
+            && !fileUpdateInput.getOriginalTitle().isBlank()
+            && !file.getOriginalTitle().equals(fileUpdateInput.getOriginalTitle())) {
+            file.setOriginalTitle(fileUpdateInput.getOriginalTitle());
         }
-        if (updateFileInput.getPath() != null
-            && !file.getPath().equals(updateFileInput.getPath())
-            && !updateFileInput.getPath().isBlank()) {
-            file.setPath(updateFileInput.getPath());
+        if (fileUpdateInput.getPath() != null
+            && !file.getPath().equals(fileUpdateInput.getPath())
+            && !fileUpdateInput.getPath().isBlank()) {
+            file.setPath(fileUpdateInput.getPath());
         }
-        if (updateFileInput.getType() != null
-            && !updateFileInput.getType().isBlank()
-            && !file.getType().equals(updateFileInput.getType())) {
-            file.setType(updateFileInput.getType());
+        if (fileUpdateInput.getType() != null
+            && !fileUpdateInput.getType().isBlank()
+            && !file.getType().equals(fileUpdateInput.getType())) {
+            file.setType(fileUpdateInput.getType());
         }
-        if (updateFileInput.getUser() != null
-            && !file.getUser().equals(updateFileInput.getUser())) {
-            file.setUser(updateFileInput.getUser());
-        }
-        if (updateFileInput.getTheme() != null
-            && !file.getTheme().equals(updateFileInput.getTheme())) {
-            file.setTheme(updateFileInput.getTheme());
+        if (fileUpdateInput.getTheme() != null
+            && !file.getTheme().equals(fileUpdateInput.getTheme())) {
+            file.setTheme(fileUpdateInput.getTheme());
         }
 
         return fileRepository.save(file);

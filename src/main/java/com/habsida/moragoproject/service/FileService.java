@@ -1,8 +1,8 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.File;
-import com.habsida.moragoproject.model.input.CreateFileInput;
-import com.habsida.moragoproject.model.input.UpdateFileInput;
+import com.habsida.moragoproject.model.input.FileCreateInput;
+import com.habsida.moragoproject.model.input.FileUpdateInput;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -12,7 +12,7 @@ public interface FileService {
     List<File> getAll ();
     Page<File> getAllByPaging (PageRequest pageRequest);
     File getById (Long id);
-    File create (CreateFileInput createFileInput);
-    File update (UpdateFileInput updateFileInput);
+    File create (FileCreateInput fileCreateInput);
+    File update (FileUpdateInput fileUpdateInput);
     Boolean deleteById (Long id);
 }

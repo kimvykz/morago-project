@@ -1,11 +1,9 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.FrequentlyAskedQuestion;
-import com.habsida.moragoproject.model.enums.EFAQCategory;
-import com.habsida.moragoproject.model.input.CreateFrequentlyAskedQuestionInput;
-import com.habsida.moragoproject.model.input.UpdateFrequentlyAskedQuestionInput;
+import com.habsida.moragoproject.model.input.FrequentlyAskedQuestionCreateInput;
+import com.habsida.moragoproject.model.input.FrequentlyAskedQuestionUpdateInput;
 import com.habsida.moragoproject.repository.FrequentlyAskedQuestionRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -38,49 +36,49 @@ public class FrequentlyAskedQuestionServiceImpl implements FrequentlyAskedQuesti
     }
 
     @Override
-    public FrequentlyAskedQuestion create (CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
+    public FrequentlyAskedQuestion create (FrequentlyAskedQuestionCreateInput frequentlyAskedQuestionCreateInput) {
         FrequentlyAskedQuestion frequentlyAskedQuestion =
                 new FrequentlyAskedQuestion();
 
-        if (createFrequentlyAskedQuestionInput.getAnswer() == null
-            || createFrequentlyAskedQuestionInput.getAnswer().isBlank()) {
+        if (frequentlyAskedQuestionCreateInput.getAnswer() == null
+            || frequentlyAskedQuestionCreateInput.getAnswer().isBlank()) {
             throw new IllegalArgumentException("field answer cannot be null");
         } else {
-            frequentlyAskedQuestion.setAnswer(createFrequentlyAskedQuestionInput.getAnswer());
+            frequentlyAskedQuestion.setAnswer(frequentlyAskedQuestionCreateInput.getAnswer());
         }
-        if (createFrequentlyAskedQuestionInput.getCategory() == null) {
+        if (frequentlyAskedQuestionCreateInput.getCategory() == null) {
             throw new IllegalArgumentException("field category cannot be null");
         } else {
-            frequentlyAskedQuestion.setCategory(createFrequentlyAskedQuestionInput.getCategory());
+            frequentlyAskedQuestion.setCategory(frequentlyAskedQuestionCreateInput.getCategory());
         }
-        if (createFrequentlyAskedQuestionInput.getQuestion() == null
-            || createFrequentlyAskedQuestionInput.getQuestion().isBlank()) {
+        if (frequentlyAskedQuestionCreateInput.getQuestion() == null
+            || frequentlyAskedQuestionCreateInput.getQuestion().isBlank()) {
             throw new IllegalArgumentException("field question cannot be null");
         } else {
-            frequentlyAskedQuestion.setQuestion(createFrequentlyAskedQuestionInput.getQuestion());
+            frequentlyAskedQuestion.setQuestion(frequentlyAskedQuestionCreateInput.getQuestion());
         }
 
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);
     }
 
     @Override
-    public FrequentlyAskedQuestion update (UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput) {
+    public FrequentlyAskedQuestion update (FrequentlyAskedQuestionUpdateInput frequentlyAskedQuestionUpdateInput) {
         FrequentlyAskedQuestion frequentlyAskedQuestion =
-                getById(updateFrequentlyAskedQuestionInput.getId());
+                getById(frequentlyAskedQuestionUpdateInput.getId());
 
-        if (updateFrequentlyAskedQuestionInput.getAnswer() != null
-            && !updateFrequentlyAskedQuestionInput.getQuestion().isBlank()
-            && !frequentlyAskedQuestion.getQuestion().equals(updateFrequentlyAskedQuestionInput.getQuestion())) {
-            frequentlyAskedQuestion.setQuestion(updateFrequentlyAskedQuestionInput.getQuestion());
+        if (frequentlyAskedQuestionUpdateInput.getAnswer() != null
+            && !frequentlyAskedQuestionUpdateInput.getQuestion().isBlank()
+            && !frequentlyAskedQuestion.getQuestion().equals(frequentlyAskedQuestionUpdateInput.getQuestion())) {
+            frequentlyAskedQuestion.setQuestion(frequentlyAskedQuestionUpdateInput.getQuestion());
         }
-        if (updateFrequentlyAskedQuestionInput.getCategory() != null
-            && !frequentlyAskedQuestion.getCategory().equals(updateFrequentlyAskedQuestionInput.getCategory())) {
-            frequentlyAskedQuestion.setCategory(updateFrequentlyAskedQuestionInput.getCategory());
+        if (frequentlyAskedQuestionUpdateInput.getCategory() != null
+            && !frequentlyAskedQuestion.getCategory().equals(frequentlyAskedQuestionUpdateInput.getCategory())) {
+            frequentlyAskedQuestion.setCategory(frequentlyAskedQuestionUpdateInput.getCategory());
         }
-        if (updateFrequentlyAskedQuestionInput.getQuestion() != null
-            && !frequentlyAskedQuestion.getQuestion().equals(updateFrequentlyAskedQuestionInput.getQuestion())
-            && !updateFrequentlyAskedQuestionInput.getQuestion().isBlank()) {
-            frequentlyAskedQuestion.setQuestion(updateFrequentlyAskedQuestionInput.getQuestion());
+        if (frequentlyAskedQuestionUpdateInput.getQuestion() != null
+            && !frequentlyAskedQuestion.getQuestion().equals(frequentlyAskedQuestionUpdateInput.getQuestion())
+            && !frequentlyAskedQuestionUpdateInput.getQuestion().isBlank()) {
+            frequentlyAskedQuestion.setQuestion(frequentlyAskedQuestionUpdateInput.getQuestion());
         }
 
         return frequentlyAskedQuestionRepository.save(frequentlyAskedQuestion);

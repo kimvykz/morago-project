@@ -1,10 +1,9 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Language;
-import com.habsida.moragoproject.model.input.CreateLanguageInput;
-import com.habsida.moragoproject.model.input.UpdateLanguageInput;
+import com.habsida.moragoproject.model.input.LanguageCreateInput;
+import com.habsida.moragoproject.model.input.LanguageUpdateInput;
 import com.habsida.moragoproject.repository.LanguageRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -37,25 +36,25 @@ public class LanguageServiceImpl implements LanguageService{
     }
 
     @Override
-    public Language create (CreateLanguageInput createLanguageInput) {
+    public Language create (LanguageCreateInput languageCreateInput) {
         Language language = new Language();
-        if (createLanguageInput.getName() == null
-            || createLanguageInput.getName().isBlank()) {
+        if (languageCreateInput.getName() == null
+            || languageCreateInput.getName().isBlank()) {
             throw new IllegalArgumentException("field name cannot be null");
         } else {
-            language.setName(createLanguageInput.getName());
+            language.setName(languageCreateInput.getName());
         }
         return languageRepository.save(language);
     }
 
     @Override
-    public Language update (UpdateLanguageInput updateLanguageInput) {
-        Language language = getById(updateLanguageInput.getId());
+    public Language update (LanguageUpdateInput languageUpdateInput) {
+        Language language = getById(languageUpdateInput.getId());
 
-        if (updateLanguageInput.getName() != null
-            && !updateLanguageInput.getName().isBlank()
-            && !language.getName().equals(updateLanguageInput.getName())) {
-            language.setName(updateLanguageInput.getName());
+        if (languageUpdateInput.getName() != null
+            && !languageUpdateInput.getName().isBlank()
+            && !language.getName().equals(languageUpdateInput.getName())) {
+            language.setName(languageUpdateInput.getName());
         }
         return languageRepository.save(language);
     }

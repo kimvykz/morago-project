@@ -1,18 +1,13 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.model.entity.Language;
-import com.habsida.moragoproject.model.entity.Theme;
 import com.habsida.moragoproject.model.entity.TranslatorProfile;
-import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.input.CreateTranslatorProfileInput;
-import com.habsida.moragoproject.model.input.UpdateTranslatorProfileInput;
+import com.habsida.moragoproject.model.input.TranslatorProfileCreateInput;
+import com.habsida.moragoproject.model.input.TranslatorProfileUpdateInput;
 import com.habsida.moragoproject.repository.TranslatorProfileRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Service
@@ -41,92 +36,92 @@ public class TranslatorProfileServiceImpl implements TranslatorProfileService{
     }
 
     @Override
-    public TranslatorProfile create (CreateTranslatorProfileInput createTranslatorProfileInput) {
+    public TranslatorProfile create (TranslatorProfileCreateInput translatorProfileCreateInput) {
         TranslatorProfile translatorProfile = new TranslatorProfile();
 
-        if (createTranslatorProfileInput.getDateOfBirth() == null) {
+        if (translatorProfileCreateInput.getDateOfBirth() == null) {
             throw new IllegalArgumentException("field dateOfBirth cannot be null");
         } else {
-            translatorProfile.setDateOfBirth(createTranslatorProfileInput.getDateOfBirth());
+            translatorProfile.setDateOfBirth(translatorProfileCreateInput.getDateOfBirth());
         }
-        if (createTranslatorProfileInput.getEmail() == null
-            && createTranslatorProfileInput.getEmail().isBlank()) {
+        if (translatorProfileCreateInput.getEmail() == null
+            && translatorProfileCreateInput.getEmail().isBlank()) {
             throw new IllegalArgumentException("field email cannot be null");
         } else {
-            translatorProfile.setEmail(createTranslatorProfileInput.getEmail());
+            translatorProfile.setEmail(translatorProfileCreateInput.getEmail());
         }
-        if (createTranslatorProfileInput.getIsAvailable() == null) {
+        if (translatorProfileCreateInput.getIsAvailable() == null) {
             throw new IllegalArgumentException("field isAvailable cannot be null");
         } else {
-            translatorProfile.setIsAvailable(createTranslatorProfileInput.getIsAvailable());
+            translatorProfile.setIsAvailable(translatorProfileCreateInput.getIsAvailable());
         }
-        if (createTranslatorProfileInput.getIsOnline() == null) {
+        if (translatorProfileCreateInput.getIsOnline() == null) {
             throw new IllegalArgumentException("field isOnline cannot be null");
         } else {
-            translatorProfile.setIsOnline(createTranslatorProfileInput.getIsOnline());
+            translatorProfile.setIsOnline(translatorProfileCreateInput.getIsOnline());
         }
-        if (createTranslatorProfileInput.getLevelOfKorean() == null
-            && createTranslatorProfileInput.getLevelOfKorean().isBlank()) {
+        if (translatorProfileCreateInput.getLevelOfKorean() == null
+            && translatorProfileCreateInput.getLevelOfKorean().isBlank()) {
             throw new IllegalArgumentException("field levelOfKorean cannot be null");
         } else {
-            translatorProfile.setLevelOfKorean(createTranslatorProfileInput.getLevelOfKorean());
+            translatorProfile.setLevelOfKorean(translatorProfileCreateInput.getLevelOfKorean());
         }
 //        if (createTranslatorProfileInput.getUser() == null) {
 //            throw new IllegalArgumentException("field user cannot be null");
 //        } else {
 //            translatorProfile.setUser(createTranslatorProfileInput.getUser());
 //        }
-        if (createTranslatorProfileInput.getLanguages() == null) {
+        if (translatorProfileCreateInput.getLanguages() == null) {
             throw new IllegalArgumentException("field languages cannot be null");
         } else {
-            translatorProfile.setLanguages(createTranslatorProfileInput.getLanguages());
+            translatorProfile.setLanguages(translatorProfileCreateInput.getLanguages());
         }
-        if (createTranslatorProfileInput.getThemes() == null) {
+        if (translatorProfileCreateInput.getThemes() == null) {
             throw new IllegalArgumentException("field themes cannot be null");
         } else {
-            translatorProfile.setThemes(createTranslatorProfileInput.getThemes());
+            translatorProfile.setThemes(translatorProfileCreateInput.getThemes());
         }
 
         return translatorProfileRepository.save(translatorProfile);
     }
 
     @Override
-    public TranslatorProfile update (UpdateTranslatorProfileInput updateTranslatorProfileInput) {
-        TranslatorProfile translatorProfile = getById(updateTranslatorProfileInput.getId());
+    public TranslatorProfile update (TranslatorProfileUpdateInput translatorProfileUpdateInput) {
+        TranslatorProfile translatorProfile = getById(translatorProfileUpdateInput.getId());
 
-        if (updateTranslatorProfileInput.getDateOfBirth() != null
-            && !translatorProfile.getDateOfBirth().equals(updateTranslatorProfileInput.getDateOfBirth())) {
-            translatorProfile.setDateOfBirth(updateTranslatorProfileInput.getDateOfBirth());
+        if (translatorProfileUpdateInput.getDateOfBirth() != null
+            && !translatorProfile.getDateOfBirth().equals(translatorProfileUpdateInput.getDateOfBirth())) {
+            translatorProfile.setDateOfBirth(translatorProfileUpdateInput.getDateOfBirth());
         }
-        if (updateTranslatorProfileInput.getEmail() != null
-            && !updateTranslatorProfileInput.getEmail().isBlank()
-            && !translatorProfile.getEmail().equals(updateTranslatorProfileInput.getEmail())) {
-            translatorProfile.setEmail(updateTranslatorProfileInput.getEmail());
+        if (translatorProfileUpdateInput.getEmail() != null
+            && !translatorProfileUpdateInput.getEmail().isBlank()
+            && !translatorProfile.getEmail().equals(translatorProfileUpdateInput.getEmail())) {
+            translatorProfile.setEmail(translatorProfileUpdateInput.getEmail());
         }
-        if (updateTranslatorProfileInput.getIsAvailable() != null
-            && !translatorProfile.getIsAvailable().equals(updateTranslatorProfileInput.getIsAvailable())) {
-            translatorProfile.setIsAvailable(updateTranslatorProfileInput.getIsAvailable());
+        if (translatorProfileUpdateInput.getIsAvailable() != null
+            && !translatorProfile.getIsAvailable().equals(translatorProfileUpdateInput.getIsAvailable())) {
+            translatorProfile.setIsAvailable(translatorProfileUpdateInput.getIsAvailable());
         }
-        if (updateTranslatorProfileInput.getIsOnline() != null
-            && !translatorProfile.getIsOnline().equals(updateTranslatorProfileInput.getIsOnline())) {
-            translatorProfile.setIsOnline(updateTranslatorProfileInput.getIsOnline());
+        if (translatorProfileUpdateInput.getIsOnline() != null
+            && !translatorProfile.getIsOnline().equals(translatorProfileUpdateInput.getIsOnline())) {
+            translatorProfile.setIsOnline(translatorProfileUpdateInput.getIsOnline());
         }
-        if (updateTranslatorProfileInput.getLevelOfKorean() != null
-            && !updateTranslatorProfileInput.getLevelOfKorean().isBlank()
-            && !translatorProfile.getLevelOfKorean().equals(updateTranslatorProfileInput.getLevelOfKorean())) {
-            translatorProfile.setLevelOfKorean(updateTranslatorProfileInput.getLevelOfKorean());
+        if (translatorProfileUpdateInput.getLevelOfKorean() != null
+            && !translatorProfileUpdateInput.getLevelOfKorean().isBlank()
+            && !translatorProfile.getLevelOfKorean().equals(translatorProfileUpdateInput.getLevelOfKorean())) {
+            translatorProfile.setLevelOfKorean(translatorProfileUpdateInput.getLevelOfKorean());
         }
-        if (updateTranslatorProfileInput.getUser() != null
-            && !translatorProfile.getUser().equals(updateTranslatorProfileInput.getUser())) {
-            translatorProfile.setUser(updateTranslatorProfileInput.getUser());
+        if (translatorProfileUpdateInput.getUser() != null
+            && !translatorProfile.getUser().equals(translatorProfileUpdateInput.getUser())) {
+            translatorProfile.setUser(translatorProfileUpdateInput.getUser());
         }
-        if (updateTranslatorProfileInput.getLanguages() != null
-            && !translatorProfile.getLanguages().equals(updateTranslatorProfileInput.getLanguages())) {
-            translatorProfile.setLanguages(updateTranslatorProfileInput.getLanguages());
+        if (translatorProfileUpdateInput.getLanguages() != null
+            && !translatorProfile.getLanguages().equals(translatorProfileUpdateInput.getLanguages())) {
+            translatorProfile.setLanguages(translatorProfileUpdateInput.getLanguages());
         }
-        if (updateTranslatorProfileInput.getThemes() != null
-            && !translatorProfile.getThemes().equals(updateTranslatorProfileInput.getThemes())) {
-            translatorProfile.setThemes(updateTranslatorProfileInput.getThemes());
+        if (translatorProfileUpdateInput.getThemes() != null
+            && !translatorProfile.getThemes().equals(translatorProfileUpdateInput.getThemes())) {
+            translatorProfile.setThemes(translatorProfileUpdateInput.getThemes());
         }
         return translatorProfileRepository.save(translatorProfile);
     }

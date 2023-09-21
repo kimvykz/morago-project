@@ -1,19 +1,13 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.entity.UserProfile;
-import com.habsida.moragoproject.model.input.CreateUserProfileInput;
-import com.habsida.moragoproject.model.input.UpdateUserProfileInput;
+import com.habsida.moragoproject.model.input.UserProfileCreateInput;
+import com.habsida.moragoproject.model.input.UserProfileUpdateInput;
 import com.habsida.moragoproject.repository.UserProfileRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import java.util.List;
 
 @Service
@@ -42,34 +36,34 @@ public class UserProfileServiceImpl implements UserProfileService{
     }
 
     @Override
-    public UserProfile create (CreateUserProfileInput createUserProfileInput) {
+    public UserProfile create (UserProfileCreateInput userProfileCreateInput) {
         UserProfile userProfile = new UserProfile();
 
-        if (createUserProfileInput.getIsFreeCallMade() == null) {
+        if (userProfileCreateInput.getIsFreeCallMade() == null) {
             throw new IllegalArgumentException("field isFreeCallMade cannot be null");
         } else {
-            userProfile.setIsFreeCallMade(createUserProfileInput.getIsFreeCallMade());
+            userProfile.setIsFreeCallMade(userProfileCreateInput.getIsFreeCallMade());
         }
-        if (createUserProfileInput.getUser() == null) {
+        if (userProfileCreateInput.getUser() == null) {
             throw new IllegalArgumentException("field user cannot be null");
         } else {
-            userProfile.setUser(createUserProfileInput.getUser());
+            userProfile.setUser(userProfileCreateInput.getUser());
         }
 
         return userProfileRepository.save(userProfile);
     }
 
     @Override
-    public UserProfile update (UpdateUserProfileInput updateUserProfileInput) {
-        UserProfile userProfile = getById(updateUserProfileInput.getId());
+    public UserProfile update (UserProfileUpdateInput userProfileUpdateInput) {
+        UserProfile userProfile = getById(userProfileUpdateInput.getId());
 
-        if (updateUserProfileInput.getIsFreeCallMade() != null
-            && !userProfile.getIsFreeCallMade().equals(updateUserProfileInput.getIsFreeCallMade())) {
-            userProfile.setIsFreeCallMade(updateUserProfileInput.getIsFreeCallMade());
+        if (userProfileUpdateInput.getIsFreeCallMade() != null
+            && !userProfile.getIsFreeCallMade().equals(userProfileUpdateInput.getIsFreeCallMade())) {
+            userProfile.setIsFreeCallMade(userProfileUpdateInput.getIsFreeCallMade());
         }
-        if (updateUserProfileInput.getUser() != null
-            && !userProfile.getUser().equals(updateUserProfileInput.getUser())) {
-            userProfile.setUser(updateUserProfileInput.getUser());
+        if (userProfileUpdateInput.getUser() != null
+            && !userProfile.getUser().equals(userProfileUpdateInput.getUser())) {
+            userProfile.setUser(userProfileUpdateInput.getUser());
         }
         return userProfileRepository.save(userProfile);
     }

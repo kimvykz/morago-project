@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateAppVersionInput;
+import com.habsida.moragoproject.model.input.AppVersionCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateAppVersionInput;
+import com.habsida.moragoproject.model.input.AppVersionUpdateInput;
 import com.habsida.moragoproject.model.entity.AppVersion;
 import com.habsida.moragoproject.service.AppVersionService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -47,16 +46,16 @@ public class AppVersionController {
 
     @MutationMapping(name = "createAppVersion")
     @PreAuthorize("hasAnyRole( 'ROLE_ADMIN')")
-    public AppVersion create (@Valid @Argument(name = "appVersionInput") CreateAppVersionInput createAppVersionInput) {
+    public AppVersion create (@Valid @Argument(name = "appVersionInput") AppVersionCreateInput appVersionCreateInput) {
 
-        return appVersionService.create(createAppVersionInput);
+        return appVersionService.create(appVersionCreateInput);
     }
 
     @MutationMapping(name = "updateAppVersion")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public AppVersion update (@Valid @Argument(name = "appVersionInput") UpdateAppVersionInput updateAppVersionInput) {
+    public AppVersion update (@Valid @Argument(name = "appVersionInput") AppVersionUpdateInput appVersionUpdateInput) {
 
-        return appVersionService.update(updateAppVersionInput);
+        return appVersionService.update(appVersionUpdateInput);
     }
 
     @MutationMapping(name = "deleteAppVersionById")

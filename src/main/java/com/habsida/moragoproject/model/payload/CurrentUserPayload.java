@@ -27,7 +27,6 @@ public class CurrentUserPayload {
     private Double ratings;
     private Integer totalRatings;
     private List<Role> roles;
-    private UserProfile userProfile;
-    private TranslatorProfile translatorProfile;
+    private CommonProfilePayload commonProfilePayload;
     private String whoAmI;
 }

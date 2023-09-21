@@ -2,10 +2,9 @@ package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.enums.ERole;
-import com.habsida.moragoproject.model.input.CreateRoleInput;
-import com.habsida.moragoproject.model.input.UpdateRoleInput;
+import com.habsida.moragoproject.model.input.RoleCreateInput;
+import com.habsida.moragoproject.model.input.RoleUpdateInput;
 import com.habsida.moragoproject.repository.RoleRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -39,24 +38,24 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public Role create (CreateRoleInput createRoleInput) {
+    public Role create (RoleCreateInput roleCreateInput) {
         Role role = new Role();
 
-        if (createRoleInput.getName() == null) {
+        if (roleCreateInput.getName() == null) {
             throw new IllegalArgumentException("field name cannot be null");
         } else {
-            role.setName(createRoleInput.getName());
+            role.setName(roleCreateInput.getName());
         }
         return roleRepository.save(role);
     }
 
     @Override
-    public Role update (UpdateRoleInput updateRoleInput) {
-        Role role = getById(updateRoleInput.getId());
+    public Role update (RoleUpdateInput roleUpdateInput) {
+        Role role = getById(roleUpdateInput.getId());
 
-        if (updateRoleInput.getName() != null
-            && !role.getName().equals(updateRoleInput.getName())) {
-            role.setName(updateRoleInput.getName());
+        if (roleUpdateInput.getName() != null
+            && !role.getName().equals(roleUpdateInput.getName())) {
+            role.setName(roleUpdateInput.getName());
         }
         return roleRepository.save(role);
     }

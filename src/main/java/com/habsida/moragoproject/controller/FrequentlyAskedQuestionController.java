@@ -1,11 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.CreateFrequentlyAskedQuestionInput;
+import com.habsida.moragoproject.model.input.FrequentlyAskedQuestionCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.UpdateFrequentlyAskedQuestionInput;
+import com.habsida.moragoproject.model.input.FrequentlyAskedQuestionUpdateInput;
 import com.habsida.moragoproject.model.entity.FrequentlyAskedQuestion;
 import com.habsida.moragoproject.service.FrequentlyAskedQuestionService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -42,14 +41,14 @@ public class FrequentlyAskedQuestionController {
 
     @MutationMapping(name = "createFrequentlyAskedQuestion")
     public FrequentlyAskedQuestion create (@Valid
-        @Argument(name = "frequentlyAskedQuestionInput") CreateFrequentlyAskedQuestionInput createFrequentlyAskedQuestionInput) {
-        return frequentlyAskedQuestionService.create(createFrequentlyAskedQuestionInput);
+        @Argument(name = "frequentlyAskedQuestionInput") FrequentlyAskedQuestionCreateInput frequentlyAskedQuestionCreateInput) {
+        return frequentlyAskedQuestionService.create(frequentlyAskedQuestionCreateInput);
     }
 
     @MutationMapping(name = "updateFrequentlyAskedQuestion")
     public FrequentlyAskedQuestion update (@Valid
-        @Argument(name = "frequentlyAskedQuestionInput") UpdateFrequentlyAskedQuestionInput updateFrequentlyAskedQuestionInput) {
-        return frequentlyAskedQuestionService.update(updateFrequentlyAskedQuestionInput);
+        @Argument(name = "frequentlyAskedQuestionInput") FrequentlyAskedQuestionUpdateInput frequentlyAskedQuestionUpdateInput) {
+        return frequentlyAskedQuestionService.update(frequentlyAskedQuestionUpdateInput);
     }
 
     @MutationMapping(name = "deleteFrequentlyAskedQuestionById")

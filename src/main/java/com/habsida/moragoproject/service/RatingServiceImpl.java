@@ -1,19 +1,13 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Rating;
-import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.input.CreateRatingInput;
-import com.habsida.moragoproject.model.input.UpdateRatingInput;
+import com.habsida.moragoproject.model.input.RatingCreateInput;
+import com.habsida.moragoproject.model.input.RatingUpdateInput;
 import com.habsida.moragoproject.repository.RatingRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Service
@@ -42,33 +36,42 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public Rating create (CreateRatingInput createRatingInput) {
+    public Rating create (RatingCreateInput ratingCreateInput) {
         Rating rating = new Rating();
 
-        if (createRatingInput.getGrade() == null) {
+        if (ratingCreateInput.getGrade() == null) {
             throw new IllegalArgumentException("field grade cannot be null");
         } else {
-            rating.setGrade(createRatingInput.getGrade());
+            rating.setGrade(ratingCreateInput.getGrade());
         }
-        if (createRatingInput.getUser() == null) {
-            throw new IllegalArgumentException("field user cannot be null");
+        if (ratingCreateInput.getRaterUser() == null) {
+            throw new IllegalArgumentException("field raterUser cannot be null");
         } else {
-            rating.setUser(createRatingInput.getUser());
+            rating.setRaterUser(ratingCreateInput.getRaterUser());
+        }
+        if (ratingCreateInput.getAssessedUser() == null) {
+            throw new IllegalArgumentException("field raterUser cannot be null");
+        } else {
+            rating.setAssessedUser(ratingCreateInput.getAssessedUser());
         }
         return ratingRepository.save(rating);
     }
 
     @Override
-    public Rating update (UpdateRatingInput updateRatingInput) {
-        Rating rating = getById(updateRatingInput.getId());
+    public Rating update (RatingUpdateInput ratingUpdateInput) {
+        Rating rating = getById(ratingUpdateInput.getId());
 
-        if (updateRatingInput.getGrade() != null
-            && !rating.getGrade().equals(updateRatingInput.getGrade())) {
-            rating.setGrade(updateRatingInput.getGrade());
+        if (ratingUpdateInput.getGrade() != null
+            && !rating.getGrade().equals(ratingUpdateInput.getGrade())) {
+            rating.setGrade(ratingUpdateInput.getGrade());
         }
-        if (updateRatingInput.getUser() != null
-            && !rating.getUser().equals(updateRatingInput.getUser())) {
-            rating.setUser(updateRatingInput.getUser());
+        if (ratingUpdateInput.getRaterUser() != null
+                && !rating.getRaterUser().equals(ratingUpdateInput.getRaterUser())) {
+            rating.setRaterUser(ratingUpdateInput.getRaterUser());
+        }
+        if (ratingUpdateInput.getAssessedUser() != null
+                && !rating.getAssessedUser().equals(ratingUpdateInput.getAssessedUser())) {
+            rating.setAssessedUser(ratingUpdateInput.getAssessedUser());
         }
         return ratingRepository.save(rating);
     }

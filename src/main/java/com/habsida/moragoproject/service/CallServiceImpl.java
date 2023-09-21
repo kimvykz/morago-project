@@ -1,11 +1,9 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Call;
-import com.habsida.moragoproject.model.input.CreateCallInput;
-import com.habsida.moragoproject.model.input.UpdateAppVersionInput;
-import com.habsida.moragoproject.model.input.UpdateCallInput;
+import com.habsida.moragoproject.model.input.CallCreateInput;
+import com.habsida.moragoproject.model.input.CallUpdateInput;
 import com.habsida.moragoproject.repository.CallRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -39,136 +37,136 @@ public class CallServiceImpl implements CallService{
     }
 
     @Override
-    public Call create (CreateCallInput createCallInput) {
+    public Call create (CallCreateInput callCreateInput) {
         Call call = new Call();
 
-        if (createCallInput.getCallStatus() == null) {
+        if (callCreateInput.getCallStatus() == null) {
             throw new IllegalArgumentException("Field callStatus cannot be null");
         } else {
-            call.setCallStatus(createCallInput.getCallStatus());
+            call.setCallStatus(callCreateInput.getCallStatus());
         }
-        if (createCallInput.getChannelName() == null) {
+        if (callCreateInput.getChannelName() == null) {
             throw new IllegalArgumentException("Field channelName cannot be null");
         } else {
-            call.setChannelName(createCallInput.getChannelName());
+            call.setChannelName(callCreateInput.getChannelName());
         }
-        if (createCallInput.getCommission() == null) {
+        if (callCreateInput.getCommission() == null) {
             throw new IllegalArgumentException("Field commission cannot be null");
         } else {
-            call.setCommission(createCallInput.getCommission());
+            call.setCommission(callCreateInput.getCommission());
         }
-        if (createCallInput.getDuration() == null) {
+        if (callCreateInput.getDuration() == null) {
             throw new IllegalArgumentException("Field duration cannot be null");
         } else {
-            call.setDuration(createCallInput.getDuration());
+            call.setDuration(callCreateInput.getDuration());
         }
-        if (createCallInput.getIsEndCall() == null) {
+        if (callCreateInput.getIsEndCall() == null) {
             throw new IllegalArgumentException("Field isEndCall cannot be null");
         } else {
-            call.setIsEndCall(createCallInput.getIsEndCall());
+            call.setIsEndCall(callCreateInput.getIsEndCall());
         }
-        if (createCallInput.getStatus() == null) {
+        if (callCreateInput.getStatus() == null) {
             throw new IllegalArgumentException("Field status cannot be null");
         } else {
-            call.setStatus(createCallInput.getStatus());
+            call.setStatus(callCreateInput.getStatus());
         }
-        if (createCallInput.getSum() == null) {
+        if (callCreateInput.getSum() == null) {
             throw new IllegalArgumentException("Field sum cannot be null");
         } else {
-            call.setSum(createCallInput.getSum());
+            call.setSum(callCreateInput.getSum());
         }
         if (call.getTranslatorHasRated() == null) {
             throw new IllegalArgumentException("Field translatorHasRated cannot be null");
         } else {
-            call.setTranslatorHasRated(createCallInput.getTranslatorHasRated());
+            call.setTranslatorHasRated(callCreateInput.getTranslatorHasRated());
         }
-        if (createCallInput.getUserHasRated() == null) {
+        if (callCreateInput.getUserHasRated() == null) {
             throw new IllegalArgumentException("Field userHasRated cannot be null");
         } else {
-            call.setUserHasRated(createCallInput.getUserHasRated());
+            call.setUserHasRated(callCreateInput.getUserHasRated());
         }
-        if (createCallInput.getFile() == null) {
+        if (callCreateInput.getFile() == null) {
             //throw new IllegalArgumentException("Field file cannot be null");
         } else {
-            call.setFile(createCallInput.getFile());
+            call.setFile(callCreateInput.getFile());
         }
-        if (createCallInput.getTheme() == null) {
+        if (callCreateInput.getTheme() == null) {
             //throw new IllegalArgumentException("Field theme cannot be null");
         } else {
-            call.setTheme(createCallInput.getTheme());
+            call.setTheme(callCreateInput.getTheme());
         }
-        if (createCallInput.getCaller() == null) {
+        if (callCreateInput.getCaller() == null) {
             throw new IllegalArgumentException("Field caller cannot be null");
         } else {
-            call.setCaller(createCallInput.getCaller());
+            call.setCaller(callCreateInput.getCaller());
         }
-        if (createCallInput.getRecipient() == null) {
+        if (callCreateInput.getRecipient() == null) {
             throw new IllegalArgumentException("Field recipient cannot be null");
         } else {
-            call.setRecipient(createCallInput.getRecipient());
+            call.setRecipient(callCreateInput.getRecipient());
         }
 
         return callRepository.save(call);
     }
 
     @Override
-    public Call update (UpdateCallInput updateCallInput) {
-        Call call = getById(updateCallInput.getId());
+    public Call update (CallUpdateInput callUpdateInput) {
+        Call call = getById(callUpdateInput.getId());
 
 
-        if (updateCallInput.getCallStatus() != null
-            && !call.getCallStatus().equals(updateCallInput.getCallStatus())
+        if (callUpdateInput.getCallStatus() != null
+            && !call.getCallStatus().equals(callUpdateInput.getCallStatus())
             ) {
-            call.setCallStatus(updateCallInput.getCallStatus());
+            call.setCallStatus(callUpdateInput.getCallStatus());
         }
-        if (updateCallInput.getChannelName() != null
-            && !updateCallInput.getChannelName().isBlank()
-            && !call.getChannelName().equals(updateCallInput.getChannelName())) {
-            call.setChannelName(updateCallInput.getChannelName());
+        if (callUpdateInput.getChannelName() != null
+            && !callUpdateInput.getChannelName().isBlank()
+            && !call.getChannelName().equals(callUpdateInput.getChannelName())) {
+            call.setChannelName(callUpdateInput.getChannelName());
         }
-        if (updateCallInput.getCommission() != null
-            && !call.getCommission().equals(updateCallInput.getCommission())) {
-            call.setCommission(updateCallInput.getCommission());
+        if (callUpdateInput.getCommission() != null
+            && !call.getCommission().equals(callUpdateInput.getCommission())) {
+            call.setCommission(callUpdateInput.getCommission());
         }
-        if (updateCallInput.getDuration() != null
-            && !call.getDuration().equals(updateCallInput.getDuration())) {
-            call.setDuration(updateCallInput.getDuration());
+        if (callUpdateInput.getDuration() != null
+            && !call.getDuration().equals(callUpdateInput.getDuration())) {
+            call.setDuration(callUpdateInput.getDuration());
         }
-        if (updateCallInput.getIsEndCall() != null
-            && !call.getIsEndCall().equals(updateCallInput.getIsEndCall())) {
-            call.setIsEndCall(updateCallInput.getIsEndCall());
+        if (callUpdateInput.getIsEndCall() != null
+            && !call.getIsEndCall().equals(callUpdateInput.getIsEndCall())) {
+            call.setIsEndCall(callUpdateInput.getIsEndCall());
         }
-        if (updateCallInput.getStatus() != null
-            && !call.getStatus().equals(updateCallInput.getStatus())) {
-            call.setStatus(updateCallInput.getStatus());
+        if (callUpdateInput.getStatus() != null
+            && !call.getStatus().equals(callUpdateInput.getStatus())) {
+            call.setStatus(callUpdateInput.getStatus());
         }
-        if (updateCallInput.getSum() != null
-            && !call.getSum().equals(updateCallInput.getSum())) {
-            call.setSum(updateCallInput.getSum());
+        if (callUpdateInput.getSum() != null
+            && !call.getSum().equals(callUpdateInput.getSum())) {
+            call.setSum(callUpdateInput.getSum());
         }
-        if (updateCallInput.getTranslatorHasRated() != null
-            && !call.getTranslatorHasRated().equals(updateCallInput.getTranslatorHasRated())) {
-            call.setTranslatorHasRated(updateCallInput.getTranslatorHasRated());
+        if (callUpdateInput.getTranslatorHasRated() != null
+            && !call.getTranslatorHasRated().equals(callUpdateInput.getTranslatorHasRated())) {
+            call.setTranslatorHasRated(callUpdateInput.getTranslatorHasRated());
         }
-        if (updateCallInput.getUserHasRated() != null
-            && !call.getUserHasRated().equals(updateCallInput.getUserHasRated())) {
-            call.setUserHasRated(updateCallInput.getUserHasRated());
+        if (callUpdateInput.getUserHasRated() != null
+            && !call.getUserHasRated().equals(callUpdateInput.getUserHasRated())) {
+            call.setUserHasRated(callUpdateInput.getUserHasRated());
         }
-        if (updateCallInput.getFile() != null
-            && !call.getFile().equals(updateCallInput.getFile())) {
-            call.setFile(updateCallInput.getFile());
+        if (callUpdateInput.getFile() != null
+            && !call.getFile().equals(callUpdateInput.getFile())) {
+            call.setFile(callUpdateInput.getFile());
         }
-        if (updateCallInput.getTheme() != null
-            && !call.getTheme().equals(updateCallInput.getTheme())) {
-            call.setTheme(updateCallInput.getTheme());
+        if (callUpdateInput.getTheme() != null
+            && !call.getTheme().equals(callUpdateInput.getTheme())) {
+            call.setTheme(callUpdateInput.getTheme());
         }
-        if (updateCallInput.getCaller() != null
-            && !call.getCaller().equals(updateCallInput.getCaller())) {
-            call.setCaller(updateCallInput.getCaller());
+        if (callUpdateInput.getCaller() != null
+            && !call.getCaller().equals(callUpdateInput.getCaller())) {
+            call.setCaller(callUpdateInput.getCaller());
         }
-        if (updateCallInput.getRecipient() != null
-            && !call.getRecipient().equals(updateCallInput.getRecipient())) {
-            call.setRecipient(updateCallInput.getRecipient());
+        if (callUpdateInput.getRecipient() != null
+            && !call.getRecipient().equals(callUpdateInput.getRecipient())) {
+            call.setRecipient(callUpdateInput.getRecipient());
         }
         
         return callRepository.save(call);
