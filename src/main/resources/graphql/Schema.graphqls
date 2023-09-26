@@ -1,4 +1,6 @@
-#scalar DateTime
+scalar Date
+scalar BigDecimal
+scalar LocalDate
 
 type Query {
     getAppVersions: [AppVersion]
@@ -64,12 +66,11 @@ type Query {
     getUsers: [User]
     getUsersByPaging(paginationInput: PaginationInput): [User]
     getUserById(id: Int): User
-    getCurrentUser: CurrentUser
+    getCurrentUser: User
 
     getUserProfiles: [UserProfile]
     getUserProfilesByPaging(paginationInput: PaginationInput): [UserProfile]
     getUserProfileById(id: Int): UserProfile
-
 
     getUserWithdrawals: [Withdrawal]
     getUserWithdrawalsByPaging(paginationInput: PaginationInput): [Withdrawal]

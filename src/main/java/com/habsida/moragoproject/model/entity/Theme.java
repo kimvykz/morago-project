@@ -29,7 +29,8 @@ public class Theme extends AuditableEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToOne(mappedBy = "theme", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private File file;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_id")
+    private File icon;
 
 }

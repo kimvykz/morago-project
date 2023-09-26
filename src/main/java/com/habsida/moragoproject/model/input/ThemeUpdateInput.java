@@ -23,5 +23,5 @@ public class ThemeUpdateInput {
 
     private Category category;
 
-    private File file;
+    private File icon;
 }

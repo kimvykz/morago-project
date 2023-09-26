@@ -82,10 +82,10 @@ public class ThemeServiceImpl implements ThemeService {
         } else {
             theme.setCategory(themeCreateInput.getCategory());
         }
-        if (theme.getFile() == null) {
+        if (theme.getIcon() == null) {
             throw new IllegalArgumentException("field file cannot be null");
         } else {
-            theme.setFile(themeCreateInput.getFile());
+            theme.setIcon(themeCreateInput.getIcon());
         }
 
         return themeRepository.save(theme);
@@ -130,9 +130,9 @@ public class ThemeServiceImpl implements ThemeService {
             && !theme.getCategory().equals(themeUpdateInput.getCategory())) {
             theme.setCategory(themeUpdateInput.getCategory());
         }
-        if (themeUpdateInput.getFile() != null
-            && !theme.getFile().equals(themeUpdateInput.getFile())) {
-            theme.setFile(themeUpdateInput.getFile());
+        if (themeUpdateInput.getIcon() != null
+            && !theme.getIcon().equals(themeUpdateInput.getIcon())) {
+            theme.setIcon(themeUpdateInput.getIcon());
         }
         return themeRepository.save(theme);
     }

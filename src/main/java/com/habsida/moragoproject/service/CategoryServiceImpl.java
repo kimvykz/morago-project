@@ -51,6 +51,11 @@ public class CategoryServiceImpl implements CategoryService{
         } else {
             category.setName(categoryCreateInput.getName());
         }
+        if (categoryCreateInput.getThemes() == null) {
+            throw new IllegalArgumentException("field Themes cannot be null");
+        } else {
+            category.setThemes(categoryCreateInput.getThemes());
+        }
         return categoryRepository.save(category);
     }
 
@@ -66,6 +71,11 @@ public class CategoryServiceImpl implements CategoryService{
             && !category.getName().equals(categoryUpdateInput.getName())
             && !categoryUpdateInput.getName().isBlank()) {
             category.setName(categoryUpdateInput.getName());
+        }
+        if (categoryUpdateInput.getThemes() != null
+                && !category.getThemes().equals(categoryUpdateInput.getThemes())
+                ) {
+            category.setThemes(categoryUpdateInput.getThemes());
         }
         return categoryRepository.save(category);
     }

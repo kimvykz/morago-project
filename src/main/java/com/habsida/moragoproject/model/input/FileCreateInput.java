@@ -13,6 +13,4 @@ public class FileCreateInput {
     private String originalTitle;
     private String path;
     private String type;
-
-    private Theme theme;
 }

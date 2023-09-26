@@ -5,6 +5,8 @@ import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.FileUpdateInput;
 import com.habsida.moragoproject.model.entity.File;
 import com.habsida.moragoproject.service.FileService;
+import graphql.schema.DataFetchingEnvironment;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 public class FileController {
 
@@ -56,5 +59,13 @@ public class FileController {
         return fileService.deleteById(id);
     }
 
+    @MutationMapping(name = "uploadIcon")
+    public File uploadIcon(DataFetchingEnvironment environment) {
+        log.info("uploading file");
+
+
+
+        return null;
+    }
 
 }

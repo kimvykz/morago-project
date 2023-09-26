@@ -64,29 +64,10 @@ type User {
     ratings: Float
     totalRatings: Int
     roles: [Role]
-    userProfile: UserProfile
-    translatorProfile: TranslatorProfile
+    profile: Profile
 }
 
-type CurrentUser {
-    id: ID
-    apnToken: String
-    balance: Float
-    fcmToken: String
-    firstName: String
-    isActive: Boolean
-    isDebtor: Boolean
-    lastName: String
-    onBoardingStatus: Int
-    phone: String
-    ratings: Float
-    totalRatings: Int
-    roles: [Role]
-    commonProfilePayload: CommonProfilePayload
-    whoAmI: String
-}
-
-type CommonProfilePayload {
+type Profile {
     dateOfBirth: String
     email: String
     isAvailable: Boolean
@@ -95,4 +76,5 @@ type CommonProfilePayload {
     languages: [Language]
     themes: [Theme]
     isFreeCallMade: Boolean
+    whoAmI: String
 }

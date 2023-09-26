@@ -2,8 +2,8 @@ package com.habsida.moragoproject.controller;
 
 import com.habsida.moragoproject.model.input.*;
 import com.habsida.moragoproject.model.entity.User;
-import com.habsida.moragoproject.model.payload.CurrentUserPayload;
 import com.habsida.moragoproject.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 public class UserController {
 
@@ -93,7 +94,7 @@ public class UserController {
 
     @QueryMapping(name = "getCurrentUser")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
-    public CurrentUserPayload getCurrentUser () {
+    public User getCurrentUser () {
 
         return userService.getCurrentUser();
     }

@@ -1,14 +1,17 @@
 input CategoryCreateInput {
     isActive: Boolean
     name: String
+    themes: [ThemeCreateInput]
 }
 input CategoryUpdateInput {
     id: ID!
     isActive: Boolean
     name: String
+    themes: [ThemeUpdateInput]
 }
 type Category {
     id: ID
     isActive: Boolean
     name: String
+    themes: [Theme]
 }

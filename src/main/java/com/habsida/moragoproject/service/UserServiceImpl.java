@@ -3,11 +3,8 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.input.*;
-import com.habsida.moragoproject.model.payload.CommonProfilePayload;
-import com.habsida.moragoproject.model.payload.CurrentUserPayload;
 import com.habsida.moragoproject.repository.RoleRepository;
 import com.habsida.moragoproject.repository.UserRepository;
-import com.habsida.moragoproject.security.JwtGenerator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
@@ -34,9 +31,9 @@ public class UserServiceImpl implements UserService{
         this.passwordEncoder = passwordEncoder;
     }
 
-    private List<Role> defineIdForExistingRoles (List<Role> roles) {
+    private List<Role> assignIdToRoles (List<Role> roles) {
         List<Role> userRoles = new ArrayList<>();
-        for(Role role : roles) {
+        roles.stream().forEach( role -> {
             if (role.getId() == null){
                 Optional<Role> existRole = roleRepository.findByName(role.getName());
                 if (existRole.isPresent()) {
@@ -47,7 +44,7 @@ public class UserServiceImpl implements UserService{
             } else {
                 userRoles.add(role);
             }
-        }
+        });
         return userRoles;
     }
     @Override
@@ -155,7 +152,7 @@ public class UserServiceImpl implements UserService{
             user.setTranslatorProfile(userCreateInput.getTranslatorProfile());
         }
 
-        user.setRoles(defineIdForExistingRoles(user.getRoles()));
+        user.setRoles(assignIdToRoles(user.getRoles()));
         return userRepository.save(user);
     }
 
@@ -261,7 +258,7 @@ public class UserServiceImpl implements UserService{
 //            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
 //        }
         User user = getById(userRolesUpdateInput.getUserId());
-        user.setRoles(defineIdForExistingRoles(userRolesUpdateInput.getRoles()));
+        user.setRoles(assignIdToRoles(userRolesUpdateInput.getRoles()));
 
         return userRepository.save(user);
     }
@@ -305,44 +302,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public CurrentUserPayload getCurrentUser() {
+    public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         User user = getByPhone(authentication.getName());
-        CurrentUserPayload currentUserPayload = new CurrentUserPayload();
-        CommonProfilePayload commonProfilePayload = new CommonProfilePayload();
 
-        currentUserPayload.setId(user.getId());
-        currentUserPayload.setApnToken(user.getApnToken());
-        currentUserPayload.setBalance(user.getBalance());
-        currentUserPayload.setFcmToken(user.getFcmToken());
-        currentUserPayload.setFirstName(user.getFirstName());
-        currentUserPayload.setIsActive(user.getIsActive());
-        currentUserPayload.setIsDebtor(user.getIsDebtor());
-        currentUserPayload.setLastName(user.getLastName());
-        currentUserPayload.setOnBoardingStatus(user.getOnBoardingStatus());
-        currentUserPayload.setPhone(user.getPhone());
-        currentUserPayload.setRatings(user.getRatings());
-        currentUserPayload.setTotalRatings(user.getTotalRatings());
-        currentUserPayload.setRoles(user.getRoles());
-        if (user.getTranslatorProfile() != null)
-        {
-            commonProfilePayload.setEmail(user.getTranslatorProfile().getEmail());
-            commonProfilePayload.setDateOfBirth(user.getTranslatorProfile().getDateOfBirth());
-            commonProfilePayload.setLanguages(user.getTranslatorProfile().getLanguages());
-            commonProfilePayload.setLevelOfKorean(user.getTranslatorProfile().getLevelOfKorean());
-            commonProfilePayload.setThemes(user.getTranslatorProfile().getThemes());
-            commonProfilePayload.setIsAvailable(user.getTranslatorProfile().getIsAvailable());
-            commonProfilePayload.setIsOnline(user.getTranslatorProfile().getIsOnline());
-            currentUserPayload.setCommonProfilePayload(commonProfilePayload);
-
-            currentUserPayload.setWhoAmI("TRANSLATOR");
-        } else if (user.getUserProfile() != null) {
-            currentUserPayload.getCommonProfilePayload().setIsFreeCallMade(user.getUserProfile().getIsFreeCallMade());
-            currentUserPayload.setWhoAmI("USER");
-        }
-
-        return currentUserPayload;
+        return user;
 
     }
 }

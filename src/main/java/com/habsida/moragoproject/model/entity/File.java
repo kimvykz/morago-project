@@ -19,8 +19,4 @@ public class File extends AuditableEntity {
     private String originalTitle;
     private String path;
     private String type;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "theme_id")
-    private Theme theme;
 }

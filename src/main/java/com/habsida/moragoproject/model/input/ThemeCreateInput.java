@@ -22,5 +22,5 @@ public class ThemeCreateInput {
 
     private Category category;
 
-    private File file;
+    private File icon;
 }

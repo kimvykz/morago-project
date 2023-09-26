@@ -14,6 +14,7 @@ import com.habsida.moragoproject.model.payload.AuthorizationPayload;
 import com.habsida.moragoproject.repository.TranslatorProfileRepository;
 import com.habsida.moragoproject.security.JwtGenerator;
 import com.habsida.moragoproject.security.RefreshTokenGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
+@Slf4j
 @Service
 public class AuthServiceImpl implements AuthService{
 
@@ -82,7 +84,6 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public AuthorizationPayload registrationTranslator(RegistrationTranslatorInput registrationTranslatorInput) {
-        System.out.println(registrationTranslatorInput.getTranslatorProfile().getThemes());
 
         UserCreateInput userCreateInput = new UserCreateInput();
 

@@ -58,11 +58,6 @@ public class FileServiceImpl implements FileService{
         } else {
             file.setType(fileCreateInput.getType());
         }
-        if (fileCreateInput.getTheme() == null) {
-            throw new IllegalArgumentException("field theme cannot be null");
-        } else {
-            file.setTheme(fileCreateInput.getTheme());
-        }
 
         return fileRepository.save(file);
     }
@@ -85,10 +80,6 @@ public class FileServiceImpl implements FileService{
             && !fileUpdateInput.getType().isBlank()
             && !file.getType().equals(fileUpdateInput.getType())) {
             file.setType(fileUpdateInput.getType());
-        }
-        if (fileUpdateInput.getTheme() != null
-            && !file.getTheme().equals(fileUpdateInput.getTheme())) {
-            file.setTheme(fileUpdateInput.getTheme());
         }
 
         return fileRepository.save(file);

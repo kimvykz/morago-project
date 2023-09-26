@@ -2,19 +2,16 @@ input FileCreateInput {
     originalTitle: String
     path: String
     type: String
-    theme: ThemeCreateInput
 }
 input FileUpdateInput {
     id: ID!
     originalTitle: String
     path: String
     type: String
-    theme: ThemeUpdateInput
 }
 type File {
     id: ID
     originalTitle: String
     path: String
     type: String
-    theme: Theme
 }

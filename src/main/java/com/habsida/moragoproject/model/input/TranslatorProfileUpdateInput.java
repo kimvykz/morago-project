@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @ToString
@@ -14,7 +16,7 @@ import java.util.List;
 @Setter
 public class TranslatorProfileUpdateInput {
     private Long id;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String email;
     private Boolean isAvailable;
     private Boolean isOnline;

@@ -7,7 +7,7 @@ input ThemeCreateInput {
     nightPrice: Float
     price: Float
     category: CategoryCreateInput
-    files: [FileCreateInput]
+    icon: FileCreateInput
 }
 input ThemeUpdateInput {
     id: ID!
@@ -19,7 +19,7 @@ input ThemeUpdateInput {
     nightPrice: Float
     price: Float
     category: CategoryUpdateInput
-    files: [FileUpdateInput]
+    icon: FileUpdateInput
 }
 type Theme {
     id: ID
@@ -31,5 +31,5 @@ type Theme {
     nightPrice: Float
     price: Float
     category: Category
-    files: [File]
+    icon: File
 }
