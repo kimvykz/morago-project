@@ -3,6 +3,7 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.input.*;
+import com.habsida.moragoproject.model.payload.Profile;
 import com.habsida.moragoproject.repository.RoleRepository;
 import com.habsida.moragoproject.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -304,10 +305,29 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         User user = getByPhone(authentication.getName());
-
         return user;
+    }
 
+    @Override
+    public Profile getProfile(User user) {
+        Profile profile = new Profile();
+
+        if (user.getTranslatorProfile() != null) {
+            profile.setLanguages(user.getTranslatorProfile().getLanguages());
+            profile.setEmail(user.getTranslatorProfile().getEmail());
+            profile.setThemes(user.getTranslatorProfile().getThemes());
+            profile.setIsOnline(user.getTranslatorProfile().getIsOnline());
+            profile.setDateOfBirth(user.getTranslatorProfile().getDateOfBirth());
+            profile.setIsAvailable(user.getTranslatorProfile().getIsAvailable());
+            profile.setLevelOfKorean(user.getTranslatorProfile().getLevelOfKorean());
+            profile.setWhoAmI("TRANSLATOR");
+        }
+        if (user.getUserProfile() != null) {
+            profile.setIsFreeCallMade(user.getUserProfile().getIsFreeCallMade());
+            profile.setWhoAmI("USER");
+        }
+
+        return profile;
     }
 }

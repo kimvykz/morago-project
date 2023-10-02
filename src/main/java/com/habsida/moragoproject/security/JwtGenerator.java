@@ -3,9 +3,7 @@ package com.habsida.moragoproject.security;
 import com.habsida.moragoproject.exception.TokenException;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.repository.UserRepository;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -22,7 +20,7 @@ public class JwtGenerator {
     private String jwtSecret;
     @Value("${habsida.kr.jwtexpirationdays}")
     private int jwtExpirationDays;
-    private UserRepository userRepository;//UserService userService;
+    private UserRepository userRepository;
 
     public JwtGenerator(UserRepository userRepository) {
 
@@ -64,8 +62,11 @@ public class JwtGenerator {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
-        } catch (Exception ex) {
-            throw new TokenException(token, "Jwt was expired or incorrect");
+        } catch (ExpiredJwtException ex){
+            throw new TokenException(token, "Jwt token is expired");
+        }
+        catch (JwtException ex) {
+            throw new TokenException(token, "Jwt token is incorrect");
         }
     }
 }

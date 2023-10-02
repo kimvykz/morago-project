@@ -1,5 +1,3 @@
-scalar Date
-scalar BigDecimal
 scalar LocalDate
 
 type Query {

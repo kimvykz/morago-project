@@ -3,6 +3,7 @@ package com.habsida.moragoproject.exception;
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
 import graphql.schema.DataFetchingEnvironment;
+import io.jsonwebtoken.JwtException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter;
 import org.springframework.graphql.execution.ErrorType;
@@ -32,7 +33,12 @@ public class GlobalExceptionResolver extends DataFetcherExceptionResolverAdapter
             errorMessages.append(ex.getMessage());
         } else if (ex instanceof EmptyResultDataAccessException) {
             errorMessages.append(ex.getMessage());
-        }else {
+        } else if (ex instanceof TokenException) {
+            errorMessages.append(ex.getMessage());
+        } else if (ex instanceof TokenRefreshException) {
+            errorMessages.append(ex.getMessage());
+        }
+        else {
             return null;
         }
         return GraphqlErrorBuilder.newError()

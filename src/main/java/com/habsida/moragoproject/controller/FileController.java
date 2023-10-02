@@ -1,5 +1,6 @@
 package com.habsida.moragoproject.controller;
 
+import com.habsida.moragoproject.model.input.File64CreateInput;
 import com.habsida.moragoproject.model.input.FileCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.FileUpdateInput;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
@@ -59,13 +61,14 @@ public class FileController {
         return fileService.deleteById(id);
     }
 
-    @MutationMapping(name = "uploadIcon")
-    public File uploadIcon(DataFetchingEnvironment environment) {
-        log.info("uploading file");
+    @MutationMapping(name = "createFileBase64")
+    public File createFileBase64 (@Argument(name = "file64Input") File64CreateInput file64CreateInput) {
+        return fileService.createFileBase64(file64CreateInput);
+    }
 
-
-
-        return null;
+    @SchemaMapping(typeName = "File", field = "base64")
+    public String getFileBase64 (File file) {
+        return fileService.getFileBase64(file);
     }
 
 }

@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                          session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeRequests( auth -> {
-                    auth.antMatchers("/graphql").permitAll()
+                    auth.antMatchers("/graphql", "/image/**").permitAll()
                     .anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults());

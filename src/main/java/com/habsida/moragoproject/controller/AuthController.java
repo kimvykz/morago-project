@@ -24,31 +24,26 @@ public class AuthController {
 
     @QueryMapping("login")
     public AuthorizationPayload login(@Argument(name = "loginUserInput") AuthenticationInput authenticationInput) {
-
         return authService.loginUser(authenticationInput);
     }
 
     @MutationMapping(name = "registrationUser")
     public AuthorizationPayload registrationUser (@Valid @Argument(name = "registrationUserInput") AuthenticationInput authenticationInput) {
-
         return authService.registrationUser(authenticationInput);
     }
 
     @MutationMapping(name = "registrationTranslator")
     public AuthorizationPayload registrationTranslator (@Valid @Argument(name = "registrationTranslatorInput") RegistrationTranslatorInput registrationTranslatorInput) {
-
         return authService.registrationTranslator(registrationTranslatorInput);
     }
 
     @MutationMapping(name = "registrationAdmin")
     public AuthorizationPayload registrationAdmin (@Valid @Argument(name = "registrationAdminInput") AuthenticationInput authenticationInput) {
-
         return authService.registrationAdmin(authenticationInput);
     }
 
     @QueryMapping("refreshToken")
     public AuthorizationPayload refreshToken(@Argument(name = "refreshTokenInput") RefreshTokenInput refreshTokenInput) {
-
         return authService.refreshToken(refreshTokenInput);
     }
 
