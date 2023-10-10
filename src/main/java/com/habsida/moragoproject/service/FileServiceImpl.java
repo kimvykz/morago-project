@@ -1,12 +1,9 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.MoragoProjectApplication;
 import com.habsida.moragoproject.model.entity.File;
-import com.habsida.moragoproject.model.input.File64CreateInput;
 import com.habsida.moragoproject.model.input.FileCreateInput;
 import com.habsida.moragoproject.model.input.FileUpdateInput;
 import com.habsida.moragoproject.repository.FileRepository;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -108,8 +105,14 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public File createFileBase64(File64CreateInput file64CreateInput) {
-        byte[] data = DatatypeConverter.parseBase64Binary(file64CreateInput.getBase64());
+    public File uploadFile(MultipartFile multipartFile) {
+        byte[] data ;
+
+        try {
+            data = multipartFile.getBytes();
+        } catch (IOException ex) {
+            throw new IllegalArgumentException(ex.getMessage());
+        }
 
         java.io.File iconDirectory = new java.io.File("./icon");
 
@@ -117,33 +120,17 @@ public class FileServiceImpl implements FileService{
             iconDirectory.mkdirs();
         }
 
-        java.io.File icon = new java.io.File(iconDirectory, file64CreateInput.getOriginalTitle());
+        java.io.File icon = new java.io.File(iconDirectory, multipartFile.getOriginalFilename());
 
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(icon))) {
             outputStream.write(data);
             File file = new File();
 
-            file.setOriginalTitle(file64CreateInput.getOriginalTitle());
-            file.setType(file64CreateInput.getType());
-            file.setPath(iconDirectory + "/" + file64CreateInput.getOriginalTitle());
+            file.setOriginalTitle(multipartFile.getOriginalFilename());
+            file.setType(multipartFile.getContentType());
+            file.setPath(iconDirectory + "/" + multipartFile.getOriginalFilename());
 
             return fileRepository.save(file);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex.getMessage());
-        }
-    }
-
-    @Override
-    public String getFileBase64(File file) {
-        java.io.File icon = new java.io.File(file.getPath());
-
-        try (FileInputStream fileInputStream = new FileInputStream(icon)){
-
-            byte[] data = new byte[(int) icon.length()];
-            fileInputStream.read(data);
-
-            return DatatypeConverter.printBase64Binary(data);
-
         } catch (IOException ex) {
             throw new RuntimeException(ex.getMessage());
         }

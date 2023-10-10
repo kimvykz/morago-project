@@ -1,7 +1,6 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.File;
-import com.habsida.moragoproject.model.input.File64CreateInput;
 import com.habsida.moragoproject.model.input.FileCreateInput;
 import com.habsida.moragoproject.model.input.FileUpdateInput;
 import org.springframework.data.domain.Page;
@@ -18,8 +17,7 @@ public interface FileService {
     File create (FileCreateInput fileCreateInput);
     File update (FileUpdateInput fileUpdateInput);
     Boolean deleteById (Long id);
-    File createFileBase64 (File64CreateInput file64CreateInput);
-    String getFileBase64 (File file);
+    File uploadFile(MultipartFile multipartFile);
     String uploadFileByRestController (MultipartFile file) throws IOException;
     byte[] downloadFileByRestController (String fileName);
 

@@ -97,12 +97,14 @@ public class UserController {
     @QueryMapping(name = "getCurrentUser")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
     public User getCurrentUser () {
+        log.info("UserController.getCurrentUser - Query Mapping");
         return userService.getCurrentUser();
     }
 
     @SchemaMapping(typeName = "User", field = "profile")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
     public Profile getProfile(User user) {
+        log.info("UserController.getProfile - query to SchemaMapping");
         return userService.getProfile(user);
     }
 

@@ -20,6 +20,12 @@ import java.util.List;
                 @NamedAttributeNode(value = "userProfile"),
                 @NamedAttributeNode(value = "translatorProfile"),
         })
+@NamedEntityGraph(name = "user-roles-graph",
+        attributeNodes = {
+                @NamedAttributeNode(value = "roles")
+        })
+//@NamedQuery(name = "User.findByPhone",
+//        query = "SELECT u FROM User u JOIN FETCH u.roles WHERE u.phone = ?1")
 public class User extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,13 +51,9 @@ public class User extends AuditableEntity {
     private List<Role> roles;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //@JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //@JoinColumn(name = "translator_profile_id")
     private TranslatorProfile translatorProfile;
-
-
 
 }

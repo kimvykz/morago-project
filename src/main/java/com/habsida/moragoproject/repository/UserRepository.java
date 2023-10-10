@@ -23,11 +23,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findAll(Pageable pageable);
 
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
-            value = "user-roles-profiles-graph")
+            value = "user-roles-graph")
     Optional<User> findById(Long id);
 
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
-            value = "user-roles-profiles-graph")
+            value = "user-roles-graph")
+    //@Query(name = "User.findByPhone")
     Optional<User> findByPhone(String phone);
 
     Boolean existsByPhone(String phone);

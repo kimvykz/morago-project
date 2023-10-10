@@ -2,44 +2,20 @@ input FileCreateInput {
     originalTitle: String!
     path: String
     type: String
-    base64: String
 }
 input FileUpdateInput {
     id: ID!
     originalTitle: String
     path: String
     type: String
-    base64: String
 }
 type File {
     id: ID
     originalTitle: String
     path: String
     type: String
-    base64: String
 }
 
-input File64CreateInput {
-    originalTitle: String!
-    base64: String!
-    path: String
-    type: String!
-}
-input File64UpdateInput {
-    id: ID!
-    originalTitle: String
-    base64: String
-    path: String
-    type: String
-}
-
-
-#extend type Query {
-#    getFiles64: [File]
-#    getFiles64ByPaging(paginationInput: PaginationInput): [File]
-#    getFile64ById(id: Int): File
-#}
 extend type Mutation {
-    createFileBase64(file64Input: File64CreateInput) : File
-    #updateFileBase64(file64Input: File64UpdateInput) : File
+    uploadFile(fileUploadInput: Upload!) : File
 }

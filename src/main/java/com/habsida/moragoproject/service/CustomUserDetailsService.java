@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     @Override
-    @Transactional
+    //@Transactional
     public UserDetails loadUserByUsername (String phone) throws UsernameNotFoundException {
         User user = userService.getByPhone(phone);
         return new org.springframework.security.core.userdetails.User(user.getPhone(),

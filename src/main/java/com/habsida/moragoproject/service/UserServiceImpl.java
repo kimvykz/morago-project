@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.ArrayList;
@@ -244,7 +245,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getByPhone (String phone) {
-        return userRepository.findByPhone(phone).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return userRepository.findByPhone(phone).orElseThrow(() -> new UsernameNotFoundException("User is not found"));
     }
 
     @Override
@@ -254,10 +255,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User updateRolesByUserId(UserRolesUpdateInput userRolesUpdateInput) {
-//        if (updateUserRolesInput.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList())
-//                .containsAll(Arrays.asList(ERole.ROLE_USER, ERole.ROLE_TRANSLATOR))) {
-//            throw new IllegalArgumentException("User cannot have roles ROLE_USER and ROLE_TRANSLATOR at the same time");
-//        }
         User user = getById(userRolesUpdateInput.getUserId());
         user.setRoles(assignIdToRoles(userRolesUpdateInput.getRoles()));
 

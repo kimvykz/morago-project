@@ -19,15 +19,15 @@ public class FileRestController {
         this.fileService = fileService;
     }
 
-    @PostMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile) throws IOException {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(fileService.uploadFileByRestController(multipartFile));
-    }
+//    @PostMapping
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
+//    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile) throws IOException {
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(fileService.uploadFileByRestController(multipartFile));
+//    }
 
     @GetMapping("/{fileName}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
     public ResponseEntity<?> downloadImage (@PathVariable String fileName) {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.valueOf("image/jpg"))

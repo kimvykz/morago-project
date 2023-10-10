@@ -1,12 +1,10 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.File64CreateInput;
 import com.habsida.moragoproject.model.input.FileCreateInput;
 import com.habsida.moragoproject.model.input.PaginationInput;
 import com.habsida.moragoproject.model.input.FileUpdateInput;
 import com.habsida.moragoproject.model.entity.File;
 import com.habsida.moragoproject.service.FileService;
-import graphql.schema.DataFetchingEnvironment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +13,7 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -61,14 +60,9 @@ public class FileController {
         return fileService.deleteById(id);
     }
 
-    @MutationMapping(name = "createFileBase64")
-    public File createFileBase64 (@Argument(name = "file64Input") File64CreateInput file64CreateInput) {
-        return fileService.createFileBase64(file64CreateInput);
-    }
-
-    @SchemaMapping(typeName = "File", field = "base64")
-    public String getFileBase64 (File file) {
-        return fileService.getFileBase64(file);
+    @MutationMapping(name = "uploadFile")
+    public File uploadFile (@Argument(name = "fileUploadInput") MultipartFile file) {
+        return fileService.uploadFile(file);
     }
 
 }
