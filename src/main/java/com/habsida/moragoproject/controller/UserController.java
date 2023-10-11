@@ -108,4 +108,16 @@ public class UserController {
         return userService.getProfile(user);
     }
 
+    @MutationMapping(name = "updateIsAvailable")
+    @PreAuthorize("hasAnyRole('ROLE_TRANSLATOR')")
+    public User updateIsAvailable(@Argument(name = "isAvailable") Boolean isAvailable) {
+        return userService.updateIsAvailable(isAvailable);
+    }
+
+    @MutationMapping(name = "addFundsToBalance")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_TRANSLATOR')")
+    public User addFundsToBalance (@Argument(name = "addFunds") Float addFunds) {
+        return userService.addFundsToBalance(addFunds);
+    }
+
 }

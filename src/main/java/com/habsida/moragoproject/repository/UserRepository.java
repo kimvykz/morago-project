@@ -27,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findById(Long id);
 
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
-            value = "user-roles-graph")
+            value = "user-roles-profiles-graph")
     //@Query(name = "User.findByPhone")
     Optional<User> findByPhone(String phone);
 

@@ -148,6 +148,8 @@ type Mutation {
     updateUserFcmTokenByUserId(userFcmTokenInput: UserFcmTokenUpdateInput) : User
     deleteUserApnTokenByUserId(userId: ID!) : User
     deleteUserFcmTokenByUserId(userId: ID!) : User
+    updateIsAvailable(isAvailable: Boolean!) : User
+    addFundsToBalance(addFunds: Float!) : User
 
     createUserProfile(userProfileInput : UserProfileCreateInput) : UserProfile
     updateUserProfile(userProfileInput: UserProfileUpdateInput) : UserProfile

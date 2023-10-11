@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FileServiceImpl implements FileService{
@@ -106,7 +107,7 @@ public class FileServiceImpl implements FileService{
 
     @Override
     public File uploadFile(MultipartFile multipartFile) {
-        byte[] data ;
+        byte[] data;
 
         try {
             data = multipartFile.getBytes();
@@ -119,8 +120,9 @@ public class FileServiceImpl implements FileService{
         if (!iconDirectory.exists()) {
             iconDirectory.mkdirs();
         }
-
-        java.io.File icon = new java.io.File(iconDirectory, multipartFile.getOriginalFilename());
+        String uuidFileName = UUID.randomUUID().toString()
+                + multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") );
+        java.io.File icon = new java.io.File(iconDirectory, uuidFileName);
 
         try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(icon))) {
             outputStream.write(data);
@@ -128,7 +130,7 @@ public class FileServiceImpl implements FileService{
 
             file.setOriginalTitle(multipartFile.getOriginalFilename());
             file.setType(multipartFile.getContentType());
-            file.setPath(iconDirectory + "/" + multipartFile.getOriginalFilename());
+            file.setPath(iconDirectory + "/" + uuidFileName);
 
             return fileRepository.save(file);
         } catch (IOException ex) {

@@ -24,5 +24,6 @@ public interface UserService {
     User deleteFcmTokenByUserId(Long id);
     User getCurrentUser();
     Profile getProfile(User user);
-
+    User updateIsAvailable(Boolean isAvailable);
+    User addFundsToBalance(Float addFunds);
 }

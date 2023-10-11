@@ -1,6 +1,7 @@
 package com.habsida.moragoproject.service;
 
 import com.habsida.moragoproject.model.entity.Role;
+import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.input.*;
 import com.habsida.moragoproject.model.payload.Profile;
@@ -223,14 +224,16 @@ public class UserServiceImpl implements UserService{
 //                && !user.getRoles().equals(updateUserInput.getRoles())) {
 //            user.setRoles(updateUserInput.getRoles());
 //        }
-//        if (updateUserInput.getUserProfile() != null
-//            && !user.getUserProfile().equals(updateUserInput.getUserProfile())) {
-//            user.setUserProfile(updateUserInput.getUserProfile());
-//        }
-//        if (updateUserInput.getTranslatorProfile() != null
-//            && !user.getTranslatorProfile().equals(updateUserInput.getTranslatorProfile())) {
-//            user.setTranslatorProfile(updateUserInput.getTranslatorProfile());
-//        }
+        if (userUpdateInput.getUserProfile() != null
+            //&& !user.getUserProfile().equals(userUpdateInput.getUserProfile())
+        ) {
+            user.setUserProfile(userUpdateInput.getUserProfile());
+        }
+        if (userUpdateInput.getTranslatorProfile() != null
+            //&& !user.getTranslatorProfile().equals(userUpdateInput.getTranslatorProfile())
+        ) {
+            user.setTranslatorProfile(userUpdateInput.getTranslatorProfile());
+        }
 
         //user.setRoles(defineIdForExistingRoles(user.getRoles()));
 
@@ -326,5 +329,27 @@ public class UserServiceImpl implements UserService{
         }
 
         return profile;
+    }
+
+    @Override
+    public User updateIsAvailable(Boolean isAvailable) {
+        UserUpdateInput userUpdateInput = new UserUpdateInput();
+        User currentUser = getCurrentUser();
+        if (!currentUser.getRoles().toString().contains("ROLE_TRANSLATOR")) {
+            throw new IllegalArgumentException("Only translator can have isAvailable status");
+        }
+        TranslatorProfile translatorProfile = (currentUser.getTranslatorProfile() == null ?
+                new TranslatorProfile() : currentUser.getTranslatorProfile());
+        translatorProfile.setIsAvailable(isAvailable);
+        userUpdateInput.setId(currentUser.getId());
+        userUpdateInput.setTranslatorProfile(translatorProfile);
+        return update(userUpdateInput);
+    }
+
+    @Override
+    public User addFundsToBalance(Float addFunds) {
+        User currentUser = getCurrentUser();
+        currentUser.setBalance(currentUser.getBalance() + addFunds);
+        return userRepository.save(currentUser);
     }
 }
