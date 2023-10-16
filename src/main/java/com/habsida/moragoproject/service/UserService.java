@@ -26,4 +26,5 @@ public interface UserService {
     Profile getProfile(User user);
     User updateIsAvailable(Boolean isAvailable);
     User addFundsToBalance(Float addFunds);
+    User updatePassword(PasswordInput passwordInput);
 }

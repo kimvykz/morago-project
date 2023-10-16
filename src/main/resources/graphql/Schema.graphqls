@@ -45,6 +45,7 @@ type Query {
     getPasswordResets: [PasswordReset]
     getPasswordResetsByPaging(paginationInput: PaginationInput): [PasswordReset]
     getPasswordResetById(id: Int): PasswordReset
+    checkResetCodeHash(resetCodeHashInput: ResetCodeHashInput!) : Boolean
 
     getRatings: [Rating]
     getRatingsByPaging(paginationInput: PaginationInput): [Rating]
@@ -123,6 +124,7 @@ type Mutation {
     createPasswordReset(passwordResetInput : PasswordResetCreateInput) : PasswordReset
     updatePasswordReset(passwordResetInput: PasswordResetUpdateInput) : PasswordReset
     deletePasswordResetById(id: ID!) : Boolean
+    requestPasswordReset(phoneInput: String!) : PasswordResetPayload
 
     createRating(ratingInput : RatingCreateInput) : Rating
     updateRating(ratingInput: RatingUpdateInput) : Rating
@@ -150,6 +152,7 @@ type Mutation {
     deleteUserFcmTokenByUserId(userId: ID!) : User
     updateIsAvailable(isAvailable: Boolean!) : User
     addFundsToBalance(addFunds: Float!) : User
+    updatePassword(passwordInput: PasswordInput!) : User
 
     createUserProfile(userProfileInput : UserProfileCreateInput) : UserProfile
     updateUserProfile(userProfileInput: UserProfileUpdateInput) : UserProfile

@@ -3,19 +3,33 @@ package com.habsida.moragoproject.service;
 import com.habsida.moragoproject.model.entity.PasswordReset;
 import com.habsida.moragoproject.model.input.PasswordResetCreateInput;
 import com.habsida.moragoproject.model.input.PasswordResetUpdateInput;
+import com.habsida.moragoproject.model.input.ResetCodeHashInput;
+import com.habsida.moragoproject.model.payload.PasswordResetPayload;
 import com.habsida.moragoproject.repository.PasswordResetRepository;
+import com.habsida.moragoproject.repository.UserRepository;
+import com.habsida.moragoproject.security.PasswordResetTokenGenerator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class PasswordResetServiceImpl implements PasswordResetService {
     private PasswordResetRepository passwordResetRepository;
+    private UserRepository userRepository;
+    private PasswordResetTokenGenerator passwordResetTokenGenerator;
 
-    public PasswordResetServiceImpl (PasswordResetRepository passwordResetRepository) {
+    public PasswordResetServiceImpl (PasswordResetRepository passwordResetRepository,
+                                     UserRepository userRepository,
+                                     PasswordResetTokenGenerator passwordResetTokenGenerator) {
         this.passwordResetRepository = passwordResetRepository;
+        this.userRepository = userRepository;
+        this.passwordResetTokenGenerator = passwordResetTokenGenerator;
     }
 
     @Override
@@ -86,4 +100,54 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         passwordResetRepository.deleteById(id);
         return true;
     }
+
+    @Override
+    public PasswordResetPayload requestPasswordReset(String phone) {
+        if (userRepository.existsByPhone(phone)) {
+
+            PasswordResetPayload passwordResetPayload = new PasswordResetPayload();
+            PasswordReset passwordReset = new PasswordReset();
+            Random random = new Random();
+            String token = passwordResetTokenGenerator.generateJwtPasswordResetToken();
+
+            passwordReset.setResetCode(1000 + random.nextInt(9000));
+            passwordReset.setPhone(phone);
+            passwordReset.setToken(token);
+            passwordReset = passwordResetRepository.save(passwordReset);
+
+            passwordResetPayload.setPasswordResetId(passwordReset.getId());
+            passwordResetPayload.setToken(token);
+
+            passwordResetPayload.setTimeCode(passwordResetTokenGenerator.getValidationDate(token).toInstant().toEpochMilli());
+
+//            passwordResetPayload.setHashCode((
+//                    phone + passwordReset.getResetCode() + passwordResetPayload.getTimeCode()).hashCode());
+
+            return passwordResetPayload;
+        } else {
+            throw new IllegalArgumentException("User with phone is not found - " + phone);
+        }
+    }
+
+    @Override
+    public Boolean checkResetCodeHash(ResetCodeHashInput resetCodeHashInput) {
+        passwordResetTokenGenerator.verifyExpiration(resetCodeHashInput.getToken());
+        PasswordReset passwordReset = passwordResetRepository.findByPhone(
+                resetCodeHashInput.getPhone()).orElseThrow(
+                () -> new IllegalArgumentException("User is not found by phone - " + resetCodeHashInput.getPhone())
+        );
+        Long timeCode = passwordResetTokenGenerator.getValidationDate(passwordReset.getToken())
+                .toInstant().toEpochMilli();
+
+        System.out.println((passwordReset.getPhone() + passwordReset.getResetCode() + timeCode));
+        System.out.println((passwordReset.getPhone() + passwordReset.getResetCode() + timeCode).hashCode());
+
+        if ((passwordReset.getPhone() + passwordReset.getResetCode() + timeCode).hashCode()
+               == resetCodeHashInput.getHashcode() ) {
+            return true;
+        }
+        return false;
+    }
+
+
 }

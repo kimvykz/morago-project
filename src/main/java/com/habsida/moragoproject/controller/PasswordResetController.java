@@ -1,9 +1,8 @@
 package com.habsida.moragoproject.controller;
 
-import com.habsida.moragoproject.model.input.PasswordResetCreateInput;
-import com.habsida.moragoproject.model.input.PaginationInput;
-import com.habsida.moragoproject.model.input.PasswordResetUpdateInput;
+import com.habsida.moragoproject.model.input.*;
 import com.habsida.moragoproject.model.entity.PasswordReset;
+import com.habsida.moragoproject.model.payload.PasswordResetPayload;
 import com.habsida.moragoproject.service.PasswordResetService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,5 +53,14 @@ public class PasswordResetController {
         return passwordResetService.deleteById(id);
     }
 
+    @MutationMapping(name = "requestPasswordReset")
+    public PasswordResetPayload requestPasswordReset(@Argument(name = "phoneInput") String phone) {
+        return passwordResetService.requestPasswordReset(phone);
+    }
+
+    @QueryMapping(name = "checkResetCodeHash")
+    public Boolean checkResetCodeHash(@Argument(name = "resetCodeHashInput") ResetCodeHashInput resetCodeHashInput) {
+        return passwordResetService.checkResetCodeHash(resetCodeHashInput);
+    }
 
 }

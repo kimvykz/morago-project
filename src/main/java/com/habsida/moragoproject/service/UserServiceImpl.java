@@ -1,12 +1,15 @@
 package com.habsida.moragoproject.service;
 
+import com.habsida.moragoproject.model.entity.PasswordReset;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import com.habsida.moragoproject.model.entity.User;
 import com.habsida.moragoproject.model.input.*;
 import com.habsida.moragoproject.model.payload.Profile;
+import com.habsida.moragoproject.repository.PasswordResetRepository;
 import com.habsida.moragoproject.repository.RoleRepository;
 import com.habsida.moragoproject.repository.UserRepository;
+import com.habsida.moragoproject.security.PasswordResetTokenGenerator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
@@ -14,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.ArrayList;
@@ -26,12 +28,18 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private PasswordResetRepository passwordResetRepository;
+    private PasswordResetTokenGenerator passwordResetTokenGenerator;
     public UserServiceImpl (UserRepository userRepository,
                             RoleRepository roleRepository,
-                            PasswordEncoder passwordEncoder) {
+                            PasswordEncoder passwordEncoder,
+                            PasswordResetRepository passwordResetRepository,
+                            PasswordResetTokenGenerator passwordResetTokenGenerator) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.passwordResetRepository = passwordResetRepository;
+        this.passwordResetTokenGenerator = passwordResetTokenGenerator;
     }
 
     private List<Role> assignIdToRoles (List<Role> roles) {
@@ -351,5 +359,21 @@ public class UserServiceImpl implements UserService{
         User currentUser = getCurrentUser();
         currentUser.setBalance(currentUser.getBalance() + addFunds);
         return userRepository.save(currentUser);
+    }
+
+    @Override
+    public User updatePassword(PasswordInput passwordInput) {
+        PasswordReset passwordReset =
+                passwordResetRepository.findByPhone(passwordInput.getPhone())
+                        .orElseThrow(() -> new IllegalArgumentException("reset data for user is not found - "
+                                + passwordInput.getPhone()));
+        passwordResetTokenGenerator.verifyExpiration(passwordInput.getToken());
+        if (passwordReset.getToken().equals(passwordInput.getToken())) {
+            User user = getByPhone(passwordInput.getPhone());
+            user.setPassword(passwordEncoder.encode(passwordInput.getPassword()));
+            return userRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("Validation of token is not successful");
+        }
     }
 }

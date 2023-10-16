@@ -49,6 +49,12 @@ input UserFcmTokenUpdateInput{
     apnToken: String!
 }
 
+input PasswordInput{
+    phone: String!
+    password: String!
+    token: String!
+}
+
 type User {
     id: ID
     apnToken: String

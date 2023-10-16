@@ -120,4 +120,10 @@ public class UserController {
         return userService.addFundsToBalance(addFunds);
     }
 
+    @MutationMapping(name = "updatePassword")
+    //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_TRANSLATOR')")
+    public User updatePassword (@Argument(name = "passwordInput") PasswordInput passwordInput) {
+        return userService.updatePassword(passwordInput);
+    }
+
 }
