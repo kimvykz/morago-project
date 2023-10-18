@@ -1,4 +1,5 @@
 scalar LocalDate
+scalar LocalDateTime
 scalar Upload
 
 type Query {
@@ -45,7 +46,7 @@ type Query {
     getPasswordResets: [PasswordReset]
     getPasswordResetsByPaging(paginationInput: PaginationInput): [PasswordReset]
     getPasswordResetById(id: Int): PasswordReset
-    checkResetCodeHash(resetCodeHashInput: ResetCodeHashInput!) : Boolean
+    checkResetCodeHash(resetCodeHashInput: ResetCodeHashInput!) : String
 
     getRatings: [Rating]
     getRatingsByPaging(paginationInput: PaginationInput): [Rating]

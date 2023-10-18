@@ -18,6 +18,6 @@ public interface PasswordResetService {
     PasswordReset update (PasswordResetUpdateInput passwordResetUpdateInput);
     Boolean deleteById (Long id);
     PasswordResetPayload requestPasswordReset(String phone);
-    Boolean checkResetCodeHash(ResetCodeHashInput resetCodeHashInput);
+    String checkResetCodeHash(ResetCodeHashInput resetCodeHashInput);
 
 }

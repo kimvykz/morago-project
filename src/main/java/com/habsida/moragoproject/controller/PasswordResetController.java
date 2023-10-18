@@ -59,7 +59,7 @@ public class PasswordResetController {
     }
 
     @QueryMapping(name = "checkResetCodeHash")
-    public Boolean checkResetCodeHash(@Argument(name = "resetCodeHashInput") ResetCodeHashInput resetCodeHashInput) {
+    public String checkResetCodeHash(@Argument(name = "resetCodeHashInput") ResetCodeHashInput resetCodeHashInput) {
         return passwordResetService.checkResetCodeHash(resetCodeHashInput);
     }
 

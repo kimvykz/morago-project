@@ -12,9 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.List;
 import java.util.Random;
 
@@ -108,20 +106,20 @@ public class PasswordResetServiceImpl implements PasswordResetService {
             PasswordResetPayload passwordResetPayload = new PasswordResetPayload();
             PasswordReset passwordReset = new PasswordReset();
             Random random = new Random();
-            String token = passwordResetTokenGenerator.generateJwtPasswordResetToken();
+            //String token = passwordResetTokenGenerator.generateJwtPasswordResetToken();
 
             passwordReset.setResetCode(1000 + random.nextInt(9000));
             passwordReset.setPhone(phone);
-            passwordReset.setToken(token);
+            //passwordReset.setToken(token);
             passwordReset = passwordResetRepository.save(passwordReset);
 
             passwordResetPayload.setPasswordResetId(passwordReset.getId());
-            passwordResetPayload.setToken(token);
+            passwordResetPayload.setExpirationDate(LocalDateTime.now().plusMinutes(5));
 
-            passwordResetPayload.setTimeCode(passwordResetTokenGenerator.getValidationDate(token).toInstant().toEpochMilli());
+            //passwordResetPayload.setTimeCode(passwordResetTokenGenerator.getValidationDate(token).toInstant().toEpochMilli());
 
-//            passwordResetPayload.setHashCode((
-//                    phone + passwordReset.getResetCode() + passwordResetPayload.getTimeCode()).hashCode());
+            passwordResetPayload.setHashcode((
+                    phone + passwordReset.getResetCode() + passwordResetPayload.getExpirationDate().toString()).hashCode());
 
             return passwordResetPayload;
         } else {
@@ -130,24 +128,30 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     }
 
     @Override
-    public Boolean checkResetCodeHash(ResetCodeHashInput resetCodeHashInput) {
-        passwordResetTokenGenerator.verifyExpiration(resetCodeHashInput.getToken());
-        PasswordReset passwordReset = passwordResetRepository.findByPhone(
-                resetCodeHashInput.getPhone()).orElseThrow(
-                () -> new IllegalArgumentException("User is not found by phone - " + resetCodeHashInput.getPhone())
-        );
-        Long timeCode = passwordResetTokenGenerator.getValidationDate(passwordReset.getToken())
-                .toInstant().toEpochMilli();
+    public String checkResetCodeHash(ResetCodeHashInput resetCodeHashInput) {
 
-        System.out.println((passwordReset.getPhone() + passwordReset.getResetCode() + timeCode));
-        System.out.println((passwordReset.getPhone() + passwordReset.getResetCode() + timeCode).hashCode());
+        if (userRepository.existsByPhone(resetCodeHashInput.getPhone())) {
+            PasswordReset passwordReset = passwordResetRepository.findById(
+                    resetCodeHashInput.getPasswordResetId()).orElseThrow(
+                    () -> new IllegalArgumentException("User is not found by phone - " + resetCodeHashInput.getPhone())
+            );
 
-        if ((passwordReset.getPhone() + passwordReset.getResetCode() + timeCode).hashCode()
-               == resetCodeHashInput.getHashcode() ) {
-            return true;
+            String token = passwordResetTokenGenerator.generateJwtPasswordResetToken();
+            passwordReset.setToken(token);
+            passwordReset = passwordResetRepository.save(passwordReset);
+
+            if ((passwordReset.getPhone() + passwordReset.getResetCode()
+                    + resetCodeHashInput.getExpirationDate().toString()).hashCode()
+                    == resetCodeHashInput.getHashcode()) {
+                return token;
+            } else {
+                throw new IllegalArgumentException("Hashcode does not match");
+            }
+        } else {
+            throw new IllegalArgumentException("User with phone is not found - " + resetCodeHashInput.getPhone());
         }
-        return false;
     }
+
 
 
 }

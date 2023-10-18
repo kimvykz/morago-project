@@ -21,6 +21,7 @@ import org.springframework.web.servlet.function.RouterFunctions;
 import org.springframework.web.servlet.function.ServerResponse;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import static com.habsida.moragoproject.config.upload.GraphqlMultipartHandler.SUPPORTED_RESPONSE_MEDIA_TYPES;
 
@@ -43,6 +44,7 @@ public class GraphQlConfig {
         return wiringBuilder -> wiringBuilder
                 .scalar(localDateScalar)
                 .scalar(uploadScalar)
+                .scalar(localDateTimeScalar())
                 ;
     }
     @Bean
@@ -107,5 +109,48 @@ public class GraphQlConfig {
                 }).build();
     }
 
+    public GraphQLScalarType localDateTimeScalar() {
+        log.info("GraphQlConfig.localDateTimeScalar - creating bean");
+        return GraphQLScalarType.newScalar()
+                .name("LocalDateTime")
+                .description("Java LocalDataTime type")
+                .coercing(new Coercing<LocalDateTime, String>() {
+
+                    @Override
+                    public String serialize(final Object dataFetcherResult)  {
+                        if (dataFetcherResult instanceof LocalDateTime) {
+                            return dataFetcherResult.toString();
+                        } else {
+                            throw new CoercingSerializeException("Expected a LocalDateTime object.");
+                        }
+                    }
+
+                    @Override
+                    public  LocalDateTime parseValue(final Object input) {
+                        try {
+                            if (input instanceof String) {
+                                return LocalDateTime.parse((String) input);
+                            } else {
+                                throw new CoercingParseValueException("Expected a String");
+                            }
+                        } catch (DateTimeParseException ex) {
+                            throw new CoercingParseValueException(String.format("Not a valid date: %s.", input), ex);
+                        }
+                    }
+
+                    @Override
+                    public LocalDateTime parseLiteral(final Object input) {
+                        if (input instanceof StringValue) {
+                            try {
+                                return LocalDateTime.parse(((StringValue) input).getValue());
+                            } catch (DateTimeParseException ex) {
+                                throw new CoercingParseLiteralException(ex);
+                            }
+                        } else {
+                            throw new CoercingParseLiteralException("Expected a StringValue.");
+                        }
+                    }
+                }).build();
+    }
 
 }
