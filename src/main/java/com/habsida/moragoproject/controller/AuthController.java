@@ -22,7 +22,7 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @QueryMapping("login")
+    @MutationMapping("login")
     public AuthorizationPayload login(@Argument(name = "loginUserInput") AuthenticationInput authenticationInput) {
         return authService.loginUser(authenticationInput);
     }
@@ -42,7 +42,7 @@ public class AuthController {
         return authService.registrationAdmin(authenticationInput);
     }
 
-    @QueryMapping("refreshToken")
+    @MutationMapping(name = "refreshToken")
     public AuthorizationPayload refreshToken(@Argument(name = "refreshTokenInput") RefreshTokenInput refreshTokenInput) {
         return authService.refreshToken(refreshTokenInput);
     }

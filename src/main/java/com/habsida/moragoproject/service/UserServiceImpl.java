@@ -364,12 +364,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public User updatePassword(PasswordInput passwordInput) {
         PasswordReset passwordReset =
-                passwordResetRepository.findByPhone(passwordInput.getPhone())
-                        .orElseThrow(() -> new IllegalArgumentException("reset data for user is not found - "
-                                + passwordInput.getPhone()));
+                passwordResetRepository.findByToken(passwordInput.getToken())
+                        .orElseThrow(() -> new IllegalArgumentException("Reset data for user is not found by token - "
+                                + passwordInput.getToken()));
         passwordResetTokenGenerator.verifyExpiration(passwordInput.getToken());
         if (passwordReset.getToken().equals(passwordInput.getToken())) {
-            User user = getByPhone(passwordInput.getPhone());
+            User user = getByPhone(passwordReset.getPhone());
             user.setPassword(passwordEncoder.encode(passwordInput.getPassword()));
             return userRepository.save(user);
         } else {

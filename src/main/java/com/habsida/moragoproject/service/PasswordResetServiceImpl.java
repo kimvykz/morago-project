@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -114,12 +115,12 @@ public class PasswordResetServiceImpl implements PasswordResetService {
             passwordReset = passwordResetRepository.save(passwordReset);
 
             passwordResetPayload.setPasswordResetId(passwordReset.getId());
-            passwordResetPayload.setExpirationDate(LocalDateTime.now().plusMinutes(5));
+            passwordResetPayload.setExpirationTime(LocalDateTime.now().plusMinutes(10));
 
             //passwordResetPayload.setTimeCode(passwordResetTokenGenerator.getValidationDate(token).toInstant().toEpochMilli());
 
             passwordResetPayload.setHashcode((
-                    phone + passwordReset.getResetCode() + passwordResetPayload.getExpirationDate().toString()).hashCode());
+                    phone + passwordReset.getResetCode() + passwordResetPayload.getExpirationTime().toString()).hashCode());
 
             return passwordResetPayload;
         } else {
@@ -130,26 +131,23 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Override
     public String checkResetCodeHash(ResetCodeHashInput resetCodeHashInput) {
 
-        if (userRepository.existsByPhone(resetCodeHashInput.getPhone())) {
-            PasswordReset passwordReset = passwordResetRepository.findById(
-                    resetCodeHashInput.getPasswordResetId()).orElseThrow(
-                    () -> new IllegalArgumentException("User is not found by phone - " + resetCodeHashInput.getPhone())
-            );
+        PasswordReset passwordReset = passwordResetRepository.findById(
+                resetCodeHashInput.getPasswordResetId()).orElseThrow(
+                () -> new IllegalArgumentException("Password reset is not found by id - " +
+                        resetCodeHashInput.getPasswordResetId())
+        );
 
+        if ((passwordReset.getPhone() + passwordReset.getResetCode()
+                + resetCodeHashInput.getExpirationTime().toString()).hashCode()
+                == resetCodeHashInput.getHashcode()) {
             String token = passwordResetTokenGenerator.generateJwtPasswordResetToken();
             passwordReset.setToken(token);
             passwordReset = passwordResetRepository.save(passwordReset);
-
-            if ((passwordReset.getPhone() + passwordReset.getResetCode()
-                    + resetCodeHashInput.getExpirationDate().toString()).hashCode()
-                    == resetCodeHashInput.getHashcode()) {
-                return token;
-            } else {
-                throw new IllegalArgumentException("Hashcode does not match");
-            }
+            return token;
         } else {
-            throw new IllegalArgumentException("User with phone is not found - " + resetCodeHashInput.getPhone());
+            throw new IllegalArgumentException("Hashcode does not match");
         }
+
     }
 
 

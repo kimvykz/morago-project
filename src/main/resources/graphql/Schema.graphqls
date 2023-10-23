@@ -46,7 +46,6 @@ type Query {
     getPasswordResets: [PasswordReset]
     getPasswordResetsByPaging(paginationInput: PaginationInput): [PasswordReset]
     getPasswordResetById(id: Int): PasswordReset
-    checkResetCodeHash(resetCodeHashInput: ResetCodeHashInput!) : String
 
     getRatings: [Rating]
     getRatingsByPaging(paginationInput: PaginationInput): [Rating]
@@ -77,71 +76,15 @@ type Query {
     getUserWithdrawalsByPaging(paginationInput: PaginationInput): [Withdrawal]
     getUserWithdrawalById(id: Int): Withdrawal
 
-    login(loginUserInput: LoginUserInput) : LoginPayload
-    refreshToken(refreshTokenInput : RefreshTokenInput) : RefreshTokenPayload
 }
 
 type Mutation {
-    createAppVersion(appVersionInput: AppVersionCreateInput) : AppVersion
-    updateAppVersion(appVersionInput: AppVersionUpdateInput) : AppVersion
-    deleteAppVersionById(id: ID!): Boolean
+    registrationUser(registrationUserInput : RegistrationUserCreateInput) : RegistrationPayload
+    registrationTranslator(registrationTranslatorInput : RegistrationTranslatorCreateInput) : RegistrationPayload
+    registrationAdmin(registrationAdminInput : RegistrationAdminCreateInput) : RegistrationPayload
 
-    createCall(callInput: CallCreateInput) : Call
-    updateCall(callInput: CallUpdateInput) : Call
-    deleteCallById(id: ID!): Boolean
-
-    createCategory(categoryInput: CategoryCreateInput) : Category
-    updateCategory(categoryInput: CategoryUpdateInput) : Category
-    deleteCategoryById(id: ID!): Boolean
-
-    createCoin(coinInput: CoinCreateInput) : Coin
-    updateCoin(coinInput: CoinUpdateInput) : Coin
-    deleteCoinById(id: ID!): Boolean
-
-    createDebtor(debtorInput: DebtorCreateInput) : Debtor
-    updateDebtor(debtorInput: DebtorUpdateInput) : Debtor
-    deleteDebtorById(id: ID!) : Boolean
-
-    createDeposit(depositInput: DepositCreateInput) : Deposit
-    updateDeposit(depositInput: DepositUpdateInput) : Deposit
-    deleteDepositById(id: ID!) : Boolean
-
-    createFile(fileInput: FileCreateInput) : File
-    updateFile(fileInput: FileUpdateInput) : File
-    deleteFileById(id: ID!) : Boolean
-
-    createFrequentlyAskedQuestion(frequentlyAskedQuestionInput: FrequentlyAskedQuestionCreateInput) : FrequentlyAskedQuestion
-    updateFrequentlyAskedQuestion(frequentlyAskedQuestionInput: FrequentlyAskedQuestionUpdateInput) : FrequentlyAskedQuestion
-    deleteFrequentlyAskedQuestionById(id: ID!) : Boolean
-
-    createLanguage(languageInput: LanguageCreateInput) : Language
-    updateLanguage(languageInput: LanguageUpdateInput) : Language
-    deleteLanguageById(id: ID!) : Boolean
-
-    createNotification(notificationInput: NotificationCreateInput) : Notification
-    updateNotification(notificationInput: NotificationUpdateInput) : Notification
-    deleteNotificationById(id: ID!) : Boolean
-
-    createPasswordReset(passwordResetInput : PasswordResetCreateInput) : PasswordReset
-    updatePasswordReset(passwordResetInput: PasswordResetUpdateInput) : PasswordReset
-    deletePasswordResetById(id: ID!) : Boolean
-    requestPasswordReset(phoneInput: String!) : PasswordResetPayload
-
-    createRating(ratingInput : RatingCreateInput) : Rating
-    updateRating(ratingInput: RatingUpdateInput) : Rating
-    deleteRatingById(id: ID!) : Boolean
-
-    createRole(roleInput : RoleCreateInput) : Role
-    updateRole(roleInput: RoleUpdateInput) : Role
-    deleteRoleById(id: ID!) : Boolean
-
-    createTheme(themeInput : ThemeCreateInput) : Theme
-    updateTheme(themeInput: ThemeUpdateInput) : Theme
-    deleteThemeById(id: ID!) : Boolean
-
-    createTranslatorProfile(translatorProfileInput : TranslatorProfileCreateInput) : TranslatorProfile
-    updateTranslatorProfile(translatorProfileInput: TranslatorProfileUpdateInput) : TranslatorProfile
-    deleteTranslatorProfileById(id: ID!) : Boolean
+    login(loginUserInput: LoginUserInput) : LoginPayload
+    refreshToken(refreshTokenInput : RefreshTokenInput) : RefreshTokenPayload
 
     createUser(userInput : UserCreateInput) : User
     updateUser(userInput: UserUpdateInput) : User
@@ -155,16 +98,75 @@ type Mutation {
     addFundsToBalance(addFunds: Float!) : User
     updatePassword(passwordInput: PasswordInput!) : User
 
-    createUserProfile(userProfileInput : UserProfileCreateInput) : UserProfile
-    updateUserProfile(userProfileInput: UserProfileUpdateInput) : UserProfile
-    deleteUserProfileById(id: ID!) : Boolean
+    requestPasswordReset(phoneInput: String!) : PasswordResetPayload
+    checkResetCodeHash(resetCodeHashInput: ResetCodeHashInput!) : String
+
+    createCall(callInput: CallCreateInput) : Call
+    updateCall(callInput: CallUpdateInput) : Call
+    deleteCallById(id: ID!): Boolean
+
+    createCategory(categoryInput: CategoryCreateInput) : Category
+    updateCategory(categoryInput: CategoryUpdateInput) : Category
+    deleteCategoryById(id: ID!): Boolean
+
+    createDebtor(debtorInput: DebtorCreateInput) : Debtor
+    updateDebtor(debtorInput: DebtorUpdateInput) : Debtor
+    deleteDebtorById(id: ID!) : Boolean
+
+    createDeposit(depositInput: DepositCreateInput) : Deposit
+    updateDeposit(depositInput: DepositUpdateInput) : Deposit
+    deleteDepositById(id: ID!) : Boolean
+
+    createLanguage(languageInput: LanguageCreateInput) : Language
+    updateLanguage(languageInput: LanguageUpdateInput) : Language
+    deleteLanguageById(id: ID!) : Boolean
+
+    createNotification(notificationInput: NotificationCreateInput) : Notification
+    updateNotification(notificationInput: NotificationUpdateInput) : Notification
+    deleteNotificationById(id: ID!) : Boolean
+
+    createRating(ratingInput : RatingCreateInput) : Rating
+    updateRating(ratingInput: RatingUpdateInput) : Rating
+    deleteRatingById(id: ID!) : Boolean
 
     createUserWithdrawal(withdrawalInput : WithdrawalCreateInput) : Withdrawal
     updateUserWithdrawal(withdrawalInput: WithdrawalUpdateInput) : Withdrawal
     deleteUserWithdrawalById(id: ID!) : Boolean
 
-    registrationUser(registrationUserInput : RegistrationUserCreateInput) : RegistrationPayload
-    registrationTranslator(registrationTranslatorInput : RegistrationTranslatorCreateInput) : RegistrationPayload
-    registrationAdmin(registrationAdminInput : RegistrationAdminCreateInput) : RegistrationPayload
+    #    createAppVersion(appVersionInput: AppVersionCreateInput) : AppVersion
+    #    updateAppVersion(appVersionInput: AppVersionUpdateInput) : AppVersion
+    #    deleteAppVersionById(id: ID!): Boolean
+
+    #    createCoin(coinInput: CoinCreateInput) : Coin
+    #    updateCoin(coinInput: CoinUpdateInput) : Coin
+    #    deleteCoinById(id: ID!): Boolean
+
+    #    createFile(fileInput: FileCreateInput) : File
+    #    updateFile(fileInput: FileUpdateInput) : File
+    #    deleteFileById(id: ID!) : Boolean
+
+    #    createFrequentlyAskedQuestion(frequentlyAskedQuestionInput: FrequentlyAskedQuestionCreateInput) : FrequentlyAskedQuestion
+    #    updateFrequentlyAskedQuestion(frequentlyAskedQuestionInput: FrequentlyAskedQuestionUpdateInput) : FrequentlyAskedQuestion
+    #    deleteFrequentlyAskedQuestionById(id: ID!) : Boolean
+
+    #    createPasswordReset(passwordResetInput : PasswordResetCreateInput) : PasswordReset
+    #    updatePasswordReset(passwordResetInput: PasswordResetUpdateInput) : PasswordReset
+    #    deletePasswordResetById(id: ID!) : Boolean
+
+    #    createRole(roleInput : RoleCreateInput) : Role
+    #    updateRole(roleInput: RoleUpdateInput) : Role
+    #    deleteRoleById(id: ID!) : Boolean
+
+    #    createTheme(themeInput : ThemeCreateInput) : Theme
+    #    updateTheme(themeInput: ThemeUpdateInput) : Theme
+    #    deleteThemeById(id: ID!) : Boolean
+
+    #    createTranslatorProfile(translatorProfileInput : TranslatorProfileCreateInput) : TranslatorProfile
+    #    updateTranslatorProfile(translatorProfileInput: TranslatorProfileUpdateInput) : TranslatorProfile
+    #    deleteTranslatorProfileById(id: ID!) : Boolean
+    #
+    #    createUserProfile(userProfileInput : UserProfileCreateInput) : UserProfile
+    #    updateUserProfile(userProfileInput: UserProfileUpdateInput) : UserProfile
+    #    deleteUserProfileById(id: ID!) : Boolean
 
 }

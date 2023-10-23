@@ -55,6 +55,9 @@ public class AuthServiceImpl implements AuthService{
         }
         if (authenticationInput.getPhone() == null || authenticationInput.getPhone().isBlank()) {
             throw new IllegalArgumentException("Phone cannot be null");
+        } else if(authenticationInput.getPhone().contains(" ") ||
+                authenticationInput.getPhone().contains("-")) {
+            throw new IllegalArgumentException("Phone must contain only digits");
         } else {
             userCreateInput.setPhone(authenticationInput.getPhone());
         }
@@ -92,6 +95,9 @@ public class AuthServiceImpl implements AuthService{
         }
         if (registrationTranslatorInput.getPhone() == null || registrationTranslatorInput.getPhone().isBlank()) {
             throw new IllegalArgumentException("Phone cannot be null");
+        } else if(registrationTranslatorInput.getPhone().contains(" ") ||
+                registrationTranslatorInput.getPhone().contains("-")) {
+            throw new IllegalArgumentException("Phone must contain only digits");
         } else {
             userCreateInput.setPhone(registrationTranslatorInput.getPhone());
         }
@@ -137,6 +143,9 @@ public class AuthServiceImpl implements AuthService{
         }
         if (authenticationInput.getPhone() == null || authenticationInput.getPhone().isBlank()) {
             throw new IllegalArgumentException("Phone cannot be null");
+        } else if(authenticationInput.getPhone().contains(" ") ||
+                authenticationInput.getPhone().contains("-")) {
+            throw new IllegalArgumentException("Phone must contain only digits");
         } else {
             userCreateInput.setPhone(authenticationInput.getPhone());
         }
@@ -177,7 +186,7 @@ public class AuthServiceImpl implements AuthService{
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String jwtToken = jwtGenerator.generateJwtToken(userDetails);
 
-        com.habsida.moragoproject.model.entity.RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(userService.getByPhone(userDetails.getUsername()).getId());
+        RefreshToken refreshToken = refreshTokenGenerator.createRefreshToken(userService.getByPhone(userDetails.getUsername()).getId());
         return new AuthorizationPayload(
                 jwtToken,
                 refreshToken.getToken());
@@ -192,7 +201,10 @@ public class AuthServiceImpl implements AuthService{
                 .map(RefreshToken::getUser)
                 .map(user -> {
                     String jwtToken = jwtGenerator.generateTokenFromUsername(user.getPhone());
-                    return new AuthorizationPayload(jwtToken, refreshToken);
+
+                    RefreshToken refToken = refreshTokenGenerator.createRefreshToken(user.getId());
+
+                    return new AuthorizationPayload(jwtToken, refToken.getToken());
                         })
                 .orElseThrow(() -> new TokenRefreshException(refreshToken, "Refresh token is not in database!"));
     }

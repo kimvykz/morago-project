@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class ResetCodeHashInput {
-    private String phone;
     private Integer hashcode;
-    private LocalDateTime expirationDate;
+    private LocalDateTime expirationTime;
     private Long passwordResetId;
 }

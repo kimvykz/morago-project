@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 @ToString
 public class PasswordResetPayload {
     private Long passwordResetId;
-    private LocalDateTime expirationDate;
+    private LocalDateTime expirationTime;
     private Integer hashcode;
 }

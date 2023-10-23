@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PasswordInput {
-    private String phone;
     private String password;
     private String token;
 }

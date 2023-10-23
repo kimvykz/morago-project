@@ -58,7 +58,7 @@ public class PasswordResetController {
         return passwordResetService.requestPasswordReset(phone);
     }
 
-    @QueryMapping(name = "checkResetCodeHash")
+    @MutationMapping(name = "checkResetCodeHash")
     public String checkResetCodeHash(@Argument(name = "resetCodeHashInput") ResetCodeHashInput resetCodeHashInput) {
         return passwordResetService.checkResetCodeHash(resetCodeHashInput);
     }
