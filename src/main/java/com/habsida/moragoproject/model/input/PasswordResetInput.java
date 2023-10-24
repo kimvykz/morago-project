@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PasswordInput {
+public class PasswordResetInput {
     private String password;
     private String token;
 }

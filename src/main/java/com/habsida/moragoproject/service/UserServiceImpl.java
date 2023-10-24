@@ -1,6 +1,5 @@
 package com.habsida.moragoproject.service;
 
-import com.habsida.moragoproject.model.entity.PasswordReset;
 import com.habsida.moragoproject.model.entity.Role;
 import com.habsida.moragoproject.model.entity.TranslatorProfile;
 import com.habsida.moragoproject.model.entity.User;
@@ -362,18 +361,29 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updatePassword(PasswordInput passwordInput) {
-        PasswordReset passwordReset =
-                passwordResetRepository.findByToken(passwordInput.getToken())
-                        .orElseThrow(() -> new IllegalArgumentException("Reset data for user is not found by token - "
-                                + passwordInput.getToken()));
-        passwordResetTokenGenerator.verifyExpiration(passwordInput.getToken());
-        if (passwordReset.getToken().equals(passwordInput.getToken())) {
-            User user = getByPhone(passwordReset.getPhone());
-            user.setPassword(passwordEncoder.encode(passwordInput.getPassword()));
-            return userRepository.save(user);
-        } else {
+    public User updatePasswordByReset(PasswordResetInput passwordResetInput) {
+        passwordResetTokenGenerator.verifyExpiration(passwordResetInput.getToken());
+
+        if (!passwordResetRepository.existsByToken(passwordResetInput.getToken())) {
             throw new IllegalArgumentException("Validation of token is not successful");
         }
+
+        User user = getByPhone(passwordResetTokenGenerator.getUsernameFromToken(passwordResetInput.getToken()));
+        user.setPassword(passwordEncoder.encode(passwordResetInput.getPassword()));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updatePassword(PasswordUpdateInput passwordUpdateInput) {
+        User user = getCurrentUser();
+        if (!passwordEncoder.matches(passwordUpdateInput.getOldPassword(), user.getPassword()) ||
+                passwordUpdateInput.getOldPassword().isBlank())
+        {
+            throw new IllegalArgumentException("Old password is incorrect");
+        } else if (passwordUpdateInput.getNewPassword().isBlank()) {
+            throw new IllegalArgumentException("Entered incorrect password");
+        }
+        user.setPassword(passwordEncoder.encode(passwordUpdateInput.getNewPassword()));
+        return userRepository.save(user);
     }
 }

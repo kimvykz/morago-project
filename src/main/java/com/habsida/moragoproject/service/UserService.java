@@ -18,13 +18,14 @@ public interface UserService {
     User getByPhone(String phone);
     Boolean isExistsByPhone (String phone);
     User updateRolesByUserId (UserRolesUpdateInput userRolesUpdateInput);
-    User updateApnTokenByUserId(UserApnTokenUpdateInput userApnTokenUpdateInput);
-    User updateFcmTokenByUserId(UserFcmTokenUpdateInput userFcmTokenUpdateInput);
-    User deleteApnTokenByUserId(Long id);
-    User deleteFcmTokenByUserId(Long id);
-    User getCurrentUser();
-    Profile getProfile(User user);
-    User updateIsAvailable(Boolean isAvailable);
-    User addFundsToBalance(Float addFunds);
-    User updatePassword(PasswordInput passwordInput);
+    User updateApnTokenByUserId (UserApnTokenUpdateInput userApnTokenUpdateInput);
+    User updateFcmTokenByUserId (UserFcmTokenUpdateInput userFcmTokenUpdateInput);
+    User deleteApnTokenByUserId (Long id);
+    User deleteFcmTokenByUserId (Long id);
+    User getCurrentUser ();
+    Profile getProfile (User user);
+    User updateIsAvailable (Boolean isAvailable);
+    User addFundsToBalance (Float addFunds);
+    User updatePasswordByReset (PasswordResetInput passwordResetInput);
+    User updatePassword(PasswordUpdateInput passwordUpdateInput);
 }

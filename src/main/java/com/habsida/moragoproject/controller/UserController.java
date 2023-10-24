@@ -120,10 +120,16 @@ public class UserController {
         return userService.addFundsToBalance(addFunds);
     }
 
-    @MutationMapping(name = "updatePassword")
+    @MutationMapping(name = "updatePasswordByReset")
     //@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_TRANSLATOR')")
-    public User updatePassword (@Argument(name = "passwordInput") PasswordInput passwordInput) {
-        return userService.updatePassword(passwordInput);
+    public User updatePasswordByReset (@Argument(name = "passwordResetInput") PasswordResetInput passwordResetInput) {
+        return userService.updatePasswordByReset(passwordResetInput);
+    }
+
+    @MutationMapping(name = "updatePassword")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_TRANSLATOR')")
+    public User updatePassword (@Argument(name = "passwordUpdateInput") PasswordUpdateInput passwordUpdateInput) {
+        return userService.updatePassword(passwordUpdateInput);
     }
 
 }

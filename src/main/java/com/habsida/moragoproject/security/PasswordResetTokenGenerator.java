@@ -25,10 +25,11 @@ public class PasswordResetTokenGenerator {
         //return token;
     }
 
-    public String generateJwtPasswordResetToken () {
+    public String generateJwtPasswordResetToken (String username) {
         Date expireDate = Date.from(ZonedDateTime.now().plusMinutes(passwordResetExpirationMinutes).toInstant());
         String token = Jwts
                 .builder()
+                .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS256, passwordResetSecret)
@@ -43,5 +44,13 @@ public class PasswordResetTokenGenerator {
                 .getBody();
         return claims.getExpiration();
 
+    }
+
+    public String getUsernameFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(passwordResetSecret)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
     }
 }

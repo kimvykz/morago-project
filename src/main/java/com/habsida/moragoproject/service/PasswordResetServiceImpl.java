@@ -102,30 +102,30 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
     @Override
     public PasswordResetPayload requestPasswordReset(String phone) {
-        if (userRepository.existsByPhone(phone)) {
-
-            PasswordResetPayload passwordResetPayload = new PasswordResetPayload();
-            PasswordReset passwordReset = new PasswordReset();
-            Random random = new Random();
-            //String token = passwordResetTokenGenerator.generateJwtPasswordResetToken();
-
-            passwordReset.setResetCode(1000 + random.nextInt(9000));
-            passwordReset.setPhone(phone);
-            //passwordReset.setToken(token);
-            passwordReset = passwordResetRepository.save(passwordReset);
-
-            passwordResetPayload.setPasswordResetId(passwordReset.getId());
-            passwordResetPayload.setExpirationTime(LocalDateTime.now().plusMinutes(10));
-
-            //passwordResetPayload.setTimeCode(passwordResetTokenGenerator.getValidationDate(token).toInstant().toEpochMilli());
-
-            passwordResetPayload.setHashcode((
-                    phone + passwordReset.getResetCode() + passwordResetPayload.getExpirationTime().toString()).hashCode());
-
-            return passwordResetPayload;
-        } else {
+        if (!userRepository.existsByPhone(phone)) {
             throw new IllegalArgumentException("User with phone is not found - " + phone);
         }
+
+        PasswordResetPayload passwordResetPayload = new PasswordResetPayload();
+        PasswordReset passwordReset = new PasswordReset();
+        Random random = new Random();
+        //String token = passwordResetTokenGenerator.generateJwtPasswordResetToken();
+
+        passwordReset.setResetCode(1000 + random.nextInt(9000));
+        passwordReset.setPhone(phone);
+        //passwordReset.setToken(token);
+        passwordReset = passwordResetRepository.save(passwordReset);
+
+        passwordResetPayload.setPasswordResetId(passwordReset.getId());
+        passwordResetPayload.setExpirationTime(LocalDateTime.now().plusMinutes(10));
+
+        //passwordResetPayload.setTimeCode(passwordResetTokenGenerator.getValidationDate(token).toInstant().toEpochMilli());
+
+        passwordResetPayload.setHashcode((
+                phone + passwordReset.getResetCode() + passwordResetPayload.getExpirationTime().toString()).hashCode());
+
+        return passwordResetPayload;
+
     }
 
     @Override
@@ -140,9 +140,9 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         if ((passwordReset.getPhone() + passwordReset.getResetCode()
                 + resetCodeHashInput.getExpirationTime().toString()).hashCode()
                 == resetCodeHashInput.getHashcode()) {
-            String token = passwordResetTokenGenerator.generateJwtPasswordResetToken();
+            String token = passwordResetTokenGenerator.generateJwtPasswordResetToken(passwordReset.getPhone());
             passwordReset.setToken(token);
-            passwordReset = passwordResetRepository.save(passwordReset);
+            passwordResetRepository.save(passwordReset);
             return token;
         } else {
             throw new IllegalArgumentException("Hashcode does not match");

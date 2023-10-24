@@ -49,10 +49,14 @@ input UserFcmTokenUpdateInput{
     apnToken: String!
 }
 
-input PasswordInput{
-    phone: String!
+input PasswordResetInput{
     password: String!
     token: String!
+}
+
+input PasswordUpdateInput {
+    oldPassword: String!
+    newPassword: String!
 }
 
 type User {

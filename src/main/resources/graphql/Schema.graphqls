@@ -5,76 +5,76 @@ scalar Upload
 type Query {
     getAppVersions: [AppVersion]
     getAppVersionsByPaging(paginationInput: PaginationInput): [AppVersion]
-    getAppVersionById(id: Int): AppVersion
+    getAppVersionById(id: ID): AppVersion
 
     getCalls: [Call]
     getCallsByPaging(paginationInput: PaginationInput): [Call]
-    getCallById(id: Int): Call
+    getCallById(id: ID): Call
 
     getCategories: [Category]
     getCategoriesByPaging(paginationInput: PaginationInput): [Category]
-    getCategoryById(id: Int): Category
+    getCategoryById(id: ID): Category
 
     getCoins: [Coin]
     getCoinsByPaging(paginationInput: PaginationInput): [Coin]
-    getCoinById(id: Int): Coin
+    getCoinById(id: ID): Coin
 
     getDebtors: [Debtor]
     getDebtorsByPaging(paginationInput: PaginationInput): [Debtor]
-    getDebtorById(id: Int): Debtor
+    getDebtorById(id: ID): Debtor
 
     getDeposits: [Deposit]
     getDepositsByPaging(page: Int, size: Int): [Deposit]
-    getDepositById(id: Int): Deposit
+    getDepositById(id: ID): Deposit
 
     getFiles: [File]
     getFilesByPaging(paginationInput: PaginationInput): [File]
-    getFileById(id: Int): File
+    getFileById(id: ID): File
 
     getFrequentlyAskedQuestions: [FrequentlyAskedQuestion]
     getFrequentlyAskedQuestionsByPaging(paginationInput: PaginationInput): [FrequentlyAskedQuestion]
-    getFrequentlyAskedQuestionById(id: Int): FrequentlyAskedQuestion
+    getFrequentlyAskedQuestionById(id: ID): FrequentlyAskedQuestion
 
     getLanguages: [Language]
     getLanguagesByPaging(paginationInput: PaginationInput): [Language]
-    getLanguageById(id: Int): Language
+    getLanguageById(id: ID): Language
 
     getNotifications: [Notification]
     getNotificationsByPaging(paginationInput: PaginationInput): [Notification]
-    getNotificationById(id: Int): Notification
+    getNotificationById(id: ID): Notification
 
     getPasswordResets: [PasswordReset]
     getPasswordResetsByPaging(paginationInput: PaginationInput): [PasswordReset]
-    getPasswordResetById(id: Int): PasswordReset
+    getPasswordResetById(id: ID): PasswordReset
 
     getRatings: [Rating]
     getRatingsByPaging(paginationInput: PaginationInput): [Rating]
-    getRatingById(id: Int): Rating
+    getRatingById(id: ID): Rating
 
     getRoles: [Role]
     getRolesByPaging(paginationInput: PaginationInput): [Role]
-    getRoleById(id: Int): Role
+    getRoleById(id: ID): Role
 
     getThemes: [Theme]
     getThemesByPaging(paginationInput: PaginationInput): [Theme]
-    getThemeById(id: Int): Theme
+    getThemeById(id: ID): Theme
 
     getTranslatorProfiles: [TranslatorProfile]
     getTranslatorProfilesByPaging(paginationInput: PaginationInput): [TranslatorProfile]
-    getTranslatorProfileById(id: Int): TranslatorProfile
+    getTranslatorProfileById(id: ID): TranslatorProfile
 
     getUsers: [User]
     getUsersByPaging(paginationInput: PaginationInput): [User]
-    getUserById(id: Int): User
+    getUserById(id: ID): User
     getCurrentUser: User
 
     getUserProfiles: [UserProfile]
     getUserProfilesByPaging(paginationInput: PaginationInput): [UserProfile]
-    getUserProfileById(id: Int): UserProfile
+    getUserProfileById(id: ID): UserProfile
 
     getUserWithdrawals: [Withdrawal]
     getUserWithdrawalsByPaging(paginationInput: PaginationInput): [Withdrawal]
-    getUserWithdrawalById(id: Int): Withdrawal
+    getUserWithdrawalById(id: ID): Withdrawal
 
 }
 
@@ -86,7 +86,7 @@ type Mutation {
     login(loginUserInput: LoginUserInput) : LoginPayload
     refreshToken(refreshTokenInput : RefreshTokenInput) : RefreshTokenPayload
 
-    createUser(userInput : UserCreateInput) : User
+    createUser(userInput: UserCreateInput) : User
     updateUser(userInput: UserUpdateInput) : User
     deleteUserById(id: ID!) : Boolean
     updateUserRolesByUserId(userRolesInput: UserRolesUpdateInput) : User
@@ -96,7 +96,8 @@ type Mutation {
     deleteUserFcmTokenByUserId(userId: ID!) : User
     updateIsAvailable(isAvailable: Boolean!) : User
     addFundsToBalance(addFunds: Float!) : User
-    updatePassword(passwordInput: PasswordInput!) : User
+    updatePasswordByReset(passwordResetInput: PasswordResetInput!) : User
+    updatePassword(passwordUpdateInput: PasswordUpdateInput) : User
 
     requestPasswordReset(phoneInput: String!) : PasswordResetPayload
     checkResetCodeHash(resetCodeHashInput: ResetCodeHashInput!) : String
